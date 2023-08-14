@@ -14,11 +14,13 @@ export function login(email: string, password: string) {
     email,
     password
 },
-    {headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json',
+{
+  headers: {
     'Access-Control-Allow-Origin': '*',
-  }})
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Requested-With, Accept'
+  }
+})
 }
 
 // Server should return AuthModel
