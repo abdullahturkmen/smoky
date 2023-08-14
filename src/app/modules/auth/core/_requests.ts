@@ -17,6 +17,7 @@ export function login(email: string, password: string) {
     {headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
   }})
 }
 
