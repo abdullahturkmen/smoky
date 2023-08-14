@@ -13,7 +13,11 @@ export function login(email: string, password: string) {
   return axios.post<AuthModel>(LOGIN_URL, {
     email,
     password,
-  })
+    headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  }
+})
 }
 
 // Server should return AuthModel
