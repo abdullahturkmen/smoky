@@ -7,11 +7,11 @@ const Step1: FC = () => {
   return (
     <div className='w-100'>
       <div className='pb-10 pb-lg-15'>
-        <h2 className='fw-bolder d-flex align-items-center text-dark'>
+        <h2 className='fw-bolder d-flex align-items-center text-dark onboarding-main-title'>
           What’s your first and last name?
         </h2>
 
-        <div className='text-gray-400 fw-bold fs-6'>We're excited to have you on board.</div>
+        <div className='text-gray-400 fw-bold onboarding-second-title'>We're excited to have you on board.</div>
       </div>
 
       <div className='fv-row'>

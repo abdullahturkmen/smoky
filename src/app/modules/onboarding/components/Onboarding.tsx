@@ -62,7 +62,7 @@ const Onboarding: FC = () => {
 
   return (
     <div className='d-flex flex-column flex-lg-row flex-column-fluid h-100'>
-      <div className='d-flex flex-center flex-column flex-row-fluid w-lg-75 p-10 order-2 order-lg-1'>
+      <div className='d-flex flex-center flex-column flex-row-fluid onboarding-w-60 p-10 order-2 order-lg-1'>
         <div
           ref={stepperRef}
           className='stepper stepper-links d-flex flex-column pt-15 w-100'
@@ -88,7 +88,7 @@ const Onboarding: FC = () => {
                     <button
                       onClick={prevStep}
                       type='button'
-                      className='btn btn-lg btn-light-primary me-3'
+                      className='btn btn-lg btn-light-primary me-3 onboarding-second-title'
                       data-kt-stepper-action='previous'
                     >
                       <KTIcon iconName='arrow-left' className='fs-4 me-1' />
@@ -97,12 +97,12 @@ const Onboarding: FC = () => {
                   </div>
 
                   <div>
-                    <button type='submit' className='btn btn-lg btn-primary ms-3'>
-                      <span className='indicator-label'>
+                    <button type='submit' className='btn btn-lg btn-primary ms-3 onboarding-second-title'>
+                     
                         {!isSubmitButton && 'Continue'}
                         {isSubmitButton && 'Submit'}
-                        <KTIcon iconName='arrow-right' className='fs-3 ms-2 me-0' />
-                      </span>
+                        <KTIcon iconName='arrow-right' className='fs-4 ms-2 me-0' />
+                      
                     </button>
                   </div>
                 </div>

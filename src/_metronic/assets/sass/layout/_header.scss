@@ -8,7 +8,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: get($aside-config, bg-color);
+    background-color: get($aside-config, $page-bg);
     border-right: 1px solid #f9f9f9;
   }
 }

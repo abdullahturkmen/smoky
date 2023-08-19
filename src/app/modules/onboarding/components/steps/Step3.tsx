@@ -5,11 +5,11 @@ const Step3: FC = () => {
   return (
     <div className='w-100'>
       <div className='pb-10 pb-lg-15'>
-        <h2 className='fw-bolder d-flex align-items-center text-dark'>
+        <h2 className='fw-bolder d-flex align-items-center text-dark onboarding-main-title'>
           What is the url of your website?
         </h2>
 
-        <div className='text-gray-400 fw-bold fs-6'>
+        <div className='text-gray-400 fw-bold onboarding-second-title'>
           We’ll guide you how to activate Snooky.io on your site.
         </div>
       </div>

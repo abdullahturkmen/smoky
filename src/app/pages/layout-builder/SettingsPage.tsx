@@ -6,10 +6,15 @@ import {getLayout, ILayout, LayoutSetup, useLayout} from '../../../_metronic/lay
 import {UsersListWrapper} from './usersTable/UsersList'
 import {DomainsListWrapper} from './domainsTable/DomainsList'
 import {Navigate, Outlet, Route, Routes} from 'react-router-dom'
+import {LogsList} from './LogsList'
+import {InvoiceList} from './InvoiceList'
+import {BillingScreen} from './BillingScreen'
+import AdvancedSettingsScreen from './AdvancedSettingsScreen'
+import InstallScreen from './InstallScreen'
 
 const SettingsPage: React.FC = () => {
   const {setLayout} = useLayout()
-  const [tab, setTab] = useState('Users')
+  const [tab, setTab] = useState('Profile')
   const [config, setConfig] = useState<ILayout>(getLayout())
   const [configLoading, setConfigLoading] = useState<boolean>(false)
   const [resetLoading, setResetLoading] = useState<boolean>(false)
@@ -50,6 +55,15 @@ const SettingsPage: React.FC = () => {
           >
             <li className='nav-item'>
               <a
+                className={clsx(`nav-link cursor-pointer`, {active: tab === 'Profile'})}
+                onClick={() => setTab('Profile')}
+                role='tab'
+              >
+                Profile (Settings)
+              </a>
+            </li>
+            <li className='nav-item'>
+              <a
                 className={clsx(`nav-link cursor-pointer`, {active: tab === 'Users'})}
                 onClick={() => setTab('Users')}
                 role='tab'
@@ -85,6 +99,33 @@ const SettingsPage: React.FC = () => {
                 Advanced Settings
               </a>
             </li>
+            <li className='nav-item'>
+              <a
+                className={clsx(`nav-link cursor-pointer`, {active: tab === 'Billing'})}
+                onClick={() => setTab('Billing')}
+                role='tab'
+              >
+                Billing
+              </a>
+            </li>
+            <li className='nav-item'>
+              <a
+                className={clsx(`nav-link cursor-pointer`, {active: tab === 'Invoice'})}
+                onClick={() => setTab('Invoice')}
+                role='tab'
+              >
+                Invoice
+              </a>
+            </li>
+            <li className='nav-item'>
+              <a
+                className={clsx(`nav-link cursor-pointer`, {active: tab === 'Logs'})}
+                onClick={() => setTab('Logs')}
+                role='tab'
+              >
+                Logs
+              </a>
+            </li>
           </ul>
         </div>
         {/* end::Users */}
@@ -94,6 +135,12 @@ const SettingsPage: React.FC = () => {
           {/* begin::Body */}
           <div className='card-body'>
             <div className='tab-content pt-3'>
+              <div className={clsx('tab-pane', {active: tab === 'Profile'})}>
+                <div className='row mb-10'>
+                  <label className='col-lg-3 col-form-label text-lg-end'>Width:</label>
+                  Profile tabı içersiindesin
+                </div>
+              </div>
               <div className={clsx('tab-pane', {active: tab === 'Users'})}>
                 <UsersListWrapper />
               </div>
@@ -102,79 +149,20 @@ const SettingsPage: React.FC = () => {
               </div>
 
               <div className={clsx('tab-pane', {active: tab === 'Install'})}>
-                <div className='row mb-10'>
-                  <label className='col-lg-3 col-form-label text-lg-end'>Minimize:</label>
-                  <div className='col-lg-9 col-xl-4'>
-                    <div className='switch switch-icon'>
-                      <div className='form-check form-check-custom form-check-solid form-switch mb-2'>
-                        <input
-                          className='form-check-input'
-                          type='checkbox'
-                          name='layout-builder[layout][aside][minimize]'
-                          checked={config.aside.minimize}
-                          onChange={() =>
-                            updateData({
-                              aside: {
-                                ...config.aside,
-                                minimize: !config.aside.minimize,
-                              },
-                            })
-                          }
-                        />
-                      </div>
-                    </div>
-                    <div className='form-text text-muted'>Enable aside minimization</div>
-                  </div>
-                </div>
-                <div className='row mb-10'>
-                  <label className='col-lg-3 col-form-label text-lg-end'>Minimized:</label>
-                  <div className='col-lg-9 col-xl-4'>
-                    <div className='switch switch-icon'>
-                      <div className='form-check form-check-custom form-check-solid form-switch mb-2'>
-                        <input
-                          className='form-check-input'
-                          type='checkbox'
-                          name='layout-builder[layout][aside][minimized]'
-                          checked={config.aside.minimized}
-                          onChange={() =>
-                            updateData({
-                              aside: {
-                                ...config.aside,
-                                minimized: !config.aside.minimized,
-                              },
-                            })
-                          }
-                        />
-                      </div>
-                    </div>
-                    <div className='form-text text-muted'>Default minimized aside</div>
-                  </div>
-                </div>
+                <InstallScreen />
               </div>
 
               <div className={clsx('tab-pane', {active: tab === 'Advanced-Settings'})}>
-                <div className='row mb-10'>
-                  <label className='col-lg-3 col-form-label text-lg-end'>Width:</label>
-                  <div className='col-lg-9 col-xl-4'>
-                    <select
-                      className='form-select form-select-solid'
-                      name='layout-builder[layout][footer][width]'
-                      value={config.footer.width}
-                      onChange={(e) =>
-                        updateData({
-                          footer: {
-                            ...config.footer,
-                            width: e.target.value as 'fixed' | 'fluid',
-                          },
-                        })
-                      }
-                    >
-                      <option value='fluid'>Fluid</option>
-                      <option value='fixed'>Fixed</option>
-                    </select>
-                    <div className='form-text text-muted'>Select layout width type.</div>
-                  </div>
-                </div>
+                <AdvancedSettingsScreen />
+              </div>
+              <div className={clsx('tab-pane', {active: tab === 'Billing'})}>
+                <BillingScreen />
+              </div>
+              <div className={clsx('tab-pane', {active: tab === 'Invoice'})}>
+                <InvoiceList className='' />
+              </div>
+              <div className={clsx('tab-pane', {active: tab === 'Logs'})}>
+                <LogsList className='' />
               </div>
             </div>
           </div>

@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import {useAuth} from '../../../../app/modules/auth'
 import {Languages} from './Languages'
 import {toAbsoluteUrl} from '../../../helpers'
+import { ThemeModeSwitcher } from '../theme-mode/ThemeModeSwitcher'
 
 const HeaderUserMenu: FC = () => {
   const {currentUser, logout} = useAuth()
@@ -33,93 +34,27 @@ const HeaderUserMenu: FC = () => {
 
       <div className='separator my-2'></div>
 
-      <div className='menu-item px-5'>
-        <Link to={'/crafted/pages/profile'} className='menu-link px-5'>
-          My Profile
-        </Link>
+   
+
+      <div className='menu-item px-5 my-1 d-flex'>
+        <div className='menu-link px-5 position-relative'>
+         Mode
+
+         <div className='position-absolute fs-8 px-3 py-2 translate-middle-y top-50 end-0'>
+                <ThemeModeSwitcher toggleBtnClass='btn btn-sm btn-icon btn-icon-muted btn-active-icon-primary' />
+              </div>
+       </div>
+
+        
+      
+            
+
       </div>
-
-      <div className='menu-item px-5'>
-        <a href='#' className='menu-link px-5'>
-          <span className='menu-text'>My Projects</span>
-          <span className='menu-badge'>
-            <span className='badge badge-light-danger badge-circle fw-bolder fs-7'>3</span>
-          </span>
-        </a>
-      </div>
-
-      <div
-        className='menu-item px-5'
-        data-kt-menu-trigger='hover'
-        data-kt-menu-placement='left-start'
-        data-kt-menu-flip='bottom'
-      >
-        <a href='#' className='menu-link px-5'>
-          <span className='menu-title'>My Subscription</span>
-          <span className='menu-arrow'></span>
-        </a>
-
-        <div className='menu-sub menu-sub-dropdown w-175px py-4'>
-          <div className='menu-item px-3'>
-            <a href='#' className='menu-link px-5'>
-              Referrals
-            </a>
-          </div>
-
-          <div className='menu-item px-3'>
-            <a href='#' className='menu-link px-5'>
-              Billing
-            </a>
-          </div>
-
-          <div className='menu-item px-3'>
-            <a href='#' className='menu-link px-5'>
-              Payments
-            </a>
-          </div>
-
-          <div className='menu-item px-3'>
-            <a href='#' className='menu-link d-flex flex-stack px-5'>
-              Statements
-              <i
-                className='fas fa-exclamation-circle ms-2 fs-7'
-                data-bs-toggle='tooltip'
-                title='View your statements'
-              ></i>
-            </a>
-          </div>
-
-          <div className='separator my-2'></div>
-
-          <div className='menu-item px-3'>
-            <div className='menu-content px-3'>
-              <label className='form-check form-switch form-check-custom form-check-solid'>
-                <input
-                  className='form-check-input w-30px h-20px'
-                  type='checkbox'
-                  value='1'
-                  defaultChecked={true}
-                  name='notifications'
-                />
-                <span className='form-check-label text-muted fs-7'>Notifications</span>
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className='menu-item px-5'>
-        <a href='#' className='menu-link px-5'>
-          My Statements
-        </a>
-      </div>
-
-      <div className='separator my-2'></div>
 
       <Languages />
 
       <div className='menu-item px-5 my-1'>
-        <Link to='/crafted/account/settings' className='menu-link px-5'>
+        <Link to='/settings' className='menu-link px-5'>
           Account Settings
         </Link>
       </div>

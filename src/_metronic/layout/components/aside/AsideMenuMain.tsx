@@ -9,6 +9,17 @@ export function AsideMenuMain() {
 
   return (
     <>
+      <div className='bg-light'>
+        <AsideMenuItemWithSub to='/crafted/accounts' title='Domains' icon='profile-circle'>
+          <AsideMenuItem to='#' title='www.snooky.io' hasBullet={true} />
+          <AsideMenuItem to='#' title='www.abdullahturkmen.com' hasBullet={true} />
+        </AsideMenuItemWithSub>
+      </div>
+      <div className='menu-item'>
+        <div className='menu-content pt-8 pb-2'>
+          <span className='menu-section text-muted text-uppercase fs-8 ls-1'></span>
+        </div>
+      </div>
       <AsideMenuItem
         to='/dashboard'
         icon='element-11'
@@ -71,7 +82,6 @@ export function AsideMenuMain() {
         <AsideMenuItem to='/apps/chat/drawer-chat' title='Drawer Chart' hasBullet={true} />
       </AsideMenuItemWithSub>
       <AsideMenuItem to='/apps/user-management/users' icon='shield-tick' title='User management' />
-     
     </>
   )
 }

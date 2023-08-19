@@ -22,14 +22,14 @@ const Congrats: FC = () => {
           id='kt_create_account_stepper'
         >
           <div className='d-flex flex-center flex-column'>
-            <h2 className='fw-bolder d-flex align-items-center text-dark mb-3'>
+            <h2 className='fw-bolder d-flex align-items-center text-dark mb-3 onboarding-main-title'>
             Congrats!
             </h2>
-            <div className='text-gray-400 fw-bold fs-6 mb-4'>
+            <div className='text-gray-400 fw-bold mb-4 onboarding-second-title'>
             Welcome to the start of a beautiful business adventure
             </div>
             <div className='d-block m-auto mt-5'>
-              <Link to='/dashboard' className='btn btn-lg btn-primary'>
+              <Link to='/dashboard' className='btn btn-lg btn-primary onboarding-second-title'>
               Let’s jump in
                 
               </Link>
