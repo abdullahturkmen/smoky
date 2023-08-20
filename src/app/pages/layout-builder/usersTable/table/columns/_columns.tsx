@@ -33,13 +33,6 @@ const usersColumns: ReadonlyArray<Column<User>> = [
   },
   {
     Header: (props) => (
-      <UserCustomHeader tableProps={props} title='Two steps' className='min-w-125px' />
-    ),
-    id: 'two_steps',
-    Cell: ({...props}) => <UserTwoStepsCell two_steps={props.data[props.row.index].two_steps} />,
-  },
-  {
-    Header: (props) => (
       <UserCustomHeader tableProps={props} title='Joined day' className='min-w-125px' />
     ),
     accessor: 'joined_day',

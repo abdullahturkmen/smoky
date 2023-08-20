@@ -53,26 +53,8 @@ const HeaderToolbar = () => {
         )} py-6 py-lg-0 d-flex flex-column flex-lg-row align-items-lg-stretch justify-content-lg-between`}
       >
         <DefaultTitle />
-        <div className='d-flex align-items-stretch overflow-auto pt-3 pt-lg-0'>
-          {/* begin::Action wrapper */}
-          <div className='d-flex align-items-center'>
-
-            {/* begin::Select */}
-            <select
-              className='form-select form-select-sm form-select-solid w-100px w-xxl-125px'
-              data-control='select2'
-              data-placeholder='Latest'
-              data-hide-search='true'
-              defaultValue={status}
-              onChange={(e) => setStatus(e.target.value)}
-            >
-              <option value='1'>Latest</option>
-              <option value='2'>In Progress</option>
-              <option value='3'>Done</option>
-            </select>
-            {/* end::Select  */}
-          </div>
-          {/* end::Action wrapper */}
+        <div className='d-flex justify-content-end align-items-stretch overflow-auto pt-3 pt-lg-0'>
+      
 
           {/* begin::Action wrapper */}
           <div className='d-flex align-items-center'>
@@ -113,9 +95,9 @@ const HeaderToolbar = () => {
               
 
               {/*begin::User*/}
-              <div className='aside-user d-flex align-items-sm-center justify-content-center py-5'>
+              <div className='aside-user d-flex align-items-sm-center justify-content-center py-5 ms-2'>
                 {/*begin::Symbol*/}
-                <div className='symbol symbol-30px'>
+                <div className='symbol symbol-25px'>
                   <img
                   className='cursor-pointer'
                     data-kt-menu-trigger='click'

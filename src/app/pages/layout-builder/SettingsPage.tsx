@@ -11,6 +11,7 @@ import {InvoiceList} from './InvoiceList'
 import {BillingScreen} from './BillingScreen'
 import AdvancedSettingsScreen from './AdvancedSettingsScreen'
 import InstallScreen from './InstallScreen'
+import { ProfileScreen } from './ProfileScreen'
 
 const SettingsPage: React.FC = () => {
   const {setLayout} = useLayout()
@@ -55,7 +56,7 @@ const SettingsPage: React.FC = () => {
           >
             <li className='nav-item'>
               <a
-                className={clsx(`nav-link cursor-pointer`, {active: tab === 'Profile'})}
+                className={clsx(`nav-link cursor-pointer text-nowrap`, {active: tab === 'Profile'})}
                 onClick={() => setTab('Profile')}
                 role='tab'
               >
@@ -64,7 +65,7 @@ const SettingsPage: React.FC = () => {
             </li>
             <li className='nav-item'>
               <a
-                className={clsx(`nav-link cursor-pointer`, {active: tab === 'Users'})}
+                className={clsx(`nav-link cursor-pointer text-nowrap`, {active: tab === 'Users'})}
                 onClick={() => setTab('Users')}
                 role='tab'
               >
@@ -74,7 +75,7 @@ const SettingsPage: React.FC = () => {
 
             <li className='nav-item'>
               <a
-                className={clsx(`nav-link cursor-pointer`, {active: tab === 'Websites'})}
+                className={clsx(`nav-link cursor-pointer text-nowrap`, {active: tab === 'Websites'})}
                 onClick={() => setTab('Websites')}
                 role='tab'
               >
@@ -83,7 +84,7 @@ const SettingsPage: React.FC = () => {
             </li>
             <li className='nav-item'>
               <a
-                className={clsx(`nav-link cursor-pointer`, {active: tab === 'Install'})}
+                className={clsx(`nav-link cursor-pointer text-nowrap`, {active: tab === 'Install'})}
                 onClick={() => setTab('Install')}
                 role='tab'
               >
@@ -92,7 +93,7 @@ const SettingsPage: React.FC = () => {
             </li>
             <li className='nav-item'>
               <a
-                className={clsx(`nav-link cursor-pointer`, {active: tab === 'Advanced-Settings'})}
+                className={clsx(`nav-link cursor-pointer text-nowrap`, {active: tab === 'Advanced-Settings'})}
                 onClick={() => setTab('Advanced-Settings')}
                 role='tab'
               >
@@ -101,7 +102,7 @@ const SettingsPage: React.FC = () => {
             </li>
             <li className='nav-item'>
               <a
-                className={clsx(`nav-link cursor-pointer`, {active: tab === 'Billing'})}
+                className={clsx(`nav-link cursor-pointer text-nowrap`, {active: tab === 'Billing'})}
                 onClick={() => setTab('Billing')}
                 role='tab'
               >
@@ -110,7 +111,7 @@ const SettingsPage: React.FC = () => {
             </li>
             <li className='nav-item'>
               <a
-                className={clsx(`nav-link cursor-pointer`, {active: tab === 'Invoice'})}
+                className={clsx(`nav-link cursor-pointer text-nowrap`, {active: tab === 'Invoice'})}
                 onClick={() => setTab('Invoice')}
                 role='tab'
               >
@@ -119,7 +120,7 @@ const SettingsPage: React.FC = () => {
             </li>
             <li className='nav-item'>
               <a
-                className={clsx(`nav-link cursor-pointer`, {active: tab === 'Logs'})}
+                className={clsx(`nav-link cursor-pointer text-nowrap`, {active: tab === 'Logs'})}
                 onClick={() => setTab('Logs')}
                 role='tab'
               >
@@ -136,10 +137,7 @@ const SettingsPage: React.FC = () => {
           <div className='card-body'>
             <div className='tab-content pt-3'>
               <div className={clsx('tab-pane', {active: tab === 'Profile'})}>
-                <div className='row mb-10'>
-                  <label className='col-lg-3 col-form-label text-lg-end'>Width:</label>
-                  Profile tabı içersiindesin
-                </div>
+               <ProfileScreen/>
               </div>
               <div className={clsx('tab-pane', {active: tab === 'Users'})}>
                 <UsersListWrapper />
