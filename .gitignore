@@ -1,0 +1,7 @@
+/build
+/node_modules
+package-lock.json
+/build
+.eslintcache
+node_modules/*
+*/.DS_Store

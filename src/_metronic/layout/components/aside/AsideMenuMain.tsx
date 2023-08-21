@@ -26,8 +26,9 @@ export function AsideMenuMain() {
         title={intl.formatMessage({id: 'MENU.DASHBOARD'})}
       />
       <AsideMenuItem to='/analytics' icon='chart-simple' title='Analytics' />
-      <AsideMenuItem to='/settings' icon='gear' title='Settings' />
+      <div className='d-none'>
       <AsideMenuItem to='/onboarding/welcome' icon='switch' title='Onboarding' />
+    
       <div className='menu-item'>
         <div className='menu-content pt-8 pb-2'>
           <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Crafted</span>
@@ -82,6 +83,7 @@ export function AsideMenuMain() {
         <AsideMenuItem to='/apps/chat/drawer-chat' title='Drawer Chart' hasBullet={true} />
       </AsideMenuItemWithSub>
       <AsideMenuItem to='/apps/user-management/users' icon='shield-tick' title='User management' />
+      </div>
     </>
   )
 }

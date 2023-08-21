@@ -33,7 +33,7 @@ const AsideDefault: FC = () => {
       {/* end::Aside menu */}
 
       {/* begin::Footer */}
-      <div className='aside-footer flex-column-auto py-5' id='kt_aside_footer'>
+      <div className='aside-footer flex-column-auto py-5 d-none' id='kt_aside_footer'>
         <a
           className='btn btn-custom btn-primary w-100'
           target='_blank'
