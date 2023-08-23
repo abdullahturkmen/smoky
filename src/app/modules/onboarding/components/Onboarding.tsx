@@ -127,13 +127,7 @@ const Onboarding: FC = () => {
       </div>
       <div className={`d-none d-lg-flex flex-lg-row-fluid w-lg-25 bgi-size-cover bgi-position-center order-1 order-lg-2 bg-secondary onboarding-screen-${stepper?.current?.currentStepIndex || 1}`}>
         <div className='d-flex flex-column flex-center py-15 px-5 px-md-15 w-100'>
-          <h1 className='text-white d-flex'>
-            <img
-              className='mw-50 mx-auto rounded'
-              src={toAbsoluteUrl(`/media/onboarding/${stepper?.current?.currentStepIndex || 1}.svg`)}
-              alt='Snooky'
-            />
-          </h1>
+            <div className='onboarding-bg-img w-100 h-50 mx-auto rounded'></div>
         </div>
       </div>
       <OnboardingHeader/>

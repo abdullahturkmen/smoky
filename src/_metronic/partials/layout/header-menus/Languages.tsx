@@ -67,7 +67,7 @@ const Languages: FC = () => {
         </span>
       </a>
 
-      <div className='menu-sub menu-sub-dropdown w-175px py-4'>
+      <div className='menu-sub menu-sub-dropdown w-175px py-4 d-none'>
         {languages.map((l) => (
           <>
             {l?.disabled ? (

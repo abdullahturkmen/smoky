@@ -141,9 +141,9 @@ export function Overview() {
               )}
             </div>
           </div>
-        </div>
-        {editModeVisible && <div onClick={() => setEditModeVisible(false)} className="btn btn-success align-self-end">Kaydet</div>}
-        
+        <div className="d-flex justify-content-end">
+        {editModeVisible && <div onClick={() => setEditModeVisible(false)} className="btn btn-success align-self-end">Save</div>}
+        </div></div>
       </div>
     </>
   );

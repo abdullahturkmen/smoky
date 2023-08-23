@@ -4,22 +4,43 @@
     }
 }
 
-.onboarding-main-title{
+.onboarding-main-title {
     font-size: 28px;
 }
 
-.onboarding-second-title{
+.onboarding-second-title {
     font-size: 16px;
 }
 
-.onboarding-screen{
-    &-1{
+.onboarding-screen {
+    &-1 {
         background-color: #f7e0e0 !important;
+
+        .onboarding-bg-img {
+            background-image: url("./../../../../../public/media/onboarding/bg-1.png");
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
     }
-    &-2{
+    &-2 {
         background-color: #e7f3fd !important;
+
+        .onboarding-bg-img {
+            background-image: url("./../../../../../public/media/onboarding/bg-2.png");
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
     }
-    &-3{
+    &-3 {
         background-color: #f7e7fd !important;
+
+        .onboarding-bg-img {
+            background-image: url("./../../../../../public/media/onboarding/bg-3.png");
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
     }
 }
