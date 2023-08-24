@@ -123,7 +123,7 @@ const InstallScreen: React.FC<Props> = ({}) => {
 
       <div className="d-flex justify-content-end py-6 px-9">
         <button
-          id="kt_account_deactivate_account_submit"
+          id="check_verify_submit_btn"
           type="submit"
           className="btn btn-success fw-bold"
         >
@@ -169,7 +169,7 @@ const InstallScreen: React.FC<Props> = ({}) => {
 
             <div className="card-footer d-flex justify-content-end py-6 px-9">
               <button
-                id="kt_account_deactivate_account_submit"
+                id="send_instructions_submit_btn"
                 type="submit"
                 className="btn btn-danger fw-bold"
               >

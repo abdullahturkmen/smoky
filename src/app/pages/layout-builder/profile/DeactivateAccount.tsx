@@ -80,7 +80,7 @@ const DeactivateAccount: React.FC = () => {
 
           <div className='card-footer d-flex justify-content-end py-6 px-9'>
             <button
-              id='kt_account_deactivate_account_submit'
+              id='kt_account_deactivate_account_submit_form'
               type='submit'
               className='btn btn-danger fw-bold'
             >
