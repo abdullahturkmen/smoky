@@ -7,7 +7,7 @@ import {UsersListWrapper} from './usersTable/UsersList'
 import {DomainsListWrapper} from './domainsTable/DomainsList'
 import {Navigate, Outlet, Route, Routes} from 'react-router-dom'
 import {LogsList} from './LogsList'
-import {InvoiceList} from './InvoiceList'
+import {InvoiceScreen} from './invoice/InvoiceScreen'
 import {BillingScreen} from './billing/BillingScreen'
 import AdvancedSettingsScreen from './AdvancedSettingsScreen'
 import InstallScreen from './InstallScreen'
@@ -157,7 +157,7 @@ const SettingsPage: React.FC = () => {
                 <BillingScreen />
               </div>
               <div className={clsx('tab-pane', {active: tab === 'Invoice'})}>
-                <InvoiceList className='' />
+                <InvoiceScreen/>
               </div>
               <div className={clsx('tab-pane', {active: tab === 'Logs'})}>
                 <LogsList className='' />
