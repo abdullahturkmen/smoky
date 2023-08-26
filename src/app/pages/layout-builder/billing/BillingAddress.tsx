@@ -5,7 +5,7 @@ type Props = {};
 const BillingAddress: React.FC<Props> = ({}) => {
   return (
     <>
-      <div className="card card-body">
+      <div className="card mb-10 card-body">
       <h3 className="mb-5">Billing Address</h3>
         <div className="row gx-9 gy-6">
           <div className="col-xl-6" data-kt-billing-element="address">

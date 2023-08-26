@@ -5,7 +5,7 @@ type Props = {}
 const NeverPaid: React.FC<Props> = ({}) => {
   return (
     <>
-      <div className='card card-body'>
+      <div className='card  mb-10 card-body'>
         <div className='notice d-flex bg-light-warning rounded border-warning border border-dashed mb-12 p-6'>
           <i className='ki-duotone ki-information fs-2tx text-warning me-4'>
             <span className='path1'></span>

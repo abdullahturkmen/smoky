@@ -7,7 +7,7 @@ import {DefaultTitle} from './page-title/DefaultTitle'
 import {ThemeModeSwitcher, HeaderUserMenu} from '../../../partials'
 import {useAuth} from '../../../../app/modules/auth'
 import {toAbsoluteUrl} from '../../../helpers'
-import { PopupsListFilter } from '../../../../app/pages/dashboard/popupsTable/components/header/PopupsListFilter'
+import { PopupsListFilter } from '../../../../app/pages/campaigns/popupsTable/components/header/PopupsListFilter'
 const HeaderToolbar = () => {
   const {classes} = useLayout()
   const [status, setStatus] = useState<string>('1')
@@ -45,6 +45,7 @@ const HeaderToolbar = () => {
   }, [])
 
   return (
+    <>
     <div className='toolbar d-flex align-items-stretch'>
       {/* begin::Toolbar container */}
       <div
@@ -57,7 +58,7 @@ const HeaderToolbar = () => {
       
 
           {/* begin::Action wrapper */}
-          <div className='d-flex align-items-center'>
+         
 
             {/* begin::Actions */}
             <div className='d-flex align-items-center'>
@@ -70,9 +71,9 @@ const HeaderToolbar = () => {
               >
                 <KTIcon iconName='files' className='fs-1' />
               </a>
-              <div className='d-flex justify-content-end' data-kt-user-table-toolbar='base'>
-                 <PopupsListFilter />
-              </div>
+              
+                 
+              <PopupsListFilter />
 
               
 
@@ -95,12 +96,13 @@ const HeaderToolbar = () => {
               {/*end::User*/}
             </div>
             {/* end::Actions */}
-          </div>
+          
           {/* end::Action wrapper */}
         </div>
         {/* end::Toolbar container */}
       </div>
     </div>
+    </>
   )
 }
 

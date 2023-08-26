@@ -33,7 +33,7 @@ const AppRoutes: FC = () => {
             <>
               <Route path='/*' element={<PrivateRoutes />} />
               <Route path='onboarding/*' element={<OnboardingPage />} />
-              <Route index element={<Navigate to='/dashboard' />} />
+              <Route index element={<Navigate to='/campaigns' />} />
             </>
           ) : (
             <>

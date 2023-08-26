@@ -21,7 +21,7 @@ export function AsideMenuMain() {
         </div>
       </div>
       <AsideMenuItem
-        to='/dashboard'
+        to='/campaigns'
         icon='element-11'
         title={intl.formatMessage({id: 'MENU.DASHBOARD'})}
       />

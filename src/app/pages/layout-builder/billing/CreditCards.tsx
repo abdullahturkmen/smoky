@@ -5,7 +5,7 @@ type Props = {};
 const CreditCards: React.FC<Props> = ({}) => {
   return (
     <>
-      <div className="card mb-5 mb-xl-10">
+      <div className="card  mb-10 mb-xl-10">
         <div className="card-header card-header-stretch pb-0">
           <div className="card-title">
             <h3 className="m-0">Payment Methods</h3>

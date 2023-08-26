@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 import { PageTitle } from "../../../_metronic/layout/core";
 import { KTIcon } from "../../../_metronic/helpers";
 import { Link } from "react-router-dom";
+import { PopupsListWrapper } from "./popupsTable/PopupsList";
 
 const DashboardPage = () => (
   <>
@@ -64,17 +65,18 @@ const DashboardPage = () => (
       </div>
     </div>
 
+    <PopupsListWrapper />
   </>
 );
 
-const DashboardWrapper = () => {
+const CampaignsWrapper = () => {
   const intl = useIntl();
   return (
     <>
-     
+      <PageTitle breadcrumbs={[]}>Campaigns</PageTitle>
       <DashboardPage />
     </>
   );
 };
 
-export { DashboardWrapper };
+export { CampaignsWrapper };

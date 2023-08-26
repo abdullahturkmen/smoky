@@ -29,7 +29,7 @@ const Congrats: FC = () => {
             Welcome to the start of a beautiful business adventure
             </div>
             <div className='d-block m-auto mt-5'>
-              <Link to='/dashboard' className='btn btn-lg btn-primary onboarding-second-title'>
+              <Link to='/campaigns' className='btn btn-lg btn-primary onboarding-second-title'>
               Let’s jump in
                 
               </Link>

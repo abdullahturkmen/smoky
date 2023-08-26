@@ -5,7 +5,7 @@ type Props = {};
 const ActivePlan: React.FC<Props> = ({}) => {
   return (
     <>
-      <div className="card  h-xl-100 flex-row flex-stack flex-wrap p-6">
+      <div className="card mb-10 h-xl-100 flex-row flex-stack flex-wrap p-6">
         <div className="flex-wrap border-dashed border-primary rounded border  p-6">
           <div className="d-flex flex-column py-2">
             <div className="d-flex align-items-center fs-5 fw-bold mb-5">
