@@ -5,33 +5,12 @@ type Props = {};
 const CreditCards: React.FC<Props> = ({}) => {
   return (
     <>
-      <div className=" mb-5 mb-xl-10">
+      <div className="card mb-5 mb-xl-10">
         <div className="card-header card-header-stretch pb-0">
           <div className="card-title">
             <h3 className="m-0">Payment Methods</h3>
           </div>
 
-          <div className="card-toolbar m-0">
-            <ul
-              className="nav nav-stretch nav-line-tabs border-transparent"
-              role="tablist"
-            >
-              <li className="nav-item" role="presentation">
-                <a
-                  id="kt_billing_creditcard_tab"
-                  className="nav-link fs-5 fw-bold me-5 active"
-                  data-bs-toggle="tab"
-                  role="tab"
-                  href="#kt_billing_creditcard"
-                  aria-selected="true"
-                >
-                  Credit / Debit Card
-                </a>
-              </li>
-
-             
-            </ul>
-          </div>
         </div>
 
         <div

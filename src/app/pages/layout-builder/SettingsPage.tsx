@@ -48,7 +48,7 @@ const SettingsPage: React.FC = () => {
 
   return (
     <>
-      <div className='card card-custom'>
+      <div className=' card-custom'>
         <div className='card-header card-header-stretch overflow-auto'>
           <ul
             className='nav nav-stretch nav-line-tabs fw-bold border-transparent flex-nowrap'
@@ -56,16 +56,16 @@ const SettingsPage: React.FC = () => {
           >
             <li className='nav-item'>
               <a
-                className={clsx(`nav-link cursor-pointer text-nowrap text-dark`, {active: tab === 'Profile'})}
+                className={clsx(`nav-link cursor-pointer text-nowrap `, {'text-dark': tab !== 'Profile'},{'active text-primary': tab === 'Profile'})}
                 onClick={() => setTab('Profile')}
                 role='tab'
               >
-                Profile (Settings)
+                Settings
               </a>
             </li>
             <li className='nav-item'>
               <a
-                className={clsx(`nav-link cursor-pointer text-nowrap text-dark`, {active: tab === 'Users'})}
+                className={clsx(`nav-link cursor-pointer text-nowrap`, {'text-dark': tab !== 'Users'},{'active text-primary': tab === 'Users'})}
                 onClick={() => setTab('Users')}
                 role='tab'
               >
@@ -75,7 +75,7 @@ const SettingsPage: React.FC = () => {
 
             <li className='nav-item'>
               <a
-                className={clsx(`nav-link cursor-pointer text-nowrap text-dark`, {active: tab === 'Websites'})}
+                className={clsx(`nav-link cursor-pointer text-nowrap `, {'text-dark': tab !== 'Websites'},{'active text-primary': tab === 'Websites'})}
                 onClick={() => setTab('Websites')}
                 role='tab'
               >
@@ -84,7 +84,7 @@ const SettingsPage: React.FC = () => {
             </li>
             <li className='nav-item'>
               <a
-                className={clsx(`nav-link cursor-pointer text-nowrap text-dark`, {active: tab === 'Install'})}
+                className={clsx(`nav-link cursor-pointer text-nowrap `, {'text-dark': tab !== 'Install'},{'active text-primary': tab === 'Install'})}
                 onClick={() => setTab('Install')}
                 role='tab'
               >
@@ -93,7 +93,7 @@ const SettingsPage: React.FC = () => {
             </li>
             <li className='nav-item'>
               <a
-                className={clsx(`nav-link cursor-pointer text-nowrap text-dark`, {active: tab === 'Advanced-Settings'})}
+                className={clsx(`nav-link cursor-pointer text-nowrap `, {'text-dark': tab !== 'Advanced-Settings'},{'active text-primary': tab === 'Advanced-Settings'})}
                 onClick={() => setTab('Advanced-Settings')}
                 role='tab'
               >
@@ -102,7 +102,7 @@ const SettingsPage: React.FC = () => {
             </li>
             <li className='nav-item'>
               <a
-                className={clsx(`nav-link cursor-pointer text-nowrap text-dark`, {active: tab === 'Billing'})}
+                className={clsx(`nav-link cursor-pointer text-nowrap`, {'text-dark': tab !== 'Billing'},{'active text-primary':tab === 'Billing'})}
                 onClick={() => setTab('Billing')}
                 role='tab'
               >
@@ -111,7 +111,7 @@ const SettingsPage: React.FC = () => {
             </li>
             <li className='nav-item'>
               <a
-                className={clsx(`nav-link cursor-pointer text-nowrap text-dark`, {active: tab === 'Invoice'})}
+                className={clsx(`nav-link cursor-pointer text-nowrap`, {'text-dark': tab !== 'Invoice'},{'active text-primary': tab === 'Invoice'})}
                 onClick={() => setTab('Invoice')}
                 role='tab'
               >
@@ -120,7 +120,7 @@ const SettingsPage: React.FC = () => {
             </li>
             <li className='nav-item'>
               <a
-                className={clsx(`nav-link cursor-pointer text-nowrap text-dark`, {active: tab === 'Logs'})}
+                className={clsx(`nav-link cursor-pointer text-nowrap`, {'text-dark': tab !== 'Logs'},{'active text-primary': tab === 'Logs'})}
                 onClick={() => setTab('Logs')}
                 role='tab'
               >

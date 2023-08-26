@@ -879,7 +879,7 @@ $pagination-disabled-bg: transparent !default;
 $pagination-disabled-border-color: transparent !default;
 
 // Card
-$card-box-shadow: 0px 0px 20px 0px rgba(76, 87, 125, 0.02) !default;
+$card-box-shadow: 0px 0px 20px 0px rgba(76, 87, 125, 0.1) !default;
 $card-border-color: var(--#{$prefix}border-color) !default;
 $card-border-width: 1px !default;
 $card-border-style: solid !default;

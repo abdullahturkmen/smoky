@@ -71,11 +71,7 @@ const DeactivateAccount: React.FC = () => {
                 I confirm my account deactivation
               </label>
             </div>
-            {formik.touched.confirm && formik.errors.confirm && (
-              <div className='fv-plugins-message-container'>
-                <div className='fv-help-block'>{formik.errors.confirm}</div>
-              </div>
-            )}
+            
           </div>
 
           <div className='card-footer d-flex justify-content-end py-6 px-9'>

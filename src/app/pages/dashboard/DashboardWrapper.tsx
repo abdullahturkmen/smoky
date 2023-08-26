@@ -9,23 +9,22 @@ const DashboardPage = () => (
     <div className="notice d-flex bg-light-primary rounded border-primary border border-dashed mb-9 p-6">
       <KTIcon iconName="information-5" className="fs-2tx text-primary me-4" />
 
-      <div className="d-flex flex-stack flex-grow-1">
+      <div className="d-block d-sm-flex flex-stack flex-grow-1">
         <div className="fw-bold">
           <div className="fs-6 text-gray-600">
           Your trial is expiring in 1 day.
           </div>
-          <div className="d-block mt-3">
+        </div>
           <button
                 id="send_instructions_submit_btn"
                 type="submit"
                 className="btn btn-sm btn-primary fw-bold"
               >Upgrade</button>
-          </div>
-        </div>
+        
       </div>
     </div>
 
-    <div className="card mb-10">
+    <div className="card mb-10 d-none">
       <div className="card-body d-flex align-items-center py-8">
         <div className="d-flex h-80px w-80px flex-shrink-0 flex-center position-relative">
           <svg

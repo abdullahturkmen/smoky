@@ -60,7 +60,7 @@ const HeaderToolbar = () => {
           <div className='d-flex align-items-center'>
 
             {/* begin::Actions */}
-            <div className='d-flex'>
+            <div className='d-flex align-items-center'>
               {/* begin::Action */}
               <a
                 href='#'

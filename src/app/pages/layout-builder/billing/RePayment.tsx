@@ -5,7 +5,7 @@ type Props = {};
 const RePayment: React.FC<Props> = ({}) => {
   return (
     <>
-      <div className="card-body">
+      <div className="card card-body">
         <h3 className="fw-bold text-dark mb-8">Billing Summary</h3>
         <div className="fs-4 fw-semibold mb-3 text-muted">
           Your subscription has expired, you will not be charged unless you

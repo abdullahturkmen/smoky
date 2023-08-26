@@ -80,55 +80,66 @@ const InstallScreen: React.FC<Props> = ({}) => {
           </a>
         </li>
       </ul>
-      <h1>Install popup on abdullahturkmen.com</h1>
-      <span className="my-4 d-block">
-        Embed code that works on all website platforms.
-      </span>
-      <div className="tab-content" id="myTabContent">
-        <div
-          className="tab-pane fade show active"
-          id="kt_tab_pane_4"
-          role="tabpanel"
-        >
-          <div className="d-block bg-light rounded p-3">
-            <pre>
-              <code>{convertCodeVisible(customScriptCode())}</code>
-            </pre>
-          </div>
-        </div>
-        <div className="tab-pane fade" id="kt_tab_pane_5" role="tabpanel">
-          <div className="d-block bg-light rounded p-3">
-            <pre>
-              <code>{convertCodeVisible(gtmScriptCode())}</code>
-            </pre>
-          </div>
-        </div>
-        <div className="tab-pane fade" id="kt_tab_pane_6" role="tabpanel">
-          <div className="d-block bg-light rounded p-3">
-            <pre>
-              <code>{convertCodeVisible(shopifyScriptCode())}</code>
-            </pre>
-          </div>
-        </div>
-      </div>
 
-      <span className="mt-2 d-block">
-        Copy and paste the{" "}
-        <strong>
-          embed code above just before the closing <code>&lt;/body&gt;</code>{" "}
-          tag
-        </strong>{" "}
-        of your website template file.
-      </span>
+      <div className="card">
+        <div className="card-header border-0">
+          <div className="card-title m-0">
+            <h3 className="fw-bolder m-0">
+              Install popup on abdullahturkmen.com
+            </h3>
+          </div>
+        </div>
+        <div className="card-body border-top p-9">
+          <span className="my-4 d-block">
+            Embed code that works on all website platforms.
+          </span>
+          <div className="tab-content" id="myTabContent">
+            <div
+              className="tab-pane fade show active"
+              id="kt_tab_pane_4"
+              role="tabpanel"
+            >
+              <div className="d-block bg-light rounded p-3">
+                <pre>
+                  <code>{convertCodeVisible(customScriptCode())}</code>
+                </pre>
+              </div>
+            </div>
+            <div className="tab-pane fade" id="kt_tab_pane_5" role="tabpanel">
+              <div className="d-block bg-light rounded p-3">
+                <pre>
+                  <code>{convertCodeVisible(gtmScriptCode())}</code>
+                </pre>
+              </div>
+            </div>
+            <div className="tab-pane fade" id="kt_tab_pane_6" role="tabpanel">
+              <div className="d-block bg-light rounded p-3">
+                <pre>
+                  <code>{convertCodeVisible(shopifyScriptCode())}</code>
+                </pre>
+              </div>
+            </div>
+          </div>
 
-      <div className="d-flex justify-content-end py-6 px-9">
-        <button
-          id="check_verify_submit_btn"
-          type="submit"
-          className="btn btn-success fw-bold"
-        >
-          Check Verify
-        </button>
+          <span className="mt-2 d-block">
+            Copy and paste the{" "}
+            <strong>
+              embed code above just before the closing{" "}
+              <code>&lt;/body&gt;</code> tag
+            </strong>{" "}
+            of your website template file.
+          </span>
+
+          <div className="d-flex justify-content-end py-6 px-9">
+            <button
+              id="check_verify_submit_btn"
+              type="submit"
+              className="btn btn-success fw-bold"
+            >
+              Check Verify
+            </button>
+          </div>
+        </div>
       </div>
 
       <div className="card mt-5">

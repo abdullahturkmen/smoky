@@ -8,9 +8,7 @@ import { Overview } from './profile/Overview'
 const ProfileScreen: React.FC = ({}) => {
   return (
     <>
-      <h1>Avatar</h1>
       <ProfileHeader />
-      <h1>Profile information</h1>
       <Overview />
       <SignInMethod />
       <DeactivateAccount />
