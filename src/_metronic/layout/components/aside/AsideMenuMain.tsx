@@ -3,18 +3,18 @@ import {useIntl} from 'react-intl'
 import {KTIcon} from '../../../helpers'
 import {AsideMenuItemWithSub} from './AsideMenuItemWithSub'
 import {AsideMenuItem} from './AsideMenuItem'
+import Select from 'react-select'
 
 export function AsideMenuMain() {
   const intl = useIntl()
-
+  const options = [
+    { value: 'a', label: 'www.snooky.io' },
+    { value: 'b', label: 'www.abdullahturkmen.com' },
+    { value: 'd', label: 'www.abdullahturkmen.com' },
+  ]
   return (
     <>
-      <div className='bg-light'>
-        <AsideMenuItemWithSub to='/crafted/accounts' title='Domains' icon='profile-circle'>
-          <AsideMenuItem to='#' title='www.snooky.io' hasBullet={true} />
-          <AsideMenuItem to='#' title='www.abdullahturkmen.com' hasBullet={true} />
-        </AsideMenuItemWithSub>
-      </div>
+      <Select options={options} placeholder="Domains"/>
       <div className='menu-item'>
         <div className='menu-content pt-8 pb-2'>
           <span className='menu-section text-muted text-uppercase fs-8 ls-1'></span>

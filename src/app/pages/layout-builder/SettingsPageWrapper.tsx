@@ -5,7 +5,7 @@ import {SettingsPage} from './SettingsPage'
 const BuilderPageWrapper: FC = () => {
   return (
     <>
-      <PageTitle breadcrumbs={[]}>Settings</PageTitle>
+      <PageTitle breadcrumbs={[]}>Account Settings</PageTitle>
       <SettingsPage />
     </>
   )

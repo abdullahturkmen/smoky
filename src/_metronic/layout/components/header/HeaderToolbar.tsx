@@ -7,7 +7,7 @@ import {DefaultTitle} from './page-title/DefaultTitle'
 import {ThemeModeSwitcher, HeaderUserMenu} from '../../../partials'
 import {useAuth} from '../../../../app/modules/auth'
 import {toAbsoluteUrl} from '../../../helpers'
-
+import { PopupsListFilter } from '../../../../app/pages/dashboard/popupsTable/components/header/PopupsListFilter'
 const HeaderToolbar = () => {
   const {classes} = useLayout()
   const [status, setStatus] = useState<string>('1')
@@ -70,34 +70,16 @@ const HeaderToolbar = () => {
               >
                 <KTIcon iconName='files' className='fs-1' />
               </a>
-              {/* end::Action */}
-
-              {/* begin::Notifications */}
-              <div className='d-flex align-items-center'>
-                {/* begin::Menu- wrapper */}
-                <a href='#' className='btn btn-sm btn-icon btn-icon-muted btn-active-icon-primary'>
-                  <KTIcon iconName='add-files' className='fs-1' />
-                </a>
-                {/* end::Menu wrapper */}
+              <div className='d-flex justify-content-end' data-kt-user-table-toolbar='base'>
+                 <PopupsListFilter />
               </div>
-              {/* end::Notifications */}
-
-              {/* begin::Quick links */}
-              <div className='d-flex align-items-center'>
-                {/* begin::Menu wrapper */}
-                <a href='#' className='btn btn-sm btn-icon btn-icon-muted btn-active-icon-primary'>
-                  <KTIcon iconName='file-up' className='fs-1' />
-                </a>
-                {/* end::Menu wrapper */}
-              </div>
-              {/* end::Quick links */}
 
               
 
               {/*begin::User*/}
               <div className='aside-user d-flex align-items-sm-center justify-content-center py-5 ms-2'>
                 {/*begin::Symbol*/}
-                <div className='symbol symbol-25px'>
+                <div className='symbol symbol-35px'>
                   <img
                   className='cursor-pointer'
                     data-kt-menu-trigger='click'
