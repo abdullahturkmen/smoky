@@ -9,6 +9,7 @@ import {getCSSVariableValue} from '../../_metronic/assets/ts/_utils'
 import {WithChildren} from '../../_metronic/helpers'
 import SettingsPageWrapper from '../pages/layout-builder/SettingsPageWrapper'
 import AnalyticsPage from '../pages/analytics/AnalyticsPageWrapper'
+import { PricingScreen } from '../pages/pricing/PricingScreen'
 
 const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
@@ -27,6 +28,7 @@ const PrivateRoutes = () => {
         {/* Pages */}
         <Route path='dashboard' element={<DashboardWrapper />} />
         <Route path='campaigns' element={<CampaignsWrapper />} />
+        <Route path='pricing' element={<PricingScreen />} />
         <Route
           path='settings'
           element={

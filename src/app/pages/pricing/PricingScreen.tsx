@@ -2,7 +2,7 @@ import React from "react";
 
 type Props = {};
 
-const Pricing: React.FC<Props> = ({}) => {
+const PricingScreen: React.FC<Props> = ({}) => {
   return (
     <>
       <div className="card" id="kt_pricing">
@@ -367,4 +367,4 @@ const Pricing: React.FC<Props> = ({}) => {
   );
 };
 
-export { Pricing };
+export { PricingScreen };

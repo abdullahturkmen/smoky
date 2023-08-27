@@ -23,7 +23,6 @@ const CreditCards: React.FC<Props> = ({}) => {
             role="tabpanel"
             aria-labelledby="kt_billing_creditcard_tab"
           >
-            <h3 className="mb-5">My Cards</h3>
 
             <div className="row gx-9 gy-6">
               <div className="col-xl-6" data-kt-billing-element="card">

@@ -1,11 +1,12 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 type Props = {}
 
 const NeverPaid: React.FC<Props> = ({}) => {
   return (
     <>
-      <div className='card  mb-10 card-body'>
+      <div className='card  mb-10 card-body p-9'>
         <div className='notice d-flex bg-light-warning rounded border-warning border border-dashed mb-12 p-6'>
           <i className='ki-duotone ki-information fs-2tx text-warning me-4'>
             <span className='path1'></span>
@@ -72,13 +73,12 @@ const NeverPaid: React.FC<Props> = ({}) => {
               >
                 Cancel Subscription
               </a>
-              <button
+              <Link
                 className='btn btn-primary'
-                data-bs-toggle='modal'
-                data-bs-target='#kt_modal_upgrade_plan'
+               to='/pricing'
               >
                 Upgrade Plan
-              </button>
+              </Link>
             </div>
           </div>
         </div>

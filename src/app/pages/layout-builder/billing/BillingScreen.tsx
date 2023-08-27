@@ -4,7 +4,6 @@ import { RePayment } from "./RePayment";
 import { CreditCards } from "./CreditCards";
 import { ActivePlan } from "./ActivePlan";
 import { BillingAddress } from "./BillingAddress";
-import { Pricing } from "./Pricing";
 
 type Props = {};
 
@@ -22,7 +21,6 @@ const BillingScreen: React.FC<Props> = ({}) => {
     
       <RePayment />
      
-      <Pricing />
     </>
   );
 };
