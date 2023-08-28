@@ -51,7 +51,7 @@ const SettingsPage: React.FC = () => {
       <div className=' card-custom'>
         <div className='card-header card-header-stretch overflow-auto'>
           <ul
-            className='nav nav-stretch nav-line-tabs fw-bold border-transparent flex-nowrap'
+            className='nav nav-stretch nav-line-tabs fw-bold border-transparent flex-nowrap overflow-y-hidden'
             role='tablist'
           >
             <li className='nav-item'>
