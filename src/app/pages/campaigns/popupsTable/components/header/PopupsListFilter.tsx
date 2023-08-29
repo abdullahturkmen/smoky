@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { KTIcon } from "../../../../../../_metronic/helpers";
+import { Link } from "react-router-dom";
 
 
 const PopupsListFilter = () => {
@@ -31,21 +32,21 @@ const PopupsListFilter = () => {
 
         {/* begin::Content */}
         <div className="px-7 py-5" >
-          <a className="btn btn-flex btn-primary px-6 w-100 mb-3 cursor-pointer"  data-bs-toggle="modal" data-bs-target="#customCampaign">
+          <Link to='/create-campaign' className="btn btn-flex btn-primary px-6 w-100 mb-3 cursor-pointer" >
             <KTIcon iconName="wrench" className="fs-2" />
             <span className="d-flex flex-column align-items-start ms-2">
               <span className="fs-5 fw-bolder">Custom Campaign</span>
               <span className="fs-7">Some description</span>
             </span>
-          </a>
+          </Link>
 
-          <a className="btn btn-flex btn-primary px-6 w-100" data-bs-toggle="modal" data-bs-target="#oneClickSetup">
+          <Link to='create-campaign' className="btn btn-flex btn-primary px-6 w-100" >
             <KTIcon iconName="document" className="fs-2" />
             <span className="d-flex flex-column align-items-start ms-2">
               <span className="fs-5 fw-bolder">One Click Setup</span>
               <span className="fs-7">Some description</span>
             </span>
-          </a>
+          </Link>
         </div>
         {/* end::Content */}
       </div>

@@ -12,6 +12,7 @@ import {ErrorsPage} from '../modules/errors/ErrorsPage'
 import OnboardingPage from '../modules/onboarding/OnboardingPage'
 import {Logout, AuthPage, useAuth} from '../modules/auth'
 import {App} from '../App'
+import CreateCampaign from '../pages/create-campaign/CreateCampaign'
 
 /**
  * Base URL of the website.
@@ -33,6 +34,7 @@ const AppRoutes: FC = () => {
             <>
               <Route path='/*' element={<PrivateRoutes />} />
               <Route path='onboarding/*' element={<OnboardingPage />} />
+              <Route path='create-campaign/*' element={<CreateCampaign />} />
               <Route index element={<Navigate to='/campaigns' />} />
             </>
           ) : (

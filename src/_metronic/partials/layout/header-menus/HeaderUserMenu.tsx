@@ -34,12 +34,9 @@ const HeaderUserMenu: FC = () => {
       <div className="separator my-2"></div>
 
       <div className="menu-item px-5 my-1 d-flex">
-        <div className="menu-link px-5 position-relative">
-          Mode
-          <div className="position-absolute fs-8 px-3 py-2 translate-middle-y top-50 end-0">
+       
             <ThemeModeSwitcher toggleBtnClass="btn btn-sm btn-icon btn-icon-muted btn-active-icon-primary" />
-          </div>
-        </div>
+          
       </div>
 
       <Languages />

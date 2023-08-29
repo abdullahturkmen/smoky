@@ -29,6 +29,7 @@ const PrivateRoutes = () => {
         <Route path='dashboard' element={<DashboardWrapper />} />
         <Route path='campaigns' element={<CampaignsWrapper />} />
         <Route path='pricing' element={<PricingScreen />} />
+   
         <Route
           path='settings'
           element={

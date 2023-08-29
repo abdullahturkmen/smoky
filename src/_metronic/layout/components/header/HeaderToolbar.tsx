@@ -4,10 +4,10 @@ import noUiSlider, {target} from 'nouislider'
 import {useLayout} from '../../core'
 import {KTIcon} from '../../../helpers'
 import {DefaultTitle} from './page-title/DefaultTitle'
-import {ThemeModeSwitcher, HeaderUserMenu} from '../../../partials'
+import {HeaderUserMenu} from '../../../partials'
 import {useAuth} from '../../../../app/modules/auth'
 import {toAbsoluteUrl} from '../../../helpers'
-import { PopupsListFilter } from '../../../../app/pages/campaigns/popupsTable/components/header/PopupsListFilter'
+import { Link } from 'react-router-dom'
 const HeaderToolbar = () => {
   const {classes} = useLayout()
   const [status, setStatus] = useState<string>('1')
@@ -73,7 +73,15 @@ const HeaderToolbar = () => {
               </a>
               
                  
-              <PopupsListFilter />
+              <Link to='/create-campaign'
+        type="button"
+        className="btn btn-primary me-3 btn-sm"
+        data-kt-menu-trigger="click"
+        data-kt-menu-placement="bottom-end"
+      >
+        <KTIcon iconName="plus" className="fs-4" />
+        Create Campaign
+      </Link>
 
               
 

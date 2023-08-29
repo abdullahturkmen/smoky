@@ -25,7 +25,7 @@ const AsideMenuItem: FC<Props & WithChildren> = ({
 
   return (
     <div className='menu-item'>
-      <Link className={clsx('menu-link without-sub', {active: isActive})} to={to}>
+      <Link className={clsx('menu-link btn', {'bg-light-primary': isActive})} to={to}>
         {hasBullet && (
           <span className='menu-bullet'>
             <span className='bullet bullet-dot'></span>
