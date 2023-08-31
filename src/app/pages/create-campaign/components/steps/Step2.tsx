@@ -6,9 +6,9 @@ const Step2: FC = () => {
   return (
     <div className='w-100'>
       <div className='pb-10 pb-lg-15'>
-        <h2 className='fw-bolder text-dark'>Account Info</h2>
+        <h2 className='fw-bolder text-dark'>Template Details</h2>
 
-        <div className='text-gray-400 fw-bold fs-6'>
+        <div className='text-gray-400 fw-bold fs-6 d-none'>
           If you need more info, please check out
           <a href='/dashboard' className='link-primary fw-bolder'>
             {' '}

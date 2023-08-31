@@ -32,7 +32,7 @@ const PopupsListFilter = () => {
 
         {/* begin::Content */}
         <div className="px-7 py-5" >
-          <Link to='/create-campaign' className="btn btn-flex btn-primary px-6 w-100 mb-3 cursor-pointer" >
+          <Link to='/create-campaign?type=custom' className="btn btn-flex btn-primary px-6 w-100 mb-3 cursor-pointer" >
             <KTIcon iconName="wrench" className="fs-2" />
             <span className="d-flex flex-column align-items-start ms-2">
               <span className="fs-5 fw-bolder">Custom Campaign</span>
@@ -40,7 +40,7 @@ const PopupsListFilter = () => {
             </span>
           </Link>
 
-          <Link to='create-campaign' className="btn btn-flex btn-primary px-6 w-100" >
+          <Link to='create-campaign?type=quick' className="btn btn-flex btn-primary px-6 w-100" >
             <KTIcon iconName="document" className="fs-2" />
             <span className="d-flex flex-column align-items-start ms-2">
               <span className="fs-5 fw-bolder">One Click Setup</span>

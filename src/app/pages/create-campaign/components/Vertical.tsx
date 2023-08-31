@@ -21,6 +21,11 @@ const Vertical = () => {
   const [currentSchema, setCurrentSchema] = useState(createAccountSchemas[0]);
   const [initValues] = useState<ICreateAccount>(inits);
 
+  useEffect(() => {
+    const searchParams = new URLSearchParams(document.location.search);
+    console.log("searchParams type : ", searchParams.get("type"));
+  }, []);
+
   const loadStepper = () => {
     stepper.current = StepperComponent.createInsance(
       stepperRef.current as HTMLDivElement
@@ -72,11 +77,35 @@ const Vertical = () => {
     <>
       <div
         ref={stepperRef}
-        className="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid"
+        className="stepper stepper-pills stepper-column d-flex flex-column flex-md-row flex-row-fluid"
         id="kt_create_account_stepper"
       >
+        <div
+          
+          className="stepper stepper-links d-flex d-md-none flex-column pt-15"
+          id="kt_create_account_stepper"
+        >
+
+<div className='d-flex mx-auto mw-600px w-100 pt-5'>
+            <div className='stepwizard-tablist'>
+              <ul className='stepwizard-tablist-list'>
+                <li
+                  className='stepwizard-tablist-list-item current'
+                  data-kt-stepper-element='nav'
+                ></li>
+                <li className='stepwizard-tablist-list-item' data-kt-stepper-element='nav'></li>
+                <li className='stepwizard-tablist-list-item' data-kt-stepper-element='nav'></li>
+                <li className='stepwizard-tablist-list-item' data-kt-stepper-element='nav'></li>
+                <li className='stepwizard-tablist-list-item' data-kt-stepper-element='nav'></li>
+                
+              </ul>
+            </div>
+          </div>
+          
+        </div>
+
         {/* begin::Aside*/}
-        <div className="card d-flex justify-content-center justify-content-xl-start flex-row-auto w-100 w-xl-300px w-xxl-400px me-9">
+        <div className="card d-none d-md-flex justify-content-center justify-content-xl-start flex-row-auto w-100 w-md-300px w-xxl-400px me-9">
           {/* begin::Wrapper*/}
           <div className="card-body px-6 px-lg-10 px-xxl-15 py-20 d-flex align-items-center">
             {/* begin::Nav*/}
@@ -91,20 +120,15 @@ const Vertical = () => {
                   {/* begin::Icon*/}
                   <div className="stepper-icon w-40px h-40px">
                     <i className="stepper-check fas fa-check"></i>
-                    <span className="stepper-number">
-                      <KTIcon
-                        iconName="chart-simple"
-                        className="fs-1 me-n1 minimize-default"
-                      />
-                    </span>
+                    <span className="stepper-number">1</span>
                   </div>
                   {/* end::Icon*/}
 
                   {/* begin::Label*/}
                   <div className="stepper-label">
-                    <h3 className="stepper-title">Account Type</h3>
+                    <h3 className="stepper-title">Goal</h3>
 
-                    <div className="stepper-desc fw-semibold">
+                    <div className="stepper-desc fw-semibold d-none">
                       Setup Your Account Details
                     </div>
                   </div>
@@ -131,8 +155,8 @@ const Vertical = () => {
 
                   {/* begin::Label*/}
                   <div className="stepper-label">
-                    <h3 className="stepper-title">Account Settings</h3>
-                    <div className="stepper-desc fw-semibold">
+                    <h3 className="stepper-title">Template</h3>
+                    <div className="stepper-desc fw-semibold d-none">
                       Setup Your Account Settings
                     </div>
                   </div>
@@ -159,8 +183,8 @@ const Vertical = () => {
 
                   {/* begin::Label*/}
                   <div className="stepper-label">
-                    <h3 className="stepper-title">Business Info</h3>
-                    <div className="stepper-desc fw-semibold">
+                    <h3 className="stepper-title">Settings</h3>
+                    <div className="stepper-desc fw-semibold d-none">
                       Your Business Related Info
                     </div>
                   </div>
@@ -187,8 +211,8 @@ const Vertical = () => {
 
                   {/* begin::Label*/}
                   <div className="stepper-label">
-                    <h3 className="stepper-title">Billing Details</h3>
-                    <div className="stepper-desc fw-semibold">
+                    <h3 className="stepper-title">Studio</h3>
+                    <div className="stepper-desc fw-semibold d-none">
                       Set Your Payment Methods
                     </div>
                   </div>
@@ -215,8 +239,8 @@ const Vertical = () => {
 
                   {/* begin::Label*/}
                   <div className="stepper-label">
-                    <h3 className="stepper-title">Completed</h3>
-                    <div className="stepper-desc fw-semibold">
+                    <h3 className="stepper-title">Review</h3>
+                    <div className="stepper-desc fw-semibold d-none">
                       Woah, we are here
                     </div>
                   </div>
@@ -240,7 +264,7 @@ const Vertical = () => {
           >
             {() => (
               <Form
-                className="py-20 w-100 w-xl-700px px-9"
+                className="py-20 w-100 w-xl-900px px-9"
                 noValidate
                 id="kt_create_account_form"
               >

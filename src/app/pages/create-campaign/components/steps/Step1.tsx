@@ -8,7 +8,7 @@ const Step1: FC = () => {
     <div className='w-100'>
       <div className='pb-10 pb-lg-15'>
         <h2 className='fw-bolder d-flex align-items-center text-dark'>
-          Choose Account Type
+          Choose Goal
           
         </h2>
 
@@ -17,7 +17,7 @@ const Step1: FC = () => {
 
       <div className='fv-row'>
         <div className='row'>
-          <div className='col-lg-6'>
+          <div className='col-lg-4'>
             <Field
               type='radio'
               className='btn-check'
@@ -40,7 +40,30 @@ const Step1: FC = () => {
             </label>
           </div>
 
-          <div className='col-lg-6'>
+          <div className='col-lg-4'>
+            <Field
+              type='radio'
+              className='btn-check'
+              name='accountType'
+              value='corporate'
+              id='kt_create_account_form_account_type_corporate'
+            />
+            <label
+              className='btn btn-outline btn-outline-dashed btn-outline-default p-7 d-flex align-items-center mb-10'
+              htmlFor='kt_create_account_form_account_type_corporate'
+            >
+              <KTIcon iconName='briefcase' className='fs-3x me-5' />
+
+              <span className='d-block fw-bold text-start'>
+                <span className='text-dark fw-bolder d-block fs-4 mb-2'>One Click Setup</span>
+                <span className='text-gray-400 fw-bold fs-6'>
+                  Create corporate account to mane users
+                </span>
+              </span>
+            </label>
+          </div>
+
+          <div className='col-lg-4'>
             <Field
               type='radio'
               className='btn-check'

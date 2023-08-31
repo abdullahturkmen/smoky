@@ -13,7 +13,13 @@ export function AsideMenuMain() {
   ];
   return (
     <>
-      <Select options={options} placeholder="Domains" className="mt-4"/>
+      <div className="menu-item">
+        <Select
+          options={options}
+          placeholder="Domains"
+          className="mt-4 form-control form-control-solid p-0"
+        />
+      </div>
       <div className="menu-item">
         <div className="menu-content pt-8 pb-2">
           <span className="menu-section text-muted text-uppercase fs-8 ls-1"></span>
