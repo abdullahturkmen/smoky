@@ -81,31 +81,39 @@ const Vertical = () => {
         id="kt_create_account_stepper"
       >
         <div
-          
           className="stepper stepper-links d-flex d-md-none flex-column pt-15"
           id="kt_create_account_stepper"
         >
-
-<div className='d-flex mx-auto mw-600px w-100 pt-5'>
-            <div className='stepwizard-tablist'>
-              <ul className='stepwizard-tablist-list'>
+          <div className="d-flex mx-auto mw-600px w-100 pt-5">
+            <div className="stepwizard-tablist mw-75 m-auto">
+              <ul className="stepwizard-tablist-list">
                 <li
-                  className='stepwizard-tablist-list-item current'
-                  data-kt-stepper-element='nav'
+                  className="stepwizard-tablist-list-item current"
+                  data-kt-stepper-element="nav"
                 ></li>
-                <li className='stepwizard-tablist-list-item' data-kt-stepper-element='nav'></li>
-                <li className='stepwizard-tablist-list-item' data-kt-stepper-element='nav'></li>
-                <li className='stepwizard-tablist-list-item' data-kt-stepper-element='nav'></li>
-                <li className='stepwizard-tablist-list-item' data-kt-stepper-element='nav'></li>
-                
+                <li
+                  className="stepwizard-tablist-list-item"
+                  data-kt-stepper-element="nav"
+                ></li>
+                <li
+                  className="stepwizard-tablist-list-item"
+                  data-kt-stepper-element="nav"
+                ></li>
+                <li
+                  className="stepwizard-tablist-list-item"
+                  data-kt-stepper-element="nav"
+                ></li>
+                <li
+                  className="stepwizard-tablist-list-item"
+                  data-kt-stepper-element="nav"
+                ></li>
               </ul>
             </div>
           </div>
-          
         </div>
 
         {/* begin::Aside*/}
-        <div className="card d-none d-md-flex justify-content-center justify-content-xl-start flex-row-auto w-100 w-md-300px w-xxl-400px me-9">
+        <div className="max-vh-100card d-none d-md-flex justify-content-center justify-content-xl-start flex-row-auto w-100 w-md-300px w-xxl-400px me-9">
           {/* begin::Wrapper*/}
           <div className="card-body px-6 px-lg-10 px-xxl-15 py-20 d-flex align-items-center">
             {/* begin::Nav*/}
@@ -306,7 +314,7 @@ const Vertical = () => {
                       type="submit"
                       className="btn btn-lg btn-primary me-3"
                     >
-                      <span className="indicator-label">
+                      <span className="indicator-label d-flex align-items-center">
                         {stepper.current?.currentStepIndex !==
                           stepper.current?.totalStepsNumber! - 1 && "Continue"}
                         {stepper.current?.currentStepIndex ===

@@ -1,198 +1,101 @@
-import React, {FC} from 'react'
-import {KTIcon} from '../../../../../_metronic/helpers'
-import {ErrorMessage, Field} from 'formik'
+import React, { FC, useState } from "react";
+import { KTIcon } from "../../../../../_metronic/helpers";
+import clsx from "clsx";
 
 const Step2: FC = () => {
-  return (
-    <div className='w-100'>
-      <div className='pb-10 pb-lg-15'>
-        <h2 className='fw-bolder text-dark'>Template Details</h2>
+  const [tab, setTab] = useState("all");
 
-        <div className='text-gray-400 fw-bold fs-6 d-none'>
+  const templateList = [
+    { types: "banner", title: "bu bir banner1 " },
+    { types: "banner", title: "bu bir banner 5" },
+    { types: "banner", title: "bu bir banner 2" },
+    { types: "banner", title: "bu bir banner 3" },
+    { types: "banner", title: "bu bir banner 4" },
+    { types: "popup", title: "bu bir popup " },
+    { types: "popup", title: "bu bir popup 5" },
+    { types: "popup", title: "bu bir popup 2" },
+    { types: "popup", title: "bu bir popup 3" },
+    { types: "popup", title: "bu bir popup 4" },
+  ];
+
+  return (
+    <div className="w-100">
+      <div className="pb-10 pb-lg-15">
+        <h2 className="fw-bolder text-dark">Template Details</h2>
+
+        <div className="text-gray-400 fw-bold fs-6 d-none">
           If you need more info, please check out
-          <a href='/dashboard' className='link-primary fw-bolder'>
-            {' '}
+          <a href="/dashboard" className="link-primary fw-bolder">
+            {" "}
             Help Page
           </a>
           .
         </div>
       </div>
 
-      <div className='mb-10 fv-row'>
-        <label className='d-flex align-items-center form-label mb-3'>
-          Specify Team Size
-          <i
-            className='fas fa-exclamation-circle ms-2 fs-7'
-            data-bs-toggle='tooltip'
-            title='Provide your team size to help us setup your billing'
-          ></i>
+      <div className="mb-10 fv-row">
+        <label className="d-flex align-items-center form-label mb-3">
+          Select one of the templates optimized to achieve your goal.
         </label>
-
-        <div className='row mb-2' data-kt-buttons='true'>
-          <div className='col'>
-            <Field
-              type='radio'
-              className='btn-check'
-              name='accountTeamSize'
-              value='1-1'
-              id='kt_account_team_size_select_1'
-            />
-            <label
-              className='btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4'
-              htmlFor='kt_account_team_size_select_1'
-            >
-              <span className='fw-bolder fs-3'>1-1</span>
-            </label>
-          </div>
-
-          <div className='col'>
-            <Field
-              type='radio'
-              className='btn-check'
-              name='accountTeamSize'
-              value='2-10'
-              id='kt_account_team_size_select_2'
-            />
-            <label
-              className='btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4'
-              htmlFor='kt_account_team_size_select_2'
-            >
-              <span className='fw-bolder fs-3'>2-10</span>
-            </label>
-          </div>
-
-          <div className='col'>
-            <Field
-              type='radio'
-              className='btn-check'
-              name='accountTeamSize'
-              value='10-50'
-              id='kt_account_team_size_select_3'
-            />
-            <label
-              className='btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4'
-              htmlFor='kt_account_team_size_select_3'
-            >
-              <span className='fw-bolder fs-3'>10-50</span>
-            </label>
-          </div>
-
-          <div className='col'>
-            <Field
-              type='radio'
-              className='btn-check'
-              name='accountTeamSize'
-              value='50+'
-              id='kt_account_team_size_select_4'
-            />
-            <label
-              className='btn btn-outline btn-outline-dashed btn-outline-default w-100 p-4'
-              htmlFor='kt_account_team_size_select_4'
-            >
-              <span className='fw-bolder fs-3'>50+</span>
-            </label>
-          </div>
-        </div>
-
-        <div className='form-text'>
-          Customers will see this shortened version of your statement descriptor
-        </div>
       </div>
 
-      <div className='mb-10 fv-row'>
-        <label className='form-label mb-3'>Team Account Name</label>
-
-        <Field
-          type='text'
-          className='form-control form-control-lg form-control-solid'
-          name='accountName'
-        />
-        <div className='text-danger mt-2'>
-          <ErrorMessage name='accountName' />
-        </div>
-      </div>
-
-      <div className='mb-0 fv-row'>
-        <label className='d-flex align-items-center form-label mb-5'>
-          Select Account Plan
-          <i
-            className='fas fa-exclamation-circle ms-2 fs-7'
-            data-bs-toggle='tooltip'
-            title='Monthly billing will be based on your account plan'
-          ></i>
-        </label>
-
-        <div className='mb-0'>
-          <label className='d-flex flex-stack mb-5 cursor-pointer'>
-            <span className='d-flex align-items-center me-2'>
-              <span className='symbol symbol-50px me-6'>
-                <span className='symbol-label'>
-                  <KTIcon iconName='bank' className='fs-1 text-gray-600' />
-                </span>
-              </span>
-
-              <span className='d-flex flex-column'>
-                <span className='fw-bolder text-gray-800 text-hover-primary fs-5'>
-                  Company Account
-                </span>
-                <span className='fs-6 fw-bold text-gray-400'>
-                  Use images to enhance your post flow
-                </span>
-              </span>
-            </span>
-
-            <span className='form-check form-check-custom form-check-solid'>
-              <Field className='form-check-input' type='radio' name='accountPlan' value='1' />
-            </span>
-          </label>
-
-          <label className='d-flex flex-stack mb-5 cursor-pointer'>
-            <span className='d-flex align-items-center me-2'>
-              <span className='symbol symbol-50px me-6'>
-                <span className='symbol-label'>
-                  <KTIcon iconName='chart' className='fs-1 text-gray-600' />
-                </span>
-              </span>
-
-              <span className='d-flex flex-column'>
-                <span className='fw-bolder text-gray-800 text-hover-primary fs-5'>
-                  Developer Account
-                </span>
-                <span className='fs-6 fw-bold text-gray-400'>Use images to your post time</span>
-              </span>
-            </span>
-
-            <span className='form-check form-check-custom form-check-solid'>
-              <Field className='form-check-input' type='radio' name='accountPlan' value='2' />
-            </span>
-          </label>
-
-          <label className='d-flex flex-stack mb-0 cursor-pointer'>
-            <span className='d-flex align-items-center me-2'>
-              <span className='symbol symbol-50px me-6'>
-                <span className='symbol-label'>
-                  <KTIcon iconName='chart-pie-4' className='fs-1 text-gray-600' />
-                </span>
-              </span>
-
-              <span className='d-flex flex-column'>
-                <span className='fw-bolder text-gray-800 text-hover-primary fs-5'>
-                  Testing Account
-                </span>
-                <span className='fs-6 fw-bold text-gray-400'>
-                  Use images to enhance time travel rivers
-                </span>
-              </span>
-            </span>
-
-            <span className='form-check form-check-custom form-check-solid'>
-              <Field className='form-check-input' type='radio' name='accountPlan' value='3' />
-            </span>
-          </label>
-        </div>
+      <ul className="nav nav-pills">
+        <li className="nav-item">
+          <a
+            className={clsx(`nav-link  `, { "active ": tab === "all" })}
+            onClick={() => setTab("all")}
+            aria-current="page"
+            href="#"
+          >
+            All
+          </a>
+        </li>
+        <li className="nav-item">
+          <a
+            className={clsx(`nav-link  `, { "active ": tab === "popup" })}
+            onClick={() => setTab("popup")}
+            href="#"
+          >
+            Popup
+          </a>
+        </li>
+        <li className="nav-item">
+          <a
+            className={clsx(`nav-link  `, { "active ": tab === "banner" })}
+            onClick={() => setTab("banner")}
+            href="#"
+          >
+            Banner
+          </a>
+        </li>
+      </ul>
+      <div className="row flex-wrap">
+        {templateList?.map((e) => (
+          <>
+            <div
+              className={`col-6 p-5 
+        ${tab != "all" && tab != e.types ? "d-none" : ""}
+       
+    `}
+            >
+              <div className="card">
+                <div className="card-body">
+                  <h5 className="card-title">{e.title}</h5>
+                  <p className="card-text">
+                    Some quick example text to build on the card title and make
+                    up the bulk of the card's content.
+                  </p>
+                  <a href="#" className="btn btn-primary">
+                    Go somewhere
+                  </a>
+                </div>
+              </div>
+            </div>
+          </>
+        ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export {Step2}
+export { Step2 };
