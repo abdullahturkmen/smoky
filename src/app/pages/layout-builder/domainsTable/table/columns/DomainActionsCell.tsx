@@ -6,6 +6,7 @@ import { ID, KTIcon, QUERIES } from '../../../../../../_metronic/helpers'
 import { useListView } from '../../core/ListViewProvider'
 import { useQueryResponse } from '../../core/QueryResponseProvider'
 import { deleteDomain } from '../../core/_requests'
+import { Link } from "react-router-dom";
 
 type Props = {
   id: ID
@@ -20,7 +21,7 @@ const DomainActionsCell: FC<Props> = ({ id }) => {
     MenuComponent.reinitialization()
   }, [])
 
-  const openEditModal = () => {
+  const openEditUrlModal = () => {
     setItemIdForUpdate(id)
   }
 
@@ -47,13 +48,9 @@ const DomainActionsCell: FC<Props> = ({ id }) => {
         data-kt-menu='true'
       >
         <div className='menu-item px-3'>
-          <a
-            className='menu-link px-3'
-            data-kt-users-table-filter='delete_row'
-            onClick={async () => await deleteItem.mutateAsync()}
-          >
-            Install
-          </a>
+        <Link className='menu-link' to='/settings?type=Install'>
+          Install
+          </Link>
         </div>
         <div className='menu-item px-3'>
           <a
@@ -68,13 +65,13 @@ const DomainActionsCell: FC<Props> = ({ id }) => {
           <a
             className='menu-link px-3'
             data-kt-users-table-filter='delete_row'
-            onClick={async () => await deleteItem.mutateAsync()}
+            onClick={openEditUrlModal}
           >
             Edit URL
           </a>
         </div>
         <div className='menu-item px-3'>
-          <a className='menu-link px-3' onClick={openEditModal}>
+          <a className='menu-link px-3'>
             Deactivate
           </a>
         </div>

@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import clsx from 'clsx'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {KTIcon} from '../../../_metronic/helpers'
 import {getLayout, ILayout, LayoutSetup, useLayout} from '../../../_metronic/layout/core'
 import {UsersListWrapper} from './usersTable/UsersList'
@@ -12,8 +12,10 @@ import {BillingScreen} from './billing/BillingScreen'
 import AdvancedSettingsScreen from './AdvancedSettingsScreen'
 import InstallScreen from './InstallScreen'
 import { ProfileScreen } from './ProfileScreen'
+import { useNavigate } from "react-router-dom";
 
 const SettingsPage: React.FC = () => {
+  const navigate = useNavigate();
   const {setLayout} = useLayout()
   const [tab, setTab] = useState('Profile')
   const [config, setConfig] = useState<ILayout>(getLayout())
@@ -45,7 +47,13 @@ const SettingsPage: React.FC = () => {
       setResetLoading(false)
     }, 1000)
   }
+  const searchParams = new URLSearchParams(document.location.search);
+  useEffect(() => {
+    
+    setTab(searchParams.get("type") || 'Profile')
+    console.log("searchParams type -- : ", searchParams.get("type"));
 
+  }, [searchParams.get("type")]);
   return (
     <>
       <div className=' card-custom'>
