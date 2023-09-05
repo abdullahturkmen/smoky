@@ -11,6 +11,15 @@ export function Overview() {
   const [mail, setMail] = useState<string>('abdullahtrkmn13@gmail.com');
   const [country, setCountry] = useState<string>('Turkey');
 
+  const cancelProfile = () => {
+    setUserName('Abdullah Türkmen');
+    setCompany('Türkmenx');
+    setPhone('0537 299 70 45');
+    setMail('abdullahtrkmn13@gmail.com');
+    setCountry('Turkey');
+    setEditModeVisible(false);
+  };
+
   const countryList = [
     "Afghanistan",
     "Albania",
@@ -382,7 +391,7 @@ export function Overview() {
               <select id="country" name="country" className="form-select form-select-solid form-select-lg" onChange={(e) => setCountry(e.target.value)}>
 
                 {countryList?.map(e => (
-                  <option value={e} selected={e == country}>{e}</option>
+                  <option value={e} selected={e === country}>{e}</option>
                 ))}
               
               
@@ -403,6 +412,7 @@ export function Overview() {
             </div>
           </div>
         <div className="d-flex justify-content-end">
+        {editModeVisible && <div onClick={cancelProfile} className="btn btn-danger align-self-end me-3">Cancel</div>}
         {editModeVisible && <div onClick={() => setEditModeVisible(false)} className="btn btn-success align-self-end">Save</div>}
         </div></div>
       </div>
