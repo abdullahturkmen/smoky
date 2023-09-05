@@ -6,16 +6,9 @@ const Step2: FC = () => {
   const [tab, setTab] = useState("all");
 
   const templateList = [
-    { types: "banner", title: "bu bir banner1 " },
-    { types: "banner", title: "bu bir banner 5" },
-    { types: "banner", title: "bu bir banner 2" },
-    { types: "banner", title: "bu bir banner 3" },
-    { types: "banner", title: "bu bir banner 4" },
-    { types: "popup", title: "bu bir popup " },
-    { types: "popup", title: "bu bir popup 5" },
-    { types: "popup", title: "bu bir popup 2" },
-    { types: "popup", title: "bu bir popup 3" },
-    { types: "popup", title: "bu bir popup 4" },
+    { types: "popup", title: "bu popup 1" },
+    { types: "popup", title: "bu popup 2" },
+    { types: "banner", title: "bu bir banner" },
   ];
 
   return (

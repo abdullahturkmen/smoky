@@ -5,7 +5,7 @@ import {ErrorMessage, Field} from 'formik'
 
 const Step1: FC = () => {
   return (
-    <div className='w-100'>
+    <div className='w-100  w-xl-1000px m-auto'>
       <div className='pb-10 pb-lg-15'>
         <h2 className='fw-bolder d-flex align-items-center text-dark'>
           Choose Goal

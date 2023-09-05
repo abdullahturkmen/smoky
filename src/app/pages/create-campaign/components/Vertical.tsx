@@ -113,7 +113,7 @@ const Vertical = () => {
         </div>
 
         {/* begin::Aside*/}
-        <div className="max-vh-100card d-none d-md-flex justify-content-center justify-content-xl-start flex-row-auto w-100 w-md-300px w-xxl-400px me-9">
+        <div style={{maxHeight: '100vh'}} className="card d-none d-md-flex justify-content-center justify-content-xl-start flex-row-auto w-100 w-md-300px w-xxl-400px me-9">
           {/* begin::Wrapper*/}
           <div className="card-body px-6 px-lg-10 px-xxl-15 py-20 d-flex align-items-center">
             {/* begin::Nav*/}
@@ -272,7 +272,7 @@ const Vertical = () => {
           >
             {() => (
               <Form
-                className="py-20 w-100 w-xl-900px px-9"
+                className="py-20 w-100 px-5"
                 noValidate
                 id="kt_create_account_form"
               >
