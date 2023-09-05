@@ -46,8 +46,10 @@ const DomainEditModalForm: FC<Props> = ({user, isDomainLoading}) => {
     setItemIdForUpdate(undefined)
   }
 
-  const blankImg = toAbsoluteUrl('/media/svg/avatars/blank.svg')
-  const userAvatarImg = toAbsoluteUrl(`/media/${userForEdit.avatar}`)
+  const editDomainURL =()=>{
+    // backende formik.values.name değeri gönderilmeli
+    console.log('fonk çalıştı', formik.values.name)
+  }
 
   const formik = useFormik({
     initialValues: userForEdit,
@@ -139,6 +141,7 @@ const DomainEditModalForm: FC<Props> = ({user, isDomainLoading}) => {
             className='btn btn-primary'
             data-kt-users-modal-action='submit'
             disabled={isDomainLoading || formik.isSubmitting || !formik.isValid || !formik.touched}
+            onClick={editDomainURL}
           >
             <span className='indicator-label'>Submit</span>
             {(formik.isSubmitting || isDomainLoading) && (
