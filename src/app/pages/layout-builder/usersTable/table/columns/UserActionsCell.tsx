@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import {FC, useEffect} from 'react'
+import {FC, useEffect, useState} from 'react'
 import {useMutation, useQueryClient} from 'react-query'
 import {MenuComponent} from '../../../../../../_metronic/assets/ts/components'
 import {ID, KTIcon, QUERIES} from '../../../../../../_metronic/helpers'
 import {useListView} from '../../core/ListViewProvider'
 import {useQueryResponse} from '../../core/QueryResponseProvider'
-import {deleteUser} from '../../core/_requests'
+import {deleteUser, getUserById } from '../../core/_requests'
 
 type Props = {
   id: ID
@@ -15,19 +15,26 @@ const UserActionsCell: FC<Props> = ({id}) => {
   const {setItemIdForUpdate} = useListView()
   const {query} = useQueryResponse()
   const queryClient = useQueryClient()
+  const [user, setUser] = useState<any>(null)
 
   useEffect(() => {
     MenuComponent.reinitialization()
   }, [])
 
-  const openEditModal = () => {
-    setItemIdForUpdate(id)
-  }
+  const openEditModal = async () => {
+    try {
+      const userData = await getUserById(id);
+      if (userData) {
+        setUser(userData);
+      }
+    } catch (error) {
+      console.error(error);
+    }
 
+    setItemIdForUpdate(id);
+  };
   const deleteItem = useMutation(() => deleteUser(id), {
-    // 💡 response of the mutation is passed to onSuccess
     onSuccess: () => {
-      // ✅ update detail view directly
       queryClient.invalidateQueries([`${QUERIES.USERS_LIST}-${query}`])
     },
   })
@@ -36,12 +43,11 @@ const UserActionsCell: FC<Props> = ({id}) => {
     <>
       <a
         href='#'
-        className='btn btn-light btn-active-light-primary btn-sm'
+        className='btn btn-sm btn-icon btn-bg-light btn-active-color-primary'
         data-kt-menu-trigger='click'
         data-kt-menu-placement='bottom-end'
       >
-        Actions
-        <KTIcon iconName='down' className='fs-5 m-0' />
+        <KTIcon iconName='dots-horizontal' className='fs-2 m-0' />
       </a>
       {/* begin::Menu */}
       <div
