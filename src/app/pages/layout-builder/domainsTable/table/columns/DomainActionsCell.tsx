@@ -55,7 +55,7 @@ const DomainActionsCell: FC<Props> = ({ id }) => {
         <div className='menu-item px-3'>
           <a
             className='menu-link px-3'
-            data-bs-toggle="modal" data-bs-target="#customCampaign"
+            data-bs-toggle="modal" data-bs-target="#EditAccessModal"
           >
             Edit Access
           </a>
@@ -70,7 +70,7 @@ const DomainActionsCell: FC<Props> = ({ id }) => {
           </a>
         </div>
         <div className='menu-item px-3'>
-          <a className='menu-link px-3'>
+          <a className='menu-link px-3' data-bs-toggle="modal" data-bs-target="#EditDeactivateModal">
             Deactivate
           </a>
         </div>

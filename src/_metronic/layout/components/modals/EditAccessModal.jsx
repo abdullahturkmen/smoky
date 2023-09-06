@@ -1,70 +1,64 @@
-import React from 'react'
+import { React, useState } from 'react'
 import { KTIcon } from '../../../helpers'
+import Select from "react-select";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 function EditAccessModal() {
+  const [selectedRole, setSelectedRole] = useState('');
+  const roleOptions = [
+    { value: "admin", label: "Admin" },
+    { value: "editor", label: "Editor" },
+  ];
+
+  const changeRole = (selectedOption) => {
+    console.log('change', selectedOption.value)
+    setSelectedRole(selectedOption);
+  };
+
+  const changeAccess = () => {
+    console.log('test', selectedRole.value)
+    toast.success('Changed access', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  }
+
   return (
     <>
-    {/* begin::modalCustomCampaign */}
-    <div className="modal modal-lg fade" id="customCampaign">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h3 className="modal-title">Custom Campaign</h3>
-
-              <div
-                className="btn btn-icon btn-sm btn-active-light-primary ms-2"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              >
-                <i className="ki-duotone ki-cross fs-1">
-                  <span className="path1"></span>
-                  <span className="path2"></span>
-                </i>
+    <ToastContainer/>
+      <div class="modal fade" id="EditAccessModal" aria-hidden="true" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="modal-title">Edit Access</h2>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div className="menu-item">
+                <label className="fw-bold fs-6">Invite editors</label>
+                <Select
+                  options={roleOptions}
+                  placeholder="Role"
+                  className="mt-4 form-control form-control-solid p-0"
+                  value={selectedRole}
+                  onChange={changeRole}
+                />
               </div>
             </div>
-
-            <div className="modal-body">
-              <div className="d-block fs-5 mb-4">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Voluptatibus nulla quisquam placeat ex reprehenderit
-              </div>
-              <div className="d-flex">
-                <button className="d-flex flex-column align-items-center p-6 m-2 border border-dark rounded bg-white">
-                  <KTIcon
-                    iconName="entrance-left"
-                    className="fs-1 text-dark"
-                  />
-                  <h2 className="h2 my-4 text-primary">Title One</h2>
-                  <div className="fs-5">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                  </div>
-                </button>
-                <button className="d-flex flex-column align-items-center p-6 m-2 border border-dark rounded bg-white">
-                  <KTIcon
-                    iconName="entrance-left"
-                    className="fs-1 text-dark"
-                  />
-                  <h2 className="h2 my-4 text-primary">Title Two</h2>
-                  <div className="fs-5">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                  </div>
-                </button>
-                <button className="d-flex flex-column align-items-center p-6 m-2 border border-dark rounded bg-white">
-                  <KTIcon
-                    iconName="entrance-left"
-                    className="fs-1 text-dark"
-                  />
-                  <h2 className="h2 my-4 text-primary">Title Three</h2>
-                  <div className="fs-5">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                  </div>
-                </button>
-              </div>
+            <div class="modal-footer justify-content-center text-center pt-15">
+              <button class="btn btn-light" data-bs-dismiss="modal">Discard</button>
+              <button class="btn btn-primary" onClick={changeAccess}>Submit</button>
             </div>
           </div>
         </div>
       </div>
-      {/* end::modalCustomCampaign */}
     </>
   )
 }
