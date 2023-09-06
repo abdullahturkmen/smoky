@@ -96,9 +96,6 @@ const CreditCards = () => {
                         className="btn btn-sm btn-light btn-active-light-primary me-3"
                         data-kt-billing-action="card-delete"
                         onClick={() => {
-                          // Kartı silmek için bir işlev ekleyebilirsiniz
-                          // setCards ile state'i güncelleyebilirsiniz
-                          // Örnek olarak, seçili kartı kaldırabilirsiniz
                           setCards((prevCards) =>
                             prevCards.filter((c) => c.id !== card.id)
                           );
