@@ -2,11 +2,15 @@
 import { FC } from "react";
 import { useLayout } from "../core";
 import { KTIcon } from "../../helpers";
+import Modals from "./modals/Modals";
 
 const Footer: FC = () => {
   const { classes } = useLayout();
   return (
-    <></>
+    <>
+    <Modals/>
+     
+      </>
     // <div className='footer py-4 d-flex flex-lg-column' id='kt_footer'>
     //   {/* begin::Container */}
     //   <div

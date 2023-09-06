@@ -63,14 +63,6 @@ const HeaderToolbar = () => {
             {/* begin::Actions */}
             <div className="d-flex align-items-center">
               {/* begin::Action */}
-              <a
-                href="#"
-                className="btn btn-sm btn-icon btn-icon-muted btn-active-icon-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#kt_modal_invite_friends"
-              >
-                <KTIcon iconName="files" className="fs-1" />
-              </a>
 
               <PopupsListFilter />
 

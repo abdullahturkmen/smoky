@@ -55,8 +55,7 @@ const DomainActionsCell: FC<Props> = ({ id }) => {
         <div className='menu-item px-3'>
           <a
             className='menu-link px-3'
-            data-kt-users-table-filter='delete_row'
-            onClick={async () => await deleteItem.mutateAsync()}
+            data-bs-toggle="modal" data-bs-target="#customCampaign"
           >
             Edit Access
           </a>
