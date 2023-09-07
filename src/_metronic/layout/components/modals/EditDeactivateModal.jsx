@@ -34,7 +34,7 @@ function EditDeactivateModal() {
               Are you sure you want to change this status?
               </div>
             </div>
-            <div class="modal-footer justify-content-center text-center">
+            <div class="modal-footer">
               <button class="btn btn-light" data-bs-dismiss="modal">Discard</button>
               <button class="btn btn-primary" onClick={changeStatus}>Submit</button>
             </div>

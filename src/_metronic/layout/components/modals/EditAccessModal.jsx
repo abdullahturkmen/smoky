@@ -52,7 +52,7 @@ function EditAccessModal() {
                 />
               </div>
             </div>
-            <div class="modal-footer justify-content-center text-center pt-15">
+            <div class="modal-footer">
               <button class="btn btn-light" data-bs-dismiss="modal">Discard</button>
               <button class="btn btn-primary" onClick={changeAccess}>Submit</button>
             </div>
