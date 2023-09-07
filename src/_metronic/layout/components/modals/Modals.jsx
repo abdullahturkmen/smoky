@@ -3,6 +3,9 @@ import EditAccessModal from './EditAccessModal'
 import EditDeactivateModal from './EditDeactivateModal'
 import AddPaymentCardModal from './AddPaymentCardModal'
 import EditDeactivateAccount from './EditDeactivateAccount'
+import DeletePaymentCardModal from './DeletePaymentCardModal'
+import DeleteBillingAddressModal from './DeleteBillingAddressModal'
+import AddBillingAddressModal from './AddBillingAddressModal'
 function Modals() {
   return (
     <>
@@ -10,6 +13,9 @@ function Modals() {
     <EditDeactivateModal/>
     <AddPaymentCardModal/>
     <EditDeactivateAccount/>
+    <DeletePaymentCardModal/>
+    <DeleteBillingAddressModal/>
+    <AddBillingAddressModal/>
     </>
   )
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AddPaymentCardModal from "../../../../_metronic/layout/components/modals/AddPaymentCardModal";
+
 const CreditCards = () => {
   // Kart bilgilerini saklamak için bir state oluşturalım
   const [cards, setCards] = useState([
@@ -101,13 +101,11 @@ const CreditCards = () => {
 
                     <div className="d-flex align-items-center py-2">
                       <button
+                        type="button"
                         className="btn btn-sm btn-light btn-active-light-primary me-3"
                         data-kt-billing-action="card-delete"
-                        onClick={() => {
-                          setCards((prevCards) =>
-                            prevCards.filter((c) => c.id !== card.id)
-                          );
-                        }}
+                        data-bs-toggle="modal"
+                        data-bs-target="#DeletePaymentCardModal"
                       >
                         <span className="indicator-label">Delete</span>
 
@@ -125,12 +123,12 @@ const CreditCards = () => {
                       >
                         Edit
                       </button>
-                      {isEditModalOpen && (
+                      {/* {isEditModalOpen && (
                         <AddPaymentCardModal
                           selectedCard={selectedCard}
                           onClose={closeEditModal}
                         />
-                      )}
+                      )} */}
                     </div>
                   </div>
                 </div>
