@@ -1,8 +1,8 @@
-import { React, useState } from 'react'
-import { KTIcon } from '../../../helpers'
+import React, { useState } from 'react';
 import Select from "react-select";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
+import ModalComponent from './ModalComponent';
 
 function EditAccessModal() {
   const [selectedRole, setSelectedRole] = useState('');
@@ -33,43 +33,20 @@ function EditAccessModal() {
   return (
     <>
       <ToastContainer />
-      <div class="modal fade" id="EditAccessModal" aria-hidden="true" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h2 class="modal-title">Edit Access</h2>
-              <div
-                className="btn btn-icon btn-sm btn-active-light-primary ms-2"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              >
-                <i className="ki-duotone ki-cross fs-1">
-                  <span className="path1"></span>
-                  <span className="path2"></span>
-                </i>
-              </div>
-            </div>
-            <div class="modal-body">
-              <div className="menu-item">
-                <label className="fw-bold fs-6">Invite editors</label>
-                <Select
-                  options={roleOptions}
-                  placeholder="Role"
-                  className="mt-4 form-control form-control-solid p-0"
-                  value={selectedRole}
-                  onChange={changeRole}
-                />
-              </div>
-            </div>
-            <div class="modal-footer d-flex justify-content-center border-top-0">
-              <button class="btn btn-light" data-bs-dismiss="modal">Discard</button>
-              <button class="btn btn-primary" onClick={changeAccess}>Submit</button>
-            </div>
-          </div>
+      <ModalComponent ids={'EditAccessModal'} onSubmit={changeAccess} title={'Edit Access'} submitText={'Submit'} submitBg={'btn btn-primary'} discardText={'Discard'} discardBg={'btn btn-light'}>
+        <div className="menu-item">
+          <label className="fw-bold fs-6">Invite editors</label>
+          <Select
+            options={roleOptions}
+            placeholder="Role"
+            className="mt-4 form-control form-control-solid p-0"
+            value={selectedRole}
+            onChange={changeRole}
+          />
         </div>
-      </div>
+      </ModalComponent>
     </>
-  )
+  );
 }
 
-export default EditAccessModal
+export default EditAccessModal;

@@ -89,8 +89,7 @@ const DeactivateAccount: React.FC = () => {
               type="button"
               className="btn btn-danger fw-bold"
               disabled={!checked}
-              data-bs-toggle="modal"
-              data-bs-target="#kt_modal_1"
+              data-bs-toggle="modal" data-bs-target="#EditDeactivateAccount"
             >
               {!loading && "Deactivate Account"}
               {loading && (
@@ -107,45 +106,6 @@ const DeactivateAccount: React.FC = () => {
         </div>
       </div>
 
-      <div className="modal fade" id="kt_modal_1">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h3 className="modal-title">Are you sure?</h3>
-
-              <div
-                className="btn btn-icon btn-sm btn-active-light-primary ms-2"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              >
-                <i className="ki-duotone ki-cross fs-1">
-                  <span className="path1"></span>
-                  <span className="path2"></span>
-                </i>
-              </div>
-            </div>
-
-            <div className="modal-body">
-              <p className="fs-5">
-                Your profile will remain closed until you activate it again!
-              </p>
-            </div>
-
-            <div className="modal-footer d-flex justify-content-center border-top-0">
-              <button
-                type="button"
-                className="btn btn-light"
-                data-bs-dismiss="modal"
-              >
-                Discard
-              </button>
-              <button type="button" className="btn btn-primary">
-                Yes, Deactivate My Account
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
     </>
   );
 };

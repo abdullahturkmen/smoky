@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import AddPaymentCardModal from "../../../../_metronic/layout/components/modals/AddPaymentCardModal";
 const CreditCards = () => {
   // Kart bilgilerini saklamak için bir state oluşturalım
   const [cards, setCards] = useState([
@@ -30,10 +30,18 @@ const CreditCards = () => {
   ]);
 
   const [selectedCard, setSelectedCard] = useState(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+
+
+  const closeEditModal = () => {
+    setIsEditModalOpen(false);
+  };
 
   const selectCard = (card) => {
-    console.log('selectedCard', selectedCard)
+    console.log('card', card)
     setSelectedCard(card);
+    setIsEditModalOpen(true);
   };
 
   return (
@@ -109,15 +117,20 @@ const CreditCards = () => {
                         </span>
                       </button>
                       <button
+                        type="button"
                         className="btn btn-sm btn-light btn-active-light-primary"
                         data-bs-toggle="modal"
-                        data-bs-target="#kt_modal_new_card"
-                        onClick={() => {
-                          selectCard(card);
-                        }}
+                        data-bs-target="#AddPaymentCardModal"
+                        onClick={() => selectCard(card)}
                       >
                         Edit
                       </button>
+                      {isEditModalOpen && (
+                        <AddPaymentCardModal
+                          selectedCard={selectedCard}
+                          onClose={closeEditModal}
+                        />
+                      )}
                     </div>
                   </div>
                 </div>
@@ -150,7 +163,7 @@ const CreditCards = () => {
             </div>
           </div>
 
-        
+
         </div>
       </div>
     </>
