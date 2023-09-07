@@ -32,13 +32,22 @@ function EditAccessModal() {
 
   return (
     <>
-    <ToastContainer/>
+      <ToastContainer />
       <div class="modal fade" id="EditAccessModal" aria-hidden="true" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
               <h2 class="modal-title">Edit Access</h2>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <div
+                className="btn btn-icon btn-sm btn-active-light-primary ms-2"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              >
+                <i className="ki-duotone ki-cross fs-1">
+                  <span className="path1"></span>
+                  <span className="path2"></span>
+                </i>
+              </div>
             </div>
             <div class="modal-body">
               <div className="menu-item">
@@ -52,7 +61,7 @@ function EditAccessModal() {
                 />
               </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer d-flex justify-content-center border-top-0">
               <button class="btn btn-light" data-bs-dismiss="modal">Discard</button>
               <button class="btn btn-primary" onClick={changeAccess}>Submit</button>
             </div>

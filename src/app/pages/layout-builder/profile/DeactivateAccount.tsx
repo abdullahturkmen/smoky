@@ -81,7 +81,6 @@ const DeactivateAccount: React.FC = () => {
                 I confirm my account deactivation
               </label>
             </div>
-            
           </div>
 
           <div className="card-footer d-flex justify-content-end py-6 px-9">
@@ -132,7 +131,7 @@ const DeactivateAccount: React.FC = () => {
               </p>
             </div>
 
-            <div className="modal-footer">
+            <div className="modal-footer d-flex justify-content-center border-top-0">
               <button
                 type="button"
                 className="btn btn-light"
