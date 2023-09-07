@@ -9,14 +9,31 @@ import ModalComponent from './ModalComponent';
 function AddPaymentCardModal({ selectedCard, onClose }) {
     const maskGenerator = createDefaultMaskGenerator('9999 9999 9999 9999');
 
-    var obj = {
-        number: selectedCard ? selectedCard?.number : '',
-        expiry: selectedCard ? selectedCard?.expiry : '',
-        cvc: selectedCard ? selectedCard?.cvc : '',
-        name: selectedCard ? selectedCard?.name : '',
+   
+
+    const degerler = {
+        number:  '',
+        expiry:  '',
+        cvc:  '',
+        name: '',
         focus: '',
         isCardFlipped: false,
     }
+
+    useEffect(() => {
+        console.log('selectedCard-- 1', selectedCard)   
+        
+        if(!!selectedCard)     {
+            console.log('selectedCard-- 2', selectedCard)   
+            console.log("degerler : ", degerler)
+            console.log("asd : ", selectedCard['cardNumber'])
+            degerler['name'] = selectedCard['name']
+            degerler['number'] = selectedCard['cardNumber']
+            degerler['expiry'] = selectedCard['expiration']
+
+            
+        }
+    }, [selectedCard]);
     // const [state, setState] = useState({
     //     number: selectedCard ? selectedCard?.number : '12345',
     //     expiry: '',
@@ -26,9 +43,7 @@ function AddPaymentCardModal({ selectedCard, onClose }) {
     //     isCardFlipped: false,
     // });
 
-    useEffect(() => {
-        console.log('selectedCard--', selectedCard)        
-    }, [selectedCard]);
+   
 
     const inputChange = (evt) => {
         const { name, value } = evt.target;
@@ -36,18 +51,18 @@ function AddPaymentCardModal({ selectedCard, onClose }) {
         if (name === 'number' && value.length > 16) {
             return;
         }
-        obj[name] = value
+        degerler[name] = value
         // setState((prev) => ({ ...prev, [name]: value }));
     }
 
     const inputFocus = (evt) => {
-        obj['focus'] = evt.target.name
+        degerler['focus'] = evt.target.name
         // setState((prev) => ({ ...prev, focus: evt.target.name }));
     }
 
     const cvvFocus = () => {
-        obj['isCardFlipped'] = true
-        obj['focus'] = 'cvc'
+        degerler['isCardFlipped'] = true
+        degerler['focus'] = 'cvc'
         // setState({
         //     ...state,
         //     isCardFlipped: true,
@@ -56,8 +71,8 @@ function AddPaymentCardModal({ selectedCard, onClose }) {
     };
 
     const cvvBlur = () => {
-        obj['isCardFlipped'] = false
-        obj['focus'] = ''
+        degerler['isCardFlipped'] = false
+        degerler['focus'] = ''
         // setState({
         //     ...state,
         //     isCardFlipped: false,
@@ -66,8 +81,8 @@ function AddPaymentCardModal({ selectedCard, onClose }) {
     };
 
     const expiryFocus = () => {
-        obj['isCardFlipped'] = false
-        obj['focus'] = 'expiry'
+        degerler['isCardFlipped'] = false
+        degerler['focus'] = 'expiry'
         // setState({
         //     ...state,
         //     isCardFlipped: false,
@@ -75,11 +90,11 @@ function AddPaymentCardModal({ selectedCard, onClose }) {
         // });
     };
     const setCardNumber = (value) => {
-        obj['number'] = value
+        degerler['number'] = value
         // setState((prev) => ({ ...prev, ['number']: value }));
     }
     const addCard = () => {
-        console.log('number', obj)
+        console.log('number', degerler)
         toast.success('Added card', {
             position: "top-right",
             autoClose: 5000,
@@ -114,13 +129,14 @@ function AddPaymentCardModal({ selectedCard, onClose }) {
                     <div className='d-flex flex-column flex-lg-row align-items-center'>
 
                         <div className='col-12 col-lg-6'>
+                            {console.log("degerler ekran:", degerler)}
                             <Cards
-                                number={obj.number}
-                                expiry={obj.expiry}
-                                cvc={obj.cvc}
-                                name={obj.name}
-                                focused={obj.focus}
-                                isCardFlipped={obj.isCardFlipped}
+                                number={degerler.number}
+                                expiry={degerler.expiry}
+                                cvc={degerler.cvc}
+                                name={degerler.name}
+                                focused={degerler.focus}
+                                isCardFlipped={degerler.isCardFlipped}
                             />
                         </div>
                         <form className='col-12 col-lg-6'>
@@ -132,7 +148,7 @@ function AddPaymentCardModal({ selectedCard, onClose }) {
                                 maskGenerator={maskGenerator}
                                 name='number'
                                 placeholder="Card Number"
-                                value={obj.number}
+                                value={degerler.number}
                                 onChange={setCardNumber}
                                 onFocus={inputFocus}
                                 className={'form-control form-control-solid mb-3 mb-lg-0'}
@@ -146,7 +162,7 @@ function AddPaymentCardModal({ selectedCard, onClose }) {
                                 name='name'
                                 className={'form-control form-control-solid mb-3 mb-lg-0'}
                                 autoComplete='off'
-                                value={obj.name}
+                                value={degerler.name}
                                 onChange={inputChange}
                             />
 
@@ -158,14 +174,14 @@ function AddPaymentCardModal({ selectedCard, onClose }) {
                                 type="text"
                                 name="cvc"
                                 placeholder="CVV/CVC"
-                                value={obj.cvc}
+                                value={degerler.cvc}
                                 onChange={inputChange}
                                 onFocus={cvvFocus}
                                 onBlur={cvvBlur}
                                 className={'form-control form-control-solid mb-3 mb-lg-0'}
                                 autoComplete="off"
                             />
-
+234234x-{degerler.number}-x234234
                             <label className="required fw-bold fs-6 mb-2 mt-4">Expiry</label>
                             <InputMask
                                 mask="99/99"
@@ -173,7 +189,7 @@ function AddPaymentCardModal({ selectedCard, onClose }) {
                                 type="text"
                                 name="expiry"
                                 placeholder="MM/YY"
-                                value={obj.expiry}
+                                value={degerler.expiry}
                                 onChange={inputChange}
                                 onFocus={expiryFocus}
                                 className={'form-control form-control-solid mb-3 mb-lg-0'}
