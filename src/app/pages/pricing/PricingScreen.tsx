@@ -1,8 +1,70 @@
-import React from "react";
+import React, { useState } from "react";
+
+type Plan = {
+  name: string;
+  description: string;
+  priceMonthly: number;
+  priceAnnual: number;
+  features: { name: string; isAvailable: boolean }[];
+};
+
+const plans: Plan[] = [
+  {
+    name: "Startup",
+    description: "Optimal for 10+ team size and new startup",
+    priceMonthly: 39,
+    priceAnnual: 399,
+    features: [
+      { name: "Up to 10 Active Users", isAvailable: true },
+      { name: "Up to 30 Project Integrations", isAvailable: true },
+      { name: "Analytics Module", isAvailable: true },
+      { name: "Finance Module", isAvailable: false },
+      { name: "Accounting Module", isAvailable: false },
+      { name: "Network Platform", isAvailable: false },
+      { name: "Unlimited Cloud Space", isAvailable: false },
+    ],
+  },
+  {
+    name: "Advanced",
+    description: "Optimal for 100+ team size and grown company",
+    priceMonthly: 339,
+    priceAnnual: 3399,
+    features: [
+      { name: "Up to 10 Active Users", isAvailable: true },
+      { name: "Up to 30 Project Integrations", isAvailable: true },
+      { name: "Analytics Module", isAvailable: true },
+      { name: "Finance Module", isAvailable: true },
+      { name: "Accounting Module", isAvailable: true },
+      { name: "Network Platform", isAvailable: false },
+      { name: "Unlimited Cloud Space", isAvailable: false },
+    ],
+  },
+  {
+    name: "Enterprise",
+    description: "Optimal for 1000+ team and enterprise",
+    priceMonthly: 999,
+    priceAnnual: 9999,
+    features: [
+      { name: "Up to 10 Active Users", isAvailable: true },
+      { name: "Up to 30 Project Integrations", isAvailable: true },
+      { name: "Analytics Module", isAvailable: true },
+      { name: "Finance Module", isAvailable: true },
+      { name: "Accounting Module", isAvailable: true },
+      { name: "Network Platform", isAvailable: true },
+      { name: "Unlimited Cloud Space", isAvailable: true },
+    ],
+  },
+];
 
 type Props = {};
 
-const PricingScreen: React.FC<Props> = ({}) => {
+const PricingScreen: React.FC<Props> = ({ }) => {
+  const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
+
+  const handleSelectPlan = (plan: Plan) => {
+    setSelectedPlan(plan);
+  };
+
   return (
     <>
       <div className="card" id="kt_pricing">
@@ -19,8 +81,7 @@ const PricingScreen: React.FC<Props> = ({}) => {
                 .
               </div>
             </div>
-
-            <div
+            {/* <div
               className="nav-group nav-group-outline mx-auto mb-15"
               data-kt-buttons="true"
               data-kt-initialized="1"
@@ -38,327 +99,77 @@ const PricingScreen: React.FC<Props> = ({}) => {
               >
                 Annual
               </button>
-            </div>
-
+            </div> */}
             <div className="row g-10">
-              <div className="col-xl-4">
-                <div className="d-flex h-100 align-items-center">
-                  <div className="w-100 d-flex flex-column flex-center rounded-3 bg-light bg-opacity-75 py-15 px-10">
-                    <div className="mb-7 text-center">
-                      <h1 className="text-dark mb-5 fw-bolder">Startup</h1>
+              {plans.map((plan, index) => (
+                <div className="col-xl-4" key={index}>
+                  <div className="d-flex h-100 align-items-center">
+                    <div className="w-100 d-flex flex-column flex-center rounded-3 bg-light bg-opacity-75 py-15 px-10">
+                      <div className="mb-7 text-center">
+                        <h1 className="text-dark mb-5 fw-bolder">
+                          {plan.name}
+                        </h1>
 
-                      <div className="text-gray-600 fw-semibold mb-5">
-                        Optimal for 10+ team size
-                        <br /> and new startup
+                        <div className="text-gray-600 fw-semibold mb-5">
+                          {plan.description}
+                        </div>
+
+                        <div className="text-center">
+                          <span className="mb-2 text-primary">$</span>
+
+                          <span
+                            className="fs-3x fw-bold text-primary"
+                            data-kt-plan-price-month={plan.priceMonthly}
+                            data-kt-plan-price-annual={plan.priceAnnual}
+                          >
+                            {selectedPlan === plan ? (
+                              selectedPlan.priceMonthly
+                            ) : (
+                              <span>{plan.priceMonthly}</span>
+                            )}{" "}
+                          </span>
+
+                          <span className="fs-7 fw-semibold opacity-50">
+                            /<span data-kt-element="period">Mon</span>
+                          </span>
+                        </div>
                       </div>
 
-                      <div className="text-center">
-                        <span className="mb-2 text-primary">$</span>
-
-                        <span
-                          className="fs-3x fw-bold text-primary"
-                          data-kt-plan-price-month="39"
-                          data-kt-plan-price-annual="399"
-                        >
-                          39{" "}
-                        </span>
-
-                        <span className="fs-7 fw-semibold opacity-50">
-                          /<span data-kt-element="period">Mon</span>
-                        </span>
+                      <div className="w-100 mb-10">
+                        {plan.features.map((feature, featureIndex) => (
+                          <div
+                            className="d-flex align-items-center mb-5"
+                            key={featureIndex}
+                          >
+                            <span className="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">
+                              {feature.name}
+                            </span>
+                            {feature.isAvailable ? (
+                              <i className="ki-duotone ki-check-circle fs-1 text-success">
+                                <span className="path1"></span>
+                                <span className="path2"></span>
+                              </i>
+                            ) : (
+                              <i className="ki-duotone ki-cross-circle fs-1">
+                                <span className="path1"></span>
+                                <span className="path2"></span>
+                              </i>
+                            )}
+                          </div>
+                        ))}
                       </div>
+
+                      <button
+                        onClick={() => handleSelectPlan(plan)}
+                        className={`btn btn-sm btn-primary ${selectedPlan === plan ? "disabled" : ""
+                          }`}
+                      >
+                        {selectedPlan === plan ? "Selected" : "Select"}
+                      </button>
                     </div>
-
-                    <div className="w-100 mb-10">
-                      <div className="d-flex align-items-center mb-5">
-                        <span className="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">
-                          Up to 10 Active Users{" "}
-                        </span>
-                        <i className="ki-duotone ki-check-circle fs-1 text-success">
-                          <span className="path1"></span>
-                          <span className="path2"></span>
-                        </i>
-                      </div>
-
-                      <div className="d-flex align-items-center mb-5">
-                        <span className="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">
-                          Up to 30 Project Integrations{" "}
-                        </span>
-                        <i className="ki-duotone ki-check-circle fs-1 text-success">
-                          <span className="path1"></span>
-                          <span className="path2"></span>
-                        </i>
-                      </div>
-
-                      <div className="d-flex align-items-center mb-5">
-                        <span className="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">
-                          Analytics Module{" "}
-                        </span>
-                        <i className="ki-duotone ki-check-circle fs-1 text-success">
-                          <span className="path1"></span>
-                          <span className="path2"></span>
-                        </i>
-                      </div>
-
-                      <div className="d-flex align-items-center mb-5">
-                        <span className="fw-semibold fs-6 text-gray-600 flex-grow-1">
-                          Finance Module{" "}
-                        </span>
-                        <i className="ki-duotone ki-cross-circle fs-1">
-                          <span className="path1"></span>
-                          <span className="path2"></span>
-                        </i>
-                      </div>
-
-                      <div className="d-flex align-items-center mb-5">
-                        <span className="fw-semibold fs-6 text-gray-600 flex-grow-1">
-                          Accounting Module{" "}
-                        </span>
-                        <i className="ki-duotone ki-cross-circle fs-1">
-                          <span className="path1"></span>
-                          <span className="path2"></span>
-                        </i>
-                      </div>
-
-                      <div className="d-flex align-items-center mb-5">
-                        <span className="fw-semibold fs-6 text-gray-600 flex-grow-1">
-                          Network Platform{" "}
-                        </span>
-                        <i className="ki-duotone ki-cross-circle fs-1">
-                          <span className="path1"></span>
-                          <span className="path2"></span>
-                        </i>
-                      </div>
-
-                      <div className="d-flex align-items-center ">
-                        <span className="fw-semibold fs-6 text-gray-600 flex-grow-1">
-                          Unlimited Cloud Space{" "}
-                        </span>
-                        <i className="ki-duotone ki-cross-circle fs-1">
-                          <span className="path1"></span>
-                          <span className="path2"></span>
-                        </i>
-                      </div>
-                    </div>
-
-                    <a href="#" className="btn btn-sm btn-primary">
-                      Select
-                    </a>
                   </div>
                 </div>
-              </div>
-              <div className="col-xl-4">
-                <div className="d-flex h-100 align-items-center">
-                  <div className="w-100 d-flex flex-column flex-center rounded-3 bg-light bg-opacity-75 py-20 px-10">
-                    <div className="mb-7 text-center">
-                      <h1 className="text-dark mb-5 fw-bolder">Advanced</h1>
-
-                      <div className="text-gray-600 fw-semibold mb-5">
-                        Optimal for 100+ team siz
-                        <br />e and grown company
-                      </div>
-
-                      <div className="text-center">
-                        <span className="mb-2 text-primary">$</span>
-
-                        <span
-                          className="fs-3x fw-bold text-primary"
-                          data-kt-plan-price-month="339"
-                          data-kt-plan-price-annual="3399"
-                        >
-                          339{" "}
-                        </span>
-
-                        <span className="fs-7 fw-semibold opacity-50">
-                          /<span data-kt-element="period">Mon</span>
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="w-100 mb-10">
-                      <div className="d-flex align-items-center mb-5">
-                        <span className="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">
-                          Up to 10 Active Users{" "}
-                        </span>
-                        <i className="ki-duotone ki-check-circle fs-1 text-success">
-                          <span className="path1"></span>
-                          <span className="path2"></span>
-                        </i>
-                      </div>
-                      <div className="d-flex align-items-center mb-5">
-                        <span className="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">
-                          Up to 30 Project Integrations{" "}
-                        </span>
-                        <i className="ki-duotone ki-check-circle fs-1 text-success">
-                          <span className="path1"></span>
-                          <span className="path2"></span>
-                        </i>
-                      </div>
-
-                      <div className="d-flex align-items-center mb-5">
-                        <span className="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">
-                          Analytics Module{" "}
-                        </span>
-                        <i className="ki-duotone ki-check-circle fs-1 text-success">
-                          <span className="path1"></span>
-                          <span className="path2"></span>
-                        </i>
-                      </div>
-
-                      <div className="d-flex align-items-center mb-5">
-                        <span className="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">
-                          Finance Module{" "}
-                        </span>
-                        <i className="ki-duotone ki-check-circle fs-1 text-success">
-                          <span className="path1"></span>
-                          <span className="path2"></span>
-                        </i>
-                      </div>
-
-                      <div className="d-flex align-items-center mb-5">
-                        <span className="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">
-                          Accounting Module{" "}
-                        </span>
-                        <i className="ki-duotone ki-check-circle fs-1 text-success">
-                          <span className="path1"></span>
-                          <span className="path2"></span>
-                        </i>
-                      </div>
-
-                      <div className="d-flex align-items-center mb-5">
-                        <span className="fw-semibold fs-6 text-gray-600 flex-grow-1">
-                          Network Platform{" "}
-                        </span>
-                        <i className="ki-duotone ki-cross-circle fs-1">
-                          <span className="path1"></span>
-                          <span className="path2"></span>
-                        </i>
-                      </div>
-
-                      <div className="d-flex align-items-center ">
-                        <span className="fw-semibold fs-6 text-gray-600 flex-grow-1">
-                          Unlimited Cloud Space{" "}
-                        </span>
-                        <i className="ki-duotone ki-cross-circle fs-1">
-                          <span className="path1"></span>
-                          <span className="path2"></span>
-                        </i>
-                      </div>
-                    </div>
-
-                    <a href="#" className="btn btn-sm btn-primary">
-                      Select
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-xl-4">
-                <div className="d-flex h-100 align-items-center">
-                  <div className="w-100 d-flex flex-column flex-center rounded-3 bg-light bg-opacity-75 py-15 px-10">
-                    <div className="mb-7 text-center">
-                      <h1 className="text-dark mb-5 fw-bolder">Enterprise</h1>
-
-                      <div className="text-gray-600 fw-semibold mb-5">
-                        Optimal for 1000+ team
-                        <br /> and enterpise
-                      </div>
-
-                      <div className="text-center">
-                        <span className="mb-2 text-primary">$</span>
-
-                        <span
-                          className="fs-3x fw-bold text-primary"
-                          data-kt-plan-price-month="999"
-                          data-kt-plan-price-annual="9999"
-                        >
-                          999{" "}
-                        </span>
-
-                        <span className="fs-7 fw-semibold opacity-50">
-                          /<span data-kt-element="period">Mon</span>
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="w-100 mb-10">
-                      <div className="d-flex align-items-center mb-5">
-                        <span className="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">
-                          Up to 10 Active Users{" "}
-                        </span>
-                        <i className="ki-duotone ki-check-circle fs-1 text-success">
-                          <span className="path1"></span>
-                          <span className="path2"></span>
-                        </i>
-                      </div>
-
-                      <div className="d-flex align-items-center mb-5">
-                        <span className="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">
-                          Up to 30 Project Integrations{" "}
-                        </span>
-                        <i className="ki-duotone ki-check-circle fs-1 text-success">
-                          <span className="path1"></span>
-                          <span className="path2"></span>
-                        </i>
-                      </div>
-
-                      <div className="d-flex align-items-center mb-5">
-                        <span className="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">
-                          Analytics Module{" "}
-                        </span>
-                        <i className="ki-duotone ki-check-circle fs-1 text-success">
-                          <span className="path1"></span>
-                          <span className="path2"></span>
-                        </i>
-                      </div>
-
-                      <div className="d-flex align-items-center mb-5">
-                        <span className="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">
-                          Finance Module{" "}
-                        </span>
-                        <i className="ki-duotone ki-check-circle fs-1 text-success">
-                          <span className="path1"></span>
-                          <span className="path2"></span>
-                        </i>
-                      </div>
-
-                      <div className="d-flex align-items-center mb-5">
-                        <span className="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">
-                          Accounting Module{" "}
-                        </span>
-                        <i className="ki-duotone ki-check-circle fs-1 text-success">
-                          <span className="path1"></span>
-                          <span className="path2"></span>
-                        </i>
-                      </div>
-
-                      <div className="d-flex align-items-center mb-5">
-                        <span className="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">
-                          Network Platform{" "}
-                        </span>
-                        <i className="ki-duotone ki-check-circle fs-1 text-success">
-                          <span className="path1"></span>
-                          <span className="path2"></span>
-                        </i>
-                      </div>
-
-                      <div className="d-flex align-items-center ">
-                        <span className="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">
-                          Unlimited Cloud Space{" "}
-                        </span>
-                        <i className="ki-duotone ki-check-circle fs-1 text-success">
-                          <span className="path1"></span>
-                          <span className="path2"></span>
-                        </i>
-                      </div>
-                    </div>
-
-                    <a href="#" className="btn btn-sm btn-primary">
-                      Select
-                    </a>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>

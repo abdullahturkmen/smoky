@@ -77,7 +77,7 @@ const NeverPaid: React.FC<Props> = ({}) => {
                 className='btn btn-primary'
                to='/pricing'
               >
-                Upgrade Plan
+                Upgrade Plan gjh
               </Link>
             </div>
           </div>
