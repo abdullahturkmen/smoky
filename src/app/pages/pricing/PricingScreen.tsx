@@ -61,7 +61,7 @@ type Props = {};
 const PricingScreen: React.FC<Props> = ({ }) => {
   const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
 
-  const handleSelectPlan = (plan: Plan) => {
+  const planSelect = (plan: Plan) => {
     setSelectedPlan(plan);
   };
 
@@ -160,7 +160,7 @@ const PricingScreen: React.FC<Props> = ({ }) => {
                       </div>
 
                       <button
-                        onClick={() => handleSelectPlan(plan)}
+                        onClick={() => planSelect(plan)}
                         className={`btn btn-sm btn-primary ${selectedPlan === plan ? "disabled" : ""
                           }`}
                       >
