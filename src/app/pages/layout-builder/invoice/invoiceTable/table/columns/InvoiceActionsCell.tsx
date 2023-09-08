@@ -36,12 +36,12 @@ const InvoiceActionsCell: FC<Props> = ({id}) => {
     <>
       <a
         href='#'
-        className='btn btn-light btn-active-light-primary btn-sm'
+        className='btn btn-sm btn-icon btn-bg-light btn-active-color-primary'
         data-kt-menu-trigger='click'
         data-kt-menu-placement='bottom-end'
       >
         
-        <KTIcon iconName='dots-circle' className='fs-1 m-0' />
+        <KTIcon iconName='dots-horizontal' className='fs-2 m-0' />
       </a>
       {/* begin::Menu */}
       <div

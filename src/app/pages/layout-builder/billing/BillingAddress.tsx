@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import EditBillingAddressModal from "../../../../_metronic/layout/components/modals/EditBillingAddressModal";
 
 const BillingAddress = () => {
   const [addresses, setAddresses] = useState([
@@ -62,7 +63,7 @@ const BillingAddress = () => {
                 <div className="card card-dashed h-xl-100 flex-row flex-stack flex-wrap p-6">
                   <div className="d-flex flex-column py-2">
                     <div className="d-flex align-items-center fs-5 fw-bold mb-3">
-                      Address {address.id} 1234
+                      Address {address.id}
                     </div>
 
                     <div className="fs-6 fw-semibold text-gray-600">
@@ -91,9 +92,10 @@ const BillingAddress = () => {
                       </span>
                     </button>
                     <button
+                      type="button"
                       className="btn btn-sm btn-light btn-active-light-primary"
                       data-bs-toggle="modal"
-                      data-bs-target="#kt_modal_edit_address"
+                      data-bs-target="#EditBillingAddressModal"
                       onClick={() => selectAddress(address)}
                     >
                       Edit
@@ -130,6 +132,12 @@ const BillingAddress = () => {
           </div>
         </div>
       </div>
+
+      {isEditModalOpen && ( 
+        <EditBillingAddressModal
+        editedAddressProp={selectedAddress}
+        />
+      )}
     </>
   );
 };

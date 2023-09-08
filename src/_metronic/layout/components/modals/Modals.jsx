@@ -6,6 +6,7 @@ import EditDeactivateAccount from './EditDeactivateAccount'
 import DeletePaymentCardModal from './DeletePaymentCardModal'
 import DeleteBillingAddressModal from './DeleteBillingAddressModal'
 import AddBillingAddressModal from './AddBillingAddressModal'
+import EditBillingAddressModal from './EditBillingAddressModal'
 function Modals() {
   return (
     <>
@@ -16,6 +17,7 @@ function Modals() {
     <DeletePaymentCardModal/>
     <DeleteBillingAddressModal/>
     <AddBillingAddressModal/>
+    <EditBillingAddressModal/>
     </>
   )
 }
