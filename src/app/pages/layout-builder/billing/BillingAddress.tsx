@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import EditBillingAddressModal from "../../../../_metronic/layout/components/modals/EditBillingAddressModal";
 
 const BillingAddress = () => {
   const [addresses, setAddresses] = useState([
@@ -10,6 +9,7 @@ const BillingAddress = () => {
       state: "HI",
       zip: "93373",
       country: "US",
+      primary: false,
     },
     {
       id: 2,
@@ -18,6 +18,7 @@ const BillingAddress = () => {
       state: "IL",
       zip: "62701",
       country: "US",
+      primary: true,
     },
     {
       id: 3,
@@ -26,23 +27,23 @@ const BillingAddress = () => {
       state: "CA",
       zip: "94601",
       country: "US",
+      primary: false,
     },
   ]);
 
-  const [selectedAddress, setSelectedAddress] = useState(null);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
-  const closeEditModal = () => {
-    setIsEditModalOpen(false);
+  const sortObjectsByPrimary = (arr) => {
+    return arr.sort((a, b) => {
+      if (a.primary === true && b.primary === false) return -1; // a önce gelmeli
+      if (a.primary === false && b.primary === true) return 1; // b önce gelmeli
+      return 0; // Değerler eşit
+    });
   };
 
-  const selectAddress = (address) => {
-    setSelectedAddress(address);
-    setIsEditModalOpen(true);
+  const makePrimary = (addressId) => {
+    console.log("adres id : ", addressId);
   };
 
-  useEffect(() => {
-  }, []);
 
   return (
     <>
@@ -54,7 +55,7 @@ const BillingAddress = () => {
         </div>
         <div className="card-body p-9">
           <div className="row gx-9 gy-6">
-            {addresses.map((address) => (
+            {sortObjectsByPrimary(addresses).map((address) => (
               <div
                 className="col-xl-6"
                 key={address.id}
@@ -64,6 +65,11 @@ const BillingAddress = () => {
                   <div className="d-flex flex-column py-2">
                     <div className="d-flex align-items-center fs-5 fw-bold mb-3">
                       Address {address.id}
+                      {address.primary && (
+                        <span className="badge badge-light-success fs-7 ms-2">
+                          Primary
+                        </span>
+                      )}
                     </div>
 
                     <div className="fs-6 fw-semibold text-gray-600">
@@ -78,11 +84,10 @@ const BillingAddress = () => {
                   <div className="d-flex align-items-center py-2">
                     <button
                       type="button"
-                      className="btn btn-sm btn-light btn-active-light-primary me-3"
+                      className="btn btn-sm btn-danger btn-active-light-primary me-3"
                       data-kt-billing-action="address-delete"
                       data-bs-toggle="modal"
                       data-bs-target="#DeleteBillingAddressModal"
-
                     >
                       <span className="indicator-label">Delete</span>
 
@@ -91,15 +96,17 @@ const BillingAddress = () => {
                         <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
                       </span>
                     </button>
-                    <button
-                      type="button"
-                      className="btn btn-sm btn-light btn-active-light-primary"
-                      data-bs-toggle="modal"
-                      data-bs-target="#EditBillingAddressModal"
-                      onClick={() => selectAddress(address)}
-                    >
-                      Edit
-                    </button>
+                    {address.primary == false && (
+                      <>
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-light btn-active-light-primary"
+                          onClick={() => makePrimary(address.id)}
+                        >
+                          Set Primary
+                        </button>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -133,11 +140,7 @@ const BillingAddress = () => {
         </div>
       </div>
 
-      {isEditModalOpen && ( 
-        <EditBillingAddressModal
-        editedAddressProp={selectedAddress}
-        />
-      )}
+    
     </>
   );
 };

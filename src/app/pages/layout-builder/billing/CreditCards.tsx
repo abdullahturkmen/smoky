@@ -1,47 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const CreditCards = () => {
   // Kart bilgilerini saklamak için bir state oluşturalım
   const [cards, setCards] = useState([
     {
       id: 1,
-      name: "Marcus Morris",
+      name: "Marcus Morris 1",
       cardType: "Visa",
-      cardNumber: "**** 1679",
+      cardNumber: "9768 4567 9657 4566",
       expiration: "09/24",
-      primary: true,
-    },
-    {
-      id: 2,
-      name: "Jacob Holder",
-      cardType: "Mastercard",
-      cardNumber: "**** 2040",
-      expiration: "10/22",
+      cvv: "234",
       primary: false,
     },
     {
-      id: 3,
-      name: "Jhon Larson",
+      id: 2,
+      name: "Jacob Holder 2",
       cardType: "Mastercard",
-      cardNumber: "**** 1290",
+      cardNumber: "9867 8768 4567 2040",
+      expiration: "10/22",
+      cvv: "856",
+      primary: true,
+    },
+    {
+      id: 3,
+      name: "Jhon Larson 3",
+      cardType: "Mastercard",
+      cardNumber: "1234 4355 6543 1290",
       expiration: "03/23",
+      cvv: "567",
       primary: false,
     },
   ]);
 
-  const [selectedCard, setSelectedCard] = useState(null);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-
-
-
-  const closeEditModal = () => {
-    setIsEditModalOpen(false);
+  const sortObjectsByPrimary = (arr) => {
+    return arr.sort((a, b) => {
+      if (a.primary === true && b.primary === false) return -1; // a önce gelmeli
+      if (a.primary === false && b.primary === true) return 1; // b önce gelmeli
+      return 0; // Değerler eşit
+    });
   };
 
-  const selectCard = (card) => {
-    console.log('card', card)
-    setSelectedCard(card);
-    setIsEditModalOpen(true);
+  const maskCreditCardNumber = (cardNumber) => {
+    const numString = cardNumber.toString();
+    const firstThree = numString.slice(0, 3);
+    const lastThree = numString.slice(-3);
+    const middleStars = "*".repeat(numString.length - 6);
+    const maskedNumber = `${firstThree}${middleStars}${lastThree}`;
+    return maskedNumber;
+  };
+
+  const makePrimary = (cardId) => {
+    console.log("card id : ", cardId);
   };
 
   return (
@@ -64,7 +73,7 @@ const CreditCards = () => {
             aria-labelledby="kt_billing_creditcard_tab"
           >
             <div className="row gx-9 gy-6">
-              {cards.map((card) => (
+              {sortObjectsByPrimary(cards).map((card) => (
                 <div
                   className="col-xl-6"
                   key={card.id}
@@ -90,7 +99,8 @@ const CreditCards = () => {
 
                         <div>
                           <div className="fs-4 fw-bold">
-                            {card.cardType} {card.cardNumber}
+                            {card.cardType} <br />
+                            {maskCreditCardNumber(card.cardNumber)}
                           </div>
                           <div className="fs-6 fw-semibold text-gray-400">
                             Card expires at {card.expiration}
@@ -102,7 +112,7 @@ const CreditCards = () => {
                     <div className="d-flex align-items-center py-2">
                       <button
                         type="button"
-                        className="btn btn-sm btn-light btn-active-light-primary me-3"
+                        className="btn btn-sm btn-danger btn-active-light-primary me-3"
                         data-kt-billing-action="card-delete"
                         data-bs-toggle="modal"
                         data-bs-target="#DeletePaymentCardModal"
@@ -114,25 +124,22 @@ const CreditCards = () => {
                           <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
                         </span>
                       </button>
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-light btn-active-light-primary"
-                        data-bs-toggle="modal"
-                        data-bs-target="#AddPaymentCardModal"
-                        onClick={() => selectCard(card)}
-                      >
-                        Edit
-                      </button>
-                      {/* {isEditModalOpen && (
-                        <AddPaymentCardModal
-                          selectedCard={selectedCard}
-                          onClose={closeEditModal}
-                        />
-                      )} */}
+                      {card.primary == false && (
+                        <>
+                          <button
+                            type="button"
+                            className="btn btn-sm btn-light btn-active-light-primary"
+                            onClick={() => makePrimary(card.id)}
+                          >
+                            Set Primary
+                          </button>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>
               ))}
+
               <div className="col-xl-6">
                 <div className="notice d-flex bg-light-primary rounded border-primary border border-dashed h-lg-100 p-6">
                   <div className="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
@@ -151,7 +158,8 @@ const CreditCards = () => {
                     <a
                       href="#"
                       className="btn btn-primary px-6 align-self-center text-nowrap"
-                      data-bs-toggle="modal" data-bs-target="#AddPaymentCardModal"
+                      data-bs-toggle="modal"
+                      data-bs-target="#AddPaymentCardModal"
                     >
                       Add Card{" "}
                     </a>
@@ -160,8 +168,6 @@ const CreditCards = () => {
               </div>
             </div>
           </div>
-
-
         </div>
       </div>
     </>
