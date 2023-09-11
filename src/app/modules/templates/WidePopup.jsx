@@ -13,7 +13,12 @@ function WidePopup(props) {
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
+                            <div>
+                                <img src={props.image} alt='' className='w-100' />
+                            </div>
+                            <sub className="modal-title">{props.subTitle}</sub>
                             <p>{props.description}</p>
+                            <button className='btn btn-primary'> {props.buttonText} </button>
                         </div>
                     </div>
                 </div>
