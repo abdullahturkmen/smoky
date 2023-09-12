@@ -7,8 +7,7 @@ const Step3: FC = () => {
   const [buttonText, setButtonText] = useState('Button Text');
   const [title, setTitle] = useState('Pops Firması 234');
   const [description, setDescription] = useState('Lorem ipsum texti');
-  const [subTitle, setSubTitle] = useState('meroo');
-
+  const [subTitle, setSubTitle] = useState('Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae nihil nemo doloribus. ');
   const titleChange = (e) => {
     setTitle(e.target.value)
   }
@@ -73,7 +72,7 @@ const Step3: FC = () => {
           </div>
 
           <div className="fv-row mb-10">
-            <label className="form-label required">Sub Title</label>
+            <label className="form-label required">Subtitle</label>
             <Field
               name="subTitle"
               className="form-control form-control-lg form-control-solid"
