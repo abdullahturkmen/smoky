@@ -24,7 +24,7 @@ const AsideMenuItem: FC<Props & WithChildren> = ({
   const isActive = checkIsActive(pathname, to)
 
   return (
-    <div className='menu-item'>
+    <div className='menu-item mb-3'>
       <Link className={clsx('menu-link btn', {'bg-light-primary': isActive})} to={to}>
         {hasBullet && (
           <span className='menu-bullet'>
@@ -37,7 +37,7 @@ const AsideMenuItem: FC<Props & WithChildren> = ({
           </span>
         )}
         {fontIcon && <i className={clsx('bi fs-3', fontIcon)}></i>}
-        <span className='menu-title'>{title}</span>
+        <span className='menu-title h5 mb-0'>{title}</span>
       </Link>
       {children}
     </div>

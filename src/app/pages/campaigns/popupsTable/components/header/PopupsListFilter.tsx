@@ -31,16 +31,17 @@ const PopupsListFilter = () => {
         {/* end::Separator */}
 
         {/* begin::Content */}
-        <div className="px-7 py-5" >
-          <Link to='/create-campaign?type=custom' className="btn btn-flex btn-primary px-6 w-100 mb-3 cursor-pointer" >
+        <div>
+          <Link to='/create-campaign?type=custom' className="btn btn-flex btn-light px-6 w-100 cursor-pointer rounded-0" >
             <KTIcon iconName="wrench" className="fs-2" />
             <span className="d-flex flex-column align-items-start ms-2">
               <span className="fs-5 fw-bolder">Custom Campaign</span>
               <span className="fs-7">Some description</span>
             </span>
           </Link>
+          <div className="border border-secondary border-1 border-bottom-0"></div>
 
-          <Link to='create-campaign?type=quick' className="btn btn-flex btn-primary px-6 w-100" >
+          <Link to='create-campaign?type=quick' className="btn btn-flex btn-light px-6 w-100 cursor-pointer rounded-0" >
             <KTIcon iconName="document" className="fs-2" />
             <span className="d-flex flex-column align-items-start ms-2">
               <span className="fs-5 fw-bolder">One Click Setup</span>

@@ -1,167 +1,122 @@
-import React, {FC} from 'react'
-import {KTIcon, toAbsoluteUrl} from '../../../../../_metronic/helpers'
-import {ErrorMessage, Field} from 'formik'
+import React, { FC, useState } from "react";
+import { Field, ErrorMessage } from "formik";
+import WidePopup from "../../../../modules/templates/WidePopup";
 
 const Step4: FC = () => {
+  const [image, setImage] = useState<string | undefined>("");
+  const [buttonText, setButtonText] = useState('Button Text');
+  const [title, setTitle] = useState('Pops Firması');
+  const [description, setDescription] = useState('Lorem ipsum text');
+  const [subTitle, setSubTitle] = useState('Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae nihil nemo doloribus. ');
+  const titleChange = (e) => {
+    setTitle(e.target.value)
+  }
+
+  const buttonTextChange = (e) => {
+    setButtonText(e.target.value);
+  }
+
+  const subTitleChange = (e) => {
+    setSubTitle(e.target.value);
+  }
+
+  const imageChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        if (event.target && event.target.result) {
+          const base64String = event.target.result as string;
+          setImage(base64String);
+        }
+      };
+      reader.readAsDataURL(selectedFile);
+    } else {
+      setImage(""); 
+    }
+  }
+
+  const descriptionChange = (e) => {
+    setDescription(e.target.value)
+  }
   return (
-    <div className='w-100'>
-      <div className='pb-10 pb-lg-15'>
-        <h2 className='fw-bolder text-dark'>Studio</h2>
+    <div className="w-100">
+      <div className="pb-10 pb-lg-12">
+        <h2 className="fw-bolder text-dark">Studio</h2>
 
-        <div className='text-gray-400 fw-bold fs-6 d-none'>
+        <div className="text-gray-400 fw-bold fs-6 d-none">
           If you need more info, please check out
-          <a href='/dashboard' className='text-primary fw-bolder'>
-            {' '}
-            Help Page
-          </a>
-          .
         </div>
       </div>
 
-      <div className='d-flex flex-column mb-7 fv-row'>
-        <label className='d-flex align-items-center fs-6 fw-bold form-label mb-2'>
-          <span className='required'>Name On Card</span>
-          <i
-            className='fas fa-exclamation-circle ms-2 fs-7'
-            data-bs-toggle='tooltip'
-            title="Specify a card holder's name"
-          ></i>
-        </label>
-
-        <Field
-          type='text'
-          className='form-control form-control-solid'
-          placeholder=''
-          name='nameOnCard'
-        />
-        <div className='text-danger mt-2'>
-          <ErrorMessage name='nameOnCard' />
-        </div>
-      </div>
-
-      <div className='d-flex flex-column mb-7 fv-row'>
-        <label className='required fs-6 fw-bold form-label mb-2'>Card Number</label>
-
-        <div className='position-relative'>
-          <Field
-            type='text'
-            className='form-control form-control-solid'
-            placeholder='Enter card number'
-            name='cardNumber'
-          />
-          <div className='text-danger mt-2'>
-            <ErrorMessage name='cardNumber' />
+      <div className="row">
+        
+        <div className="col-lg-4 col-12">
+          <div className="fv-row mb-10">
+            <label className="form-label required">Image</label>
+            <input
+              type="file"
+              onChange={imageChange}
+              accept="image/*"/>
           </div>
 
-          <div className='position-absolute translate-middle-y top-50 end-0 me-5'>
-            <img src={toAbsoluteUrl('/media/svg/card-logos/visa.svg')} alt='' className='h-25px' />
-            <img
-              src={toAbsoluteUrl('/media/svg/card-logos/mastercard.svg')}
-              alt=''
-              className='h-25px'
-            />
-            <img
-              src={toAbsoluteUrl('/media/svg/card-logos/american-express.svg')}
-              alt=''
-              className='h-25px'
-            />
-          </div>
-        </div>
-      </div>
+          <div className="fv-row mb-10">
+            <label className="form-label required">Title</label>
 
-      <div className='row mb-10'>
-        <div className='col-md-8 fv-row'>
-          <label className='required fs-6 fw-bold form-label mb-2'>Expiration Date</label>
-
-          <div className='row fv-row'>
-            <div className='col-6'>
-              <Field as='select' name='cardExpiryMonth' className='form-select form-select-solid'>
-                <option></option>
-                <option value='1'>1</option>
-                <option value='2'>2</option>
-                <option value='3'>3</option>
-                <option value='4'>4</option>
-                <option value='5'>5</option>
-                <option value='6'>6</option>
-                <option value='7'>7</option>
-                <option value='8'>8</option>
-                <option value='9'>9</option>
-                <option value='10'>10</option>
-                <option value='11'>11</option>
-                <option value='12'>12</option>
-              </Field>
-              <div className='text-danger mt-2'>
-                <ErrorMessage name='cardExpiryMonth' />
-              </div>
-            </div>
-
-            <div className='col-6'>
-              <Field as='select' name='cardExpiryYear' className='form-select form-select-solid'>
-                <option></option>
-                <option value='2021'>2021</option>
-                <option value='2022'>2022</option>
-                <option value='2023'>2023</option>
-                <option value='2024'>2024</option>
-                <option value='2025'>2025</option>
-                <option value='2026'>2026</option>
-                <option value='2027'>2027</option>
-                <option value='2028'>2028</option>
-                <option value='2029'>2029</option>
-                <option value='2030'>2030</option>
-                <option value='2031'>2031</option>
-              </Field>
-              <div className='text-danger mt-2'>
-                <ErrorMessage name='cardExpiryYear' />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className='col-md-4 fv-row'>
-          <label className='d-flex align-items-center fs-6 fw-bold form-label mb-2'>
-            <span className='required'>CVV</span>
-            <i
-              className='fas fa-exclamation-circle ms-2 fs-7'
-              data-bs-toggle='tooltip'
-              title='Enter a card CVV code'
-            ></i>
-          </label>
-
-          <div className='position-relative'>
             <Field
-              type='text'
-              className='form-control form-control-solid'
-              minLength={3}
-              maxLength={4}
-              placeholder='CVV'
-              name='cardCvv'
+              name="businessName"
+              className="form-control form-control-lg form-control-solid"
+              value={title}
+              onChange={titleChange}
             />
-            <div className='text-danger mt-2'>
-              <ErrorMessage name='cardCvv' />
-            </div>
+          </div>
 
-            <div className='position-absolute translate-middle-y top-50 end-0 me-3'>
-              <KTIcon iconName='credit-cart' className='fs-2hx' />
+          <div className="fv-row mb-10">
+            <label className="form-label required">Subtitle</label>
+            <Field
+              name="subTitle"
+              className="form-control form-control-lg form-control-solid"
+              value={subTitle}
+              onChange={subTitleChange}
+            />
+          </div>
+
+          <div className="fv-row mb-10">
+            <label className="d-flex align-items-center form-label">
+              <span className="required">Description</span>
+            </label>
+
+            <Field
+              name="businessDescriptor"
+              className="form-control form-control-lg form-control-solid"
+              value={description}
+              onChange={descriptionChange}
+            />
+           
+
+            <div className="form-text">
+              Customers will see this shortened version of your statement
+              descriptor
             </div>
           </div>
-        </div>
-      </div>
 
-      <div className='d-flex flex-stack'>
-        <div className='me-5'>
-          <label className='fs-6 fw-bold form-label'>Save Card for further billing?</label>
-          <div className='fs-7 fw-bold text-gray-400'>
-            If you need more info, please check budget planning
+          <div className="fv-row mb-10">
+            <label className="form-label required">Button Text</label>
+            <Field
+              name="buttonText"
+              className="form-control form-control-lg form-control-solid"
+              value={buttonText}
+              onChange={buttonTextChange}
+            />
           </div>
         </div>
+        <div className="col-lg-8 col-12">
+          <WidePopup title={title} description={description} buttonText={buttonText} subTitle={subTitle} image={image} />
+        </div>
 
-        <label className='form-check form-switch form-check-custom form-check-solid'>
-          <Field className='form-check-input' type='checkbox' value='1' checked={true} />
-          <span className='form-check-label fw-bold text-gray-400'>Save Card</span>
-        </label>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export {Step4}
+export { Step4 };
