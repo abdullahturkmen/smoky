@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 
-function WidePopup(props) {
+function ThinPopup(props) {
     
     return (
         <>
@@ -14,7 +14,7 @@ function WidePopup(props) {
                         </div>
                         <div className="modal-body">
                             <div className='m-5 p-5'>
-                            <div className='d-flex align-items-center'>
+                            <div className='d-flex align-items-center mb-7'>
                                 <img src={props.image} alt='' className='w-50 m-auto' />
                             </div>
                             <h1 className="modal-title w-100 text-center fs-3x fw-bold">{props.title}</h1>
@@ -31,4 +31,4 @@ function WidePopup(props) {
     )
 }
 
-export default WidePopup
+export default ThinPopup

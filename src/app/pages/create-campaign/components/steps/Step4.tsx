@@ -1,12 +1,12 @@
 import React, { FC, useState } from "react";
 import { Field, ErrorMessage } from "formik";
-import WidePopup from "../../../../modules/templates/WidePopup";
+import ThinPopup from "../../../../modules/templates/ThinPopup";
 
 const Step4: FC = () => {
   const [image, setImage] = useState<string | undefined>("");
   const [buttonText, setButtonText] = useState('Button Text');
   const [title, setTitle] = useState('Pops Firması');
-  const [description, setDescription] = useState('Lorem ipsum text');
+  const [description, setDescription] = useState('Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae nihil nemo doloribus.');
   const [subTitle, setSubTitle] = useState('Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae nihil nemo doloribus. ');
   const titleChange = (e) => {
     setTitle(e.target.value)
@@ -82,7 +82,7 @@ const Step4: FC = () => {
           </div>
 
           <div className="fv-row mb-10">
-            <label className="d-flex align-items-center form-label">
+            <label className="form-label">
               <span className="required">Description</span>
             </label>
 
@@ -111,7 +111,7 @@ const Step4: FC = () => {
           </div>
         </div>
         <div className="col-lg-8 col-12">
-          <WidePopup title={title} description={description} buttonText={buttonText} subTitle={subTitle} image={image} />
+          <ThinPopup title={title} description={description} buttonText={buttonText} subTitle={subTitle} image={image} />
         </div>
 
       </div>
