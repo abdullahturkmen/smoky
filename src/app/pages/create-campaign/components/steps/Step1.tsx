@@ -39,7 +39,7 @@ const Step1: FC = () => {
                 </span>
               </div>
 
-              <div className="notice d-flex align-items-center bg-primary rounded border-primary border border-dashed mt-4 p-1 w-100">
+              <div className="notice d-flex align-items-center bg-success rounded border-primary border border-solid mt-4 p-1 w-100">
                 <KTIcon
                   iconName="information-5"
                   className="fs-1 text-white me-4"
@@ -80,7 +80,7 @@ const Step1: FC = () => {
                 </span>
               </div>
 
-              <div className="notice d-flex align-items-center bg-primary rounded border-primary border border-dashed mt-4 p-1 w-100">
+              <div className="notice d-flex align-items-center bg-success rounded border-primary border border-solid mt-4 p-1 w-100">
                 <KTIcon
                   iconName="information-5"
                   className="fs-1 text-white me-4"
@@ -121,7 +121,7 @@ const Step1: FC = () => {
                 </span>
               </div>
 
-              <div className="notice d-flex align-items-center bg-primary rounded border-primary border border-dashed mt-4 p-1 w-100">
+              <div className="notice d-flex align-items-center bg-success rounded border-primary border border-solid mt-4 p-1 w-100">
                 <KTIcon
                   iconName="information-5"
                   className="fs-1 text-white me-4"

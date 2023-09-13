@@ -375,7 +375,7 @@ const Vertical = () => {
                   </div>
                 </div>
               </div>
-              <div className="d-block mt-5 end-0 position-relative">
+              <div className="d-block mt-5 end-0 position-relative d-flex justify-content-center">
                 <button
                   className="btn btn-sm btn-danger fw-bold me-4"
                   data-bs-dismiss="modal"

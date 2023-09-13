@@ -31,6 +31,10 @@ const Step3: FC = () => {
                 aria-controls="collapseOne"
               >
                 Campaign Name
+                <KTIcon
+                  iconName="check-square"
+                  className="fs-1 ms-4 text-success"
+                />
               </button>
             </h2>
             <div
@@ -40,15 +44,62 @@ const Step3: FC = () => {
               data-bs-parent="#accordionExample"
             >
               <div className="accordion-body">
-                <strong>Campaign Name - This is the first item's accordion body.</strong> It is
-                shown by default, until the collapse plugin adds the appropriate
-                classes that we use to style each element. These classes control
-                the overall appearance, as well as the showing and hiding via
-                CSS transitions. You can modify any of this with custom CSS or
-                overriding our default variables. It's also worth noting that
-                just about any HTML can go within the{" "}
-                <code>.accordion-body</code>, though the transition does limit
-                overflow.
+                <div className="row">
+                  <div className="col-12 col-lg-6 mb-4">
+                    <label
+                      htmlFor="campaignname"
+                      className="form-label fs-7 fw-bolder mb-1"
+                    >
+                      Campaign name
+                    </label>
+                    <input
+                      id="campaignname"
+                      type="text"
+                      className="form-control form-control-lg form-control-solid"
+                      // value={phone}
+                      placeholder="Campaign name"
+                      //   onChange={
+                      //     e => setPhone(e.target.value)
+                      // }
+                    />
+                  </div>
+                  <div className="col-12 col-lg-6 mb-4">
+                  <label
+                      htmlFor="campaignname2"
+                      className="form-label fs-7 fw-bolder mb-1"
+                    >
+                      Campaign name (silinebilir)
+                    </label>
+                    <input
+                      id="campaignname2"
+                      type="text"
+                      className="form-control form-control-lg form-control-solid"
+                      // value={phone}
+                      placeholder="Campaign name"
+                      //   onChange={
+                      //     e => setPhone(e.target.value)
+                      // }
+                    />
+                  </div>
+                  <div className="col-12 col-lg-6 mb-4">
+                  <label
+                      htmlFor="campaignname3"
+                      className="form-label fs-7 fw-bolder mb-1"
+                    >
+                      Campaign name (silinebilir)
+                    </label>
+                    <input
+                      id="campaignname3"
+                      type="text"
+                      className="form-control form-control-lg form-control-solid"
+                      // value={phone}
+                      placeholder="Campaign name"
+                      //   onChange={
+                      //     e => setPhone(e.target.value)
+                      // }
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -63,6 +114,10 @@ const Step3: FC = () => {
                 aria-controls="collapseTwo"
               >
                 Campaign Schedule
+                <KTIcon
+                  iconName="information-5"
+                  className="fs-1 ms-4 text-danger"
+                />
               </button>
             </h2>
             <div
@@ -72,8 +127,10 @@ const Step3: FC = () => {
               data-bs-parent="#accordionExample"
             >
               <div className="accordion-body">
-                <strong>Campaign Schedule - This is the second item's accordion body.</strong> It is
-                hidden by default, until the collapse plugin adds the
+                <strong>
+                  Campaign Schedule - This is the second item's accordion body.
+                </strong>{" "}
+                It is hidden by default, until the collapse plugin adds the
                 appropriate classes that we use to style each element. These
                 classes control the overall appearance, as well as the showing
                 and hiding via CSS transitions. You can modify any of this with
@@ -104,8 +161,10 @@ const Step3: FC = () => {
               data-bs-parent="#accordionExample"
             >
               <div className="accordion-body">
-                <strong>Discount Range - This is the third item's accordion body.</strong> It is
-                hidden by default, until the collapse plugin adds the
+                <strong>
+                  Discount Range - This is the third item's accordion body.
+                </strong>{" "}
+                It is hidden by default, until the collapse plugin adds the
                 appropriate classes that we use to style each element. These
                 classes control the overall appearance, as well as the showing
                 and hiding via CSS transitions. You can modify any of this with
@@ -136,8 +195,10 @@ const Step3: FC = () => {
               data-bs-parent="#accordionExample"
             >
               <div className="accordion-body">
-                <strong>Campaign Limits - This is the third item's accordion body.</strong> It is
-                hidden by default, until the collapse plugin adds the
+                <strong>
+                  Campaign Limits - This is the third item's accordion body.
+                </strong>{" "}
+                It is hidden by default, until the collapse plugin adds the
                 appropriate classes that we use to style each element. These
                 classes control the overall appearance, as well as the showing
                 and hiding via CSS transitions. You can modify any of this with
@@ -168,8 +229,10 @@ const Step3: FC = () => {
               data-bs-parent="#accordionExample"
             >
               <div className="accordion-body">
-                <strong>Campaign Audience - This is the third item's accordion body.</strong> It is
-                hidden by default, until the collapse plugin adds the
+                <strong>
+                  Campaign Audience - This is the third item's accordion body.
+                </strong>{" "}
+                It is hidden by default, until the collapse plugin adds the
                 appropriate classes that we use to style each element. These
                 classes control the overall appearance, as well as the showing
                 and hiding via CSS transitions. You can modify any of this with
@@ -200,8 +263,10 @@ const Step3: FC = () => {
               data-bs-parent="#accordionExample"
             >
               <div className="accordion-body">
-                <strong>Display Pages - This is the third item's accordion body.</strong> It is
-                hidden by default, until the collapse plugin adds the
+                <strong>
+                  Display Pages - This is the third item's accordion body.
+                </strong>{" "}
+                It is hidden by default, until the collapse plugin adds the
                 appropriate classes that we use to style each element. These
                 classes control the overall appearance, as well as the showing
                 and hiding via CSS transitions. You can modify any of this with
@@ -232,8 +297,10 @@ const Step3: FC = () => {
               data-bs-parent="#accordionExample"
             >
               <div className="accordion-body">
-                <strong>Upload Coupons - This is the third item's accordion body.</strong> It is
-                hidden by default, until the collapse plugin adds the
+                <strong>
+                  Upload Coupons - This is the third item's accordion body.
+                </strong>{" "}
+                It is hidden by default, until the collapse plugin adds the
                 appropriate classes that we use to style each element. These
                 classes control the overall appearance, as well as the showing
                 and hiding via CSS transitions. You can modify any of this with
