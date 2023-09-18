@@ -1,28 +1,12 @@
 import React, { FC, useState } from "react";
 import { KTIcon, toAbsoluteUrl } from "../../../../../_metronic/helpers";
 import { ErrorMessage, Field } from "formik";
+import DatePicker from "react-datepicker";
 
-import { Calendar } from 'react-date-range';
-import 'react-date-range/dist/styles.css';
-import 'react-date-range/dist/theme/default.css';
+import "react-datepicker/dist/react-datepicker.css";
 
 const Step3: FC = () => {
-  const [dateRange, setDateRange] = useState({
-    startDate: new Date(),
-    endDate: new Date(),
-    key: "selection"
-  });
-
-  const handleSelect = (ranges) => {
-    setDateRange(ranges.selection);
-  }
-
-   const today = new Date();
-  today.setHours(0, 0, 0, 0); // Bugünün saatini sıfırla
-
-  // Geçmişe dönük tarihleri devre dışı bırakmak için bir dizi oluştur
-  const disabledDates = [{ before: today }];
-
+  const [startDate, setStartDate] = useState(new Date());
 
   return (
     <div className="w-100">
@@ -79,9 +63,9 @@ const Step3: FC = () => {
                       className="form-control form-control-lg form-control-solid"
                       // value={phone}
                       placeholder="Campaign name"
-                    //   onChange={
-                    //     e => setPhone(e.target.value)
-                    // }
+                      //   onChange={
+                      //     e => setPhone(e.target.value)
+                      // }
                     />
                   </div>
                   <div className="col-12 col-lg-6 mb-4">
@@ -103,7 +87,7 @@ const Step3: FC = () => {
                     />
                   </div>
                   <div className="col-12 col-lg-6 mb-4">
-                  <label
+                    <label
                       htmlFor="campaignname3"
                       className="form-label fs-7 fw-bolder mb-1"
                     >
@@ -148,32 +132,30 @@ const Step3: FC = () => {
               data-bs-parent="#accordionExample"
             >
               <div className="accordion-body">
-                <label className='form-check form-check-inline form-check-solid me-5'>
+                <label className="form-check form-check-inline form-check-solid me-5">
                   <input
-                    className='form-check-input'
-                    name='communication[]'
-                    type='radio'
+                    className="form-check-input"
+                    name="communication[]"
+                    type="radio"
                   />
-                  <span className='fw-bold ps-2 fs-6'>Hemen başla</span>
+                  <span className="fw-bold ps-2 fs-6">Start immediately</span>
                 </label>
-                <label className='form-check form-check-inline form-check-solid me-5'>
+                <label className="form-check form-check-inline form-check-solid me-5">
                   <input
-                    className='form-check-input'
-                    name='communication[]'
-                    type='radio'
+                    className="form-check-input"
+                    name="communication[]"
+                    type="radio"
                   />
-                  <span className='fw-bold ps-2 fs-6'>Tarih aralığı seç</span>
+                  <span className="fw-bold ps-2 fs-6">Choose start date</span>
                 </label>
 
                 <div>
-                <Calendar
-                ranges={[dateRange]}
-                onChange={handleSelect}
-                disabledDates={disabledDates}
-              />
+                  <DatePicker
+                    className="form-control form-control-lg form-control-solid"
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                  />
                 </div>
-
-
               </div>
             </div>
           </div>
