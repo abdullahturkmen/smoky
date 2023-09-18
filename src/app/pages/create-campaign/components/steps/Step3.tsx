@@ -1,12 +1,22 @@
 import React, { FC, useState } from "react";
 import { KTIcon, toAbsoluteUrl } from "../../../../../_metronic/helpers";
-import { ErrorMessage, Field } from "formik";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 
 const Step3: FC = () => {
   const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [isStartDateDisabled, setIsStartDateDisabled] = useState(true);
+
+  const changeRadioButton = (e) => {
+    const value = e.target.value;
+    if (value === "startImmediately") {
+      setIsStartDateDisabled(true);
+    } else {
+      setIsStartDateDisabled(false);
+    }
+  };
 
   return (
     <div className="w-100">
@@ -132,29 +142,80 @@ const Step3: FC = () => {
               data-bs-parent="#accordionExample"
             >
               <div className="accordion-body">
-                <label className="form-check form-check-inline form-check-solid me-5">
-                  <input
-                    className="form-check-input"
-                    name="communication[]"
-                    type="radio"
-                  />
-                  <span className="fw-bold ps-2 fs-6">Start immediately</span>
-                </label>
-                <label className="form-check form-check-inline form-check-solid me-5">
-                  <input
-                    className="form-check-input"
-                    name="communication[]"
-                    type="radio"
-                  />
-                  <span className="fw-bold ps-2 fs-6">Choose start date</span>
-                </label>
+                <div className="row">
+                  <div className="col-12 col-lg-6">
+                    <div className="row">
+                      <div className="col-12 mb-4">
+                        <label
+                          className="form-label fs-7 fw-bolder me-5"
+                        >
+                          Start immediately
+                        </label>
+                        <input
+                          className="form-check-input"
+                          name="communication[]"
+                          type="radio"
+                          value="startImmediately"
+                          onChange={changeRadioButton}
+                          defaultChecked
+                        />
+                      </div>
+                      <div className="col-12">
+                        <label
+                          className="form-label fs-7 fw-bolder me-5"
+                        >
+                          Choose start date
+                        </label>
+                        <input
+                          className="form-check-input"
+                          name="communication[]"
+                          type="radio"
+                          value="chooseStartDate"
+                          onChange={changeRadioButton}
+                        />
 
-                <div>
-                  <DatePicker
-                    className="form-control form-control-lg form-control-solid"
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)}
-                  />
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div className="col-12 col-lg-6 mb-4">
+                    <div className="row">
+                    {isStartDateDisabled ? (
+                    null
+                  ) : (
+                    <div className="col-12 mb-4">
+                    <label
+                      htmlFor="campaignname"
+                      className="form-label fs-7 fw-bolder mb-1 me-5"
+                    >
+                      Select start date
+                    </label>
+                    <DatePicker
+                        className="form-control form-control-lg form-control-solid w-100"
+                        selected={startDate}
+                        onChange={(date) => setStartDate(date)}
+                        minDate={new Date()}
+                      />
+                  </div>
+                  )}
+                  <div className="col-12">
+                    <label
+                      htmlFor="campaignname"
+                      className="form-label fs-7 fw-bolder mb-1 me-5"
+                    >
+                      Select end date
+                    </label>
+                    <DatePicker
+                        className="form-control form-control-lg form-control-solid"
+                        selected={endDate}
+                        onChange={(date) => setEndDate(date)}
+                        minDate={new Date()}
+                      />
+                  </div>
+                    </div>
+
+                  </div>
                 </div>
               </div>
             </div>
