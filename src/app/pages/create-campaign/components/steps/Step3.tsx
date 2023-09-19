@@ -1,14 +1,19 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { KTIcon, toAbsoluteUrl } from "../../../../../_metronic/helpers";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 
 const Step3: FC = () => {
+  //Start Campaign Schedule function
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [isStartDateDisabled, setIsStartDateDisabled] = useState(true);
-
+  useEffect(() => {
+    if (endDate < startDate) {
+      setEndDate(startDate);
+    }
+  }, [startDate, endDate]);
   const changeRadioButton = (e) => {
     const value = e.target.value;
     if (value === "startImmediately") {
@@ -17,6 +22,7 @@ const Step3: FC = () => {
       setIsStartDateDisabled(false);
     }
   };
+  //Finish Campaign Schedule function
 
   return (
     <div className="w-100">
@@ -196,6 +202,7 @@ const Step3: FC = () => {
                         selected={startDate}
                         onChange={(date) => setStartDate(date)}
                         minDate={new Date()}
+                        dateFormat="dd/MM/yyyy"
                       />
                   </div>
                   )}
@@ -210,7 +217,8 @@ const Step3: FC = () => {
                         className="form-control form-control-lg form-control-solid"
                         selected={endDate}
                         onChange={(date) => setEndDate(date)}
-                        minDate={new Date()}
+                        minDate={startDate}
+                        dateFormat="dd/MM/yyyy"
                       />
                   </div>
                     </div>
@@ -241,16 +249,36 @@ const Step3: FC = () => {
             >
               <div className="accordion-body">
                 <strong>
-                  Discount Range - This is the third item's accordion body.
-                </strong>{" "}
-                It is hidden by default, until the collapse plugin adds the
-                appropriate classes that we use to style each element. These
-                classes control the overall appearance, as well as the showing
-                and hiding via CSS transitions. You can modify any of this with
-                custom CSS or overriding our default variables. It's also worth
-                noting that just about any HTML can go within the{" "}
-                <code>.accordion-body</code>, though the transition does limit
-                overflow.
+                 Choose a discount range for the Prediction Engine
+                </strong>
+                <div className="row alert alert-primary">
+                <div className="col-1 mt-4">
+                    <label
+                      htmlFor="min"
+                      className="form-label fs-7 fw-bolder mb-1"
+                    >
+                      Min
+                    </label>
+                    <input
+                      id="min"
+                      type="number"
+                      className="form-control form-control-lg form-control-solid"
+                    />
+                  </div>
+                  <div className="col-1 mt-4">
+                    <label
+                      htmlFor="min"
+                      className="form-label fs-7 fw-bolder mb-1"
+                    >
+                      Max
+                    </label>
+                    <input
+                      id="max"
+                      type="number"
+                      className="form-control form-control-lg form-control-solid"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -277,14 +305,21 @@ const Step3: FC = () => {
                 <strong>
                   Campaign Limits - This is the third item's accordion body.
                 </strong>{" "}
-                It is hidden by default, until the collapse plugin adds the
-                appropriate classes that we use to style each element. These
-                classes control the overall appearance, as well as the showing
-                and hiding via CSS transitions. You can modify any of this with
-                custom CSS or overriding our default variables. It's also worth
-                noting that just about any HTML can go within the{" "}
-                <code>.accordion-body</code>, though the transition does limit
-                overflow.
+                <div className="row ">
+                <div className="col-sm-12 col-lg-4 alert alert-secondary">
+                  <input
+                    className="form-check-input  me-5"
+                    type="radio"
+                    defaultChecked
+                  />
+                  <label
+                    className="form-label fs-7 fw-bolder"
+                  >
+                    None
+                  </label>
+                  
+                </div>
+                </div>
               </div>
             </div>
           </div>
