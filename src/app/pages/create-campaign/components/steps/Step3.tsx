@@ -691,7 +691,7 @@ const Step3: FC = () => {
                         </div>
                       </div>
                     ))}
-                    <button type="button" className="btn btn-primary mt-5" onClick={addUrl}>Add URL</button>
+                    <button type="button" className="btn btn-primary mt-5" onClick={addUrl}>Add rule</button>
                   </div>
                 ) : (
                   <div></div>
