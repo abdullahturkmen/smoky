@@ -84,7 +84,10 @@
   align-items: center;
   padding-left: 0;
   margin: 0;
-
+  width: fit-content;
+  :hover{
+    cursor: pointer;
+  }
   // Input
   .form-check-input {
     margin: 0;
@@ -99,7 +102,7 @@
 }
 
 // Switch
-.form-switch {
+.form-switch { 
   &.form-check-custom {
     .form-check-input {
       height: $form-switch-height;
