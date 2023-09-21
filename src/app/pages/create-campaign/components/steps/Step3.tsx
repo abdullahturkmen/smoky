@@ -91,16 +91,29 @@ const Step3: FC = () => {
   // start Pages function
 
   const [selectedPagesOption, setSelectedPagesOption] = useState('selectedPages')
+  const URLOptions = [
+    { value: "url0", label: "Simple match" },
+    { value: "url1", label: "Does not simply match" },
+    { value: "url2", label: "Returning visitors" },
+    { value: "url3", label: "Is equal to" },
+    { value: "url4", label: "Is not equal to" },
+    { value: "url5", label: "Contains" },
+    { value: "url6", label: "Does not contain" },
+    { value: "url7", label: "Starts with" },
+    { value: "url8", label: "Ends with" },
+    { value: "url9", label: "Does not end with" },
+    { value: "url10", label: "Matches the RegEx" },
+    { value: "url11", label: "Does not matche the RegEx" },
+  ];
 
   const changePagesOption = (event) => {
     setSelectedPagesOption(event.target.value)
   }
 
-  const [urlList, setUrlList] = useState([{ country: null, url: "" }]);
+  const [urlList, setUrlList] = useState([{ URLType: null, url: "" }]);
 
   const addUrl = () => {
-    console.log('meryemmm')
-    setUrlList([...urlList, { country: null, url: "" }]);
+    setUrlList([...urlList, { URLType: null, url: "" }]);
   };
 
   const removeUrl = (index) => {
@@ -115,9 +128,68 @@ const Step3: FC = () => {
     setUrlList(updatedList);
   };
 
-
-
   // Finish pages function
+
+  // start upload couppons function
+
+  const [cupponsType, setCupponsType] = useState('generateCuppons')
+  const passwordType = [
+    { value: "alphanumeric", label: "Alphanumeric" },
+    { value: "memorablePass", label: "Memorable Password" },
+    { value: "pin", label: "Pin" },
+  ];
+  const [codeSuffix, setCodeSuffix] = useState("");
+  const [codePrefix, setCodePrefix] = useState("")
+  const [selectedPasswordType, setSelectedPasswordType] = useState(null)
+  const [codeLength, setCodeLength] = useState(1);
+  const [password, setPassword] = useState('');
+
+  const changePasswordType = (event) => {
+    setSelectedPasswordType(event.value)
+    const newPassword = generatePassword(codeLength);
+    setPassword(newPassword);
+  }
+
+  const generatePassword = (length) => {
+    if (length <= 0) return '';
+
+    var charset;
+
+    if (selectedPasswordType === 'pin') {
+      charset = '0123456789'
+    }
+
+    if (selectedPasswordType === 'alphanumeric') {
+      charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    }
+
+    let password = '';
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * charset.length);
+      password += charset.charAt(randomIndex);
+    }
+    return password;
+  };
+
+  const changeCodeSuffix = (e) => {
+    setCodeSuffix(e.target.value);
+  };
+
+  const changeCodePrefix = (event) => {
+    setCodePrefix(event.target.value)
+  }
+  const changeCouppons = (event) => {
+    setCupponsType(event.target.value)
+  }
+
+  const handleCodeLengthChange = (event) => {
+    const newLength = parseInt(event.target.value, 10);
+    setCodeLength(newLength);
+    const newPassword = generatePassword(newLength);
+    setPassword(newPassword);
+  };
+
+  //Finish upload couppons function
   return (
     <div className="w-100">
       <div className="pb-10 pb-lg-15">
@@ -661,12 +733,11 @@ const Step3: FC = () => {
                           <div className="col-1"> <span>URL</span></div>
                           <div className="col-5">
                             <Select
-                              options={countries}
-                              placeholder="Countries"
+                              options={URLOptions}
+                              placeholder="URL"
                               className="form-control form-control-solid p-0"
-                              onChange={(selectedOption) => updateUrl(index, 'country', selectedOption)}
-                              isMulti={true}
-                              value={item.country}
+                              onChange={(selectedOption) => updateUrl(index, 'URLType', selectedOption)}
+                              value={item.URLType}
                             />
                           </div>
                           <div className="col-5">
@@ -723,14 +794,99 @@ const Step3: FC = () => {
                 <strong>
                   Upload Coupons - This is the third item's accordion body.
                 </strong>{" "}
-                It is hidden by default, until the collapse plugin adds the
-                appropriate classes that we use to style each element. These
-                classes control the overall appearance, as well as the showing
-                and hiding via CSS transitions. You can modify any of this with
-                custom CSS or overriding our default variables. It's also worth
-                noting that just about any HTML can go within the{" "}
-                <code>.accordion-body</code>, though the transition does limit
-                overflow.
+                <div className="row mt-5">
+                  <div className="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <input
+                      className="form-check-input  me-5"
+                      type="radio"
+                      defaultChecked
+                      checked={cupponsType === 'generateCuppons'}
+                      onChange={changeCouppons}
+                      value='generateCuppons'
+                    />
+                    <label className="form-label fs-7 fw-bolder">Generate couppons</label>
+                  </div>
+                  <div className="col-sm-12 col-md-6 col-lg-4 col-xl-2">
+                    <input
+                      className="form-check-input  me-5"
+                      type="radio"
+                      defaultChecked
+                      checked={cupponsType === 'uploadCuppons'}
+                      onChange={changeCouppons}
+                      value='uploadCuppons'
+                    />
+                    <label className="form-label fs-7 fw-bolder">Upload couppons</label>
+                  </div>
+                </div>
+
+                {cupponsType === 'generateCuppons' ?
+                  (
+                    <div className="row">
+                      <div className="col-sm-12 col-md-5  mt-5">
+                        <label
+                          htmlFor="campaignname"
+                          className="form-label fs-7 fw-bolder mb-1"
+                        >
+                          Charset -- {selectedPasswordType}
+                        </label>
+                        <Select
+                          options={passwordType}
+                          placeholder="Charset"
+                          className="form-control form-control-solid p-0"
+                          onChange={changePasswordType}
+                        />
+                      </div>
+                      <div className="col-sm-12 col-md-5  mt-5">
+                        <label
+                          htmlFor="campaignname"
+                          className="form-label fs-7 fw-bolder mb-1"
+                        >
+                          Code length
+                        </label>
+                        <input
+                          className="form-control form-control-solid"
+                          type="number"
+                          placeholder="Code length"
+                          min={1}
+                          value={codeLength}
+                          onChange={handleCodeLengthChange}
+                        />
+
+
+                      </div>
+                      <div className="col-sm-12 col-md-5  mt-5">
+                        <label
+                          htmlFor="campaignname"
+                          className="form-label fs-7 fw-bolder mb-1"
+                        >
+                          Code prefix
+                        </label>
+                        <input
+                          className="form-control form-control-solid"
+                          type="text"
+                          placeholder="Code prefix"
+                          value={codePrefix}
+                          onChange={changeCodePrefix}
+                        />
+                      </div>
+                      <div className="col-sm-12 col-md-5  mt-5">
+                        <label
+                          htmlFor="campaignname"
+                          className="form-label fs-7 fw-bolder mb-1"
+                        >
+                          Code suffix
+                        </label>
+                        <input
+                          className="form-control form-control-solid"
+                          type="text"
+                          placeholder="Code suffix"
+                          value={codeSuffix}
+                          onChange={changeCodeSuffix}
+                        />
+                      </div>
+
+                      <strong> {codePrefix} - {password} - {codeSuffix} </strong>
+                    </div>) : (<div>Güncellme gelecek</div>)}
               </div>
             </div>
           </div>
