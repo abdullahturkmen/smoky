@@ -1,14 +1,21 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { KTIcon, toAbsoluteUrl } from "../../../../../_metronic/helpers";
 import DatePicker from "react-datepicker";
-
+import Select from "react-select";
+import countries from "../../../../../_metronic/helpers/AllCountry";
+import { ErrorMessage, Field } from 'formik'
 import "react-datepicker/dist/react-datepicker.css";
 
 const Step3: FC = () => {
+  //Start Campaign Schedule function
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [isStartDateDisabled, setIsStartDateDisabled] = useState(true);
-
+  useEffect(() => {
+    if (endDate < startDate) {
+      setEndDate(startDate);
+    }
+  }, [startDate, endDate]);
   const changeRadioButton = (e) => {
     const value = e.target.value;
     if (value === "startImmediately") {
@@ -17,7 +24,172 @@ const Step3: FC = () => {
       setIsStartDateDisabled(false);
     }
   };
+  //Finish Campaign Schedule function
 
+  // Start Campaign Limit function
+
+  const [selectedOption, setSelectedOption] = useState('none');
+  const [selectedOptionDetail, setSelectedOptionDetail] = useState('radioButtonOne')
+
+  const optionChange = (event) => {
+    setSelectedOption(event.target.value);
+    setSelectedOptionDetail('radioButtonOne')
+  };
+  const optionChangeDetail = (event) => {
+    setSelectedOptionDetail(event.target.value)
+  }
+  // Finish Campaign Limit function
+
+
+  // Start Campaign Audience function
+  const [selectedVisitorTypes, setSelectedVisitorTypes] = useState(null);
+  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [selectedDevices, setSelectedDevices] = useState(null)
+  const [selectedChannels, setSelectedChanneles] = useState(null)
+  const [selectedShareVisitor, setSelectedShareVisitor] = useState(null)
+  const shareVisitorOptions = [
+    { value: "allVisitors", label: "All visitors" },
+    { value: "newVisitors", label: "New visitors" },
+    { value: "returningVisitors", label: "Returning visitors" },
+  ];
+  const visitorTypesOptions = [
+    { value: "a", label: "Visitor 1" },
+    { value: "b", label: "Visitor 2" },
+  ];
+  const channelsOptions = [
+    { value: "allChannel", label: "All channel" },
+    { value: "trafficChannel", label: "Traffic channel" },
+    { value: "trafficSource", label: "Traffic source" },
+    { value: "UTM", label: "UTM" },
+  ];
+  const devicesOptions = [
+    { value: "allDevices", label: "All devices" },
+    { value: "displayDesktops", label: "Display on desktops" },
+    { value: "displayTablets", label: "Display on tablets" },
+    { value: "displayMobile", label: "Display on mobile" },
+  ];
+
+  const shareVisitorChange = (event) => {
+    setSelectedShareVisitor(event)
+  }
+  const visitorTypesChange = (selectedOption) => {
+    setSelectedVisitorTypes(selectedOption);
+  };
+
+  const channelsChange = (event) => {
+    setSelectedChanneles(event)
+  }
+  const devicesChange = (event) => {
+    setSelectedDevices(event)
+  }
+
+  const countryChange = (event) => {
+    setSelectedCountry(event)
+  }
+  // Finish Campaign Audience function
+
+  // start Pages function
+
+  const [selectedPagesOption, setSelectedPagesOption] = useState('selectedPages')
+  const URLOptions = [
+    { value: "url0", label: "Simple match" },
+    { value: "url1", label: "Does not simply match" },
+    { value: "url2", label: "Returning visitors" },
+    { value: "url3", label: "Is equal to" },
+    { value: "url4", label: "Is not equal to" },
+    { value: "url5", label: "Contains" },
+    { value: "url6", label: "Does not contain" },
+    { value: "url7", label: "Starts with" },
+    { value: "url8", label: "Ends with" },
+    { value: "url9", label: "Does not end with" },
+    { value: "url10", label: "Matches the RegEx" },
+    { value: "url11", label: "Does not matche the RegEx" },
+  ];
+
+  const changePagesOption = (event) => {
+    setSelectedPagesOption(event.target.value)
+  }
+
+  const [urlList, setUrlList] = useState([{ URLType: null, url: "" }]);
+
+  const addUrl = () => {
+    setUrlList([...urlList, { URLType: null, url: "" }]);
+  };
+
+  const removeUrl = (index) => {
+    const updatedList = [...urlList];
+    updatedList.splice(index, 1);
+    setUrlList(updatedList);
+  };
+
+  const updateUrl = (index, field, value) => {
+    const updatedList = [...urlList];
+    updatedList[index][field] = value;
+    setUrlList(updatedList);
+  };
+
+  // Finish pages function
+
+  // start upload couppons function
+
+  const [cupponsType, setCupponsType] = useState('generateCuppons')
+  const passwordType = [
+    { value: "alphanumeric", label: "Alphanumeric" },
+    { value: "memorablePass", label: "Memorable Password" },
+    { value: "pin", label: "Pin" },
+  ];
+  const [codeSuffix, setCodeSuffix] = useState("");
+  const [codePrefix, setCodePrefix] = useState("")
+  const [selectedPasswordType, setSelectedPasswordType] = useState(null)
+  const [codeLength, setCodeLength] = useState(1);
+  const [password, setPassword] = useState('');
+
+  const changePasswordType = (event) => {
+    setSelectedPasswordType(event.value)
+    const newPassword = generatePassword(codeLength);
+    setPassword(newPassword);
+  }
+
+  const generatePassword = (length) => {
+    if (length <= 0) return '';
+
+    var charset;
+
+    if (selectedPasswordType === 'pin') {
+      charset = '0123456789'
+    }
+
+    if (selectedPasswordType === 'alphanumeric') {
+      charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    }
+
+    let password = '';
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * charset.length);
+      password += charset.charAt(randomIndex);
+    }
+    return password;
+  };
+
+  const changeCodeSuffix = (e) => {
+    setCodeSuffix(e.target.value);
+  };
+
+  const changeCodePrefix = (event) => {
+    setCodePrefix(event.target.value)
+  }
+  const changeCouppons = (event) => {
+    setCupponsType(event.target.value)
+  }
+
+  const handleCodeLengthChange = (event) => {
+    const newLength = parseInt(event.target.value, 10);
+    setCodeLength(newLength);
+    const newPassword = generatePassword(newLength);
+    setPassword(newPassword);
+  };
+
+  //Finish upload couppons function
   return (
     <div className="w-100">
       <div className="pb-10 pb-lg-15">
@@ -73,45 +245,9 @@ const Step3: FC = () => {
                       className="form-control form-control-lg form-control-solid"
                       // value={phone}
                       placeholder="Campaign name"
-                      //   onChange={
-                      //     e => setPhone(e.target.value)
-                      // }
-                    />
-                  </div>
-                  <div className="col-12 col-lg-6 mb-4">
-                    <label
-                      htmlFor="campaignname2"
-                      className="form-label fs-7 fw-bolder mb-1"
-                    >
-                      Campaign name (silinebilir)
-                    </label>
-                    <input
-                      id="campaignname2"
-                      type="text"
-                      className="form-control form-control-lg form-control-solid"
-                      // value={phone}
-                      placeholder="Campaign name"
-                      //   onChange={
-                      //     e => setPhone(e.target.value)
-                      // }
-                    />
-                  </div>
-                  <div className="col-12 col-lg-6 mb-4">
-                    <label
-                      htmlFor="campaignname3"
-                      className="form-label fs-7 fw-bolder mb-1"
-                    >
-                      Campaign name (silinebilir)
-                    </label>
-                    <input
-                      id="campaignname3"
-                      type="text"
-                      className="form-control form-control-lg form-control-solid"
-                      // value={phone}
-                      placeholder="Campaign name"
-                      //   onChange={
-                      //     e => setPhone(e.target.value)
-                      // }
+                    //   onChange={
+                    //     e => setPhone(e.target.value)
+                    // }
                     />
                   </div>
                 </div>
@@ -181,38 +317,40 @@ const Step3: FC = () => {
 
                   <div className="col-12 col-lg-6 mb-4">
                     <div className="row">
-                    {isStartDateDisabled ? (
-                    null
-                  ) : (
-                    <div className="col-12 mb-4">
-                    <label
-                      htmlFor="campaignname"
-                      className="form-label fs-7 fw-bolder mb-1 me-5"
-                    >
-                      Select start date
-                    </label>
-                    <DatePicker
-                        className="form-control form-control-lg form-control-solid w-100"
-                        selected={startDate}
-                        onChange={(date) => setStartDate(date)}
-                        minDate={new Date()}
-                      />
-                  </div>
-                  )}
-                  <div className="col-12">
-                    <label
-                      htmlFor="campaignname"
-                      className="form-label fs-7 fw-bolder mb-1 me-5"
-                    >
-                      Select end date
-                    </label>
-                    <DatePicker
-                        className="form-control form-control-lg form-control-solid"
-                        selected={endDate}
-                        onChange={(date) => setEndDate(date)}
-                        minDate={new Date()}
-                      />
-                  </div>
+                      {isStartDateDisabled ? (
+                        null
+                      ) : (
+                        <div className="col-12 mb-4">
+                          <label
+                            htmlFor="campaignname"
+                            className="form-label fs-7 fw-bolder mb-1 me-5"
+                          >
+                            Select start date
+                          </label>
+                          <DatePicker
+                            className="form-control form-control-lg form-control-solid w-100"
+                            selected={startDate}
+                            onChange={(date) => setStartDate(date)}
+                            minDate={new Date()}
+                            dateFormat="dd/MM/yyyy"
+                          />
+                        </div>
+                      )}
+                      <div className="col-12">
+                        <label
+                          htmlFor="campaignname"
+                          className="form-label fs-7 fw-bolder mb-1 me-5"
+                        >
+                          Select end date
+                        </label>
+                        <DatePicker
+                          className="form-control form-control-lg form-control-solid"
+                          selected={endDate}
+                          onChange={(date) => setEndDate(date)}
+                          minDate={startDate}
+                          dateFormat="dd/MM/yyyy"
+                        />
+                      </div>
                     </div>
 
                   </div>
@@ -241,16 +379,36 @@ const Step3: FC = () => {
             >
               <div className="accordion-body">
                 <strong>
-                  Discount Range - This is the third item's accordion body.
-                </strong>{" "}
-                It is hidden by default, until the collapse plugin adds the
-                appropriate classes that we use to style each element. These
-                classes control the overall appearance, as well as the showing
-                and hiding via CSS transitions. You can modify any of this with
-                custom CSS or overriding our default variables. It's also worth
-                noting that just about any HTML can go within the{" "}
-                <code>.accordion-body</code>, though the transition does limit
-                overflow.
+                  Choose a discount range for the Prediction Engine
+                </strong>
+                <div className="row alert alert-primary">
+                  <div className="col-3 mt-4">
+                    <label
+                      htmlFor="min"
+                      className="form-label fs-7 fw-bolder mb-1"
+                    >
+                      Min
+                    </label>
+                    <input
+                      id="min"
+                      type="number"
+                      className="form-control form-control-lg form-control-solid"
+                    />
+                  </div>
+                  <div className="col-3 mt-4">
+                    <label
+                      htmlFor="min"
+                      className="form-label fs-7 fw-bolder mb-1"
+                    >
+                      Max
+                    </label>
+                    <input
+                      id="max"
+                      type="number"
+                      className="form-control form-control-lg form-control-solid"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -275,16 +433,132 @@ const Step3: FC = () => {
             >
               <div className="accordion-body">
                 <strong>
-                  Campaign Limits - This is the third item's accordion body.
+                  Minimum requirements (applies to all products)
                 </strong>{" "}
-                It is hidden by default, until the collapse plugin adds the
-                appropriate classes that we use to style each element. These
-                classes control the overall appearance, as well as the showing
-                and hiding via CSS transitions. You can modify any of this with
-                custom CSS or overriding our default variables. It's also worth
-                noting that just about any HTML can go within the{" "}
-                <code>.accordion-body</code>, though the transition does limit
-                overflow.
+                <div className="row d-flex  mt-5">
+                  <div className="col-sm-12 col-md-6">
+                    <div className="col-10 alert alert-secondary">
+                      <input
+                        className="form-check-input  me-5"
+                        type="radio"
+                        defaultChecked
+                        checked={selectedOption === 'none'}
+                        onChange={optionChange}
+                        value='none'
+                      />
+                      <label
+                        className="form-label fs-7 fw-bolder"
+                      >
+                        None
+                      </label>
+
+                    </div>
+                    <div className="col-10 alert alert-secondary">
+                      <input
+                        className="form-check-input  me-5"
+                        type="radio"
+                        value="productCount"
+                        checked={selectedOption === 'productCount'}
+                        onChange={optionChange}
+
+                      />
+                      <label
+                        className="form-label fs-7 fw-bolder"
+                      >
+                        Number of Products in Cart
+                      </label>
+
+                    </div>
+                    <div className="col-10 alert alert-secondary">
+                      <input
+                        className="form-check-input  me-5"
+                        type="radio"
+                        value="cartValue"
+                        checked={selectedOption === 'cartValue'}
+                        onChange={optionChange}
+
+                      />
+                      <label
+                        className="form-label fs-7 fw-bolder"
+                      >
+                        Cart Value
+                      </label>
+
+                    </div>
+                  </div>
+                  <div className="col-sm-12 col-md-6">
+                    {selectedOption !== 'none' && (
+                      <>
+                        <div className="col-10 alert alert-secondary">
+                          <input
+                            className="form-check-input me-5"
+                            type="radio"
+                            value='radioButtonOne'
+                            defaultChecked
+                            checked={selectedOptionDetail === 'radioButtonOne'}
+                            onChange={optionChangeDetail}
+
+                          />
+
+                          <label className="form-label fs-7 fw-bolder">Radiobutton 1</label>
+                        </div>
+                        <div className="col-10 alert alert-secondary">
+                          <input
+                            className="form-check-input me-5"
+                            type="radio"
+                            value='radioButtonTwo'
+                            checked={selectedOptionDetail === 'radioButtonTwo'}
+                            onChange={optionChangeDetail}
+                          />
+                          <label className="form-label fs-7 fw-bolder">Radiobutton 2</label>
+                        </div>
+                        {selectedOptionDetail === 'radioButtonOne' && (
+                          <div className="col-10 ">
+                            <label className="form-label fs-7 fw-bolder">Number</label>
+                            <input
+                              className="form-control form-control-lg form-control-solid"
+                              type="number"
+                            />
+                          </div>
+                        )}
+
+                        {selectedOptionDetail === 'radioButtonTwo' && (
+                          <div className="row">
+                            <div className="col-5">
+                              <label
+                                htmlFor="min"
+                                className="form-label fs-7 fw-bolder mb-1"
+                              >
+                                Min
+                              </label>
+                              <input
+                                id="minInput"
+                                type="number"
+                                className="form-control form-control-lg form-control-solid"
+                              />
+                            </div>
+                            <div className="col-5">
+                              <label
+                                htmlFor="min"
+                                className="form-label fs-7 fw-bolder mb-1"
+                              >
+                                Max
+                              </label>
+                              <input
+                                id="maxInput"
+                                type="number"
+                                className="form-control form-control-lg form-control-solid"
+                              />
+                            </div>
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </div>
+
+
+
+                </div>
               </div>
             </div>
           </div>
@@ -311,14 +585,87 @@ const Step3: FC = () => {
                 <strong>
                   Campaign Audience - This is the third item's accordion body.
                 </strong>{" "}
-                It is hidden by default, until the collapse plugin adds the
-                appropriate classes that we use to style each element. These
-                classes control the overall appearance, as well as the showing
-                and hiding via CSS transitions. You can modify any of this with
-                custom CSS or overriding our default variables. It's also worth
-                noting that just about any HTML can go within the{" "}
-                <code>.accordion-body</code>, though the transition does limit
-                overflow.
+                <div className="row mt-5">
+                  <div className="col-12 col-lg-6 mb-4">
+                    <label
+                      htmlFor="campaignname"
+                      className="form-label fs-7 fw-bolder mb-1"
+                    >
+                      Share of Visitors
+                    </label>
+                    <Select
+                      options={shareVisitorOptions}
+                      placeholder="Share of Visitors"
+                      className="form-control form-control-solid p-0"
+                      onChange={shareVisitorChange}
+                      value={selectedShareVisitor}
+                    />
+
+                  </div>
+                  <div className="col-12 col-lg-6 mb-4">
+                    <label
+                      htmlFor="campaignname"
+                      className="form-label fs-7 fw-bolder mb-1"
+                    >
+                      Visitor Types
+                    </label>
+                    <Select
+                      options={visitorTypesOptions}
+                      placeholder="Visitor Types"
+                      className="form-control form-control-solid p-0"
+                      onChange={visitorTypesChange}
+                      value={selectedVisitorTypes}
+                      isMulti={true}
+                    />
+                  </div>
+                  <div className="col-12 col-lg-6 mb-4">
+                    <label
+                      htmlFor="campaignname"
+                      className="form-label fs-7 fw-bolder mb-1"
+                    >
+                      Channels
+                    </label>
+                    <Select
+                      options={channelsOptions}
+                      placeholder="All Channels"
+                      className="form-control form-control-solid p-0"
+                      onChange={channelsChange}
+                      value={selectedChannels}
+                    />
+
+                  </div>
+                  <div className="col-12 col-lg-6 mb-4">
+                    <label
+                      htmlFor="campaignname"
+                      className="form-label fs-7 fw-bolder mb-1"
+                    >
+                      Devices
+                    </label>
+                    <Select
+                      options={devicesOptions}
+                      placeholder="All Devices"
+                      className="form-control form-control-solid p-0"
+                      onChange={devicesChange}
+                      value={selectedDevices}
+                    />
+                  </div>
+                  <div className="col-12 col-lg-6 mb-4">
+                    <label
+                      htmlFor="campaignname"
+                      className="form-label fs-7 fw-bolder mb-1"
+                    >
+                      Countries
+                    </label>
+                    <Select
+                      options={countries}
+                      placeholder="Countries"
+                      className="form-control form-control-solid p-0"
+                      onChange={countryChange}
+                      isMulti={true}
+                      value={selectedCountry}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -343,16 +690,84 @@ const Step3: FC = () => {
             >
               <div className="accordion-body">
                 <strong>
-                  Display Pages - This is the third item's accordion body.
+                  Frequency
                 </strong>{" "}
-                It is hidden by default, until the collapse plugin adds the
-                appropriate classes that we use to style each element. These
-                classes control the overall appearance, as well as the showing
-                and hiding via CSS transitions. You can modify any of this with
-                custom CSS or overriding our default variables. It's also worth
-                noting that just about any HTML can go within the{" "}
-                <code>.accordion-body</code>, though the transition does limit
-                overflow.
+                <label className='form-check form-switch form-check-custom form-check-solid align-items-start mt-5'>
+                  <input className='form-check-input me-5' type='checkbox' />
+                  <div className="d-flex flex-column">
+                    <span className='form-label fw-bolder'>Display Limit</span>
+                    <span className='form-label'>Don't display yhe promotion above times per session</span>
+                  </div>
+                </label>
+                <hr />
+                <div className="row">
+                  <div className="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <input
+                      className="form-check-input  me-5"
+                      type="radio"
+                      defaultChecked
+                      checked={selectedPagesOption === 'selectedPages'}
+                      onChange={changePagesOption}
+                      value='selectedPages'
+                    />
+                    <label className="form-label fs-7 fw-bolder">Display on all pages</label>
+                  </div>
+                  <div className="col-sm-12 col-md-6 col-lg-4 col-xl-2">
+                    <input
+                      className="form-check-input  me-5"
+                      type="radio"
+                      defaultChecked
+                      checked={selectedPagesOption === 'selectedURL'}
+                      onChange={changePagesOption}
+                      value='selectedURL'
+                    />
+                    <label className="form-label fs-7 fw-bolder">Select URLs</label>
+                  </div>
+                </div>
+
+                {selectedPagesOption === 'selectedURL' ? (
+                  <div className="mt-5">
+                    {urlList.map((item, index) => (
+                      <div key={index} className="mb-2">
+                        <div className="row d-flex align-items-center mb-2">
+                          <div className="col-1"> <span>URL</span></div>
+                          <div className="col-5">
+                            <Select
+                              options={URLOptions}
+                              placeholder="URL"
+                              className="form-control form-control-solid p-0"
+                              onChange={(selectedOption) => updateUrl(index, 'URLType', selectedOption)}
+                              value={item.URLType}
+                            />
+                          </div>
+                          <div className="col-5">
+                            <input
+                              id="url"
+                              type="text"
+                              className="form-control form-control-md form-control-solid"
+                              placeholder="https://www.example.com"
+                              value={item.url}
+                              onChange={(e) => updateUrl(index, 'url', e.target.value)}
+                            />
+                          </div>
+                          <div className="col-1">
+                            <button
+                            type="button"
+                              className="btn btn-light btn-sm"
+                              onClick={() => removeUrl(index)}
+                            >
+                              <KTIcon iconName='trash' className='fs-3' />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                    <button type="button" className="btn btn-primary mt-5" onClick={addUrl}>Add rule</button>
+                  </div>
+                ) : (
+                  <div></div>
+                )}
+
               </div>
             </div>
           </div>
@@ -379,14 +794,99 @@ const Step3: FC = () => {
                 <strong>
                   Upload Coupons - This is the third item's accordion body.
                 </strong>{" "}
-                It is hidden by default, until the collapse plugin adds the
-                appropriate classes that we use to style each element. These
-                classes control the overall appearance, as well as the showing
-                and hiding via CSS transitions. You can modify any of this with
-                custom CSS or overriding our default variables. It's also worth
-                noting that just about any HTML can go within the{" "}
-                <code>.accordion-body</code>, though the transition does limit
-                overflow.
+                <div className="row mt-5">
+                  <div className="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <input
+                      className="form-check-input  me-5"
+                      type="radio"
+                      defaultChecked
+                      checked={cupponsType === 'generateCuppons'}
+                      onChange={changeCouppons}
+                      value='generateCuppons'
+                    />
+                    <label className="form-label fs-7 fw-bolder">Generate couppons</label>
+                  </div>
+                  <div className="col-sm-12 col-md-6 col-lg-4 col-xl-2">
+                    <input
+                      className="form-check-input  me-5"
+                      type="radio"
+                      defaultChecked
+                      checked={cupponsType === 'uploadCuppons'}
+                      onChange={changeCouppons}
+                      value='uploadCuppons'
+                    />
+                    <label className="form-label fs-7 fw-bolder">Upload couppons</label>
+                  </div>
+                </div>
+
+                {cupponsType === 'generateCuppons' ?
+                  (
+                    <div className="row">
+                      <div className="col-sm-12 col-md-5  mt-5">
+                        <label
+                          htmlFor="campaignname"
+                          className="form-label fs-7 fw-bolder mb-1"
+                        >
+                          Charset -- {selectedPasswordType}
+                        </label>
+                        <Select
+                          options={passwordType}
+                          placeholder="Charset"
+                          className="form-control form-control-solid p-0"
+                          onChange={changePasswordType}
+                        />
+                      </div>
+                      <div className="col-sm-12 col-md-5  mt-5">
+                        <label
+                          htmlFor="campaignname"
+                          className="form-label fs-7 fw-bolder mb-1"
+                        >
+                          Code length
+                        </label>
+                        <input
+                          className="form-control form-control-solid"
+                          type="number"
+                          placeholder="Code length"
+                          min={1}
+                          value={codeLength}
+                          onChange={handleCodeLengthChange}
+                        />
+
+
+                      </div>
+                      <div className="col-sm-12 col-md-5  mt-5">
+                        <label
+                          htmlFor="campaignname"
+                          className="form-label fs-7 fw-bolder mb-1"
+                        >
+                          Code prefix
+                        </label>
+                        <input
+                          className="form-control form-control-solid"
+                          type="text"
+                          placeholder="Code prefix"
+                          value={codePrefix}
+                          onChange={changeCodePrefix}
+                        />
+                      </div>
+                      <div className="col-sm-12 col-md-5  mt-5">
+                        <label
+                          htmlFor="campaignname"
+                          className="form-label fs-7 fw-bolder mb-1"
+                        >
+                          Code suffix
+                        </label>
+                        <input
+                          className="form-control form-control-solid"
+                          type="text"
+                          placeholder="Code suffix"
+                          value={codeSuffix}
+                          onChange={changeCodeSuffix}
+                        />
+                      </div>
+
+                      <strong> {codePrefix} - {password} - {codeSuffix} </strong>
+                    </div>) : (<div>Güncellme gelecek</div>)}
               </div>
             </div>
           </div>
