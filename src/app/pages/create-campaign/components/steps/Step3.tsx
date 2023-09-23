@@ -3,7 +3,7 @@ import { KTIcon, toAbsoluteUrl } from "../../../../../_metronic/helpers";
 import DatePicker from "react-datepicker";
 import Select from "react-select";
 import countries from "../../../../../_metronic/helpers/AllCountry";
-import { ErrorMessage, Field } from 'formik'
+import { ErrorMessage, Field } from "formik";
 import "react-datepicker/dist/react-datepicker.css";
 
 const Step3: FC = () => {
@@ -19,6 +19,7 @@ const Step3: FC = () => {
   const changeRadioButton = (e) => {
     const value = e.target.value;
     if (value === "startImmediately") {
+      setStartDate(new Date());
       setIsStartDateDisabled(true);
     } else {
       setIsStartDateDisabled(false);
@@ -28,25 +29,25 @@ const Step3: FC = () => {
 
   // Start Campaign Limit function
 
-  const [selectedOption, setSelectedOption] = useState('none');
-  const [selectedOptionDetail, setSelectedOptionDetail] = useState('radioButtonOne')
+  const [selectedOption, setSelectedOption] = useState("none");
+  const [selectedOptionDetail, setSelectedOptionDetail] =
+    useState("radioButtonOne");
 
   const optionChange = (event) => {
     setSelectedOption(event.target.value);
-    setSelectedOptionDetail('radioButtonOne')
+    setSelectedOptionDetail("radioButtonOne");
   };
   const optionChangeDetail = (event) => {
-    setSelectedOptionDetail(event.target.value)
-  }
+    setSelectedOptionDetail(event.target.value);
+  };
   // Finish Campaign Limit function
-
 
   // Start Campaign Audience function
   const [selectedVisitorTypes, setSelectedVisitorTypes] = useState(null);
   const [selectedCountry, setSelectedCountry] = useState(null);
-  const [selectedDevices, setSelectedDevices] = useState(null)
-  const [selectedChannels, setSelectedChanneles] = useState(null)
-  const [selectedShareVisitor, setSelectedShareVisitor] = useState(null)
+  const [selectedDevices, setSelectedDevices] = useState(null);
+  const [selectedChannels, setSelectedChanneles] = useState(null);
+  const [selectedShareVisitor, setSelectedShareVisitor] = useState(null);
   const shareVisitorOptions = [
     { value: "allVisitors", label: "All visitors" },
     { value: "newVisitors", label: "New visitors" },
@@ -70,27 +71,28 @@ const Step3: FC = () => {
   ];
 
   const shareVisitorChange = (event) => {
-    setSelectedShareVisitor(event)
-  }
+    setSelectedShareVisitor(event);
+  };
   const visitorTypesChange = (selectedOption) => {
     setSelectedVisitorTypes(selectedOption);
   };
 
   const channelsChange = (event) => {
-    setSelectedChanneles(event)
-  }
+    setSelectedChanneles(event);
+  };
   const devicesChange = (event) => {
-    setSelectedDevices(event)
-  }
+    setSelectedDevices(event);
+  };
 
   const countryChange = (event) => {
-    setSelectedCountry(event)
-  }
+    setSelectedCountry(event);
+  };
   // Finish Campaign Audience function
 
   // start Pages function
 
-  const [selectedPagesOption, setSelectedPagesOption] = useState('selectedPages')
+  const [selectedPagesOption, setSelectedPagesOption] =
+    useState("selectedPages");
   const URLOptions = [
     { value: "url0", label: "Simple match" },
     { value: "url1", label: "Does not simply match" },
@@ -107,8 +109,8 @@ const Step3: FC = () => {
   ];
 
   const changePagesOption = (event) => {
-    setSelectedPagesOption(event.target.value)
-  }
+    setSelectedPagesOption(event.target.value);
+  };
 
   const [urlList, setUrlList] = useState([{ URLType: null, url: "" }]);
 
@@ -132,38 +134,45 @@ const Step3: FC = () => {
 
   // start upload couppons function
 
-  const [cupponsType, setCupponsType] = useState('generateCuppons')
+  const [cupponsType, setCupponsType] = useState("generateCuppons");
   const passwordType = [
     { value: "alphanumeric", label: "Alphanumeric" },
-    { value: "memorablePass", label: "Memorable Password" },
+    //{ value: "memorablePass", label: "Memorable Password" },
     { value: "pin", label: "Pin" },
   ];
-  const [codeSuffix, setCodeSuffix] = useState("");
-  const [codePrefix, setCodePrefix] = useState("")
-  const [selectedPasswordType, setSelectedPasswordType] = useState(null)
-  const [codeLength, setCodeLength] = useState(1);
-  const [password, setPassword] = useState('');
+  const [codeSuffix, setCodeSuffix] = useState("SUF");
+  const [codePrefix, setCodePrefix] = useState("PRE");
+  const [selectedPasswordType, setselectedPasswordType] = useState(
+    passwordType[0]
+  );
+
+  const [codeLength, setCodeLength] = useState(5);
+  const [password, setPassword] = useState("");
 
   const changePasswordType = (event) => {
-    setSelectedPasswordType(event.value)
-    const newPassword = generatePassword(codeLength);
+    console.log("event : ", event);
+    setselectedPasswordType(event);
+    const newPassword = generatePassword(codeLength, event);
     setPassword(newPassword);
-  }
+  };
 
-  const generatePassword = (length) => {
-    if (length <= 0) return '';
+  const generatePassword = (length, event) => {
+    console.log("generatePassword length : ", length);
+    console.log("generatePassword event : ", event);
+    if (length <= 0) return "";
 
-    var charset;
+    var charset = "";
 
-    if (selectedPasswordType === 'pin') {
-      charset = '0123456789'
+    if (event.value === "pin") {
+      charset = "0123456789";
     }
 
-    if (selectedPasswordType === 'alphanumeric') {
-      charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    if (event.value === "alphanumeric") {
+      charset =
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     }
 
-    let password = '';
+    let password = "";
     for (let i = 0; i < length; i++) {
       const randomIndex = Math.floor(Math.random() * charset.length);
       password += charset.charAt(randomIndex);
@@ -176,16 +185,16 @@ const Step3: FC = () => {
   };
 
   const changeCodePrefix = (event) => {
-    setCodePrefix(event.target.value)
-  }
+    setCodePrefix(event.target.value);
+  };
   const changeCouppons = (event) => {
-    setCupponsType(event.target.value)
-  }
+    setCupponsType(event.target.value);
+  };
 
   const handleCodeLengthChange = (event) => {
     const newLength = parseInt(event.target.value, 10);
     setCodeLength(newLength);
-    const newPassword = generatePassword(newLength);
+    const newPassword = generatePassword(newLength, selectedPasswordType);
     setPassword(newPassword);
   };
 
@@ -245,9 +254,9 @@ const Step3: FC = () => {
                       className="form-control form-control-lg form-control-solid"
                       // value={phone}
                       placeholder="Campaign name"
-                    //   onChange={
-                    //     e => setPhone(e.target.value)
-                    // }
+                      //   onChange={
+                      //     e => setPhone(e.target.value)
+                      // }
                     />
                   </div>
                 </div>
@@ -282,9 +291,7 @@ const Step3: FC = () => {
                   <div className="col-12 col-lg-6">
                     <div className="row">
                       <div className="col-12 mb-4">
-                        <label
-                          className="form-label fs-7 fw-bolder me-5"
-                        >
+                        <label className="form-label fs-7 fw-bolder me-5">
                           Start immediately
                         </label>
                         <input
@@ -297,9 +304,7 @@ const Step3: FC = () => {
                         />
                       </div>
                       <div className="col-12">
-                        <label
-                          className="form-label fs-7 fw-bolder me-5"
-                        >
+                        <label className="form-label fs-7 fw-bolder me-5">
                           Choose start date
                         </label>
                         <input
@@ -309,50 +314,49 @@ const Step3: FC = () => {
                           value="chooseStartDate"
                           onChange={changeRadioButton}
                         />
-
                       </div>
                     </div>
-
                   </div>
 
                   <div className="col-12 col-lg-6 mb-4">
                     <div className="row">
-                      {isStartDateDisabled ? (
-                        null
-                      ) : (
-                        <div className="col-12 mb-4">
+                      {isStartDateDisabled ? null : (
+                        <div className="col-12 mb-4 d-flex align-items-center">
                           <label
                             htmlFor="campaignname"
                             className="form-label fs-7 fw-bolder mb-1 me-5"
                           >
                             Select start date
                           </label>
-                          <DatePicker
-                            className="form-control form-control-lg form-control-solid w-100"
-                            selected={startDate}
-                            onChange={(date) => setStartDate(date)}
-                            minDate={new Date()}
-                            dateFormat="dd/MM/yyyy"
-                          />
+                          <div className="ms-auto">
+                            <DatePicker
+                              className="form-control form-control-lg form-control-solid w-100"
+                              selected={startDate}
+                              onChange={(date) => setStartDate(date)}
+                              minDate={new Date()}
+                              dateFormat="dd/MM/yyyy"
+                            />
+                          </div>
                         </div>
                       )}
-                      <div className="col-12">
+                      <div className="col-12 d-flex align-items-center">
                         <label
                           htmlFor="campaignname"
                           className="form-label fs-7 fw-bolder mb-1 me-5"
                         >
                           Select end date
                         </label>
-                        <DatePicker
-                          className="form-control form-control-lg form-control-solid"
-                          selected={endDate}
-                          onChange={(date) => setEndDate(date)}
-                          minDate={startDate}
-                          dateFormat="dd/MM/yyyy"
-                        />
+                        <div className="ms-auto">
+                          <DatePicker
+                            className="form-control form-control-lg form-control-solid "
+                            selected={endDate}
+                            onChange={(date) => setEndDate(date)}
+                            minDate={startDate}
+                            dateFormat="dd/MM/yyyy"
+                          />
+                        </div>
                       </div>
                     </div>
-
                   </div>
                 </div>
               </div>
@@ -381,32 +385,37 @@ const Step3: FC = () => {
                 <strong>
                   Choose a discount range for the Prediction Engine
                 </strong>
-                <div className="row alert alert-primary">
-                  <div className="col-3 mt-4">
-                    <label
-                      htmlFor="min"
-                      className="form-label fs-7 fw-bolder mb-1"
-                    >
-                      Min
-                    </label>
-                    <input
-                      id="min"
-                      type="number"
-                      className="form-control form-control-lg form-control-solid"
-                    />
-                  </div>
-                  <div className="col-3 mt-4">
-                    <label
-                      htmlFor="min"
-                      className="form-label fs-7 fw-bolder mb-1"
-                    >
-                      Max
-                    </label>
-                    <input
-                      id="max"
-                      type="number"
-                      className="form-control form-control-lg form-control-solid"
-                    />
+                <div
+                  className=" alert alert-secondary p-2"
+                  style={{ width: "fit-content" }}
+                >
+                  <div className="row">
+                    <div className="col-12 col-lg-6 mb-0 mb-lg-4">
+                      <label
+                        htmlFor="min"
+                        className="form-label fs-7 fw-bolder mb-1"
+                      >
+                        Min (%)
+                      </label>
+                      <input
+                        id="min"
+                        type="number"
+                        className="form-control form-control-lg form-control-solid bg-white"
+                      />
+                    </div>
+                    <div className="col-12 col-lg-6 mb-0 mb-lg-4">
+                      <label
+                        htmlFor="max"
+                        className="form-label fs-7 fw-bolder mb-1"
+                      >
+                        Max (%)
+                      </label>
+                      <input
+                        id="max"
+                        type="number"
+                        className="form-control form-control-lg form-control-solid bg-white"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -432,9 +441,7 @@ const Step3: FC = () => {
               data-bs-parent="#accordionExample"
             >
               <div className="accordion-body">
-                <strong>
-                  Minimum requirements (applies to all products)
-                </strong>{" "}
+                <strong>Minimum requirements (applies to all products)</strong>{" "}
                 <div className="row d-flex  mt-5">
                   <div className="col-sm-12 col-md-6">
                     <div className="col-10 alert alert-secondary">
@@ -442,79 +449,71 @@ const Step3: FC = () => {
                         className="form-check-input  me-5"
                         type="radio"
                         defaultChecked
-                        checked={selectedOption === 'none'}
+                        checked={selectedOption === "none"}
                         onChange={optionChange}
-                        value='none'
+                        value="none"
                       />
-                      <label
-                        className="form-label fs-7 fw-bolder"
-                      >
-                        None
-                      </label>
-
+                      <label className="form-label fs-7 fw-bolder">None</label>
                     </div>
                     <div className="col-10 alert alert-secondary">
                       <input
                         className="form-check-input  me-5"
                         type="radio"
                         value="productCount"
-                        checked={selectedOption === 'productCount'}
+                        checked={selectedOption === "productCount"}
                         onChange={optionChange}
-
                       />
-                      <label
-                        className="form-label fs-7 fw-bolder"
-                      >
+                      <label className="form-label fs-7 fw-bolder">
                         Number of Products in Cart
                       </label>
-
                     </div>
                     <div className="col-10 alert alert-secondary">
                       <input
                         className="form-check-input  me-5"
                         type="radio"
                         value="cartValue"
-                        checked={selectedOption === 'cartValue'}
+                        checked={selectedOption === "cartValue"}
                         onChange={optionChange}
-
                       />
-                      <label
-                        className="form-label fs-7 fw-bolder"
-                      >
+                      <label className="form-label fs-7 fw-bolder">
                         Cart Value
                       </label>
-
                     </div>
                   </div>
                   <div className="col-sm-12 col-md-6">
-                    {selectedOption !== 'none' && (
+                    {selectedOption !== "none" && (
                       <>
                         <div className="col-10 alert alert-secondary">
                           <input
                             className="form-check-input me-5"
                             type="radio"
-                            value='radioButtonOne'
+                            value="radioButtonOne"
                             defaultChecked
-                            checked={selectedOptionDetail === 'radioButtonOne'}
+                            checked={selectedOptionDetail === "radioButtonOne"}
                             onChange={optionChangeDetail}
-
                           />
 
-                          <label className="form-label fs-7 fw-bolder">Radiobutton 1</label>
+                          <label className="form-label fs-7 fw-bolder">
+                            Radiobutton 1
+                          </label>
                         </div>
                         <div className="col-10 alert alert-secondary">
                           <input
                             className="form-check-input me-5"
                             type="radio"
-                            value='radioButtonTwo'
-                            checked={selectedOptionDetail === 'radioButtonTwo'}
+                            value="radioButtonTwo"
+                            checked={selectedOptionDetail === "radioButtonTwo"}
                             onChange={optionChangeDetail}
                           />
-                          <label className="form-label fs-7 fw-bolder">Radiobutton 2</label>
+                          <label className="form-label fs-7 fw-bolder">
+                            Radiobutton 2
+                          </label>
                         </div>
-                        {selectedOptionDetail === 'radioButtonOne' && (
+                        {selectedOptionDetail === "radioButtonOne" && (
                           <div className="col-10 ">
-                            <label className="form-label fs-7 fw-bolder">Number</label>
+                            <label className="form-label fs-7 fw-bolder">
+                              Number
+                            </label>
                             <input
                               className="form-control form-control-lg form-control-solid"
                               type="number"
@@ -522,7 +521,7 @@ const Step3: FC = () => {
                           </div>
                         )}
 
-                        {selectedOptionDetail === 'radioButtonTwo' && (
+                        {selectedOptionDetail === "radioButtonTwo" && (
                           <div className="row">
                             <div className="col-5">
                               <label
@@ -555,9 +554,6 @@ const Step3: FC = () => {
                       </>
                     )}
                   </div>
-
-
-
                 </div>
               </div>
             </div>
@@ -582,9 +578,6 @@ const Step3: FC = () => {
               data-bs-parent="#accordionExample"
             >
               <div className="accordion-body">
-                <strong>
-                  Campaign Audience - This is the third item's accordion body.
-                </strong>{" "}
                 <div className="row mt-5">
                   <div className="col-12 col-lg-6 mb-4">
                     <label
@@ -600,7 +593,6 @@ const Step3: FC = () => {
                       onChange={shareVisitorChange}
                       value={selectedShareVisitor}
                     />
-
                   </div>
                   <div className="col-12 col-lg-6 mb-4">
                     <label
@@ -632,7 +624,6 @@ const Step3: FC = () => {
                       onChange={channelsChange}
                       value={selectedChannels}
                     />
-
                   </div>
                   <div className="col-12 col-lg-6 mb-4">
                     <label
@@ -689,14 +680,14 @@ const Step3: FC = () => {
               data-bs-parent="#accordionExample"
             >
               <div className="accordion-body">
-                <strong>
-                  Frequency
-                </strong>{" "}
-                <label className='form-check form-switch form-check-custom form-check-solid align-items-start mt-5'>
-                  <input className='form-check-input me-5' type='checkbox' />
+                <strong>Frequency</strong>{" "}
+                <label className="form-check form-switch form-check-custom form-check-solid align-items-start mt-5">
+                  <input className="form-check-input me-5" type="checkbox" />
                   <div className="d-flex flex-column">
-                    <span className='form-label fw-bolder'>Display Limit</span>
-                    <span className='form-label'>Don't display yhe promotion above times per session</span>
+                    <span className="form-label fw-bolder">Display Limit</span>
+                    <span className="form-label">
+                      Don't display yhe promotion above times per session
+                    </span>
                   </div>
                 </label>
                 <hr />
@@ -706,37 +697,45 @@ const Step3: FC = () => {
                       className="form-check-input  me-5"
                       type="radio"
                       defaultChecked
-                      checked={selectedPagesOption === 'selectedPages'}
+                      checked={selectedPagesOption === "selectedPages"}
                       onChange={changePagesOption}
-                      value='selectedPages'
+                      value="selectedPages"
                     />
-                    <label className="form-label fs-7 fw-bolder">Display on all pages</label>
+                    <label className="form-label fs-7 fw-bolder">
+                      Display on all pages
+                    </label>
                   </div>
                   <div className="col-sm-12 col-md-6 col-lg-4 col-xl-2">
                     <input
                       className="form-check-input  me-5"
                       type="radio"
                       defaultChecked
-                      checked={selectedPagesOption === 'selectedURL'}
+                      checked={selectedPagesOption === "selectedURL"}
                       onChange={changePagesOption}
-                      value='selectedURL'
+                      value="selectedURL"
                     />
-                    <label className="form-label fs-7 fw-bolder">Select URLs</label>
+                    <label className="form-label fs-7 fw-bolder">
+                      Select URLs
+                    </label>
                   </div>
                 </div>
-
-                {selectedPagesOption === 'selectedURL' ? (
+                {selectedPagesOption === "selectedURL" ? (
                   <div className="mt-5">
                     {urlList.map((item, index) => (
                       <div key={index} className="mb-2">
                         <div className="row d-flex align-items-center mb-2">
-                          <div className="col-1"> <span>URL</span></div>
+                          <div className="col-1">
+                            {" "}
+                            <span>URL</span>
+                          </div>
                           <div className="col-5">
                             <Select
                               options={URLOptions}
                               placeholder="URL"
                               className="form-control form-control-solid p-0"
-                              onChange={(selectedOption) => updateUrl(index, 'URLType', selectedOption)}
+                              onChange={(selectedOption) =>
+                                updateUrl(index, "URLType", selectedOption)
+                              }
                               value={item.URLType}
                             />
                           </div>
@@ -747,27 +746,36 @@ const Step3: FC = () => {
                               className="form-control form-control-md form-control-solid"
                               placeholder="https://www.example.com"
                               value={item.url}
-                              onChange={(e) => updateUrl(index, 'url', e.target.value)}
+                              onChange={(e) =>
+                                updateUrl(index, "url", e.target.value)
+                              }
                             />
                           </div>
                           <div className="col-1">
-                            <button
-                            type="button"
-                              className="btn btn-light btn-sm"
-                              onClick={() => removeUrl(index)}
-                            >
-                              <KTIcon iconName='trash' className='fs-3' />
-                            </button>
+                            {urlList.length > 1 && (
+                              <button
+                                type="button"
+                                className="btn btn-light btn-sm"
+                                onClick={() => removeUrl(index)}
+                              >
+                                <KTIcon iconName="trash" className="fs-3 text-danger" />
+                              </button>
+                            )}
                           </div>
                         </div>
                       </div>
                     ))}
-                    <button type="button" className="btn btn-primary mt-5" onClick={addUrl}>Add rule</button>
+                    <button
+                      type="button"
+                      className="btn btn-primary mt-5"
+                      onClick={addUrl}
+                    >
+                      Add rule
+                    </button>
                   </div>
                 ) : (
                   <div></div>
                 )}
-
               </div>
             </div>
           </div>
@@ -791,102 +799,112 @@ const Step3: FC = () => {
               data-bs-parent="#accordionExample"
             >
               <div className="accordion-body">
-                <strong>
-                  Upload Coupons - This is the third item's accordion body.
-                </strong>{" "}
                 <div className="row mt-5">
                   <div className="col-sm-12 col-md-6 col-lg-4 col-xl-3">
                     <input
                       className="form-check-input  me-5"
                       type="radio"
                       defaultChecked
-                      checked={cupponsType === 'generateCuppons'}
+                      checked={cupponsType === "generateCuppons"}
                       onChange={changeCouppons}
-                      value='generateCuppons'
+                      value="generateCuppons"
                     />
-                    <label className="form-label fs-7 fw-bolder">Generate couppons</label>
+                    <label className="form-label fs-7 fw-bolder">
+                      Generate coupons
+                    </label>
                   </div>
-                  <div className="col-sm-12 col-md-6 col-lg-4 col-xl-2">
+                  <div className="col-sm-12 col-md-6 col-lg-4 col-xl-3">
                     <input
                       className="form-check-input  me-5"
                       type="radio"
                       defaultChecked
-                      checked={cupponsType === 'uploadCuppons'}
+                      checked={cupponsType === "uploadCuppons"}
                       onChange={changeCouppons}
-                      value='uploadCuppons'
+                      value="uploadCuppons"
                     />
-                    <label className="form-label fs-7 fw-bolder">Upload couppons</label>
+                    <label className="form-label fs-7 fw-bolder">
+                      Upload coupons
+                    </label>
                   </div>
                 </div>
+                {cupponsType === "generateCuppons" ? (
+                  <div className="row">
+                    <div className="col-sm-12 col-md-5  mt-5">
+                      <label
+                        htmlFor="campaignname"
+                        className="form-label fs-7 fw-bolder mb-1"
+                      >
+                        Charset
+                      </label>
+                      <Select
+                        value={selectedPasswordType}
+                        options={passwordType}
+                        placeholder="Charset"
+                        className="form-control form-control-solid p-0"
+                        onChange={changePasswordType}
+                      />
+                    </div>
+                    <div className="col-sm-12 col-md-5  mt-5">
+                      <label
+                        htmlFor="campaignname"
+                        className="form-label fs-7 fw-bolder mb-1"
+                      >
+                        Code length
+                      </label>
+                      <input
+                        className="form-control form-control-solid"
+                        type="number"
+                        placeholder="Code length"
+                        min={1}
+                        value={codeLength}
+                        onChange={handleCodeLengthChange}
+                      />
+                    </div>
+                    <div className="col-sm-12 col-md-5  mt-5">
+                      <label
+                        htmlFor="campaignname"
+                        className="form-label fs-7 fw-bolder mb-1"
+                      >
+                        Code prefix
+                      </label>
+                      <input
+                        className="form-control form-control-solid"
+                        type="text"
+                        placeholder="Code prefix"
+                        value={codePrefix}
+                        onChange={changeCodePrefix}
+                      />
+                    </div>
+                    <div className="col-sm-12 col-md-5  mt-5">
+                      <label
+                        htmlFor="campaignname"
+                        className="form-label fs-7 fw-bolder mb-1"
+                      >
+                        Code suffix
+                      </label>
+                      <input
+                        className="form-control form-control-solid"
+                        type="text"
+                        placeholder="Code suffix"
+                        value={codeSuffix}
+                        onChange={changeCodeSuffix}
+                      />
+                    </div>
 
-                {cupponsType === 'generateCuppons' ?
-                  (
-                    <div className="row">
-                      <div className="col-sm-12 col-md-5  mt-5">
-                        <label
-                          htmlFor="campaignname"
-                          className="form-label fs-7 fw-bolder mb-1"
-                        >
-                          Charset -- {selectedPasswordType}
-                        </label>
-                        <Select
-                          options={passwordType}
-                          placeholder="Charset"
-                          className="form-control form-control-solid p-0"
-                          onChange={changePasswordType}
-                        />
+                    {password && (
+                      <div className="col-12 mt-5">
+                        <div className="notice d-flex bg-light-primary rounded border-primary border border-dashed p-6">
+                          <strong className="text-center w-100">
+                            {" "}
+                            {codePrefix} - {password} - {codeSuffix}{" "}
+                          </strong>
+                        </div>
                       </div>
-                      <div className="col-sm-12 col-md-5  mt-5">
-                        <label
-                          htmlFor="campaignname"
-                          className="form-label fs-7 fw-bolder mb-1"
-                        >
-                          Code length
-                        </label>
-                        <input
-                          className="form-control form-control-solid"
-                          type="number"
-                          placeholder="Code length"
-                          min={1}
-                          value={codeLength}
-                          onChange={handleCodeLengthChange}
-                        />
-
-
-                      </div>
-                      <div className="col-sm-12 col-md-5  mt-5">
-                        <label
-                          htmlFor="campaignname"
-                          className="form-label fs-7 fw-bolder mb-1"
-                        >
-                          Code prefix
-                        </label>
-                        <input
-                          className="form-control form-control-solid"
-                          type="text"
-                          placeholder="Code prefix"
-                          value={codePrefix}
-                          onChange={changeCodePrefix}
-                        />
-                      </div>
-                      <div className="col-sm-12 col-md-5  mt-5">
-                        <label
-                          htmlFor="campaignname"
-                          className="form-label fs-7 fw-bolder mb-1"
-                        >
-                          Code suffix
-                        </label>
-                        <input
-                          className="form-control form-control-solid"
-                          type="text"
-                          placeholder="Code suffix"
-                          value={codeSuffix}
-                          onChange={changeCodeSuffix}
-                        />
-                      </div>
-
-                      <strong> {codePrefix} - {password} - {codeSuffix} </strong>
-                    </div>) : (<div>Güncellme gelecek</div>)}
+                    )}
+                  </div>
+                ) : (
+                  <div>Güncellme gelecek</div>
+                )}
               </div>
             </div>
           </div>

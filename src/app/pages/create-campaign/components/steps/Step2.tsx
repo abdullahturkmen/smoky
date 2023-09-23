@@ -63,9 +63,9 @@ const Step2: FC = () => {
         </li>
       </ul>
       <div className="row flex-wrap">
-        {templateList?.map((e) => (
-          <>
-            <div
+        {templateList?.map((e,index) => (
+          <React.Fragment key={index}>
+            <div 
               className={`col-6 p-5 
         ${tab != "all" && tab != e.types ? "d-none" : ""}
        
@@ -84,7 +84,7 @@ const Step2: FC = () => {
                 </div>
               </div>
             </div>
-          </>
+            </React.Fragment>
         ))}
       </div>
     </div>

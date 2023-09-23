@@ -5,7 +5,7 @@ function ThinPopup(props) {
     return (
         <>
         <div className='bd-example bd-example-modal bg-light-primary'>
-            <div className="modal position-relative d-block" tabindex="-1" id="exampleModal">
+            <div className="modal position-relative d-block" tabIndex="-1" id="exampleModal">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="position-relative">
