@@ -1,0 +1,147 @@
+name: Frontend Development Build & Deploy
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - dev
+    types:
+      - closed
+
+jobs:
+  build-push-deploy:
+    permissions:
+      contents: read
+      packages: read
+      deployments: write
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.14.2]
+    steps:
+      - uses: actions/checkout@v3˚
+
+      - name: Move Dockerfile to Root Directory
+        run: |
+          mv ./containerization/Dockerfile ./Dockerfile
+
+      - id: "auth"
+        name: GCloud Auth
+        uses: "google-github-actions/auth@v1"
+        with:
+          credentials_json: "${{ secrets.DEV_GCP_SA_CLOUD_RUN_KEY }}"
+          token_format: "access_token"
+          cleanup_credentials: true
+
+      - name: NodeJs Scan
+        uses: ajinabraham/njsscan-action@master
+        continue-on-error: true
+        with:
+          args: "."
+
+      # - name: SonarCloud Scan
+      #   uses: SonarSource/sonarcloud-github-action@master
+      #   continue-on-error: false
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      # - name: Run Snyk to check for vulnerabilities
+      #   uses: snyk/actions/node@master
+      #   env:
+      #     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      #   with:
+      #     args: '--org=${{ secrets.SNYK_ORG_ID }} --severity-threshold=high'
+      #     command: monitor
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          version: latest
+          platforms: linux/amd64
+          driver-opts: "image=moby/buildkit:v0.10.5"
+
+      - name: Configure Docker
+        run: |
+          gcloud auth configure-docker europe-west4-docker.pkg.dev --quiet
+
+      - name: Login Docker
+        uses: "docker/login-action@v1"
+        with:
+          registry: "europe-west4-docker.pkg.dev"
+          username: "oauth2accesstoken"
+          password: "${{ steps.auth.outputs.access_token }}"
+
+      - name: Set Environment
+        run: echo "$ENV_VARIABLES" > .env.local
+        shell: bash
+        env:
+          ENV_VARIABLES: ${{ secrets.DEV_ENV_VARIABLES }}
+
+      - name: Docker build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          tags: europe-west4-docker.pkg.dev/ezport-dev/ezport-fe/fe:${{ github.sha }},europe-west4-docker.pkg.dev/ezport-dev/ezport-fe/fe:latest
+          cache-from: type=registry,ref=europe-west4-docker.pkg.dev/ezport-dev/ezport-fe/fe:latest
+
+      # - name: Run Trivy Docker Image Scanner
+      #   uses: aquasecurity/trivy-action@master
+      #   continue-on-error: true
+      #   with:
+      #     image-ref: europe-west4-docker.pkg.dev/ezport-dev/ezport-fe/fe:latest
+      #     format: "table"
+      #     exit-code: "1"
+      #     ignore-unfixed: true
+      #     vuln-type: "os,library"
+      #     severity: "CRITICAL,HIGH"
+
+      - id: "deploy"
+        uses: "google-github-actions/deploy-cloudrun@v1"
+        with:
+          service: "fe"
+          image: "europe-west4-docker.pkg.dev/ezport-dev/ezport-fe/fe:${{ github.sha }}"
+          region: "europe-west4"
+          flags: "--min-instances=0 --max-instances=50 --allow-unauthenticated --timeout=600 --memory=512Mi --concurrency=80 --cpu=1"
+
+      - name: Update deployment status
+        uses: chrnorm/deployment-action@v2.0.5
+        with:
+          token: "${{ github.token }}"
+          initial-status: ${{ job.status }}
+          environment-url: ${{ steps.deployment.outputs.environment_url }}
+          environment: "development"
+          description: "Deployed to Cloud Run - Project id: ezport-dev, Service: 'fe', Region: europe-west4"
+
+      - name: ZAP Scan
+        uses: zaproxy/action-full-scan@v0.4.0
+        continue-on-error: true
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          docker_name: "owasp/zap2docker-stable"
+          target: "https://test-fe.ezport.com"
+          rules_file_name: ".zap/rules.tsv"
+          cmd_options: "-a"
+
+  # slack-notification:
+  #   permissions:
+  #     contents: write
+  #     actions: read
+  #   name: Slack
+  #   needs: build-push-deploy
+  #   runs-on: ubuntu-latest
+  #   if: always()
+  #   steps:
+  #     - uses: technote-space/workflow-conclusion-action@v3
+  #     - uses: rtCamp/action-slack-notify@v2.2.0
+  #       with:
+  #         status: failure
+  #       env:
+  #         SLACK_CHANNEL: ezport-fe-development-logs
+  #         SLACK_COLOR: "#3278BD"
+  #         SLACK_ICON: https://img.icons8.com/material-outlined/48/000000/github.png
+  #         SLACK_MESSAGE: "${{ env.WORKFLOW_CONCLUSION }} job."
+  #         SLACK_TITLE: Frontend Development Build & Deploy
+  #         SLACK_USERNAME: Github Actions
+  #         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}

@@ -113,9 +113,9 @@ const Vertical = () => {
         </div>
 
         {/* begin::Aside*/}
-        <div style={{maxHeight: '100vh'}} className="card d-none d-md-flex justify-content-center justify-content-xl-start flex-row-auto w-100 w-md-300px w-xxl-400px me-9">
+        <div  className="card d-none d-md-flex justify-content-center justify-content-xl-start flex-row w-100 w-md-300px w-xxl-400px me-9">
           {/* begin::Wrapper*/}
-          <div className="card-body px-6 px-lg-10 px-xxl-15 py-20 d-flex align-items-center">
+          <div className="card-body px-6 px-lg-10 px-xxl-15 py-10 d-flex align-items-center position-sticky top-0" style={{height: '100vh'}}>
             {/* begin::Nav*/}
             <div className="stepper-nav">
               {/* begin::Step 1*/}
@@ -264,7 +264,7 @@ const Vertical = () => {
         </div>
         {/* begin::Aside*/}
 
-        <div className="d-flex flex-row-fluid flex-center bg-body rounded">
+        <div className="d-flex flex-row-fluid flex-center bg-body rounded" style={{flexBasis: '100%'}}>
           <Formik
             validationSchema={currentSchema}
             initialValues={initValues}
