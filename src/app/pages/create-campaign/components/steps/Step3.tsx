@@ -139,6 +139,7 @@ const Step3: FC = () => {
     { value: "alphanumeric", label: "Alphanumeric" },
     //{ value: "memorablePass", label: "Memorable Password" },
     { value: "pin", label: "Pin" },
+    { value: "letters", label: "Letters" },
   ];
   const [codeSuffix, setCodeSuffix] = useState("SUF");
   const [codePrefix, setCodePrefix] = useState("PRE");
@@ -167,9 +168,14 @@ const Step3: FC = () => {
       charset = "0123456789";
     }
 
-    if (event.value === "alphanumeric") {
+    else if (event.value === "alphanumeric") {
       charset =
-        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    }
+
+    else if (event.value === "letters") {
+      charset =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     }
 
     let password = "";
