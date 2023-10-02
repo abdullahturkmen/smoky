@@ -222,7 +222,7 @@ const Step3: FC = () => {
 
       <div className="row">
         <div className="accordion" id="accordionExample">
-          <div className="accordion-item">
+          <div className="accordion-item mb-8 shadow">
             <h2 className="accordion-header" id="headingOne">
               <button
                 className="accordion-button fs-4 fw-bold"
@@ -245,7 +245,7 @@ const Step3: FC = () => {
               aria-labelledby="headingOne"
               data-bs-parent="#accordionExample"
             >
-              <div className="accordion-body">
+              <div className="accordion-body ">
                 <div className="row">
                   <div className="col-12 col-lg-6 mb-4">
                     <label
@@ -269,7 +269,7 @@ const Step3: FC = () => {
               </div>
             </div>
           </div>
-          <div className="accordion-item">
+          <div className="accordion-item mb-8 shadow border-top">
             <h2 className="accordion-header" id="headingTwo">
               <button
                 className="accordion-button collapsed fs-4 fw-bold"
@@ -368,7 +368,7 @@ const Step3: FC = () => {
               </div>
             </div>
           </div>
-          <div className="accordion-item">
+          <div className="accordion-item mb-8 shadow border-top">
             <h2 className="accordion-header" id="headingThree">
               <button
                 className="accordion-button collapsed fs-4 fw-bold"
@@ -427,7 +427,7 @@ const Step3: FC = () => {
               </div>
             </div>
           </div>
-          <div className="accordion-item">
+          <div className="accordion-item mb-8 shadow border-top">
             <h2 className="accordion-header" id="headingFour">
               <button
                 className="accordion-button collapsed fs-4 fw-bold"
@@ -564,7 +564,7 @@ const Step3: FC = () => {
               </div>
             </div>
           </div>
-          <div className="accordion-item">
+          <div className="accordion-item mb-8 shadow border-top">
             <h2 className="accordion-header" id="headingFive">
               <button
                 className="accordion-button collapsed fs-4 fw-bold"
@@ -666,7 +666,7 @@ const Step3: FC = () => {
               </div>
             </div>
           </div>
-          <div className="accordion-item">
+          <div className="accordion-item mb-8 shadow border-top">
             <h2 className="accordion-header" id="headingSix">
               <button
                 className="accordion-button collapsed fs-4 fw-bold"
@@ -785,7 +785,7 @@ const Step3: FC = () => {
               </div>
             </div>
           </div>
-          <div className="accordion-item">
+          <div className="accordion-item mb-8 shadow border-top">
             <h2 className="accordion-header" id="headingSeven">
               <button
                 className="accordion-button collapsed fs-4 fw-bold"
