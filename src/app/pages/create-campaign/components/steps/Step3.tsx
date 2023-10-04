@@ -46,11 +46,92 @@ const Step3: FC = () => {
     { value: "32", label: "GMT +1200" },
     { value: "33", label: "GMT +1300" },
   ];
-  const [selectedTimeZone, setSelectedTimeZone] = useState(timeZoneOptions[16]);
+  const [selectedTimeZone, setSelectedHourZone] = useState(timeZoneOptions[16]);
 
   const timeZoneChange = (event) => {
-    setSelectedTimeZone(event);
+    setSelectedHourZone(event);
   };
+  const daysOptions = [
+    { value: "Everyday", label: "Everyday" },
+    { value: "Sunday", label: "Sunday" },
+    { value: "Monday", label: "Monday" },
+    { value: "Tuesday", label: "Tuesday" },
+    { value: "Wednesday", label: "Wednesday" },
+    { value: "Thursday", label: "Thursday" },
+    { value: "Friday", label: "Friday" },
+    { value: "Saturday", label: "Saturday" },
+  ];
+  const [selectedHour, setSelectedHour] = useState<{ value: string; label: string }>({
+    value: "00:00",
+    label: "00:00",
+  });
+
+  const [selectedMinutes, setSelectedMinutes] = useState<{ value: string; label: string }>({
+    value: "23:59",
+    label: "23:59",
+  });
+
+  const hourOptions: { value: string; label: string }[] = [];
+  const minutesOptions: { value: string; label: string }[] = [];
+
+
+
+  for (let hour = 0; hour < 24; hour++) {
+    for (let minute = 0; minute < 60; minute += 30) {
+      const formattedHour = hour.toString().padStart(2, "0");
+      const formattedMinute = minute.toString().padStart(2, "0");
+      const timeValue = `${formattedHour}:${formattedMinute}`;
+      hourOptions.push({ value: timeValue, label: timeValue });
+    }
+  }
+
+
+  for (let hour = 0; hour < 24; hour++) {
+    for (let minute = 30; minute < 60; minute += 30) {
+      const formattedHour = hour.toString().padStart(2, "0");
+      const formattedMinute = minute.toString().padStart(2, "0");
+      const timeValue = `${formattedHour}:${formattedMinute}`;
+      minutesOptions.push({ value: timeValue, label: timeValue });
+    }
+  }
+
+  minutesOptions.push({ value: "23:59", label: "23:59" });
+
+  const minutesChange = (selectedOption: { value: string; label: string } | null) => {
+    if (selectedOption) {
+      setSelectedMinutes(selectedOption);
+    } else {
+      setSelectedMinutes({ value: "23:59", label: "23:59" });
+    }
+  };
+
+  const hourChange = (selectedOption: { value: string; label: string } | null) => {
+    if (selectedOption) {
+      setSelectedHour(selectedOption);
+    } else {
+      setSelectedHour({ value: "00:00", label: "00:00" });
+    }
+  };
+
+  const [timeList, setTimeList] = useState([{ day: null, time: "", minutes: "" }]);
+
+  const addTime = () => {
+    setTimeList([...timeList, { day: null, time: "", minutes: "" }]);
+
+    console.log('timeList', timeList)
+  };
+
+  const updateTimeList = (index, field, value) => {
+    const updatedList = [...timeList];
+    updatedList[index][field] = value;
+    setTimeList(updatedList);
+  };
+  const removeTime = (indexToRemove) => {
+    setTimeList((prevTimeList) => {
+      return prevTimeList.filter((_, index) => index !== indexToRemove);
+    });
+  };
+
 
 
   useEffect(() => {
@@ -67,6 +148,29 @@ const Step3: FC = () => {
       setIsStartDateDisabled(false);
     }
   };
+
+  const getMinTime = () => {
+    const minTime = new Date();
+    minTime.setHours(0);
+    minTime.setMinutes(0);
+    return minTime;
+  };
+
+  const getMaxTime = () => {
+    const maxTime = new Date();
+    maxTime.setHours(23);
+    maxTime.setMinutes(45);
+    return maxTime;
+  };
+
+  const filterTime = (time) => {
+    const now = new Date();
+    if (endDate.getDate() > now.getDate()) {
+      return true;
+    }
+    return time.getHours() >= now.getHours();
+  };
+
   //Finish Campaign Schedule function
 
   // Start Campaign Limit function
@@ -399,7 +503,15 @@ const Step3: FC = () => {
                               selected={startDate}
                               onChange={(date) => setStartDate(date)}
                               minDate={new Date()}
-                              dateFormat="dd/MM/yyyy"
+                              showTimeSelect
+                              showYearDropdown
+                              minTime={getMinTime()}
+                              maxTime={getMaxTime()}
+                              dateFormat="dd/MM/yyyy h:mm aa"
+                              yearDropdownItemNumber={15}
+                              scrollableYearDropdown
+                              timeIntervals={15}
+
                             />
                           </div>
                         </div>
@@ -417,11 +529,70 @@ const Step3: FC = () => {
                             selected={endDate}
                             onChange={(date) => setEndDate(date)}
                             minDate={startDate}
-                            dateFormat="dd/MM/yyyy"
+                            showTimeSelect
+                            showYearDropdown
+                            minTime={getMinTime()}
+                            maxTime={getMaxTime()}
+                            dateFormat="dd/MM/yyyy h:mm aa"
+                            yearDropdownItemNumber={15}
+                            scrollableYearDropdown
+                            timeIntervals={15}
+                            filterTime={filterTime}
                           />
                         </div>
                       </div>
                     </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <label
+                    htmlFor="min"
+                    className="form-label fs-7 fw-bolder mb-5"
+                  >
+                    Detailed schedule
+                  </label>
+                  {timeList.map((item, index) => (
+                    <div className="col-12 d-flex gap-5 mt-5">
+
+                      {timeList.length > 1 && (
+                        <button
+                          type="button"
+                          className="btn btn-light btn-sm"
+                          onClick={() => removeTime(index)}
+                        >
+                          <KTIcon iconName="trash" className="fs-3 text-danger" />
+                        </button>
+                      )}
+                      <Select
+                        options={daysOptions}
+                        placeholder="Everyday"
+                        className="form-control form-control-solid p-0"
+                        onChange={(selectedOption) =>
+                          updateTimeList(index, "day", selectedOption)
+                        }
+                        value={item.day}
+                      />
+                      <Select
+                        options={hourOptions}
+                        placeholder="Time"
+                        className="form-control form-control-solid p-0"
+                        value={selectedHour}
+                        onChange={hourChange}
+                      />
+                      <Select
+                        options={minutesOptions}
+                        placeholder="Time 2"
+                        className="form-control form-control-solid p-0"
+                        value={selectedMinutes}
+                        onChange={minutesChange}
+                      />
+
+                    </div>
+                  ))}
+
+
+                  <div className="col-2">
+                    <button className="btn btn-primary mt-5" type="button" onClick={addTime}>Add</button>
                   </div>
                 </div>
               </div>
