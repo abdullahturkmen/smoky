@@ -145,7 +145,7 @@ const CampaignAudience = () => {
                                 onChange={browserChange}
                                 value={selectedBrowser}
                             />
-                            {selectedBrowser.value === 'selectBrowser' && (
+                            {selectedBrowser?.value === 'selectBrowser' && (
                                 <div className="row alert alert-info mt-5">
                                     <div className="col-6 col-lg-2 col-md-4 my-2"><input className='form-check-input' type='checkbox' value='1' /> Chrome</div>
                                     <div className="col-6 col-lg-2 col-md-4 my-2"><input className='form-check-input' type='checkbox' value='1' /> Safari</div>
