@@ -5,7 +5,7 @@ import { CampaignLimit } from "./components/CampaignLimit";
 import { CampaignAudience } from "./components/CampaignAudience";
 import { CampaignDisplayPages } from "./components/CampaignDisplayPages";
 import { CampaignUploadCoupons } from "./components/CampaignUploadCoupons"
-
+import { CampaignDiscountRange } from "./components/CampaignDiscountRange";
 const Step3 = () => {
   return (
     <div className="w-100">
@@ -25,6 +25,7 @@ const Step3 = () => {
         <div className="accordion" id="accordionExample">
           <CampaignName />
           <CampaignSchedule />
+          <CampaignDiscountRange/>
           <CampaignLimit />
           <CampaignAudience />
           <CampaignDisplayPages />
