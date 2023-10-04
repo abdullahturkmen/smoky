@@ -6,7 +6,7 @@ import countries from "../../../../../_metronic/helpers/AllCountry";
 import { ErrorMessage, Field } from "formik";
 import "react-datepicker/dist/react-datepicker.css";
 
-const Step3: FC = () => {
+const Step3 = () => {
   //Start Campaign Schedule function
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -61,18 +61,18 @@ const Step3: FC = () => {
     { value: "Friday", label: "Friday" },
     { value: "Saturday", label: "Saturday" },
   ];
-  const [selectedHour, setSelectedHour] = useState<{ value: string; label: string }>({
+  const [selectedHour, setSelectedHour] = useState({
     value: "00:00",
     label: "00:00",
   });
 
-  const [selectedMinutes, setSelectedMinutes] = useState<{ value: string; label: string }>({
+  const [selectedMinutes, setSelectedMinutes] = useState({
     value: "23:59",
     label: "23:59",
   });
 
-  const hourOptions: { value: string; label: string }[] = [];
-  const minutesOptions: { value: string; label: string }[] = [];
+  const hourOptions = [];
+  const minutesOptions = [];
 
 
 
@@ -97,28 +97,10 @@ const Step3: FC = () => {
 
   minutesOptions.push({ value: "23:59", label: "23:59" });
 
-  const minutesChange = (selectedOption: { value: string; label: string } | null) => {
-    if (selectedOption) {
-      setSelectedMinutes(selectedOption);
-    } else {
-      setSelectedMinutes({ value: "23:59", label: "23:59" });
-    }
-  };
-
-  const hourChange = (selectedOption: { value: string; label: string } | null) => {
-    if (selectedOption) {
-      setSelectedHour(selectedOption);
-    } else {
-      setSelectedHour({ value: "00:00", label: "00:00" });
-    }
-  };
-
-  const [timeList, setTimeList] = useState([{ day: null, time: "", minutes: "" }]);
+  const [timeList, setTimeList] = useState([{ day: {value: 'Everyday', label:'Everyday'}, startHour: {value: '00:00', label:'00:00'}, endHour: {value: '23:30', label:'23:30'} }]);
 
   const addTime = () => {
-    setTimeList([...timeList, { day: null, time: "", minutes: "" }]);
-
-    console.log('timeList', timeList)
+    setTimeList([...timeList, { day: {value: 'Everyday', label:'Everyday'}, startHour: {value: '00:00', label:'00:00'}, endHour: {value: '23:30', label:'23:30'} }]);
   };
 
   const updateTimeList = (index, field, value) => {
@@ -406,9 +388,9 @@ const Step3: FC = () => {
                       className="form-control form-control-lg form-control-solid"
                       // value={phone}
                       placeholder="Campaign name"
-                      //   onChange={
-                      //     e => setPhone(e.target.value)
-                      // }
+                    //   onChange={
+                    //     e => setPhone(e.target.value)
+                    // }
                     />
                   </div>
                 </div>
@@ -439,7 +421,7 @@ const Step3: FC = () => {
               data-bs-parent="#accordionExample"
             >
               <div className="accordion-body">
-              <div className="row">
+                <div className="row">
                   <div className="col-12 mb-4">
                     <label
                       htmlFor="campaignname"
@@ -567,24 +549,26 @@ const Step3: FC = () => {
                         options={daysOptions}
                         placeholder="Everyday"
                         className="form-control form-control-solid p-0"
+                        value={item.day}
                         onChange={(selectedOption) =>
                           updateTimeList(index, "day", selectedOption)
                         }
-                        value={item.day}
                       />
                       <Select
                         options={hourOptions}
                         placeholder="Time"
                         className="form-control form-control-solid p-0"
-                        value={selectedHour}
-                        onChange={hourChange}
+                        value={item.startHour}
+                        onChange={(selectedOption) =>
+                          updateTimeList(index, "startHour", selectedOption)}
                       />
                       <Select
                         options={minutesOptions}
                         placeholder="Time 2"
                         className="form-control form-control-solid p-0"
-                        value={selectedMinutes}
-                        onChange={minutesChange}
+                        value={item.endHour}
+                        onChange={(selectedOption) =>
+                          updateTimeList(index, "endHour", selectedOption)}
                       />
 
                     </div>
