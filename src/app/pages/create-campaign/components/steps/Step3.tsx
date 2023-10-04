@@ -11,6 +11,48 @@ const Step3: FC = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [isStartDateDisabled, setIsStartDateDisabled] = useState(true);
+  const timeZoneOptions = [
+    { value: "1", label: "GMT -1200" },
+    { value: "2", label: "GMT -1100" },
+    { value: "3", label: "GMT -1000" },
+    { value: "4", label: "GMT -0900" },
+    { value: "5", label: "GMT -0800" },
+    { value: "6", label: "GMT -0700" },
+    { value: "7", label: "GMT -0600" },
+    { value: "8", label: "GMT -0500" },
+    { value: "9", label: "GMT -0400" },
+    { value: "10", label: "GMT -0330" },
+    { value: "11", label: "GMT -0300" },
+    { value: "12", label: "GMT -0200" },
+    { value: "13", label: "GMT -0100" },
+    { value: "14", label: "GMT +0000" },
+    { value: "15", label: "GMT +0100" },
+    { value: "16", label: "GMT +0200" },
+    { value: "17", label: "GMT +0300 (GMT+03:00)" },
+    { value: "18", label: "GMT +0330" },
+    { value: "19", label: "GMT +0400" },
+    { value: "20", label: "GMT +0430" },
+    { value: "21", label: "GMT +0500" },
+    { value: "22", label: "GMT +0530" },
+    { value: "23", label: "GMT +0545" },
+    { value: "24", label: "GMT +0600" },
+    { value: "25", label: "GMT +0630" },
+    { value: "26", label: "GMT +0700" },
+    { value: "27", label: "GMT +0800" },
+    { value: "28", label: "GMT +0900" },
+    { value: "29", label: "GMT +0930" },
+    { value: "30", label: "GMT +1000" },
+    { value: "31", label: "GMT +1100" },
+    { value: "32", label: "GMT +1200" },
+    { value: "33", label: "GMT +1300" },
+  ];
+  const [selectedTimeZone, setSelectedTimeZone] = useState(timeZoneOptions[16]);
+
+  const timeZoneChange = (event) => {
+    setSelectedTimeZone(event);
+  };
+
+
   useEffect(() => {
     if (endDate < startDate) {
       setEndDate(startDate);
@@ -293,6 +335,23 @@ const Step3: FC = () => {
               data-bs-parent="#accordionExample"
             >
               <div className="accordion-body">
+              <div className="row">
+                  <div className="col-12 mb-4">
+                    <label
+                      htmlFor="campaignname"
+                      className="form-label fs-7 fw-bolder mb-1"
+                    >
+                      Time Zone
+                    </label>
+                    <Select
+                      options={timeZoneOptions}
+                      placeholder="Time Zone"
+                      className="form-control form-control-solid p-0"
+                      value={selectedTimeZone}
+                      onChange={timeZoneChange}
+                    />
+                  </div>
+                </div>
                 <div className="row">
                   <div className="col-12 col-lg-6">
                     <div className="row">
