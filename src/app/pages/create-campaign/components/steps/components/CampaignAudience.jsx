@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import countries from "../../../../../../_metronic/helpers/AllCountry";
-
+import allLanguage from "../../../../../../_metronic/helpers/AllLanguage";
 const CampaignAudience = () => {
     const [selectedCountry, setSelectedCountry] = useState(null);
+    const [selectedLanguage, setSelectedLanguage] = useState(null);
     const [selectedDevices, setSelectedDevices] = useState(null);
     const [selectedChannels, setSelectedChanneles] = useState(null);
     const [selectedShareVisitor, setSelectedShareVisitor] = useState(null);
     const [selectedBrowser, setSelectedBrowser] = useState(null)
+    const [activeButtons, setActiveButtons] = useState(['All devices']);
     const shareVisitorOptions = [
         { value: "allVisitors", label: "All visitors" },
         { value: "newVisitors", label: "New visitors" },
@@ -45,10 +47,37 @@ const CampaignAudience = () => {
     const countryChange = (event) => {
         setSelectedCountry(event);
     };
+    const languageChange = (event) => {
+        setSelectedLanguage(event)
+    }
     const browserChange = (event) => {
         setSelectedBrowser(event);
-        console.log('event', event)
     };
+
+    const devicesButtonClick = (buttonName) => {
+
+        if (buttonName === 'All devices') {
+            setActiveButtons(['All devices']);
+        } else {
+            setActiveButtons((prevActiveButtons) => {
+                const updatedButtons = prevActiveButtons.filter((name) => name !== 'All devices');
+                if (updatedButtons.includes(buttonName)) {
+                    return updatedButtons.filter((name) => name !== buttonName);
+                } else {
+                    return [...updatedButtons, buttonName];
+                }
+            });
+        }
+    };
+
+    useEffect(
+        () => {
+            if (activeButtons.length === 0) {
+                setActiveButtons(['All devices']);
+            }
+        },
+        [activeButtons]
+    )
     return (
         <div className="accordion-item mb-8 shadow border-top">
             <h2 className="accordion-header" id="headingFive">
@@ -108,6 +137,58 @@ const CampaignAudience = () => {
                             >
                                 Devices
                             </label>
+                            <div className="row">
+                                <div className="col-3">
+                                    <button
+                                        type="button"
+                                        className={`btn ${activeButtons.includes('All devices') ? 'btn-primary' : 'btn-secondary'}`}
+                                        onClick={() => devicesButtonClick('All devices')}
+                                    >
+                                        All devices
+                                    </button>
+                                </div>
+                                <div className="col-3"><button type="button"
+                                    className={`btn ${activeButtons.includes('Display on desktops') ? 'btn-primary' : 'btn-secondary'}`}
+                                    onClick={() => devicesButtonClick('Display on desktops')}
+                                >
+                                    Display on desktops
+                                </button>
+                                    {activeButtons.includes('Display on desktops') && (
+                                        <div className="row mt-5">
+                                            <div className="col-12 my-2"><input className='form-check-input me-2' type='checkbox' value='1' />Windows</div>
+                                            <div className="col-12 my-2"><input className='form-check-input me-2' type='checkbox' value='1' />Mac</div>
+                                            <div className="col-12 my-2"><input className='form-check-input me-2' type='checkbox' value='1' />Linux</div>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="col-3"> <button type="button"
+                                    className={`btn ${activeButtons.includes('Display on tablets') ? 'btn-primary' : 'btn-secondary'}`}
+                                    onClick={() => devicesButtonClick('Display on tablets')}
+                                >
+                                    Display on tablets
+                                </button>
+                                    {activeButtons.includes('Display on tablets') && (
+                                        <div className="row mt-5">
+                                            <div className="col-12 my-2"><input className='form-check-input me-2' type='checkbox' value='1' />iPad</div>
+                                            <div className="col-12 my-2"><input className='form-check-input me-2' type='checkbox' value='1' />Android</div>
+                                        </div>
+
+                                    )}</div>
+                                <div className="col-3"> <button type="button"
+                                    className={`btn ${activeButtons.includes('Display on mobiles') ? 'btn-primary' : 'btn-secondary'}`}
+                                    onClick={() => devicesButtonClick('Display on mobiles')}
+                                >
+                                    Display on mobiles
+                                </button>
+                                    {activeButtons.includes('Display on mobiles') && (
+                                        <div className="row mt-5">
+                                            <div className="col-12 my-2"><input className='form-check-input me-2' type='checkbox' value='1' />iPhone</div>
+                                            <div className="col-12 my-2"><input className='form-check-input me-2' type='checkbox' value='1' />Android</div>
+                                            <div className="col-12 my-2"><input className='form-check-input me-2' type='checkbox' value='1' />Windows Phone</div>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
                             <Select
                                 options={devicesOptions}
                                 placeholder="All Devices"
@@ -134,6 +215,21 @@ const CampaignAudience = () => {
                         </div>
                         <div className="col-12 mb-4">
                             <label
+                                htmlFor="campaignname"
+                                className="form-label fs-7 fw-bolder mb-1"
+                            >
+                                Language
+                            </label>
+                            <Select
+                                options={allLanguage}
+                                placeholder="Countries"
+                                className="form-control form-control-solid p-0"
+                                onChange={languageChange}
+                                value={selectedLanguage}
+                            />
+                        </div>
+                        <div className="col-12 mb-4">
+                            <label
                                 className="form-label fs-7 fw-bolder mb-1"
                             >
                                 Browser
@@ -146,13 +242,13 @@ const CampaignAudience = () => {
                                 value={selectedBrowser}
                             />
                             {selectedBrowser?.value === 'selectBrowser' && (
-                                <div className="row alert alert-info mt-5">
-                                    <div className="col-6 col-lg-2 col-md-4 my-2"><input className='form-check-input' type='checkbox' value='1' /> Chrome</div>
-                                    <div className="col-6 col-lg-2 col-md-4 my-2"><input className='form-check-input' type='checkbox' value='1' /> Safari</div>
-                                    <div className="col-6 col-lg-2 col-md-4 my-2"><input className='form-check-input' type='checkbox' value='1' /> Internet Explorer</div>
-                                    <div className="col-6 col-lg-2 col-md-4 my-2"><input className='form-check-input' type='checkbox' value='1' /> Firefox</div>
-                                    <div className="col-6 col-lg-2 col-md-4 my-2"><input className='form-check-input' type='checkbox' value='1' /> Opera</div>
-                                    <div className="col-6 col-lg-2 col-md-4 my-2"><input className='form-check-input' type='checkbox' value='1' /> Edge</div>
+                                <div className="row mt-5">
+                                    <div className="col-6 col-lg-2 col-md-4 my-2"><input className='form-check-input me-2' type='checkbox' value='1' /> Chrome</div>
+                                    <div className="col-6 col-lg-2 col-md-4 my-2"><input className='form-check-input me-2' type='checkbox' value='1' /> Safari</div>
+                                    <div className="col-6 col-lg-2 col-md-4 my-2"><input className='form-check-input me-2' type='checkbox' value='1' /> Internet Explorer</div>
+                                    <div className="col-6 col-lg-2 col-md-4 my-2"><input className='form-check-input me-2' type='checkbox' value='1' /> Firefox</div>
+                                    <div className="col-6 col-lg-2 col-md-4 my-2"><input className='form-check-input me-2' type='checkbox' value='1' /> Opera</div>
+                                    <div className="col-6 col-lg-2 col-md-4 my-2"><input className='form-check-input me-2' type='checkbox' value='1' /> Edge</div>
                                 </div>
                             )}
 
