@@ -5,7 +5,6 @@ import allLanguage from "../../../../../../_metronic/helpers/AllLanguage";
 const CampaignAudience = () => {
     const [selectedCountry, setSelectedCountry] = useState(null);
     const [selectedLanguage, setSelectedLanguage] = useState(null);
-    const [selectedDevices, setSelectedDevices] = useState(null);
     const [selectedChannels, setSelectedChanneles] = useState(null);
     const [selectedShareVisitor, setSelectedShareVisitor] = useState(null);
     const [selectedBrowser, setSelectedBrowser] = useState(null)
@@ -21,12 +20,6 @@ const CampaignAudience = () => {
         { value: "trafficSource", label: "Traffic source" },
         { value: "UTM", label: "UTM" },
     ];
-    const devicesOptions = [
-        { value: "allDevices", label: "All devices" },
-        { value: "displayDesktops", label: "Display on desktops" },
-        { value: "displayTablets", label: "Display on tablets" },
-        { value: "displayMobile", label: "Display on mobile" },
-    ];
 
     const browserOptions = [
         { value: "allBrowsers", label: "All Browsers" },
@@ -39,9 +32,6 @@ const CampaignAudience = () => {
 
     const channelsChange = (event) => {
         setSelectedChanneles(event);
-    };
-    const devicesChange = (event) => {
-        setSelectedDevices(event);
     };
 
     const countryChange = (event) => {
@@ -189,13 +179,9 @@ const CampaignAudience = () => {
                                     )}
                                 </div>
                             </div>
-                            <Select
-                                options={devicesOptions}
-                                placeholder="All Devices"
-                                className="form-control form-control-solid p-0"
-                                onChange={devicesChange}
-                                value={selectedDevices}
-                            />
+
+
+
                         </div>
                         <div className="col-12 mb-4">
                             <label
