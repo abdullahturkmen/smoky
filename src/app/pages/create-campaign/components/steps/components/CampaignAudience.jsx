@@ -10,6 +10,7 @@ const CampaignAudience = () => {
     const [selectedShareVisitor, setSelectedShareVisitor] = useState(null);
     const [selectedBrowser, setSelectedBrowser] = useState(null)
     const [activeButtons, setActiveButtons] = useState(['All devices']);
+    const [showDeviceDetail, setShowDeviceDetail] = useState(false)
     const [devicesData, setDevicesData] = useState({
         'Display on desktops': {
             selected: false,
@@ -85,11 +86,15 @@ const CampaignAudience = () => {
     const browserChange = (event) => {
         setSelectedBrowser(event);
     };
+    const changeStatusDeviceDetail = () =>{
+        setShowDeviceDetail(!showDeviceDetail)
+    }
 
     const devicesButtonClick = (buttonName) => {
 
         if (buttonName === 'All devices') {
             setActiveButtons(['All devices']);
+            setShowDeviceDetail(false)
         } else {
             setActiveButtons((prevActiveButtons) => {
                 const updatedButtons = prevActiveButtons.filter((name) => name !== 'All devices');
@@ -121,7 +126,7 @@ const CampaignAudience = () => {
                     aria-expanded="false"
                     aria-controls="collapseFive"
                 >
-                    Campaign Audience
+                    Campaign Audience -- {activeButtons}
                 </button>
             </h2>
             <div
@@ -170,7 +175,8 @@ const CampaignAudience = () => {
                                 Devices
                             </label>
                             <div className="row">
-                                <div className="col-3">
+                                
+                                <div className="col-2">
                                     <button
                                         type="button"
                                         className={`btn ${activeButtons.includes('All devices') ? 'btn-primary' : 'btn-secondary'}`}
@@ -187,7 +193,7 @@ const CampaignAudience = () => {
                                     >
                                         Display on desktops
                                     </button>
-                                    {activeButtons.includes('Display on desktops') && (
+                                    {activeButtons.includes('Display on desktops') && showDeviceDetail === true && (
                                         <div className="row mt-5">
                                             <div className="col-12 my-2">
                                                 <input
@@ -230,7 +236,7 @@ const CampaignAudience = () => {
                                     >
                                         Display on tablets
                                     </button>
-                                    {activeButtons.includes('Display on tablets') && (
+                                    {activeButtons.includes('Display on tablets') && showDeviceDetail === true && (
                                         <div className="row mt-5">
                                             <div className="col-12 my-2">
                                                 <input
@@ -263,7 +269,7 @@ const CampaignAudience = () => {
                                     >
                                         Display on mobiles
                                     </button>
-                                    {activeButtons.includes('Display on mobiles') && (
+                                    {activeButtons.includes('Display on mobiles') && showDeviceDetail === true && (
                                         <div className="row mt-5">
                                             <div className="col-12 my-2">
                                                 <input
@@ -296,6 +302,15 @@ const CampaignAudience = () => {
                                                 Windows Phone
                                             </div>
                                         </div>
+                                    )}
+                                </div>
+                                <div className="col-1">
+                                {!activeButtons.includes('All devices') &&   (
+                                        <button type="button" className="btn btn-link" onClick={changeStatusDeviceDetail}>
+                                            {
+                                                !showDeviceDetail ? (<>Refine by OS</>) : (<>Close</>)
+                                            }
+                                        </button>
                                     )}
                                 </div>
                             </div>
