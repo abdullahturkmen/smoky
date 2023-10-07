@@ -39,19 +39,19 @@ const CampaignAudience = () => {
 
     const deviceCheckboxChange = (buttonName, optionName) => {
         setDevicesData((prevDevicesData) => {
-          const updatedDevicesData = { ...prevDevicesData };
-          if (buttonName === 'All devices') {
-            for (const name in updatedDevicesData) {
-              for (const key in updatedDevicesData[name].options) {
-                updatedDevicesData[name].options[key] = true;
-              }
+            const updatedDevicesData = { ...prevDevicesData };
+            if (buttonName === 'All devices') {
+                for (const name in updatedDevicesData) {
+                    for (const key in updatedDevicesData[name].options) {
+                        updatedDevicesData[name].options[key] = true;
+                    }
+                }
+            } else {
+                updatedDevicesData[buttonName].options[optionName] = !updatedDevicesData[buttonName].options[optionName];
             }
-          } else {
-             updatedDevicesData[buttonName].options[optionName] = !updatedDevicesData[buttonName].options[optionName];
-          }
-          return updatedDevicesData;
+            return updatedDevicesData;
         });
-      };
+    };
     const shareVisitorOptions = [
         { value: "allVisitors", label: "All visitors" },
         { value: "newVisitors", label: "New visitors" },
@@ -86,7 +86,7 @@ const CampaignAudience = () => {
     const browserChange = (event) => {
         setSelectedBrowser(event);
     };
-    const changeStatusDeviceDetail = () =>{
+    const changeStatusDeviceDetail = () => {
         setShowDeviceDetail(!showDeviceDetail)
     }
 
@@ -126,7 +126,7 @@ const CampaignAudience = () => {
                     aria-expanded="false"
                     aria-controls="collapseFive"
                 >
-                    Campaign Audience -- {activeButtons}
+                    Campaign Audience
                 </button>
             </h2>
             <div
@@ -175,147 +175,148 @@ const CampaignAudience = () => {
                                 Devices
                             </label>
                             <div className="row">
-                                
-                                <div className="col-2">
-                                    <button
-                                        type="button"
-                                        className={`btn ${activeButtons.includes('All devices') ? 'btn-primary' : 'btn-secondary'}`}
-                                        onClick={() => devicesButtonClick('All devices')}
-                                    >
-                                        All devices
-                                    </button>
-                                </div>
-                                <div className="col-3">
-                                    <button
-                                        type="button"
-                                        className={`btn ${activeButtons.includes('Display on desktops') ? 'btn-primary' : 'btn-secondary'}`}
-                                        onClick={() => devicesButtonClick('Display on desktops')}
-                                    >
-                                        Display on desktops
-                                    </button>
-                                    {activeButtons.includes('Display on desktops') && showDeviceDetail === true && (
-                                        <div className="row mt-5">
-                                            <div className="col-12 my-2">
-                                                <input
-                                                    className='form-check-input me-2'
-                                                    type='checkbox'
-                                                    value='1'
-                                                    checked={devicesData['Display on desktops'].options.Windows}
-                                                    onChange={() => deviceCheckboxChange('Display on desktops', 'Windows')}
-                                                />
-                                                Windows
-                                            </div>
-                                            <div className="col-12 my-2">
-                                                <input
-                                                    className='form-check-input me-2'
-                                                    type='checkbox'
-                                                    value='1'
-                                                    checked={devicesData['Display on desktops'].options.Mac}
-                                                    onChange={() => deviceCheckboxChange('Display on desktops', 'Mac')}
-                                                />
-                                                Mac
-                                            </div>
-                                            <div className="col-12 my-2">
-                                                <input
-                                                    className='form-check-input me-2'
-                                                    type='checkbox'
-                                                    value='1'
-                                                    checked={devicesData['Display on desktops'].options.Linux}
-                                                    onChange={() => deviceCheckboxChange('Display on desktops', 'Linux')}
-                                                />
-                                                Linux
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-                                <div className="col-3">
-                                    <button
-                                        type="button"
-                                        className={`btn ${activeButtons.includes('Display on tablets') ? 'btn-primary' : 'btn-secondary'}`}
-                                        onClick={() => devicesButtonClick('Display on tablets')}
-                                    >
-                                        Display on tablets
-                                    </button>
-                                    {activeButtons.includes('Display on tablets') && showDeviceDetail === true && (
-                                        <div className="row mt-5">
-                                            <div className="col-12 my-2">
-                                                <input
-                                                    className='form-check-input me-2'
-                                                    type='checkbox'
-                                                    value='1'
-                                                    checked={devicesData['Display on tablets'].options.iPad}
-                                                    onChange={() => deviceCheckboxChange('Display on tablets', 'iPad')}
-                                                />
-                                                iPad
-                                            </div>
-                                            <div className="col-12 my-2">
-                                                <input
-                                                    className='form-check-input me-2'
-                                                    type='checkbox'
-                                                    value='1'
-                                                    checked={devicesData['Display on tablets'].options.Android}
-                                                    onChange={() => deviceCheckboxChange('Display on tablets', 'Android')}
-                                                />
-                                                Android
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-                                <div className="col-3">
-                                    <button
-                                        type="button"
-                                        className={`btn ${activeButtons.includes('Display on mobiles') ? 'btn-primary' : 'btn-secondary'}`}
-                                        onClick={() => devicesButtonClick('Display on mobiles')}
-                                    >
-                                        Display on mobiles
-                                    </button>
-                                    {activeButtons.includes('Display on mobiles') && showDeviceDetail === true && (
-                                        <div className="row mt-5">
-                                            <div className="col-12 my-2">
-                                                <input
-                                                    className='form-check-input me-2'
-                                                    type='checkbox'
-                                                    value='1'
-                                                    checked={devicesData['Display on mobiles'].options.iPhone}
-                                                    onChange={() => deviceCheckboxChange('Display on mobiles', 'iPhone')}
-                                                />
-                                                iPhone
-                                            </div>
-                                            <div className="col-12 my-2">
-                                                <input
-                                                    className='form-check-input me-2'
-                                                    type='checkbox'
-                                                    value='1'
-                                                    checked={devicesData['Display on mobiles'].options.Android}
-                                                    onChange={() => deviceCheckboxChange('Display on mobiles', 'Android')}
-                                                />
-                                                Android
-                                            </div>
-                                            <div className="col-12 my-2">
-                                                <input
-                                                    className='form-check-input me-2'
-                                                    type='checkbox'
-                                                    value='1'
-                                                    checked={devicesData['Display on mobiles'].options['Windows Phone']}
-                                                    onChange={() => deviceCheckboxChange('Display on mobiles', 'Windows Phone')}
-                                                />
-                                                Windows Phone
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-                                <div className="col-1">
-                                {!activeButtons.includes('All devices') &&   (
-                                        <button type="button" className="btn btn-link" onClick={changeStatusDeviceDetail}>
-                                            {
-                                                !showDeviceDetail ? (<>Refine by OS</>) : (<>Close</>)
-                                            }
+                                <div className="col-12 d-flex flex-wrap gap-8">
+                                    <div>
+                                        <button
+                                            type="button"
+                                            className={`btn ${activeButtons.includes('All devices') ? 'btn-primary' : 'btn-secondary'}`}
+                                            onClick={() => devicesButtonClick('All devices')}
+                                        >
+                                            All devices
                                         </button>
-                                    )}
+                                    </div>
+                                    <div>
+                                        <button
+                                            type="button"
+                                            className={`btn ${activeButtons.includes('Display on desktops') ? 'btn-primary' : 'btn-secondary'}`}
+                                            onClick={() => devicesButtonClick('Display on desktops')}
+                                        >
+                                            Display on desktops
+                                        </button>
+                                        {activeButtons.includes('Display on desktops') && showDeviceDetail === true && (
+                                            <div className="mt-5">
+                                                <div className="col-12 my-2">
+                                                    <input
+                                                        className='form-check-input me-2'
+                                                        type='checkbox'
+                                                        value='1'
+                                                        checked={devicesData['Display on desktops'].options.Windows}
+                                                        onChange={() => deviceCheckboxChange('Display on desktops', 'Windows')}
+                                                    />
+                                                    Windows
+                                                </div>
+                                                <div className="col-12 my-2">
+                                                    <input
+                                                        className='form-check-input me-2'
+                                                        type='checkbox'
+                                                        value='1'
+                                                        checked={devicesData['Display on desktops'].options.Mac}
+                                                        onChange={() => deviceCheckboxChange('Display on desktops', 'Mac')}
+                                                    />
+                                                    Mac
+                                                </div>
+                                                <div className="col-12 my-2">
+                                                    <input
+                                                        className='form-check-input me-2'
+                                                        type='checkbox'
+                                                        value='1'
+                                                        checked={devicesData['Display on desktops'].options.Linux}
+                                                        onChange={() => deviceCheckboxChange('Display on desktops', 'Linux')}
+                                                    />
+                                                    Linux
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div>
+                                        <button
+                                            type="button"
+                                            className={`btn ${activeButtons.includes('Display on tablets') ? 'btn-primary' : 'btn-secondary'}`}
+                                            onClick={() => devicesButtonClick('Display on tablets')}
+                                        >
+                                            Display on tablets
+                                        </button>
+                                        {activeButtons.includes('Display on tablets') && showDeviceDetail === true && (
+                                            <div className="mt-5">
+                                                <div className="col-12 my-2">
+                                                    <input
+                                                        className='form-check-input me-2'
+                                                        type='checkbox'
+                                                        value='1'
+                                                        checked={devicesData['Display on tablets'].options.iPad}
+                                                        onChange={() => deviceCheckboxChange('Display on tablets', 'iPad')}
+                                                    />
+                                                    iPad
+                                                </div>
+                                                <div className="col-12 my-2">
+                                                    <input
+                                                        className='form-check-input me-2'
+                                                        type='checkbox'
+                                                        value='1'
+                                                        checked={devicesData['Display on tablets'].options.Android}
+                                                        onChange={() => deviceCheckboxChange('Display on tablets', 'Android')}
+                                                    />
+                                                    Android
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div>
+                                        <button
+                                            type="button"
+                                            className={`btn ${activeButtons.includes('Display on mobiles') ? 'btn-primary' : 'btn-secondary'}`}
+                                            onClick={() => devicesButtonClick('Display on mobiles')}
+                                        >
+                                            Display on mobiles
+                                        </button>
+                                        {activeButtons.includes('Display on mobiles') && showDeviceDetail === true && (
+                                            <div className="mt-5">
+                                                <div className="col-12 my-2">
+                                                    <input
+                                                        className='form-check-input me-2'
+                                                        type='checkbox'
+                                                        value='1'
+                                                        checked={devicesData['Display on mobiles'].options.iPhone}
+                                                        onChange={() => deviceCheckboxChange('Display on mobiles', 'iPhone')}
+                                                    />
+                                                    iPhone
+                                                </div>
+                                                <div className="col-12 my-2">
+                                                    <input
+                                                        className='form-check-input me-2'
+                                                        type='checkbox'
+                                                        value='1'
+                                                        checked={devicesData['Display on mobiles'].options.Android}
+                                                        onChange={() => deviceCheckboxChange('Display on mobiles', 'Android')}
+                                                    />
+                                                    Android
+                                                </div>
+                                                <div className="col-12 my-2">
+                                                    <input
+                                                        className='form-check-input me-2'
+                                                        type='checkbox'
+                                                        value='1'
+                                                        checked={devicesData['Display on mobiles'].options['Windows Phone']}
+                                                        onChange={() => deviceCheckboxChange('Display on mobiles', 'Windows Phone')}
+                                                    />
+                                                    Windows Phone
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div>
+                                        {!activeButtons.includes('All devices') && (
+                                            <button type="button" className="btn btn-link" onClick={changeStatusDeviceDetail}>
+                                                {
+                                                    !showDeviceDetail ? (<>Refine by OS</>) : (<>Close</>)
+                                                }
+                                            </button>
+                                        )}
+                                    </div>
                                 </div>
+
+
                             </div>
-
-
                         </div>
                         <div className="col-12 mb-4">
                             <label
@@ -372,6 +373,28 @@ const CampaignAudience = () => {
                                 </div>
                             )}
 
+                        </div>
+                        <div className="col-12 mb-4">
+                            <label
+                                className="form-label fs-7 fw-bolder mb-1"
+                            >
+                                Behavior
+                            </label>
+                            <div className="col-12 my-2 d-flex align-items-center gap-5">
+                                <input
+                                    className='form-check-input me-2'
+                                    type='checkbox'
+                                    value='1'
+                                    checked={devicesData['Display on desktops'].options.Windows}
+                                    onChange={() => deviceCheckboxChange('Display on desktops', 'Windows')}
+                                />
+                                Exclude visitors who already saw
+                                <input
+                                    className="form-control  form-control-solid"
+                                    type="number"
+                                    style={{ width: '100px' }}
+                                /> popups during the session
+                            </div>
                         </div>
 
                     </div>
