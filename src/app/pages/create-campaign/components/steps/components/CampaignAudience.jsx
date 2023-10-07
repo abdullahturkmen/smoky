@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import countries from "../../../../../../_metronic/helpers/AllCountry";
 import allLanguage from "../../../../../../_metronic/helpers/AllLanguage";
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 const CampaignAudience = () => {
     // backende gönderilecek olan data değeri : devicesData
     const [selectedCountry, setSelectedCountry] = useState(null);
@@ -107,6 +109,10 @@ const CampaignAudience = () => {
         }
     };
 
+    const tooltipChannel =(event) => (
+        <Tooltip id="tooltip">{event}</Tooltip>
+    );
+
     useEffect(
         () => {
             if (activeButtons.length === 0) {
@@ -166,6 +172,92 @@ const CampaignAudience = () => {
                                 onChange={channelsChange}
                                 value={selectedChannels}
                             />
+                            {selectedChannels?.value === 'trafficChannel' && (
+                                <div className=" row mt-5">
+                                    <div className="col-12 col-md-4 col-lg-2 my-2">
+                                        <input
+                                            className='form-check-input me-2'
+                                            type='checkbox'
+                                            value='1'
+                                        />
+                                        <span className="me-3">Organic search</span>
+                                        <OverlayTrigger placement="top" overlay={tooltipChannel('Visitors coming from search engine organic results (Google, Bing, etc.)')}>
+                                            <span class="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip">
+                                                <i class="bi bi-info-circle-fill"></i>
+                                            </span>
+                                        </OverlayTrigger>
+                                    </div>
+                                    <div className="col-12 col-md-4 col-lg-2 my-2">
+                                        <input
+                                            className='form-check-input me-2'
+                                            type='checkbox'
+                                            value='1'
+                                        />
+
+                                        <span className="me-3">Social</span>
+                                        <OverlayTrigger placement="top" overlay={tooltipChannel('Visitors coming from social media (Facebook, Twitter, etc.)')}>
+                                            <span class="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip" >
+                                                <i class="bi bi-info-circle-fill"></i>
+                                            </span>
+                                        </OverlayTrigger>
+                                    </div>
+                                    <div className="col-12 col-md-4 col-lg-2 my-2">
+                                        <input
+                                            className='form-check-input me-2'
+                                            type='checkbox'
+                                            value='1'
+                                        />
+
+                                        <span className="me-3">Paid search</span>
+
+                                        <OverlayTrigger placement="top" overlay={tooltipChannel('Visitors resulting from Adwords or Bing ads.')}>
+                                            <span class="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip">
+                                                <i class="bi bi-info-circle-fill"></i>
+                                            </span>
+                                        </OverlayTrigger>
+                                    </div>
+                                    <div className="col-12 col-md-4 col-lg-2 my-2">
+                                        <input
+                                            className='form-check-input me-2'
+                                            type='checkbox'
+                                            value='1'
+                                        />
+
+                                        <span className="me-3">Direct</span>
+
+                                        <OverlayTrigger placement="top" overlay={tooltipChannel('Visitors coming after typing the URL in their browser')}>
+                                            <span class="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip" >
+                                                <i class="bi bi-info-circle-fill"></i>
+                                            </span>
+                                        </OverlayTrigger>
+
+                                    </div>
+                                    <div className="col-12 col-md-4 col-lg-2 my-2">
+                                        <input
+                                            className='form-check-input me-2'
+                                            type='checkbox'
+                                            value='1'
+                                        />
+
+                                        <span className="me-3">Others</span>
+
+                                        <OverlayTrigger placement="top" overlay={tooltipChannel('Visitors coming from all other sources')}>
+                                            <span class="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip">
+                                                <i class="bi bi-info-circle-fill"></i>
+                                            </span>
+                                        </OverlayTrigger>
+
+
+                                    </div>
+
+                                </div>
+                            )}
+                            {selectedChannels?.value === 'trafficSource' && (
+                                <div>trafficSource</div>
+                            )}
+                            {selectedChannels?.value === 'UTM' && (
+                                <div>UTM</div>
+                            )}
                         </div>
                         <div className="col-12 mb-4">
                             <label
@@ -179,7 +271,7 @@ const CampaignAudience = () => {
                                     <div>
                                         <button
                                             type="button"
-                                            className={`btn ${activeButtons.includes('All devices') ? 'btn-primary' : 'btn-secondary'}`}
+                                            className={`btn btn-sm ${activeButtons.includes('All devices') ? 'btn-primary' : 'btn-secondary'}`}
                                             onClick={() => devicesButtonClick('All devices')}
                                         >
                                             All devices
@@ -188,7 +280,7 @@ const CampaignAudience = () => {
                                     <div>
                                         <button
                                             type="button"
-                                            className={`btn ${activeButtons.includes('Display on desktops') ? 'btn-primary' : 'btn-secondary'}`}
+                                            className={`btn btn-sm ${activeButtons.includes('Display on desktops') ? 'btn-primary' : 'btn-secondary'}`}
                                             onClick={() => devicesButtonClick('Display on desktops')}
                                         >
                                             Display on desktops
@@ -231,7 +323,7 @@ const CampaignAudience = () => {
                                     <div>
                                         <button
                                             type="button"
-                                            className={`btn ${activeButtons.includes('Display on tablets') ? 'btn-primary' : 'btn-secondary'}`}
+                                            className={`btn btn-sm ${activeButtons.includes('Display on tablets') ? 'btn-primary' : 'btn-secondary'}`}
                                             onClick={() => devicesButtonClick('Display on tablets')}
                                         >
                                             Display on tablets
@@ -264,7 +356,7 @@ const CampaignAudience = () => {
                                     <div>
                                         <button
                                             type="button"
-                                            className={`btn ${activeButtons.includes('Display on mobiles') ? 'btn-primary' : 'btn-secondary'}`}
+                                            className={`btn btn-sm ${activeButtons.includes('Display on mobiles') ? 'btn-primary' : 'btn-secondary'}`}
                                             onClick={() => devicesButtonClick('Display on mobiles')}
                                         >
                                             Display on mobiles
