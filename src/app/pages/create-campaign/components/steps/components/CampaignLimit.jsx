@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 
+
+
+
 const CampaignLimit = () => {
 
     const [selectedOption, setSelectedOption] = useState("none");
@@ -14,6 +17,94 @@ const CampaignLimit = () => {
     const optionChangeDetail = (event) => {
         setSelectedOptionDetail(event.target.value);
     };
+
+
+    const LimitDetailsContent = () => {
+
+        return (<>
+
+            <div className="alert border rounded-bottom" style={{marginTop: '-14px', borderRadius: 0}}>
+                <div className="row mb-5 ">
+                   <div className="d-flex">
+                   <div className="me-5">
+                        <input
+                            className="form-check-input me-1"
+                            style={{transform: 'scale(.75)'}} 
+                            type="radio"
+                            value="radioButtonOne"
+                            defaultChecked
+                            checked={selectedOptionDetail === "radioButtonOne"}
+                            onChange={optionChangeDetail}
+                            id="optionOne"
+                        />
+
+                        <label className="form-label fs-7 fw-bolder" htmlFor="optionOne">
+                            Option 1
+                            </label>
+                    </div>
+                    <div className="ms-5">
+                        <input
+                            className="form-check-input me-1"
+                            style={{transform: 'scale(.75)'}} 
+                            type="radio"
+                            value="radioButtonTwo"
+                            checked={selectedOptionDetail === "radioButtonTwo"}
+                            onChange={optionChangeDetail}
+                            id="optionTwo"
+                        />
+                        <label className="form-label fs-7 fw-bolder" htmlFor="optionTwo">
+                        Option 2
+                        </label>
+                    </div>
+                   </div>
+                </div>
+                {selectedOptionDetail === "radioButtonOne" && (
+                    <div className="col-12 ">
+                        <label className="form-label fs-7 fw-bolder">
+                            Number
+                        </label>
+                        <input
+                            className="form-control form-control-lg form-control-solid"
+                            type="number"
+                        />
+                    </div>
+                )}
+
+                {selectedOptionDetail === "radioButtonTwo" && (
+                    <div className="row">
+                        <div className="col-5">
+                            <label
+                                htmlFor="min"
+                                className="form-label fs-7 fw-bolder mb-1"
+                            >
+                                Min
+                            </label>
+                            <input
+                                id="minInput"
+                                type="number"
+                                className="form-control form-control-lg form-control-solid"
+                            />
+                        </div>
+                        <div className="col-5">
+                            <label
+                                htmlFor="min"
+                                className="form-label fs-7 fw-bolder mb-1"
+                            >
+                                Max
+                            </label>
+                            <input
+                                id="maxInput"
+                                type="number"
+                                className="form-control form-control-lg form-control-solid"
+                            />
+                        </div>
+                    </div>
+                )}
+            </div>
+
+
+        </>)
+    }
 
     return (
         <div className="accordion-item mb-8 shadow border-top">
@@ -46,8 +137,9 @@ const CampaignLimit = () => {
                                 checked={selectedOption === "none"}
                                 onChange={optionChange}
                                 value="none"
+                                id="productNone"
                             />
-                            <label className="form-label fs-7 fw-bolder">None</label>
+                            <label className="form-label fs-7 fw-bolder" htmlFor="productNone">None</label>
                         </div>
                         <div className="col-12 alert alert-secondary">
                             <input
@@ -56,84 +148,16 @@ const CampaignLimit = () => {
                                 value="productCount"
                                 checked={selectedOption === "productCount"}
                                 onChange={optionChange}
+                                id="productInCard"
                             />
-                            <label className="form-label fs-7 fw-bolder">
+                            <label className="form-label fs-7 fw-bolder" htmlFor="productInCard">
                                 Number of Products in Cart
                             </label>
                         </div>
-                        {selectedOption === 'productCount' && (
-                            <div className="alert alert-info">
-                                <div className="row mb-5">
-                                    <div className="col-12 col-lg-5 mt-5">
-                                        <input
-                                            className="form-check-input me-5"
-                                            type="radio"
-                                            value="radioButtonOne"
-                                            defaultChecked
-                                            checked={selectedOptionDetail === "radioButtonOne"}
-                                            onChange={optionChangeDetail}
-                                        />
+                        {selectedOption === 'productCount' && (<>
+                            <LimitDetailsContent />
 
-                                        <label className="form-label fs-7 fw-bolder">
-                                            Radiobutton 1
-                                        </label>
-                                    </div>
-                                    <div className="col-12 col-lg-5 mt-5">
-                                        <input
-                                            className="form-check-input me-5"
-                                            type="radio"
-                                            value="radioButtonTwo"
-                                            checked={selectedOptionDetail === "radioButtonTwo"}
-                                            onChange={optionChangeDetail}
-                                        />
-                                        <label className="form-label fs-7 fw-bolder">
-                                            Radiobutton 2
-                                        </label>
-                                    </div>
-                                </div>
-                                {selectedOptionDetail === "radioButtonOne" && (
-                                    <div className="col-12 ">
-                                        <label className="form-label fs-7 fw-bolder">
-                                            Number
-                                        </label>
-                                        <input
-                                            className="form-control form-control-lg form-control-solid"
-                                            type="number"
-                                        />
-                                    </div>
-                                )}
-
-                                {selectedOptionDetail === "radioButtonTwo" && (
-                                    <div className="row">
-                                        <div className="col-5">
-                                            <label
-                                                htmlFor="min"
-                                                className="form-label fs-7 fw-bolder mb-1"
-                                            >
-                                                Min
-                                            </label>
-                                            <input
-                                                id="minInput"
-                                                type="number"
-                                                className="form-control form-control-lg form-control-solid"
-                                            />
-                                        </div>
-                                        <div className="col-5">
-                                            <label
-                                                htmlFor="min"
-                                                className="form-label fs-7 fw-bolder mb-1"
-                                            >
-                                                Max
-                                            </label>
-                                            <input
-                                                id="maxInput"
-                                                type="number"
-                                                className="form-control form-control-lg form-control-solid"
-                                            />
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
+                        </>
                         )}
                         <div className="col-12 alert alert-secondary">
                             <input
@@ -142,87 +166,18 @@ const CampaignLimit = () => {
                                 value="cartValue"
                                 checked={selectedOption === "cartValue"}
                                 onChange={optionChange}
+                                id="productCardValue"
                             />
-                            <label className="form-label fs-7 fw-bolder">
+                            <label className="form-label fs-7 fw-bolder" htmlFor="productCardValue">
                                 Cart Value
                             </label>
 
-                            
+
                         </div>
 
-                        {selectedOption === 'cartValue' && (
-                            <div className="alert alert-info">
-                                <div className="row mb-5">
-                                    <div className="col-12 col-lg-5 mt-5">
-                                        <input
-                                            className="form-check-input me-5"
-                                            type="radio"
-                                            value="radioButtonOne"
-                                            defaultChecked
-                                            checked={selectedOptionDetail === "radioButtonOne"}
-                                            onChange={optionChangeDetail}
-                                        />
-
-                                        <label className="form-label fs-7 fw-bolder">
-                                            Radiobutton 1
-                                        </label>
-                                    </div>
-                                    <div className="col-12 col-lg-5 mt-5">
-                                        <input
-                                            className="form-check-input me-5"
-                                            type="radio"
-                                            value="radioButtonTwo"
-                                            checked={selectedOptionDetail === "radioButtonTwo"}
-                                            onChange={optionChangeDetail}
-                                        />
-                                        <label className="form-label fs-7 fw-bolder">
-                                            Radiobutton 2
-                                        </label>
-                                    </div>
-                                </div>
-                                {selectedOptionDetail === "radioButtonOne" && (
-                                    <div className="col-12 ">
-                                        <label className="form-label fs-7 fw-bolder">
-                                            Number
-                                        </label>
-                                        <input
-                                            className="form-control form-control-lg form-control-solid"
-                                            type="number"
-                                        />
-                                    </div>
-                                )}
-
-                                {selectedOptionDetail === "radioButtonTwo" && (
-                                    <div className="row">
-                                        <div className="col-5">
-                                            <label
-                                                htmlFor="min"
-                                                className="form-label fs-7 fw-bolder mb-1"
-                                            >
-                                                Min
-                                            </label>
-                                            <input
-                                                id="minInput"
-                                                type="number"
-                                                className="form-control form-control-lg form-control-solid"
-                                            />
-                                        </div>
-                                        <div className="col-5">
-                                            <label
-                                                htmlFor="min"
-                                                className="form-label fs-7 fw-bolder mb-1"
-                                            >
-                                                Max
-                                            </label>
-                                            <input
-                                                id="maxInput"
-                                                type="number"
-                                                className="form-control form-control-lg form-control-solid"
-                                            />
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
+                        {selectedOption === 'cartValue' && (<>
+                            <LimitDetailsContent />
+                        </>
                         )}
                         {/* <div className="col-sm-12 col-md-6">
                 {selectedOption !== "none" && (

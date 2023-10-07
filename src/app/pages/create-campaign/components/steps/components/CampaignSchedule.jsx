@@ -220,30 +220,32 @@ const CampaignSchedule = () => {
                         <div className="col-12 col-md-8">
 
                             <div className="row">
-                                {isStartDateDisabled ? null : (
-                                    <div className="col-12 col-md-6 mb-4 d-flex flex-column">
-                                        <label
-                                            htmlFor="campaignname"
-                                            className="form-label fs-7 fw-bolder mb-1"
-                                        >
-                                            Select start date
-                                        </label>
-                                        <DatePicker
-                                            className="form-control form-control-lg form-control-solid w-100"
-                                            selected={startDate}
-                                            onChange={(date) => setStartDate(date)}
-                                            minDate={new Date()}
-                                            showTimeSelect
-                                            showYearDropdown
-                                            minTime={getMinTime()}
-                                            maxTime={getMaxTime()}
-                                            dateFormat="dd/MM/yyyy h:mm aa"
-                                            yearDropdownItemNumber={15}
-                                            scrollableYearDropdown
-                                            timeIntervals={15}
-                                        />
-                                    </div>
-                                )}
+                                <div className="col-12 col-md-6 mb-4 d-flex flex-column">
+                                    {isStartDateDisabled ? null : (
+                                        <>
+                                            <label
+                                                htmlFor="campaignname"
+                                                className="form-label fs-7 fw-bolder mb-1"
+                                            >
+                                                Select start date
+                                            </label>
+                                            <DatePicker
+                                                className="form-control form-control-lg form-control-solid w-100"
+                                                selected={startDate}
+                                                onChange={(date) => setStartDate(date)}
+                                                minDate={new Date()}
+                                                showTimeSelect
+                                                showYearDropdown
+                                                minTime={getMinTime()}
+                                                maxTime={getMaxTime()}
+                                                dateFormat="dd/MM/yyyy h:mm aa"
+                                                yearDropdownItemNumber={15}
+                                                scrollableYearDropdown
+                                                timeIntervals={15}
+                                            />
+                                        </>
+                                    )}
+                                </div>
                                 <div className="col-12 col-md-6 mb-4 d-flex flex-column">
                                     <label
                                         htmlFor="campaignname"
@@ -270,6 +272,7 @@ const CampaignSchedule = () => {
                             </div>
                         </div>
                     </div>
+                    <div className="w-100 border-top"></div>
                     <div className="row mt-5">
                         <label htmlFor="min" className="form-label fs-7 fw-bolder">
                             Detailed schedule
@@ -317,7 +320,7 @@ const CampaignSchedule = () => {
 
                         <div className="col-2">
                             <button
-                                className="btn btn-primary mt-5"
+                                className="btn btn-sm btn-primary mt-5"
                                 type="button"
                                 onClick={addTime}
                             >

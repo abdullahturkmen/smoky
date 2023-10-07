@@ -71,7 +71,7 @@ const CampaignDisplayPages = () => {
                   <div className="d-flex flex-column">
                     <span className="form-label fw-bolder">Display Limit</span>
                     <span className="form-label">
-                      Don't display yhe promotion above times per session
+                      Don't display the promotion above times per session
                     </span>
                   </div>
                 </label>

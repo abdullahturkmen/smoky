@@ -51,6 +51,52 @@ const HeaderToolbar = () => {
     <>
       <div className="toolbar d-flex align-items-stretch">
         {/* begin::Toolbar container */}
+        <div className="d-flex align-items-center">
+          <div className="dropdown">
+            <button
+              className="btn"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <KTIcon iconName="notification" className="fs-1 text-dark " />
+            </button>
+            <ul
+              className="dropdown-menu"
+              aria-labelledby="dropdownMenuButton1"
+              style={{ width: "clamp(300px, 40%, 400px)" }}
+            >
+              <div className="card">
+                <div className="card-body">
+                  <h5 className="card-title">
+                    Black Friday Strategy: 11 Ideas & Tips 🏷️
+                  </h5>
+                  <a href="#" className="btn btn-sm px-2 py-1 btn-primary">
+                    Read
+                  </a>
+                </div>
+              </div>
+
+              <div className="card">
+                <div className="card-body">
+                  <h5 className="card-title">
+                    Black Friday Strategy: 11 Ideas & Tips 🏷️
+                  </h5>
+                  <a href="#" className="btn btn-sm px-2 py-1 btn-primary">
+                    Read
+                  </a>
+                </div>
+              </div>
+
+              <li>
+                <a className="dropdown-item" href="#">
+                  All Notifications
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
         <div
           className={`${classes.headerContainer.join(
             " "
