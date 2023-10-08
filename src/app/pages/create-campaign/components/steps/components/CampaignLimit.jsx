@@ -23,7 +23,7 @@ const CampaignLimit = () => {
 
         return (<>
 
-            <div className="alert border rounded-bottom" style={{marginTop: '-14px', borderRadius: 0}}>
+            <div className="alert rounded-bottom" style={{marginTop: '-14px', borderRadius: 0, border: '1px solid #dbdfe9'}}>
                 <div className="row mb-5 ">
                    <div className="d-flex">
                    <div className="me-5">
@@ -141,7 +141,7 @@ const CampaignLimit = () => {
                             />
                             <label className="form-label fs-7 fw-bolder" htmlFor="productNone">None</label>
                         </div>
-                        <div className="col-12 alert alert-secondary">
+                        <div className="col-12 alert alert-secondary" style={selectedOption === 'productCount' ? { borderBottomLeftRadius: 0, borderBottomRightRadius: 0 } : null}>
                             <input
                                 className="form-check-input  me-5"
                                 type="radio"
@@ -159,7 +159,7 @@ const CampaignLimit = () => {
 
                         </>
                         )}
-                        <div className="col-12 alert alert-secondary">
+                        <div className="col-12 alert alert-secondary" style={selectedOption === 'cartValue' ? { borderBottomLeftRadius: 0, borderBottomRightRadius: 0 } : null}>
                             <input
                                 className="form-check-input  me-5"
                                 type="radio"
