@@ -181,7 +181,7 @@ const CampaignAudience = () => {
                                                 styles={{
                                                     control: (provided) => ({
                                                       ...provided,
-                                                      width: '150px', // İstediğiniz genişliği burada ayarlayabilirsiniz
+                                                      width: '150px',
                                                     }),
                                                   }}
                                             />
