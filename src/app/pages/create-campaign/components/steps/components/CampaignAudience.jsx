@@ -65,6 +65,13 @@ const CampaignAudience = () => {
         { value: "trafficSource", label: "Traffic source" },
         { value: "UTM", label: "UTM" },
     ];
+    const returningVisitorsOption = [
+        { value: "atlast", label: "At least" },
+        { value: "lessthan", label: "Less than" },
+        { value: "between", label: "Between" }, 
+    ]
+    const [selectedReturningVisitors, setSelectedReturningVisitors] = useState(returningVisitorsOption[0]);
+
 
     const browserOptions = [
         { value: "allBrowsers", label: "All Browsers" },
@@ -78,7 +85,9 @@ const CampaignAudience = () => {
     const channelsChange = (event) => {
         setSelectedChanneles(event);
     };
-
+    const changeReturningVisitors = (event) =>{
+        setSelectedReturningVisitors(event)
+    }
     const countryChange = (event) => {
         setSelectedCountry(event);
     };
@@ -109,7 +118,7 @@ const CampaignAudience = () => {
         }
     };
 
-    const tooltipChannel =(event) => (
+    const tooltipChannel = (event) => (
         <Tooltip id="tooltip">{event}</Tooltip>
     );
 
@@ -157,6 +166,42 @@ const CampaignAudience = () => {
                                 onChange={shareVisitorChange}
                                 value={selectedShareVisitor}
                             />
+                            {selectedShareVisitor?.value === 'returningVisitors' && (
+                                <div className="alert">
+                                    <div>
+                                        Select which returning visitors should see your campaign.
+                                    </div>
+                                    <div className="row mt-5">
+                                        <div className="d-flex flex-wrap gap-5 align-items-center">
+                                            <div>Users who have visited</div>
+                                            <Select
+                                                options={returningVisitorsOption}
+                                                onChange={changeReturningVisitors}
+                                                value={selectedReturningVisitors}
+                                                styles={{
+                                                    control: (provided) => ({
+                                                      ...provided,
+                                                      width: '150px', // İstediğiniz genişliği burada ayarlayabilirsiniz
+                                                    }),
+                                                  }}
+                                            />
+                                            <input
+                                                className="form-control  form-control-solid"
+                                                type="number"
+                                                style={{ width: '100px' }}
+                                            />
+                                            <label
+                                                htmlFor="campaignname"
+                                                className="form-label fs-7 fw-bolder mb-1"
+                                            >
+                                                times
+                                            </label>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            )}
                         </div>
                         <div className="col-12 mb-4">
                             <label
