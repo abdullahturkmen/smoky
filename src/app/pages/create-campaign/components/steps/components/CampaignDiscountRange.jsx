@@ -1,7 +1,54 @@
+import React, { useState } from "react";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 const CampaignDiscountRange = () => {
-    return (
-        <div className="accordion-item mb-8 shadow border-top">
+  const [minValue, setMinValue] = useState(10);
+  const [maxValue, setMaxValue] = useState(30);
+
+
+  const minValChange = (event) => {
+    console.log("min : ", event.target.value);
+    if (parseInt(event.target.value) >= parseInt(maxValue)) {
+
+
+      toast.warning('The minimum value cannot be equal to or greater than the maximum value', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      
+
+      return false
+    }
+    setMinValue(parseInt(event.target.value))
+  }
+  const maxValChange = (event) => {
+    console.log("max : ", event.target.value);
+    if (parseInt(event.target.value) <= parseInt(minValue)) {
+      toast.warning('The maximum value cannot be equal to or less than the minimum value', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return false
+    }
+    setMaxValue(parseInt(event.target.value))
+  }
+  return (
+    <>
+      <ToastContainer />
+      <div className="accordion-item mb-8 shadow border-top">
         <h2 className="accordion-header" id="headingThree">
           <button
             className="accordion-button collapsed fs-4 fw-bold"
@@ -40,6 +87,8 @@ const CampaignDiscountRange = () => {
                     id="min"
                     type="number"
                     className="form-control form-control-lg form-control-solid bg-white"
+                    value={minValue}
+                    onChange={minValChange}
                   />
                 </div>
                 <div className="col-12 col-lg-6 mb-0 mb-lg-4">
@@ -53,6 +102,8 @@ const CampaignDiscountRange = () => {
                     id="max"
                     type="number"
                     className="form-control form-control-lg form-control-solid bg-white"
+                    value={maxValue}
+                    onChange={maxValChange}
                   />
                 </div>
               </div>
@@ -60,7 +111,8 @@ const CampaignDiscountRange = () => {
           </div>
         </div>
       </div>
-    );
+    </>
+  );
 };
 
 export { CampaignDiscountRange };

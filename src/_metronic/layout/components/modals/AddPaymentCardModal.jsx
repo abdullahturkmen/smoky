@@ -1,6 +1,6 @@
 import 'react-toastify/dist/ReactToastify.css';
-import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+import React, { useState, useEffect } from 'react';
 import { MaskedInput, createDefaultMaskGenerator } from 'react-hook-mask';
 import Cards from 'react-credit-cards-2';
 import 'react-credit-cards-2/dist/es/styles-compiled.css';
