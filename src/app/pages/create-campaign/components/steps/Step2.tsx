@@ -8,7 +8,6 @@ const Step2: FC = () => {
   const templateList = [
     { types: "popup", title: "bu popup 1" },
     { types: "popup", title: "bu popup 2" },
-    { types: "banner", title: "bu bir banner" },
   ];
 
   return (
@@ -32,7 +31,7 @@ const Step2: FC = () => {
         </label>
       </div>
 
-      <ul className="nav nav-pills">
+      <ul className="nav nav-pills d-none">
         <li className="nav-item">
           <a
             className={clsx(`nav-link  `, { "active ": tab === "all" })}
@@ -52,7 +51,7 @@ const Step2: FC = () => {
             Popup
           </a>
         </li>
-        <li className="nav-item">
+        <li className="nav-item ">
           <a
             className={clsx(`nav-link  `, { "active ": tab === "banner" })}
             onClick={() => setTab("banner")}

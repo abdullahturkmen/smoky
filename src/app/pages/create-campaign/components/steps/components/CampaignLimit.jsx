@@ -32,7 +32,6 @@ const CampaignLimit = () => {
                             style={{transform: 'scale(.75)'}} 
                             type="radio"
                             value="radioButtonOne"
-                            defaultChecked
                             checked={selectedOptionDetail === "radioButtonOne"}
                             onChange={optionChangeDetail}
                             id="optionOne"
@@ -77,7 +76,7 @@ const CampaignLimit = () => {
                                 htmlFor="min"
                                 className="form-label fs-7 fw-bolder mb-1"
                             >
-                                Min
+                                Min Value
                             </label>
                             <input
                                 id="minInput"
@@ -90,7 +89,7 @@ const CampaignLimit = () => {
                                 htmlFor="min"
                                 className="form-label fs-7 fw-bolder mb-1"
                             >
-                                Max
+                                Max Value
                             </label>
                             <input
                                 id="maxInput"
@@ -133,7 +132,6 @@ const CampaignLimit = () => {
                             <input
                                 className="form-check-input  me-5"
                                 type="radio"
-                                defaultChecked
                                 checked={selectedOption === "none"}
                                 onChange={optionChange}
                                 value="none"

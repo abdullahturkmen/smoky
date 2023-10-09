@@ -98,7 +98,6 @@ const CampaignUploadCoupons = () => {
                 <input
                   className="form-check-input  me-5"
                   type="radio"
-                  defaultChecked
                   checked={cupponsType === "generateCuppons"}
                   onChange={changeCouppons}
                   value="generateCuppons"
@@ -111,7 +110,6 @@ const CampaignUploadCoupons = () => {
                 <input
                   className="form-check-input  me-5"
                   type="radio"
-                  defaultChecked
                   checked={cupponsType === "uploadCuppons"}
                   onChange={changeCouppons}
                   value="uploadCuppons"

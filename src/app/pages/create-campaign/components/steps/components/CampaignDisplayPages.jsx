@@ -81,7 +81,6 @@ const CampaignDisplayPages = () => {
                     <input
                       className="form-check-input  me-5"
                       type="radio"
-                      defaultChecked
                       checked={selectedPagesOption === "selectedPages"}
                       onChange={changePagesOption}
                       value="selectedPages"
@@ -94,7 +93,6 @@ const CampaignDisplayPages = () => {
                     <input
                       className="form-check-input  me-5"
                       type="radio"
-                      defaultChecked
                       checked={selectedPagesOption === "selectedURL"}
                       onChange={changePagesOption}
                       value="selectedURL"

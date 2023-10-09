@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Select from "react-select";
 import countries from "../../../../../../_metronic/helpers/AllCountry";
 import allLanguage from "../../../../../../_metronic/helpers/AllLanguage";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import Geosuggest from '@ubilabs/react-geosuggest';
+import './../../../../../../_metronic/assets/sass/components/geosuggest.css';
 const CampaignAudience = () => {
+    const [countryid, setCountryid] = useState(0);
     // backende gönderilecek olan data değeri : devicesData
     const [selectedCountry, setSelectedCountry] = useState(null);
     const [selectedLanguage, setSelectedLanguage] = useState(null);
@@ -68,7 +71,7 @@ const CampaignAudience = () => {
     const returningVisitorsOption = [
         { value: "atlast", label: "At least" },
         { value: "lessthan", label: "Less than" },
-        { value: "between", label: "Between" }, 
+        { value: "between", label: "Between" },
     ]
     const [selectedReturningVisitors, setSelectedReturningVisitors] = useState(returningVisitorsOption[0]);
 
@@ -85,7 +88,7 @@ const CampaignAudience = () => {
     const channelsChange = (event) => {
         setSelectedChanneles(event);
     };
-    const changeReturningVisitors = (event) =>{
+    const changeReturningVisitors = (event) => {
         setSelectedReturningVisitors(event)
     }
     const countryChange = (event) => {
@@ -130,6 +133,23 @@ const CampaignAudience = () => {
         },
         [activeButtons]
     )
+    const geosuggestEl = useRef(null);
+    const selectCountry = (e) => {
+        if (!!e) {
+            console.log('onSuggestSelect', e?.label);
+            geosuggestEl.current.clear()
+            geosuggestEl.current.focus()
+            geosuggestEl.current.update('')
+        }
+    }
+
+    const clearCountry = () => {
+        geosuggestEl.current.clear()
+        geosuggestEl.current.focus()
+        geosuggestEl.current.update('')
+    }
+
+
     return (
         <div className="accordion-item mb-8 shadow border-top">
             <h2 className="accordion-header" id="headingFive">
@@ -152,7 +172,7 @@ const CampaignAudience = () => {
             >
                 <div className="accordion-body">
                     <div className="row mt-5">
-                        <div className="col-12 mb-4">
+                        <div className="col-12 col-md-7 mb-4">
                             <label
                                 htmlFor="campaignname"
                                 className="form-label fs-7 fw-bolder mb-1"
@@ -180,10 +200,10 @@ const CampaignAudience = () => {
                                                 value={selectedReturningVisitors}
                                                 styles={{
                                                     control: (provided) => ({
-                                                      ...provided,
-                                                      width: '150px',
+                                                        ...provided,
+                                                        width: '150px',
                                                     }),
-                                                  }}
+                                                }}
                                             />
                                             <input
                                                 className="form-control  form-control-solid"
@@ -203,7 +223,7 @@ const CampaignAudience = () => {
                                 </div>
                             )}
                         </div>
-                        <div className="col-12 mb-4">
+                        <div className="col-12 col-md-7 mb-4">
                             <label
                                 htmlFor="campaignname"
                                 className="form-label fs-7 fw-bolder mb-1"
@@ -455,7 +475,7 @@ const CampaignAudience = () => {
 
                             </div>
                         </div>
-                        <div className="col-12 mb-4">
+                        <div className="col-12 col-md-7 mb-4">
                             <label
                                 htmlFor="campaignname"
                                 className="form-label fs-7 fw-bolder mb-1"
@@ -470,8 +490,22 @@ const CampaignAudience = () => {
                                 isMulti={true}
                                 value={selectedCountry}
                             />
+                            <div className="d-flex align-start">
+                                <select
+                                    name='timezone'
+                                    aria-label='Select a Timezone'
+                                    data-control='select2'
+                                    data-placeholder='date_period'
+                                    className='form-select form-select-sm form-select-solid'
+                                >
+                                    <option value='include'>Include</option>
+                                    <option value='exclude'>Exclude</option>
+                                </select>
+                                <Geosuggest onSuggestSelect={selectCountry} ref={geosuggestEl} />
+                                <button type="button" onClick={clearCountry} className="btn">X</button>
+                            </div>
                         </div>
-                        <div className="col-12 mb-4">
+                        <div className="col-12 col-md-7 mb-4">
                             <label
                                 htmlFor="campaignname"
                                 className="form-label fs-7 fw-bolder mb-1"
@@ -486,7 +520,7 @@ const CampaignAudience = () => {
                                 value={selectedLanguage}
                             />
                         </div>
-                        <div className="col-12 mb-4">
+                        <div className="col-12 col-md-7 ">
                             <label
                                 className="form-label fs-7 fw-bolder mb-1"
                             >
@@ -499,6 +533,11 @@ const CampaignAudience = () => {
                                 onChange={browserChange}
                                 value={selectedBrowser}
                             />
+
+
+                        </div>
+                        <div className="col-12  mb-4">
+
                             {selectedBrowser?.value === 'selectBrowser' && (
                                 <div className="row mt-5">
                                     <div className="col-6 col-lg-2 col-md-4 my-2"><input className='form-check-input me-2' type='checkbox' value='1' /> Chrome</div>

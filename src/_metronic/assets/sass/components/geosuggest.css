@@ -1,0 +1,37 @@
+.geosuggest {
+    font-size: 16px;
+  }
+  
+  .geosuggest__input {
+    padding: 7px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+  }
+  
+  .geosuggest__suggests {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .geosuggest__item {
+    padding: 7px 10px;
+    cursor: pointer;
+    margin-bottom: 1px;
+    border-bottom: 1px solid #efefef;
+  }
+  
+  .geosuggest__item:hover {
+    background-color: #e4e4e4;
+  }
+ 
+  .geosuggest__item span {
+    overflow: hidden; 
+    white-space: nowrap; 
+    text-overflow: ellipsis; 
+    width: 100%;
+    display: block;
+  }
+ 
+  
+  

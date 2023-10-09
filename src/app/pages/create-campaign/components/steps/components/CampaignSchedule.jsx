@@ -278,7 +278,7 @@ const CampaignSchedule = () => {
                             Detailed schedule
                         </label>
                         {timeList.map((item, index) => (
-                            <div className="col-12 d-flex gap-5 mt-4">
+                            <div className="col-12 d-flex gap-5 mt-4" key={index}>
                                 {timeList.length > 1 && (
                                     <button
                                         type="button"
