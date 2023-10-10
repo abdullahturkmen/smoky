@@ -269,10 +269,13 @@ const CampaignAudience = () => {
                                 value={selectedShareVisitor}
                             />
                             {selectedShareVisitor?.value === 'returningVisitors' && (
-                                <div className="alert">
-                                    <div>
-                                        Select which returning visitors should see your campaign.
-                                    </div>
+                                <div className="mt-5 bg-light border rounded p-5">
+                                    <label
+                                    htmlFor="campaignname"
+                                    className="form-label fs-7 fw-bolder mb-1"
+                                >
+                                    Select which returning visitors should see your campaign.
+                                </label>
                                     <div className="row mt-5">
                                         <div className="d-flex flex-wrap gap-5 align-items-center">
                                             <div>Users who have visited</div>
@@ -288,16 +291,11 @@ const CampaignAudience = () => {
                                                 }}
                                             />
                                             <input
-                                                className="form-control  form-control-solid"
+                                                className="form-control  form-control-solid border bg-white"
                                                 type="number"
                                                 style={{ width: '100px' }}
                                             />
-                                            <label
-                                                htmlFor="campaignname"
-                                                className="form-label fs-7 fw-bolder mb-1"
-                                            >
-                                                times
-                                            </label>
+                                            <div>times</div>
                                         </div>
 
 
