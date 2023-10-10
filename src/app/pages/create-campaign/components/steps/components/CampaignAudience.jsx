@@ -18,6 +18,7 @@ const CampaignAudience = () => {
     const [activeButtons, setActiveButtons] = useState(['All devices']);
     const [showDeviceDetail, setShowDeviceDetail] = useState(false)
     const [isAnd, setIsAnd] = useState(false);
+    const [trafficSourceIsAnd, setTrafficSourceIsAnd] = useState(false);
     const [devicesData, setDevicesData] = useState({
         'Display on desktops': {
             selected: false,
@@ -55,6 +56,15 @@ const CampaignAudience = () => {
         { value: "url7", label: "Matches the RegEx" },
         { value: "url8", label: "Does not match the RegEx" }
     ];
+
+    const utmSourceOptions = [
+        { value: "source", label: "Source" },
+        { value: "medium", label: "Medium" },
+        { value: "campaign", label: "Campaign" },
+        { value: "term", label: "Term" },
+        { value: "content", label: "Content" },
+    ];
+
     const deviceCheckboxChange = (buttonName, optionName) => {
         setDevicesData((prevDevicesData) => {
             const updatedDevicesData = { ...prevDevicesData };
@@ -138,19 +148,34 @@ const CampaignAudience = () => {
         <Tooltip id="tooltip">{event}</Tooltip>
     );
     const [trafficSourceUrlList, setTrafficSourceURL] = useState([{ URLType: null, url: "" }]);
+    const [utmSourceUrlList, setUtmSourceURL] = useState([{ URLType: null, url: "", source: null }]);
 
 
     const addTrafficSourceURL = () => {
         setTrafficSourceURL([...trafficSourceUrlList, { URLType: null, url: "" }]);
     };
 
+    const addUtmSourceURL = () => {
+        setUtmSourceURL([...utmSourceUrlList, { URLType: null, url: "", source: null }]);
+    };
+
     const andToOrFunction = () => {
         setIsAnd(!isAnd);
     };
+
+    const trafficSourceAndToOr = () => {
+        setTrafficSourceIsAnd(!trafficSourceIsAnd)
+    }
     const removeTrafficSourceURL = (index) => {
         const updatedList = [...trafficSourceUrlList];
         updatedList.splice(index, 1);
         setTrafficSourceURL(updatedList);
+    };
+
+    const removeUtmSourceURL = (index) => {
+        const updatedList = [...utmSourceUrlList];
+        updatedList.splice(index, 1);
+        setUtmSourceURL(updatedList);
     };
 
     const updateTrafficSourceURL = (index, field, value) => {
@@ -158,6 +183,13 @@ const CampaignAudience = () => {
         updatedList[index][field] = value;
         setTrafficSourceURL(updatedList);
     };
+
+    const updateUtmSourceURL = (index, field, value) => {
+        const updatedList = [...utmSourceUrlList];
+        updatedList[index][field] = value;
+        setUtmSourceURL(updatedList);
+    };
+
     useEffect(
         () => {
             if (activeButtons.length === 0) {
@@ -194,10 +226,10 @@ const CampaignAudience = () => {
     }
 
 
-    const [selectedCountryTypeOption, setSelectedCountryTypeOption] = useState(''); // Seçilen değeri saklamak için bir state kullanıyoruz
+    const [selectedCountryTypeOption, setSelectedCountryTypeOption] = useState('');
 
     const countryTypeChange = (e) => {
-        setSelectedCountryTypeOption(e.target.value); // Seçilen değeri state'e atıyoruz
+        setSelectedCountryTypeOption(e.target.value);
     };
 
     return (
@@ -401,10 +433,10 @@ const CampaignAudience = () => {
                                                             <span>Source URL</span>
                                                         </div>
                                                     ) : (
-                                                        <div className="d-flex gap-5 border rounded p-3 justify-content-center" onClick={andToOrFunction} style={{ width: '80px' }}>
-                                                            <div className="text">{isAnd ? 'AND' : 'OR'}</div>
+                                                        <div className="d-flex gap-5 border rounded p-3 justify-content-center" onClick={trafficSourceAndToOr} style={{ width: '80px' }}>
+                                                            <div className="text">{trafficSourceIsAnd ? 'AND' : 'OR'}</div>
                                                             <div className="icon">
-                                                                {isAnd ? (
+                                                                {trafficSourceIsAnd ? (
                                                                     <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none">
                                                                         <path d="M17.9188 8.17969H11.6888H6.07877C5.11877 8.17969 4.63877 9.33969 5.31877 10.0197L10.4988 15.1997C11.3288 16.0297 12.6788 16.0297 13.5088 15.1997L15.4788 13.2297L18.6888 10.0197C19.3588 9.33969 18.8788 8.17969 17.9188 8.17969Z" fill="#292D32" />
                                                                     </svg>
@@ -463,7 +495,99 @@ const CampaignAudience = () => {
                                 </div>
                             )}
                             {selectedChannels?.value === 'UTM' && (
-                                <div>UTM</div>
+                                <div className="row">
+                                    <div className="col-12 mb-4 mt-4">
+                                        <label
+                                            htmlFor="campaignname"
+                                            className="form-label fs-7 fw-bolder mb-1"
+                                        >
+                                            Target your visitors by traffic UTM.
+                                        </label>
+                                    </div>
+
+                                    <div>
+                                        {utmSourceUrlList.map((item, index) => (
+                                            <div key={index} className="mb-2">
+                                                <div className="row d-flex align-items-center mb-2">
+                                                    {index !== 0 ? (
+                                                       
+                                                        <div className="d-flex gap-5 border rounded p-3 justify-content-center" onClick={andToOrFunction} style={{ width: '80px' }}>
+                                                           
+                                                            <div className="text">{isAnd ? 'AND' : 'OR'}</div>
+                                                            <div className="icon">
+                                                                {isAnd ? (
+                                                                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none">
+                                                                        <path d="M17.9188 8.17969H11.6888H6.07877C5.11877 8.17969 4.63877 9.33969 5.31877 10.0197L10.4988 15.1997C11.3288 16.0297 12.6788 16.0297 13.5088 15.1997L15.4788 13.2297L18.6888 10.0197C19.3588 9.33969 18.8788 8.17969 17.9188 8.17969Z" fill="#292D32" />
+                                                                    </svg>
+                                                                ) : (
+                                                                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none">
+                                                                        <path d="M18.6806 13.9783L15.4706 10.7683L13.5106 8.79828C12.6806 7.96828 11.3306 7.96828 10.5006 8.79828L5.32056 13.9783C4.64056 14.6583 5.13056 15.8183 6.08056 15.8183H11.6906H17.9206C18.8806 15.8183 19.3606 14.6583 18.6806 13.9783Z" fill="#292D32" />
+                                                                    </svg>
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                    ) : (
+                                                        <div style={{width: '80px'}}></div>
+                                                    )
+                                                    
+                                                    }
+
+                                                    <div className="col-2">
+                                                        <Select
+                                                            options={utmSourceOptions}
+                                                            placeholder="Source"
+                                                            className="form-control form-control-solid p-0"
+                                                            onChange={(selectedOption) =>
+                                                                updateUtmSourceURL(index, "source", selectedOption)
+                                                            }
+                                                            value={item.source}
+                                                        />
+                                                    </div>
+                                                    <div className="col-3">
+                                                        <Select
+                                                            options={trafficSourceOptions}
+                                                            placeholder="URL"
+                                                            className="form-control form-control-solid p-0"
+                                                            onChange={(selectedOption) =>
+                                                                updateUtmSourceURL(index, "URLType", selectedOption)
+                                                            }
+                                                            value={item.URLType}
+                                                        />
+                                                    </div>
+                                                    <div className="col-3">
+                                                        <input
+                                                            id="url"
+                                                            type="text"
+                                                            className="form-control form-control-md form-control-solid border"
+                                                            value={item.url}
+                                                            onChange={(e) =>
+                                                                updateUtmSourceURL(index, "url", e.target.value)
+                                                            }
+                                                        />
+                                                    </div>
+                                                    <div className="col-1">
+                                                        {utmSourceUrlList.length > 1 && index !== 0 && (
+                                                            <button
+                                                                type="button"
+                                                                className="btn btn-light btn-sm"
+                                                                onClick={() => removeUtmSourceURL(index)}
+                                                            >
+                                                                <KTIcon iconName="trash" className="fs-3 text-danger" />
+                                                            </button>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                        <button
+                                            type="button"
+                                            className="btn btn-primary mt-5 btn-sm"
+                                            onClick={addUtmSourceURL}
+                                        ><KTIcon iconName="plus" className="fs-3" />Add rule
+                                        </button>
+                                    </div>
+
+                                </div>
                             )}
                         </div>
                         <div className="col-12 mb-4">
@@ -651,7 +775,7 @@ const CampaignAudience = () => {
                                 <div className="d-flex flex-wrap">
                                     {countryList?.map((e, index) => (<>
                                         <div className="d-flex  align-items-center bg-warning m-1 rounded ps-2 mw-25 text-truncate" key={index}>
-                                            <span className=" mw-75 text-truncate">{e.type == 'exc' && (<>
+                                            <span className=" mw-75 text-truncate">{e.type === 'exc' && (<>
                                                 ({e.type})
                                             </>)}{e.name}</span>
                                             <button type="button" onClick={() => deleteCountry(e.id)} className="btn btn-sm">x</button>
@@ -659,10 +783,6 @@ const CampaignAudience = () => {
                                     </>))}
                                 </div>
                             </>)}
-
-
-
-
                         </div>
                         <div className="col-12 col-lg-7 col-md-9 mb-4">
                             <label
