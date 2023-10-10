@@ -509,7 +509,7 @@ const CampaignAudience = () => {
                                         {utmSourceUrlList.map((item, index) => (
                                             <div key={index} className="mb-2">
                                                 <div className="row d-flex align-items-center mb-2">
-                                                    {index !== 0 ? (
+                                                    {index !== 0 && (
                                                        
                                                         <div className="d-flex gap-5 border rounded p-3 justify-content-center" onClick={andToOrFunction} style={{ width: '80px' }}>
                                                            
@@ -526,11 +526,7 @@ const CampaignAudience = () => {
                                                                 )}
                                                             </div>
                                                         </div>
-                                                    ) : (
-                                                        <div style={{width: '80px'}}></div>
-                                                    )
-                                                    
-                                                    }
+                                                    )}
 
                                                     <div className="col-2">
                                                         <Select
@@ -818,13 +814,13 @@ const CampaignAudience = () => {
                         <div className="col-12  mb-4">
 
                             {selectedBrowser?.value === 'selectBrowser' && (
-                                <div className="row mt-5">
-                                    <div className="col-6 col-lg-2 col-md-4 my-2"><input className='form-check-input me-2' type='checkbox' value='1' /> Chrome</div>
-                                    <div className="col-6 col-lg-2 col-md-4 my-2"><input className='form-check-input me-2' type='checkbox' value='1' /> Safari</div>
-                                    <div className="col-6 col-lg-2 col-md-4 my-2"><input className='form-check-input me-2' type='checkbox' value='1' /> Internet Explorer</div>
-                                    <div className="col-6 col-lg-2 col-md-4 my-2"><input className='form-check-input me-2' type='checkbox' value='1' /> Firefox</div>
-                                    <div className="col-6 col-lg-2 col-md-4 my-2"><input className='form-check-input me-2' type='checkbox' value='1' /> Opera</div>
-                                    <div className="col-6 col-lg-2 col-md-4 my-2"><input className='form-check-input me-2' type='checkbox' value='1' /> Edge</div>
+                                <div className="mt-5 d-flex gap-8 flex-wrap">
+                                    <div><input className='form-check-input me-2' type='checkbox' value='1' /> Chrome</div>
+                                    <div><input className='form-check-input me-2' type='checkbox' value='1' /> Safari</div>
+                                    <div><input className='form-check-input me-2' type='checkbox' value='1' /> Internet Explorer</div>
+                                    <div><input className='form-check-input me-2' type='checkbox' value='1' /> Firefox</div>
+                                    <div><input className='form-check-input me-2' type='checkbox' value='1' /> Opera</div>
+                                    <div><input className='form-check-input me-2' type='checkbox' value='1' /> Edge</div>
                                 </div>
                             )}
 
