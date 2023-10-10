@@ -7,7 +7,8 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Geosuggest from '@ubilabs/react-geosuggest';
 import './../../../../../../_metronic/assets/sass/components/geosuggest.css';
 const CampaignAudience = () => {
-    const [countryid, setCountryid] = useState(0);
+    const [countryList, setCountryList] = useState([]);
+    const [selectCountryList, setSelectCountryList] = useState([{ "value": "all", "label": "All locations" },{ "value": "spesific", "label": "Spesific regions" }]);
     // backende gönderilecek olan data değeri : devicesData
     const [selectedCountry, setSelectedCountry] = useState(null);
     const [selectedLanguage, setSelectedLanguage] = useState(null);
@@ -16,6 +17,7 @@ const CampaignAudience = () => {
     const [selectedBrowser, setSelectedBrowser] = useState(null)
     const [activeButtons, setActiveButtons] = useState(['All devices']);
     const [showDeviceDetail, setShowDeviceDetail] = useState(false)
+    const [countries, setCountries] = useState([{}])
     const [devicesData, setDevicesData] = useState({
         'Display on desktops': {
             selected: false,
@@ -140,8 +142,20 @@ const CampaignAudience = () => {
             geosuggestEl.current.clear()
             geosuggestEl.current.focus()
             geosuggestEl.current.update('')
+            setCountryList(current => [...countryList, {type: selectedCountryTypeOption, name: e?.label, id: countryList.length}])
         }
     }
+
+    const deleteCountry = (e) => {
+        console.log("index : ", e)
+        console.log("countryList : ",countryList)
+        
+
+        setCountryList((countryListx) =>
+        countryListx.filter((x) => x.id !== e)
+    );
+    }
+
 
     const clearCountry = () => {
         geosuggestEl.current.clear()
@@ -149,6 +163,12 @@ const CampaignAudience = () => {
         geosuggestEl.current.update('')
     }
 
+
+    const [selectedCountryTypeOption, setSelectedCountryTypeOption] = useState(''); // Seçilen değeri saklamak için bir state kullanıyoruz
+
+    const countryTypeChange = (e) => {
+        setSelectedCountryTypeOption(e.target.value); // Seçilen değeri state'e atıyoruz
+    };
 
     return (
         <div className="accordion-item mb-8 shadow border-top">
@@ -172,7 +192,7 @@ const CampaignAudience = () => {
             >
                 <div className="accordion-body">
                     <div className="row mt-5">
-                        <div className="col-12 col-md-7 mb-4">
+                        <div className="col-12 col-lg-7 col-md-9 mb-4">
                             <label
                                 htmlFor="campaignname"
                                 className="form-label fs-7 fw-bolder mb-1"
@@ -223,7 +243,7 @@ const CampaignAudience = () => {
                                 </div>
                             )}
                         </div>
-                        <div className="col-12 col-md-7 mb-4">
+                        <div className="col-12 col-lg-7 col-md-9 mb-4">
                             <label
                                 htmlFor="campaignname"
                                 className="form-label fs-7 fw-bolder mb-1"
@@ -463,7 +483,7 @@ const CampaignAudience = () => {
                                     </div>
                                     <div>
                                         {!activeButtons.includes('All devices') && (
-                                            <button type="button" className="btn btn-link" onClick={changeStatusDeviceDetail}>
+                                            <button type="button" className="btn btn-link btn-sm" onClick={changeStatusDeviceDetail}>
                                                 {
                                                     !showDeviceDetail ? (<>Refine by OS</>) : (<>Close</>)
                                                 }
@@ -475,7 +495,7 @@ const CampaignAudience = () => {
 
                             </div>
                         </div>
-                        <div className="col-12 col-md-7 mb-4">
+                        <div className="col-12 col-lg-7 col-md-9 mb-4">
                             <label
                                 htmlFor="campaignname"
                                 className="form-label fs-7 fw-bolder mb-1"
@@ -483,29 +503,46 @@ const CampaignAudience = () => {
                                 Countries
                             </label>
                             <Select
-                                options={countries}
+                                options={selectCountryList}
                                 placeholder="Countries"
                                 className="form-control form-control-solid p-0"
                                 onChange={countryChange}
-                                isMulti={true}
                                 value={selectedCountry}
                             />
-                            <div className="d-flex align-start">
+{selectedCountry?.value == "spesific" && (<>
+    <div className="d-flex align-items-start mt-4">
                                 <select
+                                value={selectedCountryTypeOption} onChange={countryTypeChange}
+                                    style={{ height: '40px' }}
                                     name='timezone'
                                     aria-label='Select a Timezone'
                                     data-control='select2'
                                     data-placeholder='date_period'
-                                    className='form-select form-select-sm form-select-solid'
+                                    className='form-select form-select-sm  me-2 w-25'
                                 >
-                                    <option value='include'>Include</option>
-                                    <option value='exclude'>Exclude</option>
+                                    <option value='inc'>Include</option>
+                                    <option value='exc'>Exclude</option>
                                 </select>
-                                <Geosuggest onSuggestSelect={selectCountry} ref={geosuggestEl} />
+                                <Geosuggest onSuggestSelect={selectCountry} ref={geosuggestEl} placeholder="Search state" className="flex-grow-1 w-75" />
                                 <button type="button" onClick={clearCountry} className="btn">X</button>
                             </div>
+                            <div className="d-flex flex-wrap">
+                                {countryList?.map((e,index) => (<>
+                                <div className="d-flex  align-items-center bg-warning m-1 rounded ps-2 mw-25 text-truncate" key={index}>
+                                    <span className=" mw-75 text-truncate">{e.type == 'exc' && (<>
+                                    ({e.type})
+                                    </>)}{e.name}</span>
+                                    <button type="button" onClick={() => deleteCountry(e.id)} className="btn btn-sm">x</button>
+                                    </div>
+                                </>))}
+                            </div>
+</>)}
+
+                            
+
+
                         </div>
-                        <div className="col-12 col-md-7 mb-4">
+                        <div className="col-12 col-lg-7 col-md-9 mb-4">
                             <label
                                 htmlFor="campaignname"
                                 className="form-label fs-7 fw-bolder mb-1"
@@ -520,7 +557,7 @@ const CampaignAudience = () => {
                                 value={selectedLanguage}
                             />
                         </div>
-                        <div className="col-12 col-md-7 ">
+                        <div className="col-12 col-lg-7 col-md-9 ">
                             <label
                                 className="form-label fs-7 fw-bolder mb-1"
                             >
