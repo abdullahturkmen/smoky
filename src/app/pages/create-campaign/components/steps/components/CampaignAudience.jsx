@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Select from "react-select";
-import countries from "../../../../../../_metronic/helpers/AllCountry";
+import { KTIcon } from "../../../../../../_metronic/helpers";
 import allLanguage from "../../../../../../_metronic/helpers/AllLanguage";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -8,7 +8,7 @@ import Geosuggest from '@ubilabs/react-geosuggest';
 import './../../../../../../_metronic/assets/sass/components/geosuggest.css';
 const CampaignAudience = () => {
     const [countryList, setCountryList] = useState([]);
-    const [selectCountryList, setSelectCountryList] = useState([{ "value": "all", "label": "All locations" },{ "value": "spesific", "label": "Spesific regions" }]);
+    const [selectCountryList, setSelectCountryList] = useState([{ "value": "all", "label": "All locations" }, { "value": "spesific", "label": "Spesific regions" }]);
     // backende gönderilecek olan data değeri : devicesData
     const [selectedCountry, setSelectedCountry] = useState(null);
     const [selectedLanguage, setSelectedLanguage] = useState(null);
@@ -17,7 +17,7 @@ const CampaignAudience = () => {
     const [selectedBrowser, setSelectedBrowser] = useState(null)
     const [activeButtons, setActiveButtons] = useState(['All devices']);
     const [showDeviceDetail, setShowDeviceDetail] = useState(false)
-    const [countries, setCountries] = useState([{}])
+    const [isAnd, setIsAnd] = useState(false);
     const [devicesData, setDevicesData] = useState({
         'Display on desktops': {
             selected: false,
@@ -44,6 +44,17 @@ const CampaignAudience = () => {
         },
     });
 
+    const trafficSourceOptions = [
+        { value: "url0", label: "Is equal to" },
+        { value: "url1", label: "Is not equal to" },
+        { value: "url2", label: "Contains" },
+        { value: "url3", label: "Does not contain" },
+        { value: "url4", label: "Starts with" },
+        { value: "url5", label: "Does not start with" },
+        { value: "url6", label: "Does not end with" },
+        { value: "url7", label: "Matches the RegEx" },
+        { value: "url8", label: "Does not match the RegEx" }
+    ];
     const deviceCheckboxChange = (buttonName, optionName) => {
         setDevicesData((prevDevicesData) => {
             const updatedDevicesData = { ...prevDevicesData };
@@ -126,7 +137,27 @@ const CampaignAudience = () => {
     const tooltipChannel = (event) => (
         <Tooltip id="tooltip">{event}</Tooltip>
     );
+    const [trafficSourceUrlList, setTrafficSourceURL] = useState([{ URLType: null, url: "" }]);
 
+
+    const addTrafficSourceURL = () => {
+        setTrafficSourceURL([...trafficSourceUrlList, { URLType: null, url: "" }]);
+    };
+
+    const andToOrFunction = () => {
+        setIsAnd(!isAnd);
+    };
+    const removeTrafficSourceURL = (index) => {
+        const updatedList = [...trafficSourceUrlList];
+        updatedList.splice(index, 1);
+        setTrafficSourceURL(updatedList);
+    };
+
+    const updateTrafficSourceURL = (index, field, value) => {
+        const updatedList = [...trafficSourceUrlList];
+        updatedList[index][field] = value;
+        setTrafficSourceURL(updatedList);
+    };
     useEffect(
         () => {
             if (activeButtons.length === 0) {
@@ -142,18 +173,17 @@ const CampaignAudience = () => {
             geosuggestEl.current.clear()
             geosuggestEl.current.focus()
             geosuggestEl.current.update('')
-            setCountryList(current => [...countryList, {type: selectedCountryTypeOption, name: e?.label, id: countryList.length}])
+            setCountryList(current => [...countryList, { type: selectedCountryTypeOption, name: e?.label, id: countryList.length }])
         }
     }
 
     const deleteCountry = (e) => {
         console.log("index : ", e)
-        console.log("countryList : ",countryList)
-        
+
 
         setCountryList((countryListx) =>
-        countryListx.filter((x) => x.id !== e)
-    );
+            countryListx.filter((x) => x.id !== e)
+        );
     }
 
 
@@ -243,7 +273,7 @@ const CampaignAudience = () => {
                                 </div>
                             )}
                         </div>
-                        <div className="col-12 col-lg-7 col-md-9 mb-4">
+                        <div className="col-12 col-lg-7 col-md-9">
                             <label
                                 htmlFor="campaignname"
                                 className="form-label fs-7 fw-bolder mb-1"
@@ -257,88 +287,180 @@ const CampaignAudience = () => {
                                 onChange={channelsChange}
                                 value={selectedChannels}
                             />
+                        </div>
+                        <div className="col-12 mb-4">
                             {selectedChannels?.value === 'trafficChannel' && (
                                 <div className=" row mt-5">
-                                    <div className="col-12 col-md-4 col-lg-2 my-2">
-                                        <input
-                                            className='form-check-input me-2'
-                                            type='checkbox'
-                                            value='1'
-                                        />
-                                        <span className="me-3">Organic search</span>
-                                        <OverlayTrigger placement="top" overlay={tooltipChannel('Visitors coming from search engine organic results (Google, Bing, etc.)')}>
-                                            <span class="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip">
-                                                <i class="bi bi-info-circle-fill"></i>
-                                            </span>
-                                        </OverlayTrigger>
-                                    </div>
-                                    <div className="col-12 col-md-4 col-lg-2 my-2">
-                                        <input
-                                            className='form-check-input me-2'
-                                            type='checkbox'
-                                            value='1'
-                                        />
-
-                                        <span className="me-3">Social</span>
-                                        <OverlayTrigger placement="top" overlay={tooltipChannel('Visitors coming from social media (Facebook, Twitter, etc.)')}>
-                                            <span class="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip" >
-                                                <i class="bi bi-info-circle-fill"></i>
-                                            </span>
-                                        </OverlayTrigger>
-                                    </div>
-                                    <div className="col-12 col-md-4 col-lg-2 my-2">
-                                        <input
-                                            className='form-check-input me-2'
-                                            type='checkbox'
-                                            value='1'
-                                        />
-
-                                        <span className="me-3">Paid search</span>
-
-                                        <OverlayTrigger placement="top" overlay={tooltipChannel('Visitors resulting from Adwords or Bing ads.')}>
-                                            <span class="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip">
-                                                <i class="bi bi-info-circle-fill"></i>
-                                            </span>
-                                        </OverlayTrigger>
-                                    </div>
-                                    <div className="col-12 col-md-4 col-lg-2 my-2">
-                                        <input
-                                            className='form-check-input me-2'
-                                            type='checkbox'
-                                            value='1'
-                                        />
-
-                                        <span className="me-3">Direct</span>
-
-                                        <OverlayTrigger placement="top" overlay={tooltipChannel('Visitors coming after typing the URL in their browser')}>
-                                            <span class="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip" >
-                                                <i class="bi bi-info-circle-fill"></i>
-                                            </span>
-                                        </OverlayTrigger>
+                                    <div className="col-12 mb-4">
+                                        <label
+                                            htmlFor="campaignname"
+                                            className="form-label fs-7 fw-bolder mb-1"
+                                        >
+                                            Target your visitors by traffic channel.
+                                        </label>
 
                                     </div>
-                                    <div className="col-12 col-md-4 col-lg-2 my-2">
-                                        <input
-                                            className='form-check-input me-2'
-                                            type='checkbox'
-                                            value='1'
-                                        />
+                                    <span className="d-flex gap-8 flex-wrap">
+                                        <div>
+                                            <input
+                                                className='form-check-input me-2'
+                                                type='checkbox'
+                                                value='1'
+                                            />
+                                            <span className="me-3">Organic search</span>
+                                            <OverlayTrigger placement="top" overlay={tooltipChannel('Visitors coming from search engine organic results (Google, Bing, etc.)')}>
+                                                <span class="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip">
+                                                    <i class="bi bi-info-circle-fill"></i>
+                                                </span>
+                                            </OverlayTrigger>
+                                        </div>
+                                        <div >
+                                            <input
+                                                className='form-check-input me-2'
+                                                type='checkbox'
+                                                value='1'
+                                            />
 
-                                        <span className="me-3">Others</span>
+                                            <span className="me-3">Social</span>
+                                            <OverlayTrigger placement="top" overlay={tooltipChannel('Visitors coming from social media (Facebook, Twitter, etc.)')}>
+                                                <span class="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip" >
+                                                    <i class="bi bi-info-circle-fill"></i>
+                                                </span>
+                                            </OverlayTrigger>
+                                        </div>
+                                        <div >
+                                            <input
+                                                className='form-check-input me-2'
+                                                type='checkbox'
+                                                value='1'
+                                            />
 
-                                        <OverlayTrigger placement="top" overlay={tooltipChannel('Visitors coming from all other sources')}>
-                                            <span class="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip">
-                                                <i class="bi bi-info-circle-fill"></i>
-                                            </span>
-                                        </OverlayTrigger>
+                                            <span className="me-3">Paid search</span>
+
+                                            <OverlayTrigger placement="top" overlay={tooltipChannel('Visitors resulting from Adwords or Bing ads.')}>
+                                                <span class="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip">
+                                                    <i class="bi bi-info-circle-fill"></i>
+                                                </span>
+                                            </OverlayTrigger>
+                                        </div>
+                                        <div >
+                                            <input
+                                                className='form-check-input me-2'
+                                                type='checkbox'
+                                                value='1'
+                                            />
+
+                                            <span className="me-3">Direct</span>
+
+                                            <OverlayTrigger placement="top" overlay={tooltipChannel('Visitors coming after typing the URL in their browser')}>
+                                                <span class="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip" >
+                                                    <i class="bi bi-info-circle-fill"></i>
+                                                </span>
+                                            </OverlayTrigger>
+
+                                        </div>
+                                        <div >
+                                            <input
+                                                className='form-check-input me-2'
+                                                type='checkbox'
+                                                value='1'
+                                            />
+
+                                            <span className="me-3">Others</span>
+
+                                            <OverlayTrigger placement="top" overlay={tooltipChannel('Visitors coming from all other sources')}>
+                                                <span class="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip">
+                                                    <i class="bi bi-info-circle-fill"></i>
+                                                </span>
+                                            </OverlayTrigger>
 
 
-                                    </div>
+                                        </div>
+                                    </span>
 
                                 </div>
                             )}
                             {selectedChannels?.value === 'trafficSource' && (
-                                <div>trafficSource</div>
+                                <div className="row">
+                                    <div className="col-12 mb-4 mt-4">
+                                        <label
+                                            htmlFor="campaignname"
+                                            className="form-label fs-7 fw-bolder mb-1"
+                                        >
+                                            Target the visitors coming from specific websites.
+                                        </label>
+                                    </div>
+
+                                    <div>
+                                        {trafficSourceUrlList.map((item, index) => (
+                                            <div key={index} className="mb-2">
+
+                                                <div className="row d-flex align-items-center mb-2">
+                                                    {index === 0 ? (
+                                                        <div className="col-1">
+                                                            <span>Source URL</span>
+                                                        </div>
+                                                    ) : (
+                                                        <div className="d-flex gap-5 border rounded p-3 justify-content-center" onClick={andToOrFunction} style={{ width: '80px' }}>
+                                                            <div className="text">{isAnd ? 'AND' : 'OR'}</div>
+                                                            <div className="icon">
+                                                                {isAnd ? (
+                                                                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none">
+                                                                        <path d="M17.9188 8.17969H11.6888H6.07877C5.11877 8.17969 4.63877 9.33969 5.31877 10.0197L10.4988 15.1997C11.3288 16.0297 12.6788 16.0297 13.5088 15.1997L15.4788 13.2297L18.6888 10.0197C19.3588 9.33969 18.8788 8.17969 17.9188 8.17969Z" fill="#292D32" />
+                                                                    </svg>
+                                                                ) : (
+                                                                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none">
+                                                                        <path d="M18.6806 13.9783L15.4706 10.7683L13.5106 8.79828C12.6806 7.96828 11.3306 7.96828 10.5006 8.79828L5.32056 13.9783C4.64056 14.6583 5.13056 15.8183 6.08056 15.8183H11.6906H17.9206C18.8806 15.8183 19.3606 14.6583 18.6806 13.9783Z" fill="#292D32" />
+                                                                    </svg>
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                    <div className="col-5">
+                                                        <Select
+                                                            options={trafficSourceOptions}
+                                                            placeholder="URL"
+                                                            className="form-control form-control-solid p-0"
+                                                            onChange={(selectedOption) =>
+                                                                updateTrafficSourceURL(index, "URLType", selectedOption)
+                                                            }
+                                                            value={item.URLType}
+                                                        />
+                                                    </div>
+                                                    <div className="col-5">
+                                                        <input
+                                                            id="url"
+                                                            type="text"
+                                                            className="form-control form-control-md form-control-solid border"
+                                                            value={item.url}
+                                                            onChange={(e) =>
+                                                                updateTrafficSourceURL(index, "url", e.target.value)
+                                                            }
+                                                        />
+                                                    </div>
+                                                    <div className="col-1">
+                                                        {trafficSourceUrlList.length > 1 && index !== 0 && (
+                                                            <button
+                                                                type="button"
+                                                                className="btn btn-light btn-sm"
+                                                                onClick={() => removeTrafficSourceURL(index)}
+                                                            >
+                                                                <KTIcon iconName="trash" className="fs-3 text-danger" />
+                                                            </button>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                        <button
+                                            type="button"
+                                            className="btn btn-primary mt-5 btn-sm"
+                                            onClick={addTrafficSourceURL}
+                                        ><KTIcon iconName="plus" className="fs-3" />Add rule
+                                        </button>
+                                    </div>
+
+                                </div>
                             )}
                             {selectedChannels?.value === 'UTM' && (
                                 <div>UTM</div>
@@ -509,36 +631,36 @@ const CampaignAudience = () => {
                                 onChange={countryChange}
                                 value={selectedCountry}
                             />
-{selectedCountry?.value == "spesific" && (<>
-    <div className="d-flex align-items-start mt-4">
-                                <select
-                                value={selectedCountryTypeOption} onChange={countryTypeChange}
-                                    style={{ height: '40px' }}
-                                    name='timezone'
-                                    aria-label='Select a Timezone'
-                                    data-control='select2'
-                                    data-placeholder='date_period'
-                                    className='form-select form-select-sm  me-2 w-25'
-                                >
-                                    <option value='inc'>Include</option>
-                                    <option value='exc'>Exclude</option>
-                                </select>
-                                <Geosuggest onSuggestSelect={selectCountry} ref={geosuggestEl} placeholder="Search state" className="flex-grow-1 w-75" />
-                                <button type="button" onClick={clearCountry} className="btn">X</button>
-                            </div>
-                            <div className="d-flex flex-wrap">
-                                {countryList?.map((e,index) => (<>
-                                <div className="d-flex  align-items-center bg-warning m-1 rounded ps-2 mw-25 text-truncate" key={index}>
-                                    <span className=" mw-75 text-truncate">{e.type == 'exc' && (<>
-                                    ({e.type})
-                                    </>)}{e.name}</span>
-                                    <button type="button" onClick={() => deleteCountry(e.id)} className="btn btn-sm">x</button>
-                                    </div>
-                                </>))}
-                            </div>
-</>)}
+                            {selectedCountry?.value === "spesific" && (<>
+                                <div className="d-flex align-items-start mt-4">
+                                    <select
+                                        value={selectedCountryTypeOption} onChange={countryTypeChange}
+                                        style={{ height: '40px' }}
+                                        name='timezone'
+                                        aria-label='Select a Timezone'
+                                        data-control='select2'
+                                        data-placeholder='date_period'
+                                        className='form-select form-select-sm  me-2 w-25'
+                                    >
+                                        <option value='inc'>Include</option>
+                                        <option value='exc'>Exclude</option>
+                                    </select>
+                                    <Geosuggest onSuggestSelect={selectCountry} ref={geosuggestEl} placeholder="Search state" className="flex-grow-1 w-75" />
+                                    <button type="button" onClick={clearCountry} className="btn">X</button>
+                                </div>
+                                <div className="d-flex flex-wrap">
+                                    {countryList?.map((e, index) => (<>
+                                        <div className="d-flex  align-items-center bg-warning m-1 rounded ps-2 mw-25 text-truncate" key={index}>
+                                            <span className=" mw-75 text-truncate">{e.type == 'exc' && (<>
+                                                ({e.type})
+                                            </>)}{e.name}</span>
+                                            <button type="button" onClick={() => deleteCountry(e.id)} className="btn btn-sm">x</button>
+                                        </div>
+                                    </>))}
+                                </div>
+                            </>)}
 
-                            
+
 
 
                         </div>

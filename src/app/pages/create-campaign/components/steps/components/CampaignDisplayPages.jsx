@@ -175,10 +175,10 @@ const CampaignDisplayPages = () => {
               ))}
               <button
                 type="button"
-                className="btn btn-primary mt-5"
+                className="btn btn-primary mt-5 btn-sm"
                 onClick={addUrl}
               >
-                Add rule
+                <KTIcon iconName="plus" className="fs-3" />Add rule
               </button>
             </div>
           ) : (
