@@ -787,7 +787,7 @@ const CampaignAudience = () => {
                             </label>
                             <Select
                                 options={allLanguage}
-                                placeholder="Countries"
+                                placeholder="Language"
                                 className="form-control form-control-solid p-0"
                                 onChange={languageChange}
                                 value={selectedLanguage}
