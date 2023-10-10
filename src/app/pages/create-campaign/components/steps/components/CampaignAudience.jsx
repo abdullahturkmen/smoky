@@ -320,9 +320,9 @@ const CampaignAudience = () => {
                                 value={selectedChannels}
                             />
                         </div>
-                        <div className="col-12 mb-4">
+                        <div className="col-12 col-lg-7 col-md-9 mb-4">
                             {selectedChannels?.value === 'trafficChannel' && (
-                                <div className=" row mt-5">
+                                <div className="mt-5 bg-light border rounded p-5">
                                     <div className="col-12 mb-4">
                                         <label
                                             htmlFor="campaignname"
@@ -413,7 +413,7 @@ const CampaignAudience = () => {
                                 </div>
                             )}
                             {selectedChannels?.value === 'trafficSource' && (
-                                <div className="row">
+                                <div className="mt-5 bg-light border rounded p-5">
                                     <div className="col-12 mb-4 mt-4">
                                         <label
                                             htmlFor="campaignname"
@@ -429,11 +429,11 @@ const CampaignAudience = () => {
 
                                                 <div className="row d-flex align-items-center mb-2">
                                                     {index === 0 ? (
-                                                        <div className="col-1">
+                                                        <div className="col-2">
                                                             <span>Source URL</span>
                                                         </div>
                                                     ) : (
-                                                        <div className="d-flex gap-5 border rounded p-3 justify-content-center" onClick={trafficSourceAndToOr} style={{ width: '80px' }}>
+                                                        <div className="bg-white d-flex gap-5 border rounded p-3 justify-content-center" onClick={trafficSourceAndToOr} style={{ width: '80px' }}>
                                                             <div className="text">{trafficSourceIsAnd ? 'AND' : 'OR'}</div>
                                                             <div className="icon">
                                                                 {trafficSourceIsAnd ? (
@@ -448,7 +448,7 @@ const CampaignAudience = () => {
                                                             </div>
                                                         </div>
                                                     )}
-                                                    <div className="col-5">
+                                                    <div className="col-4">
                                                         <Select
                                                             options={trafficSourceOptions}
                                                             placeholder="URL"
@@ -459,11 +459,11 @@ const CampaignAudience = () => {
                                                             value={item.URLType}
                                                         />
                                                     </div>
-                                                    <div className="col-5">
+                                                    <div className="col-4">
                                                         <input
                                                             id="url"
                                                             type="text"
-                                                            className="form-control form-control-md form-control-solid border"
+                                                            className="bg-white form-control form-control-md form-control-solid border"
                                                             value={item.url}
                                                             onChange={(e) =>
                                                                 updateTrafficSourceURL(index, "url", e.target.value)
@@ -495,7 +495,7 @@ const CampaignAudience = () => {
                                 </div>
                             )}
                             {selectedChannels?.value === 'UTM' && (
-                                <div className="row">
+                                <div className="mt-5 bg-light border rounded p-5">
                                     <div className="col-12 mb-4 mt-4">
                                         <label
                                             htmlFor="campaignname"
@@ -510,9 +510,9 @@ const CampaignAudience = () => {
                                             <div key={index} className="mb-2">
                                                 <div className="row d-flex align-items-center mb-2">
                                                     {index !== 0 && (
-                                                       
-                                                        <div className="d-flex gap-5 border rounded p-3 justify-content-center" onClick={andToOrFunction} style={{ width: '80px' }}>
-                                                           
+
+                                                        <div className="bg-white d-flex gap-5 border rounded p-3 justify-content-center" onClick={andToOrFunction} style={{ width: '80px' }}>
+
                                                             <div className="text">{isAnd ? 'AND' : 'OR'}</div>
                                                             <div className="icon">
                                                                 {isAnd ? (
@@ -528,7 +528,7 @@ const CampaignAudience = () => {
                                                         </div>
                                                     )}
 
-                                                    <div className="col-2">
+                                                    <div className="col-3">
                                                         <Select
                                                             options={utmSourceOptions}
                                                             placeholder="Source"
@@ -554,7 +554,7 @@ const CampaignAudience = () => {
                                                         <input
                                                             id="url"
                                                             type="text"
-                                                            className="form-control form-control-md form-control-solid border"
+                                                            className="bg-white form-control form-control-md form-control-solid border"
                                                             value={item.url}
                                                             onChange={(e) =>
                                                                 updateUtmSourceURL(index, "url", e.target.value)
@@ -808,13 +808,10 @@ const CampaignAudience = () => {
                                 onChange={browserChange}
                                 value={selectedBrowser}
                             />
-
-
                         </div>
-                        <div className="col-12  mb-4">
-
+                        <div className="col-12 col-lg-7 col-md-9 mb-4">
                             {selectedBrowser?.value === 'selectBrowser' && (
-                                <div className="mt-5 d-flex gap-8 flex-wrap">
+                                <div className="mt-5 d-flex gap-10 flex-wrap bg-light border rounded p-5">
                                     <div><input className='form-check-input me-2' type='checkbox' value='1' /> Chrome</div>
                                     <div><input className='form-check-input me-2' type='checkbox' value='1' /> Safari</div>
                                     <div><input className='form-check-input me-2' type='checkbox' value='1' /> Internet Explorer</div>
@@ -823,7 +820,6 @@ const CampaignAudience = () => {
                                     <div><input className='form-check-input me-2' type='checkbox' value='1' /> Edge</div>
                                 </div>
                             )}
-
                         </div>
                         <div className="col-12 mb-4">
                             <label
@@ -841,7 +837,7 @@ const CampaignAudience = () => {
                                 />
                                 Exclude visitors who already saw
                                 <input
-                                    className="form-control  form-control-solid"
+                                    className="form-control border form-control-solid"
                                     type="number"
                                     style={{ width: '100px' }}
                                 /> popups during the session
