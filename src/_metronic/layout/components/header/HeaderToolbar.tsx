@@ -8,6 +8,7 @@ import { HeaderUserMenu } from "../../../partials";
 import { useAuth } from "../../../../app/modules/auth";
 import { toAbsoluteUrl } from "../../../helpers";
 import { Link } from "react-router-dom";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { PopupsListFilter } from "../../../../app/pages/campaigns/popupsTable/components/header/PopupsListFilter";
 const HeaderToolbar = () => {
   const { classes } = useLayout();
@@ -61,36 +62,46 @@ const HeaderToolbar = () => {
           <div className="d-flex justify-content-end align-items-center  pt-3 pt-lg-0">
             {/* begin::Action wrapper */}
 
-            <div className="d-flex flex-column align-items-center me-4">
-              <div
-                className=" float-start position-relative text-center flex-column"
-                style={{ height: "40px" }}
-              >
+            <div className="me-4 d-flex align-items-center">
+              <div className="d-flex flex-column align-items-center me-2">
                 <div
-                  className="barOverflow position-relative overflow-hidden"
-                  style={{
-                    width: "80px",
-                    height: "40px",
-                    marginBottom: "-20px",
-                  }}
+                  className=" float-start position-relative text-center flex-column"
+                  style={{ height: "40px" }}
                 >
                   <div
-                    className="bar position-absolute top-0 left-0  border-5 w-100 "
+                    className="barOverflow position-relative overflow-hidden"
                     style={{
-                      borderRadius: "50%",
-                      height: "200%",
-                      borderBottomColor: "#0bf",
-                      borderRightColor: "#0bf",
-                      borderTopColor: "#ececec",
-                      borderLeftColor: "#ececec",
-                      borderStyle: "solid",
-                      transform: "rotate(135deg)",
+                      width: "80px",
+                      height: "40px",
+                      marginBottom: "-20px",
                     }}
-                  ></div>
+                  >
+                    <div
+                      className="bar position-absolute top-0 left-0  border-5 w-100 "
+                      style={{
+                        borderRadius: "50%",
+                        height: "200%",
+                        borderBottomColor: "#0bf",
+                        borderRightColor: "#0bf",
+                        borderTopColor: "#ececec",
+                        borderLeftColor: "#ececec",
+                        borderStyle: "solid",
+                        transform: "rotate(135deg)",
+                      }}
+                    ></div>
+                  </div>
+                  <span className="fw-bolder">10%</span>
                 </div>
-                <span className="fw-bolder">10%</span>
+                <span style={{ fontSize: "10px" }}>Propensity Score</span>
               </div>
-              <span style={{fontSize:'10px'}}>Propensity Score</span>
+              <OverlayTrigger
+                placement="bottom"
+                overlay={<Tooltip id="tooltip-user-name">Lorem ipsum dolor sit amet consectetur adipisicing elit.</Tooltip>}
+              >
+                <span className="symbol-label  rounded-circle text-inverse-primary fw-bolder">
+                  <i className="bi bi-info-circle-fill"></i>
+                </span>
+              </OverlayTrigger>
             </div>
             {/* begin::Actions */}
             <div className="d-flex align-items-center">
