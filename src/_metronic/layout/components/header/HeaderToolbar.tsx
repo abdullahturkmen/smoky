@@ -51,68 +51,98 @@ const HeaderToolbar = () => {
     <>
       <div className="toolbar d-flex align-items-stretch">
         {/* begin::Toolbar container */}
-       
+
         <div
           className={`${classes.headerContainer.join(
             " "
           )} py-6 py-lg-0 d-flex flex-column flex-lg-row align-items-lg-stretch justify-content-lg-between`}
         >
           <DefaultTitle />
-          <div className="d-flex justify-content-end align-items-stretch  pt-3 pt-lg-0">
+          <div className="d-flex justify-content-end align-items-center  pt-3 pt-lg-0">
             {/* begin::Action wrapper */}
 
+            <div className="d-flex flex-column align-items-center me-4">
+              <div
+                className=" float-start position-relative text-center flex-column"
+                style={{ height: "40px" }}
+              >
+                <div
+                  className="barOverflow position-relative overflow-hidden"
+                  style={{
+                    width: "80px",
+                    height: "40px",
+                    marginBottom: "-20px",
+                  }}
+                >
+                  <div
+                    className="bar position-absolute top-0 left-0  border-5 w-100 "
+                    style={{
+                      borderRadius: "50%",
+                      height: "200%",
+                      borderBottomColor: "#0bf",
+                      borderRightColor: "#0bf",
+                      borderTopColor: "#ececec",
+                      borderLeftColor: "#ececec",
+                      borderStyle: "solid",
+                      transform: "rotate(135deg)",
+                    }}
+                  ></div>
+                </div>
+                <span className="fw-bolder">10%</span>
+              </div>
+              <span style={{fontSize:'10px'}}>Propensity Score</span>
+            </div>
             {/* begin::Actions */}
             <div className="d-flex align-items-center">
               {/* begin::Action */}
 
               <PopupsListFilter />
-</div>
-              <div className="d-flex align-items-center">
-          <div className="dropdown">
-            <button
-              className="btn px-1"
-              type="button"
-              id="dropdownMenuButton1"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <KTIcon iconName="notification" className="fs-1 text-dark " />
-            </button>
-            <ul
-              className="dropdown-menu"
-              aria-labelledby="dropdownMenuButton1"
-              style={{ width: "clamp(300px, 40%, 400px)" }}
-            >
-              <div className="card">
-                <div className="card-body">
-                  <h5 className="card-title">
-                    Black Friday Strategy: 11 Ideas & Tips 🏷️
-                  </h5>
-                  <a href="#" className="btn btn-sm px-2 py-1 btn-primary">
-                    Read
-                  </a>
-                </div>
-              </div>
+            </div>
+            <div className="d-flex align-items-center">
+              <div className="dropdown">
+                <button
+                  className="btn px-1"
+                  type="button"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <KTIcon iconName="notification" className="fs-1 text-dark " />
+                </button>
+                <ul
+                  className="dropdown-menu"
+                  aria-labelledby="dropdownMenuButton1"
+                  style={{ width: "clamp(300px, 40%, 400px)" }}
+                >
+                  <div className="card">
+                    <div className="card-body">
+                      <h5 className="card-title">
+                        Black Friday Strategy: 11 Ideas & Tips 🏷️
+                      </h5>
+                      <a href="#" className="btn btn-sm px-2 py-1 btn-primary">
+                        Read
+                      </a>
+                    </div>
+                  </div>
 
-              <div className="card">
-                <div className="card-body">
-                  <h5 className="card-title">
-                    Black Friday Strategy: 11 Ideas & Tips 🏷️
-                  </h5>
-                  <a href="#" className="btn btn-sm px-2 py-1 btn-primary">
-                    Read
-                  </a>
-                </div>
-              </div>
+                  <div className="card">
+                    <div className="card-body">
+                      <h5 className="card-title">
+                        Black Friday Strategy: 11 Ideas & Tips 🏷️
+                      </h5>
+                      <a href="#" className="btn btn-sm px-2 py-1 btn-primary">
+                        Read
+                      </a>
+                    </div>
+                  </div>
 
-              <li>
-                <a className="dropdown-item" href="#">
-                  All Notifications
-                </a>
-              </li>
-            </ul>
-          </div>
-        
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      All Notifications
+                    </a>
+                  </li>
+                </ul>
+              </div>
 
               {/*begin::User*/}
               <div className="aside-user d-flex align-items-sm-center justify-content-center py-5 ms-2">
