@@ -131,6 +131,7 @@ const AdvancedSettingsScreen: React.FC<Props> = ({}) => {
                       <input
                         className="form-control form-control-solid w-90px "
                         type="number"
+                        min="0"
                         value="25"
                         // defaultChecked={}
                         // onChange={}

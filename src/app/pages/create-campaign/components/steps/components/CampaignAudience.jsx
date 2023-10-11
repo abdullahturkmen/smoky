@@ -445,6 +445,7 @@ const CampaignAudience = () => {
                                                 className="form-control  form-control-solid border bg-white"
                                                 type="number"
                                                 style={{ width: '100px' }}
+                                                min="0"
                                             />
                                             <div>times</div>
                                         </div>
@@ -469,7 +470,7 @@ const CampaignAudience = () => {
                                 value={selectedChannels}
                             />
                         </div>
-                        <div className="col-12 col-lg-7 col-md-9 mb-4">
+                        <div className="col-12 mb-4">
                             {selectedChannels?.value === 'trafficChannel' && (
                                 <div className="mt-5 bg-light border rounded p-5">
                                     <div className="col-12 mb-4">
@@ -839,6 +840,7 @@ const CampaignAudience = () => {
                                     className="form-control border form-control-solid"
                                     type="number"
                                     style={{ width: '100px' }}
+                                    min="0"
                                 /> popups during the session
                             </div>
                         </div>

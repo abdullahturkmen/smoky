@@ -8,29 +8,47 @@ const CampaignDiscountRange = () => {
 
 
   const minValChange = (event) => {
-    console.log("min : ", event.target.value);
-    if (parseInt(event.target.value) >= parseInt(maxValue)) {
+    // //console.log("min : ", event.target.value);
+    // if (parseInt(event.target.value) >= parseInt(maxValue)) {
 
 
-      toast.warning('The minimum value cannot be equal to or greater than the maximum value', {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      
+    //   toast.warning('The minimum value cannot be equal to or greater than the maximum value', {
+    //     position: "top-right",
+    //     autoClose: 3000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //     theme: "light",
+    //   });
 
-      return false
-    }
+
+    //   return false
+    // }
     setMinValue(parseInt(event.target.value))
   }
   const maxValChange = (event) => {
-    console.log("max : ", event.target.value);
-    if (parseInt(event.target.value) <= parseInt(minValue)) {
+    ////console.log("max : ", event.target.value);
+    // if (parseInt(event.target.value) <= parseInt(minValue)) {
+    //   toast.warning('The maximum value cannot be equal to or less than the minimum value', {
+    //     position: "top-right",
+    //     autoClose: 3000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //     theme: "light",
+    //   });
+    //   return false
+    // }
+    setMaxValue(parseInt(event.target.value))
+  }
+  const checkMaxValue = (event) => {
+    if(parseInt(minValue) >= parseInt(maxValue)){
+
+          // if (parseInt(event.target.value) <= parseInt(minValue)) {
       toast.warning('The maximum value cannot be equal to or less than the minimum value', {
         position: "top-right",
         autoClose: 3000,
@@ -41,9 +59,28 @@ const CampaignDiscountRange = () => {
         progress: undefined,
         theme: "light",
       });
-      return false
+    //   return false
+    // }
+
+      setMaxValue(parseInt(minValue) + 1)
     }
-    setMaxValue(parseInt(event.target.value))
+  }
+  const checkMinValue = (event) => {
+    if(parseInt(minValue) >= parseInt(maxValue)){
+
+        toast.warning('The minimum value cannot be equal to or greater than the maximum value', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+
+      setMinValue(parseInt(maxValue) - 1)
+    }
   }
   return (
     <>
@@ -89,6 +126,8 @@ const CampaignDiscountRange = () => {
                     className="form-control form-control-lg form-control-solid bg-white"
                     value={minValue}
                     onChange={minValChange}
+                    onBlur={checkMinValue}
+                    min="0"
                   />
                 </div>
                 <div className="col-12 col-lg-6 mb-0 mb-lg-4">
@@ -104,6 +143,8 @@ const CampaignDiscountRange = () => {
                     className="form-control form-control-lg form-control-solid bg-white"
                     value={maxValue}
                     onChange={maxValChange}
+                    onBlur={checkMaxValue}
+                    min={minValue + 1}
                   />
                 </div>
               </div>

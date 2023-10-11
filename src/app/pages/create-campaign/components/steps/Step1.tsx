@@ -39,14 +39,14 @@ const Step1: FC = () => {
                 </span>
               </div>
 
-              <div className="notice d-flex align-items-center bg-success rounded border-primary border border-solid mt-4 p-1 w-100">
+              <div className="notice d-flex align-items-center bg-light-success rounded border-primary border border-solid mt-4 p-1 w-100">
                 <KTIcon
                   iconName="information-5"
-                  className="fs-1 text-white me-4"
+                  className="fs-1 text-dark me-4"
                 />
 
                 <div className="d-block d-sm-flex flex-stack flex-grow-1">
-                  <div className="fs-8 text-white text-start">
+                  <div className="fs-8 text-dark text-start">
                     For this discount, we recommend setting a discount range of
                     10% - 30%
                   </div>
@@ -80,14 +80,14 @@ const Step1: FC = () => {
                 </span>
               </div>
 
-              <div className="notice d-flex align-items-center bg-success rounded border-primary border border-solid mt-4 p-1 w-100">
+              <div className="notice d-flex align-items-center bg-light-success rounded border-primary border border-solid mt-4 p-1 w-100">
                 <KTIcon
                   iconName="information-5"
-                  className="fs-1 text-white me-4"
+                  className="fs-1 text-dark me-4"
                 />
 
                 <div className="d-block d-sm-flex flex-stack flex-grow-1">
-                  <div className="fs-8 text-white text-start">
+                  <div className="fs-8 text-dark text-start">
                     For this discount, we recommend setting a discount range of
                     10% - 20%
                   </div>
@@ -121,14 +121,14 @@ const Step1: FC = () => {
                 </span>
               </div>
 
-              <div className="notice d-flex align-items-center bg-success rounded border-primary border border-solid mt-4 p-1 w-100">
+              <div className="notice d-flex align-items-center bg-light-success rounded border-primary border border-solid mt-4 p-1 w-100">
                 <KTIcon
                   iconName="information-5"
-                  className="fs-1 text-white me-4"
+                  className="fs-1 text-dark me-4"
                 />
 
                 <div className="d-block d-sm-flex flex-stack flex-grow-1">
-                  <div className="fs-8 text-white text-start">
+                  <div className="fs-8 text-dark text-start">
                     For this discount, we recommend setting a discount range of
                     5% - 15%
                   </div>

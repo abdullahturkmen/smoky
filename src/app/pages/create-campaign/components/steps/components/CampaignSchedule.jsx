@@ -170,8 +170,8 @@ const CampaignSchedule = () => {
                 data-bs-parent="#accordionExample"
             >
                 <div className="accordion-body">
-                    <div className="row">
-                        <div className="col-12 mb-4">
+                    <div className="">
+                        <div className="d-inline-block">
                             <label
                                 htmlFor="campaignname"
                                 className="form-label fs-7 fw-bolder mb-1"
@@ -179,6 +179,7 @@ const CampaignSchedule = () => {
                                 Time Zone
                             </label>
                             <Select
+                           
                                 options={timeZoneOptions}
                                 placeholder="Time Zone"
                                 className="form-control form-control-solid p-0"

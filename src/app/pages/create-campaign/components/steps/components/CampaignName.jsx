@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { KTIcon } from "../../../../../../_metronic/helpers";
 
 const CampaignName = () => {
+    const [companyName, setCompanyName] = useState('Untitled campaign')
 
     return (
         <div className="accordion-item mb-8 shadow">
@@ -40,6 +42,8 @@ const CampaignName = () => {
                                 type="text"
                                 className="form-control form-control-lg form-control-solid"
                                 placeholder="Campaign name"
+                                value={companyName}
+                                onChange={(e) => setCompanyName(e.target.value)}
                             />
                         </div>
                     </div>
