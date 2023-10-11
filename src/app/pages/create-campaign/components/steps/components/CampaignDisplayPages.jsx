@@ -69,7 +69,8 @@ const CampaignDisplayPages = () => {
       >
         <div className="accordion-body">
           <strong>Frequency</strong>{" "}
-          <label className="form-check form-switch form-check-custom form-check-solid align-items-start mt-5">
+         <div className="d-flex gap-20">
+         <label className="form-check form-switch form-check-custom form-check-solid align-items-start mt-5">
             <input className="form-check-input me-5" type="checkbox" />
             <div className="d-flex flex-column">
               <span className="form-label fw-bolder">Display Limit</span>
@@ -78,6 +79,11 @@ const CampaignDisplayPages = () => {
               </span>
             </div>
           </label>
+          <label className="form-check form-switch form-check-custom form-check-solid align-items-start mt-5">
+            <input className="form-check-input me-5" type="checkbox" />
+            <span className="form-label fw-bolder">IP Restriction</span>
+          </label>
+         </div>
           <hr />
           <div className="row">
             <div className="col-sm-12 col-md-6 col-lg-4 col-xl-3">
