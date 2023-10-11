@@ -145,7 +145,7 @@ const CampaignAudience = () => {
     };
 
     const tooltipChannel = (event) => (
-        <Tooltip id="tooltip">{event}</Tooltip>
+        <Tooltip id="tooltip" style={{ fontSize: '12px' }}>{event}</Tooltip>
     );
     const [trafficSourceUrlList, setTrafficSourceURL] = useState([{ URLType: null, url: "" }]);
     const [utmSourceUrlList, setUtmSourceURL] = useState([{ URLType: null, url: "", source: null }]);
@@ -580,7 +580,12 @@ const CampaignAudience = () => {
                                                 <div className="row d-flex align-items-center mb-2">
                                                     {index === 0 ? (
                                                         <div className="col-2">
-                                                            <span>Source URL</span>
+                                                            <span className="me-3">Source URL</span>
+                                                            <OverlayTrigger placement="bottom" overlay={tooltipChannel('The initial referrer of the visit. Sub-domains of your domain are not considered as external sources. On Chrome, the source URL does not include the path.')}>
+                                                                <span class="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip">
+                                                                    <i class="bi bi-info-circle-fill"></i>
+                                                                </span>
+                                                            </OverlayTrigger>
                                                         </div>
                                                     ) : (
                                                         <div className="bg-white d-flex gap-5 border rounded p-3 justify-content-center" onClick={trafficSourceAndToOr} style={{ width: '80px' }}>
@@ -798,6 +803,7 @@ const CampaignAudience = () => {
                                 className="form-control form-control-solid p-0"
                                 onChange={languageChange}
                                 value={selectedLanguage}
+                                isMulti={true}
                             />
                         </div>
                         <div className="col-12 col-lg-7 col-md-9 ">
