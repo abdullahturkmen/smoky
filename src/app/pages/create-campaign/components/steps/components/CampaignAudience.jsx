@@ -751,35 +751,40 @@ const CampaignAudience = () => {
                                 onChange={countryChange}
                                 value={selectedCountry}
                             />
-                            {selectedCountry?.value === "spesific" && (<>
-                                <div className="d-flex align-items-start mt-4">
-                                    <select
-                                        value={selectedCountryTypeOption} onChange={countryTypeChange}
-                                        style={{ height: '40px' }}
-                                        name='timezone'
-                                        aria-label='Select a Timezone'
-                                        data-control='select2'
-                                        data-placeholder='date_period'
-                                        className='form-select form-select-sm  me-2 w-25'
-                                    >
-                                        <option value='inc'>Include</option>
-                                        <option value='exc'>Exclude</option>
-                                    </select>
-                                    <Geosuggest onSuggestSelect={selectCountry} ref={geosuggestEl} placeholder="Search state" className="flex-grow-1 w-75" />
-                                    <button type="button" onClick={clearCountry} className="btn">X</button>
-                                </div>
-                                <div className="d-flex flex-wrap">
-                                    {countryList?.map((e, index) => (<>
-                                        <div className="d-flex  align-items-center bg-warning m-1 rounded ps-2 mw-25 text-truncate" key={index}>
-                                            <span className=" mw-75 text-truncate">{e.type === 'exc' && (<>
-                                                ({e.type})
-                                            </>)}{e.name}</span>
-                                            <button type="button" onClick={() => deleteCountry(e.id)} className="btn btn-sm">x</button>
-                                        </div>
-                                    </>))}
-                                </div>
-                            </>)}
                         </div>
+                        {selectedCountry?.value === "spesific" && (<>
+                            <div className="col-12 mb-4">
+                                <div className="bg-light border rounded p-5">
+                                    <div className="d-flex align-items-start mt-4">
+                                        <select
+                                            value={selectedCountryTypeOption} onChange={countryTypeChange}
+                                            style={{ height: '40px' }}
+                                            name='timezone'
+                                            aria-label='Select a Timezone'
+                                            data-control='select2'
+                                            data-placeholder='date_period'
+                                            className='form-select form-select-sm  me-2 w-25'
+                                        >
+                                            <option value='inc'>Include</option>
+                                            <option value='exc'>Exclude</option>
+                                        </select>
+                                        <Geosuggest onSuggestSelect={selectCountry} ref={geosuggestEl} placeholder="Search state" className="flex-grow-1 w-75" />
+                                        <button type="button" onClick={clearCountry} className="btn">X</button>
+                                    </div>
+                                    <div className="d-flex flex-wrap">
+                                        {countryList?.map((e, index) => (<>
+                                            <div className="d-flex  align-items-center bg-warning m-1 rounded ps-2 mw-25 text-truncate" key={index}>
+                                                <span className=" mw-75 text-truncate">{e.type === 'exc' && (<>
+                                                    ({e.type})
+                                                </>)}{e.name}</span>
+                                                <button type="button" onClick={() => deleteCountry(e.id)} className="btn btn-sm">x</button>
+                                            </div>
+                                        </>))}
+                                    </div>
+                                </div>
+                            </div>
+                        </>)}
+
                         <div className="col-12 col-lg-7 col-md-9 mb-4">
                             <label
                                 htmlFor="campaignname"
@@ -809,7 +814,7 @@ const CampaignAudience = () => {
                                 value={selectedBrowser}
                             />
                         </div>
-                        <div className="col-12 col-lg-7 col-md-9 mb-4">
+                        <div className="col-12 mb-4">
                             {selectedBrowser?.value === 'selectBrowser' && (
                                 <div className="mt-5 d-flex gap-10 flex-wrap bg-light border rounded p-5">
                                     <div><input className='form-check-input me-2' type='checkbox' value='1' /> Chrome</div>
