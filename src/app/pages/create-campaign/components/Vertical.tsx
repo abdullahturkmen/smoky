@@ -335,7 +335,7 @@ const Vertical = () => {
 
       {/* begin::modalCloseCreateCampaign */}
       <button
-        className="position-fixed end-0 btn btn-danger rounded btn-sm m-4"
+        className="position-absolute end-0 btn btn-danger rounded btn-sm m-4"
         data-bs-toggle="modal"
         data-bs-target="#closeCreateCampaign"
       >

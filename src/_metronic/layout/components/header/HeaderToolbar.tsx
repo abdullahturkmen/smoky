@@ -51,10 +51,26 @@ const HeaderToolbar = () => {
     <>
       <div className="toolbar d-flex align-items-stretch">
         {/* begin::Toolbar container */}
-        <div className="d-flex align-items-center">
+       
+        <div
+          className={`${classes.headerContainer.join(
+            " "
+          )} py-6 py-lg-0 d-flex flex-column flex-lg-row align-items-lg-stretch justify-content-lg-between`}
+        >
+          <DefaultTitle />
+          <div className="d-flex justify-content-end align-items-stretch  pt-3 pt-lg-0">
+            {/* begin::Action wrapper */}
+
+            {/* begin::Actions */}
+            <div className="d-flex align-items-center">
+              {/* begin::Action */}
+
+              <PopupsListFilter />
+</div>
+              <div className="d-flex align-items-center">
           <div className="dropdown">
             <button
-              className="btn"
+              className="btn px-1"
               type="button"
               id="dropdownMenuButton1"
               data-bs-toggle="dropdown"
@@ -96,21 +112,7 @@ const HeaderToolbar = () => {
               </li>
             </ul>
           </div>
-        </div>
-        <div
-          className={`${classes.headerContainer.join(
-            " "
-          )} py-6 py-lg-0 d-flex flex-column flex-lg-row align-items-lg-stretch justify-content-lg-between`}
-        >
-          <DefaultTitle />
-          <div className="d-flex justify-content-end align-items-stretch overflow-auto pt-3 pt-lg-0">
-            {/* begin::Action wrapper */}
-
-            {/* begin::Actions */}
-            <div className="d-flex align-items-center">
-              {/* begin::Action */}
-
-              <PopupsListFilter />
+        
 
               {/*begin::User*/}
               <div className="aside-user d-flex align-items-sm-center justify-content-center py-5 ms-2">
