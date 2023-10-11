@@ -96,7 +96,16 @@ const CampaignAudience = () => {
         { value: "lessthan", label: "Less than" },
         { value: "between", label: "Between" },
     ]
+
+    const returningVisitorsTimeOption = [
+        { value: "min", label: "Min." },
+        { value: "hours", label: "Hours" },
+        { value: "days", label: "Days" },
+        { value: "months", label: "Months" },
+    ]
+
     const [selectedReturningVisitors, setSelectedReturningVisitors] = useState(returningVisitorsOption[0]);
+    const [selectedTimeVisitors, setSelectedTimeVisitors] = useState(returningVisitorsTimeOption[0]);
 
 
     const browserOptions = [
@@ -113,6 +122,9 @@ const CampaignAudience = () => {
     };
     const changeReturningVisitors = (event) => {
         setSelectedReturningVisitors(event)
+    }
+    const changeReturningTimeVisitors = (event) => {
+        setSelectedTimeVisitors(event)
     }
     const countryChange = (event) => {
         setSelectedCountry(event);
@@ -143,7 +155,10 @@ const CampaignAudience = () => {
             });
         }
     };
-
+    const [visibleReturningDetail, setVisibleReturningDetail] = useState(false)
+    const changeVisibleVisitorDetail = () => {
+        setVisibleReturningDetail(!visibleReturningDetail)
+    }
     const tooltipChannel = (event) => (
         <Tooltip id="tooltip" style={{ fontSize: '12px' }}>{event}</Tooltip>
     );
@@ -447,11 +462,59 @@ const CampaignAudience = () => {
                                                 style={{ width: '100px' }}
                                                 min="0"
                                             />
+                                            {
+                                                selectedReturningVisitors?.value === 'between' && (
+                                                    <>And
+                                                        <input
+                                                            className="form-control  form-control-solid border bg-white"
+                                                            type="number"
+                                                            style={{ width: '100px' }}
+                                                            min="0"
+                                                        /></>
+                                                )
+                                            }
                                             <div>times</div>
+                                            {!visibleReturningDetail && (
+                                                <button type="button" className="btn btn-sm btn-link" onClick={changeVisibleVisitorDetail}>Refine</button>
+                                            )
+                                            }
                                         </div>
-
-
                                     </div>
+
+                                    {
+                                        visibleReturningDetail && (
+                                            <div className="row mt-2">
+                                                <div className="d-flex flex-wrap gap-5 align-items-center">
+                                                    <div>In the last</div>
+                                                    <input
+                                                        className="form-control  form-control-solid border bg-white"
+                                                        type="number"
+                                                        style={{ width: '100px' }}
+                                                        min="0"
+                                                    />
+                                                    <Select
+                                                        options={returningVisitorsTimeOption}
+                                                        onChange={changeReturningTimeVisitors}
+                                                        value={selectedTimeVisitors}
+                                                        styles={{
+                                                            control: (provided) => ({
+                                                                ...provided,
+                                                                width: '150px',
+                                                            }),
+                                                        }}
+                                                    />
+                                                    <button
+                                                                type="button"
+                                                                className="btn btn-light btn-sm"
+                                                                onClick={changeVisibleVisitorDetail}
+                                                            >
+                                                                <KTIcon iconName="trash" className="fs-3 text-danger" />
+                                                            </button>
+
+                                                </div>
+                                            </div>
+                                        )
+                                    }
                                 </div>
                             )}
                         </div>
