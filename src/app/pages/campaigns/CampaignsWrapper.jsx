@@ -1,29 +1,14 @@
 import { useIntl } from "react-intl";
+import React, { useState, useEffect } from "react";
 import { PageTitle } from "../../../_metronic/layout/core";
 import { KTIcon } from "../../../_metronic/helpers";
 import { Link } from "react-router-dom";
 import { PopupsListWrapper } from "./popupsTable/PopupsList";
 
+
 const DashboardPage = () => (
+
   <>
-    <div className="notice d-flex bg-light-primary rounded border-primary border border-dashed mb-9 p-6">
-      <KTIcon iconName="information-5" className="fs-2tx text-primary me-4" />
-
-      <div className="d-block d-sm-flex flex-stack flex-grow-1">
-        <div className="fw-bold">
-          <div className="fs-6 text-gray-600">
-          Your trial is expiring in 1 day.
-          </div>
-        </div>
-          <button
-                id="send_instructions_submit_btn"
-                type="submit"
-                className="btn btn-sm btn-primary fw-bold"
-              >Upgrade</button>
-        
-      </div>
-    </div>
-
     <div className="card mb-10 d-none">
       <div className="card-body d-flex align-items-center py-8">
         <div className="d-flex h-80px w-80px flex-shrink-0 flex-center position-relative">
@@ -71,9 +56,62 @@ const DashboardPage = () => (
 
 const CampaignsWrapper = () => {
   const intl = useIntl();
+  const [isVisibleExpAlert, setIsVisibleExpAlert] = useState(false);
+
+  useEffect(() => {
+
+
+
+
+
+
+    const storedExp = localStorage.getItem('closeExpAlert');
+    if (storedExp) {
+
+      var yirmiDortSaatSonra = new Date();
+      yirmiDortSaatSonra.setHours(yirmiDortSaatSonra.getHours() - 24);
+
+      if (yirmiDortSaatSonra > new Date(storedExp)) {
+        setIsVisibleExpAlert(true)
+      }
+
+    }
+    else {
+      setIsVisibleExpAlert(true)
+    }
+  }, []);
+
+  const closeExpAlert = () => {
+    localStorage.setItem('closeExpAlert', new Date())
+    setIsVisibleExpAlert(false)
+  }
+
+
   return (
     <>
       <PageTitle breadcrumbs={[]}>Campaigns</PageTitle>
+      {isVisibleExpAlert && (<>
+        <div className="notice d-flex bg-light-primary rounded border-primary border border-dashed mb-9 p-6 position-relative">
+          <div className="position-absolute end-0 top-0 cursor-pointer" style={{marginRight: '-10px',marginTop: '-10px'}} onClick={closeExpAlert}>
+            <KTIcon iconName="cross" className="fs-1 bg-warning text-dark rounded" />
+          </div>
+          <KTIcon iconName="information-5" className="fs-2tx text-primary me-4" />
+
+          <div className="d-block d-sm-flex flex-stack flex-grow-1">
+            <div className="fw-bold">
+              <div className="fs-6 text-gray-600">
+                Your trial is expiring in 1 day.
+              </div>
+            </div>
+            <button
+              id="send_instructions_submit_btn"
+              type="submit"
+              className="btn btn-sm btn-primary fw-bold"
+            >Upgrade</button>
+
+          </div>
+        </div>
+      </>)}
       <DashboardPage />
     </>
   );

@@ -13,6 +13,7 @@ import { PopupsListFilter } from "../../../../app/pages/campaigns/popupsTable/co
 const HeaderToolbar = () => {
   const { classes } = useLayout();
   const [status, setStatus] = useState<string>("1");
+  const [propensityScore, setPropensityScore] = useState<number>(25);
   const { currentUser } = useAuth();
 
   useEffect(() => {
@@ -86,11 +87,11 @@ const HeaderToolbar = () => {
                         borderTopColor: "#ececec",
                         borderLeftColor: "#ececec",
                         borderStyle: "solid",
-                        transform: "rotate(135deg)",
+                        transform: `rotate(${45 + (propensityScore * 1.8)}deg)`,
                       }}
                     ></div>
                   </div>
-                  <span className="fw-bolder">10%</span>
+                  <span className="fw-bolder">{propensityScore}%</span>
                 </div>
                 <span style={{ fontSize: "10px" }}>Propensity Score</span>
               </div>
