@@ -6,9 +6,9 @@ import { ToastContainer, toast } from 'react-toastify';
 
 const CampaignLimit = () => {
 
-  const [singleValue, setSingleValue] = useState();
-  const [minValue, setMinValue] = useState();
-  const [maxValue, setMaxValue] = useState();
+  const [singleValue, setSingleValue] = useState(5);
+  const [minValue, setMinValue] = useState(3);
+  const [maxValue, setMaxValue] = useState(5);
 
   const [selectedOption, setSelectedOption] = useState("none");
   const [selectedOptionDetail, setSelectedOptionDetail] =
@@ -21,51 +21,43 @@ const CampaignLimit = () => {
   const optionChangeDetail = (event) => {
     setSelectedOptionDetail(event.target.value);
   };
-  
 
+  const singleValChange = (event) => {
+
+    if (parseInt(event.target.value) >= 0) {
+      setSingleValue(parseInt(event.target.value))
+    }
+    else {
+      setSingleValue(0)
+    }
+
+  }
 
   const minValChange = (event) => {
-    // //console.log("min : ", event.target.value);
-    // if (parseInt(event.target.value) >= parseInt(maxValue)) {
 
+    if (parseInt(event.target.value) >= 0) {
+      setMinValue(parseInt(event.target.value))
+    }
+    else {
+      setMinValue(0)
+    }
 
-    //   toast.warning('The minimum value cannot be equal to or greater than the maximum value', {
-    //     position: "top-right",
-    //     autoClose: 3000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //     theme: "light",
-    //   });
-
-
-    //   return false
-    // }
-    setMinValue(parseInt(event.target.value))
   }
+
   const maxValChange = (event) => {
-    ////console.log("max : ", event.target.value);
-    // if (parseInt(event.target.value) <= parseInt(minValue)) {
-    //   toast.warning('The maximum value cannot be equal to or less than the minimum value', {
-    //     position: "top-right",
-    //     autoClose: 3000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //     theme: "light",
-    //   });
-    //   return false
-    // }
-    setMaxValue(parseInt(event.target.value))
-  }
-  const checkMaxValue = (event) => {
-    if(parseInt(minValue) >= parseInt(maxValue)){
 
-          // if (parseInt(event.target.value) <= parseInt(minValue)) {
+    if (parseInt(event.target.value) > 0) {
+      setMaxValue(parseInt(event.target.value))
+    }
+    else {
+      setMaxValue(1)
+    }
+  }
+
+  const checkMaxValue = (event) => {
+    if (parseInt(minValue) >= parseInt(maxValue)) {
+
+      // if (parseInt(event.target.value) <= parseInt(minValue)) {
       toast.warning('The maximum value cannot be equal to or less than the minimum value', {
         position: "top-right",
         autoClose: 3000,
@@ -76,16 +68,16 @@ const CampaignLimit = () => {
         progress: undefined,
         theme: "light",
       });
-    //   return false
-    // }
+      //   return false
+      // }
 
       setMaxValue(parseInt(minValue) + 1)
     }
   }
   const checkMinValue = (event) => {
-    if(parseInt(minValue) >= parseInt(maxValue)){
+    if (parseInt(minValue) >= parseInt(maxValue)) {
 
-        toast.warning('The minimum value cannot be equal to or greater than the maximum value', {
+      toast.warning('The minimum value cannot be equal to or greater than the maximum value', {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -104,7 +96,7 @@ const CampaignLimit = () => {
   const LimitDetailsContent = () => {
 
     return (<>
- <ToastContainer />
+      <ToastContainer />
       <div className="alert rounded-bottom" style={{ marginTop: '-14px', borderRadius: 0, border: '1px solid #dbdfe9' }}>
         <div className="row mb-5 ">
           <div className="d-flex">
@@ -149,7 +141,7 @@ const CampaignLimit = () => {
               type="number"
               min="0"
               value={singleValue}
-              onChange={(e) => setSingleValue(e.target.value)}
+              onChange={singleValChange}
             />
           </div>
         )}
@@ -220,63 +212,63 @@ const CampaignLimit = () => {
       >
         <div className="accordion-body">
           <strong className="d-block">Minimum requirements (applies to all products)</strong>{" "}
-         <div className="d-inline-block">
-         <div className=" d-flex flex-column  mt-5">
-            <div className="d-inline-block">
-              <div className=" alert alert-secondary">
-                <input
-                  className="form-check-input  me-5"
-                  type="radio"
-                  checked={selectedOption === "none"}
-                  onChange={optionChange}
-                  value="none"
-                  id="productNone"
-                />
-                <label className="form-label fs-7 fw-bolder" htmlFor="productNone">None</label>
+          <div className="d-inline-block">
+            <div className=" d-flex flex-column  mt-5">
+              <div className="d-inline-block">
+                <div className=" alert alert-secondary">
+                  <input
+                    className="form-check-input  me-5"
+                    type="radio"
+                    checked={selectedOption === "none"}
+                    onChange={optionChange}
+                    value="none"
+                    id="productNone"
+                  />
+                  <label className="form-label fs-7 fw-bolder" htmlFor="productNone">None</label>
+                </div>
               </div>
-            </div>
-            <div className="d-inline-block">
-              <div className="alert alert-secondary" style={selectedOption === 'productCount' ? { borderBottomLeftRadius: 0, borderBottomRightRadius: 0 } : null}>
-                <input
-                  className="form-check-input  me-5"
-                  type="radio"
-                  value="productCount"
-                  checked={selectedOption === "productCount"}
-                  onChange={optionChange}
-                  id="productInCard"
-                />
-                <label className="form-label fs-7 fw-bolder" htmlFor="productInCard">
-                  Number of Products in Cart
-                </label>
+              <div className="d-inline-block">
+                <div className="alert alert-secondary" style={selectedOption === 'productCount' ? { borderBottomLeftRadius: 0, borderBottomRightRadius: 0 } : null}>
+                  <input
+                    className="form-check-input  me-5"
+                    type="radio"
+                    value="productCount"
+                    checked={selectedOption === "productCount"}
+                    onChange={optionChange}
+                    id="productInCard"
+                  />
+                  <label className="form-label fs-7 fw-bolder" htmlFor="productInCard">
+                    Number of Products in Cart
+                  </label>
+                </div>
               </div>
-            </div>
-            {selectedOption === 'productCount' && (<>
-              <LimitDetailsContent />
+              {selectedOption === 'productCount' && (<>
+                <LimitDetailsContent />
 
-            </>
-            )}
-            <div className="d-inline-block">
-              <div className="alert alert-secondary" style={selectedOption === 'cartValue' ? { borderBottomLeftRadius: 0, borderBottomRightRadius: 0 } : null}>
-                <input
-                  className="form-check-input  me-5"
-                  type="radio"
-                  value="cartValue"
-                  checked={selectedOption === "cartValue"}
-                  onChange={optionChange}
-                  id="productCardValue"
-                />
-                <label className="form-label fs-7 fw-bolder" htmlFor="productCardValue">
-                  Cart Value
-                </label>
+              </>
+              )}
+              <div className="d-inline-block">
+                <div className="alert alert-secondary" style={selectedOption === 'cartValue' ? { borderBottomLeftRadius: 0, borderBottomRightRadius: 0 } : null}>
+                  <input
+                    className="form-check-input  me-5"
+                    type="radio"
+                    value="cartValue"
+                    checked={selectedOption === "cartValue"}
+                    onChange={optionChange}
+                    id="productCardValue"
+                  />
+                  <label className="form-label fs-7 fw-bolder" htmlFor="productCardValue">
+                    Cart Value
+                  </label>
 
 
+                </div>
               </div>
-            </div>
-            {selectedOption === 'cartValue' && (<>
-              <LimitDetailsContent />
-            </>
-            )}
-            {/* <div className="col-sm-12 col-md-6">
+              {selectedOption === 'cartValue' && (<>
+                <LimitDetailsContent />
+              </>
+              )}
+              {/* <div className="col-sm-12 col-md-6">
                 {selectedOption !== "none" && (
                   <>
                     <div className="col-10 alert alert-secondary">
@@ -353,8 +345,8 @@ const CampaignLimit = () => {
                   </>
                 )}
               </div> */}
+            </div>
           </div>
-         </div>
         </div>
       </div>
     </div>

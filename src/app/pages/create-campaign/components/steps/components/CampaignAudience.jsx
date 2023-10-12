@@ -6,6 +6,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Geosuggest from '@ubilabs/react-geosuggest';
 import './../../../../../../_metronic/assets/sass/components/geosuggest.css';
+import { ToastContainer, toast } from 'react-toastify';
 const CampaignAudience = () => {
     const [countryList, setCountryList] = useState([]);
     const [selectCountryList, setSelectCountryList] = useState([{ "value": "all", "label": "All locations" }, { "value": "spesific", "label": "Spesific regions" }]);
@@ -19,6 +20,10 @@ const CampaignAudience = () => {
     const [showDeviceDetail, setShowDeviceDetail] = useState(false)
     const [isAnd, setIsAnd] = useState(false);
     const [trafficSourceIsAnd, setTrafficSourceIsAnd] = useState(false);
+    const [popupSawCount, setPopupSawCount] = useState(5);
+    const [minValue, setMinValue] = useState(0);
+    const [maxValue, setMaxValue] = useState(1);
+    const [inTheLast, setInTheLast] = useState(5);
     const [devicesData, setDevicesData] = useState({
         'Display on desktops': {
             selected: false,
@@ -247,7 +252,103 @@ const CampaignAudience = () => {
         setSelectedCountryTypeOption(e.target.value);
     };
 
-    return (
+    const popupSawCountChange = (event) => {
+
+        if (parseInt(event.target.value) >= 0) {
+            setPopupSawCount(parseInt(event.target.value))
+        }
+        else {
+            setPopupSawCount(0)
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+    const minValChange = (event) => {
+
+        if (parseInt(event.target.value) >= 0) {
+            setMinValue(parseInt(event.target.value))
+        }
+        else {
+            setMinValue(0)
+        }
+
+    }
+
+    const maxValChange = (event) => {
+
+        if (parseInt(event.target.value) > 0) {
+            setMaxValue(parseInt(event.target.value))
+        }
+        else {
+            setMaxValue(1)
+        }
+    }
+
+    const checkMaxValue = (event) => {
+
+        if (selectedReturningVisitors?.value === 'between' && parseInt(minValue) >= parseInt(maxValue)) {
+
+            // if (parseInt(event.target.value) <= parseInt(minValue)) {
+            toast.warning('The maximum value cannot be equal to or less than the minimum value', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            //   return false
+            // }
+
+            setMaxValue(parseInt(minValue) + 1)
+        }
+    }
+    const checkMinValue = (event) => {
+        if (selectedReturningVisitors?.value === 'between' && parseInt(minValue) >= parseInt(maxValue)) {
+
+            toast.warning('The minimum value cannot be equal to or greater than the maximum value', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+
+            setMinValue(parseInt(maxValue) - 1)
+        }
+    }
+
+    useEffect(() => {
+        checkMaxValue()
+    }, [selectedReturningVisitors])
+
+    const inTheLastValChange = (event) => {
+
+        if (parseInt(event.target.value) >= 0) {
+            setInTheLast(parseInt(event.target.value))
+        }
+        else {
+            setInTheLast(0)
+        }
+
+    }
+
+    return (<>
+        <ToastContainer />
         <div className="accordion-item mb-8 shadow border-top">
             <h2 className="accordion-header" id="headingFive">
                 <button
@@ -298,6 +399,7 @@ const CampaignAudience = () => {
                                         {activeButtons.includes('Display on desktops') && showDeviceDetail === true && (
                                             <div className="mt-5">
                                                 <div className="col-12 my-2">
+                                                <label className="form-check form-check-inline ">
                                                     <input
                                                         className='form-check-input me-2'
                                                         type='checkbox'
@@ -306,8 +408,10 @@ const CampaignAudience = () => {
                                                         onChange={() => deviceCheckboxChange('Display on desktops', 'Windows')}
                                                     />
                                                     Windows
+                                                    </label>
                                                 </div>
                                                 <div className="col-12 my-2">
+                                                <label className="form-check form-check-inline ">
                                                     <input
                                                         className='form-check-input me-2'
                                                         type='checkbox'
@@ -316,8 +420,10 @@ const CampaignAudience = () => {
                                                         onChange={() => deviceCheckboxChange('Display on desktops', 'Mac')}
                                                     />
                                                     Mac
+                                                    </label>
                                                 </div>
                                                 <div className="col-12 my-2">
+                                                <label className="form-check form-check-inline ">
                                                     <input
                                                         className='form-check-input me-2'
                                                         type='checkbox'
@@ -326,6 +432,7 @@ const CampaignAudience = () => {
                                                         onChange={() => deviceCheckboxChange('Display on desktops', 'Linux')}
                                                     />
                                                     Linux
+                                                    </label>
                                                 </div>
                                             </div>
                                         )}
@@ -341,6 +448,7 @@ const CampaignAudience = () => {
                                         {activeButtons.includes('Display on tablets') && showDeviceDetail === true && (
                                             <div className="mt-5">
                                                 <div className="col-12 my-2">
+                                                <label className="form-check form-check-inline ">
                                                     <input
                                                         className='form-check-input me-2'
                                                         type='checkbox'
@@ -349,8 +457,10 @@ const CampaignAudience = () => {
                                                         onChange={() => deviceCheckboxChange('Display on tablets', 'iPad')}
                                                     />
                                                     iPad
+                                                    </label>
                                                 </div>
                                                 <div className="col-12 my-2">
+                                                <label className="form-check form-check-inline ">
                                                     <input
                                                         className='form-check-input me-2'
                                                         type='checkbox'
@@ -359,6 +469,7 @@ const CampaignAudience = () => {
                                                         onChange={() => deviceCheckboxChange('Display on tablets', 'Android')}
                                                     />
                                                     Android
+                                                    </label>
                                                 </div>
                                             </div>
                                         )}
@@ -374,6 +485,7 @@ const CampaignAudience = () => {
                                         {activeButtons.includes('Display on mobiles') && showDeviceDetail === true && (
                                             <div className="mt-5">
                                                 <div className="col-12 my-2">
+                                                <label className="form-check form-check-inline ">
                                                     <input
                                                         className='form-check-input me-2'
                                                         type='checkbox'
@@ -382,8 +494,10 @@ const CampaignAudience = () => {
                                                         onChange={() => deviceCheckboxChange('Display on mobiles', 'iPhone')}
                                                     />
                                                     iPhone
+                                                    </label>
                                                 </div>
                                                 <div className="col-12 my-2">
+                                                <label className="form-check form-check-inline ">
                                                     <input
                                                         className='form-check-input me-2'
                                                         type='checkbox'
@@ -392,8 +506,10 @@ const CampaignAudience = () => {
                                                         onChange={() => deviceCheckboxChange('Display on mobiles', 'Android')}
                                                     />
                                                     Android
+                                                    </label>
                                                 </div>
                                                 <div className="col-12 my-2">
+                                                <label className="form-check form-check-inline ">
                                                     <input
                                                         className='form-check-input me-2'
                                                         type='checkbox'
@@ -402,6 +518,7 @@ const CampaignAudience = () => {
                                                         onChange={() => deviceCheckboxChange('Display on mobiles', 'Windows Phone')}
                                                     />
                                                     Windows Phone
+                                                    </label>
                                                 </div>
                                             </div>
                                         )}
@@ -434,7 +551,10 @@ const CampaignAudience = () => {
                                 onChange={shareVisitorChange}
                                 value={selectedShareVisitor}
                             />
-                            {selectedShareVisitor?.value === 'returningVisitors' && (
+                        </div>
+
+                        {selectedShareVisitor?.value === 'returningVisitors' && (
+                            <div className="col-12  mb-4">
                                 <div className="mt-5 bg-light border rounded p-5">
                                     <label
                                         htmlFor="campaignname"
@@ -460,6 +580,9 @@ const CampaignAudience = () => {
                                                 className="form-control  form-control-solid border bg-white"
                                                 type="number"
                                                 style={{ width: '100px' }}
+                                                value={minValue}
+                                                onChange={minValChange}
+                                                onBlur={checkMinValue}
                                                 min="0"
                                             />
                                             {
@@ -469,7 +592,10 @@ const CampaignAudience = () => {
                                                             className="form-control  form-control-solid border bg-white"
                                                             type="number"
                                                             style={{ width: '100px' }}
-                                                            min="0"
+                                                            value={maxValue}
+                                                            onChange={maxValChange}
+                                                            onBlur={checkMaxValue}
+                                                            min={minValue + 1}
                                                         /></>
                                                 )
                                             }
@@ -491,6 +617,8 @@ const CampaignAudience = () => {
                                                         type="number"
                                                         style={{ width: '100px' }}
                                                         min="0"
+                                                        value={inTheLast}
+                                                        onChange={inTheLastValChange}
                                                     />
                                                     <Select
                                                         options={returningVisitorsTimeOption}
@@ -504,20 +632,21 @@ const CampaignAudience = () => {
                                                         }}
                                                     />
                                                     <button
-                                                                type="button"
-                                                                className="btn btn-light btn-sm"
-                                                                onClick={changeVisibleVisitorDetail}
-                                                            >
-                                                                <KTIcon iconName="trash" className="fs-3 text-danger" />
-                                                            </button>
+                                                        type="button"
+                                                        className="btn btn-light btn-sm"
+                                                        onClick={changeVisibleVisitorDetail}
+                                                    >
+                                                        <KTIcon iconName="trash" className="fs-3 text-danger" />
+                                                    </button>
 
                                                 </div>
                                             </div>
                                         )
                                     }
                                 </div>
-                            )}
-                        </div>
+                            </div>
+                        )}
+
                         <div className="col-12 col-lg-7 col-md-9">
                             <label
                                 htmlFor="campaignname"
@@ -537,6 +666,7 @@ const CampaignAudience = () => {
                             {selectedChannels?.value === 'trafficChannel' && (
                                 <div className="mt-5 bg-light border rounded p-5">
                                     <div className="col-12 mb-4">
+
                                         <label
                                             htmlFor="campaignname"
                                             className="form-label fs-7 fw-bolder mb-1"
@@ -547,48 +677,56 @@ const CampaignAudience = () => {
                                     </div>
                                     <span className="d-flex gap-8 flex-wrap">
                                         <div>
-                                            <input
-                                                className='form-check-input me-2'
-                                                type='checkbox'
-                                                value='1'
-                                            />
-                                            <span className="me-3">Organic search</span>
+                                            
+                                            <label className="form-check form-check-inline ">
+                                                <input
+                                                    className='form-check-input me-2'
+                                                    type='checkbox'
+                                                    value='1'
+                                                />
+                                                <span className="me-3">Organic search</span>
+
+                                            </label>
                                             <OverlayTrigger placement="top" overlay={tooltipChannel('Visitors coming from search engine organic results (Google, Bing, etc.)')}>
-                                                <span class="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip">
-                                                    <i class="bi bi-info-circle-fill"></i>
+                                                <span className="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip">
+                                                    <i className="bi bi-info-circle-fill"></i>
                                                 </span>
                                             </OverlayTrigger>
                                         </div>
                                         <div >
-                                            <input
-                                                className='form-check-input me-2'
-                                                type='checkbox'
-                                                value='1'
-                                            />
+                                            <label className="form-check form-check-inline ">
+                                                <input
+                                                    className='form-check-input me-2'
+                                                    type='checkbox'
+                                                    value='1'
+                                                />
 
-                                            <span className="me-3">Social</span>
+                                                <span className="me-3">Social</span>
+                                            </label>
                                             <OverlayTrigger placement="top" overlay={tooltipChannel('Visitors coming from social media (Facebook, Twitter, etc.)')}>
-                                                <span class="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip" >
-                                                    <i class="bi bi-info-circle-fill"></i>
+                                                <span className="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip" >
+                                                    <i className="bi bi-info-circle-fill"></i>
                                                 </span>
                                             </OverlayTrigger>
                                         </div>
                                         <div >
-                                            <input
-                                                className='form-check-input me-2'
-                                                type='checkbox'
-                                                value='1'
-                                            />
+                                            <label className="form-check form-check-inline ">
+                                                <input
+                                                    className='form-check-input me-2'
+                                                    type='checkbox'
+                                                    value='1'
+                                                />
 
-                                            <span className="me-3">Paid search</span>
-
+                                                <span className="me-3">Paid search</span>
+                                            </label>
                                             <OverlayTrigger placement="top" overlay={tooltipChannel('Visitors resulting from Adwords or Bing ads.')}>
-                                                <span class="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip">
-                                                    <i class="bi bi-info-circle-fill"></i>
+                                                <span className="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip">
+                                                    <i className="bi bi-info-circle-fill"></i>
                                                 </span>
                                             </OverlayTrigger>
                                         </div>
                                         <div >
+                                        <label className="form-check form-check-inline ">
                                             <input
                                                 className='form-check-input me-2'
                                                 type='checkbox'
@@ -596,15 +734,16 @@ const CampaignAudience = () => {
                                             />
 
                                             <span className="me-3">Direct</span>
-
+</label>
                                             <OverlayTrigger placement="top" overlay={tooltipChannel('Visitors coming after typing the URL in their browser')}>
-                                                <span class="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip" >
-                                                    <i class="bi bi-info-circle-fill"></i>
+                                                <span className="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip" >
+                                                    <i className="bi bi-info-circle-fill"></i>
                                                 </span>
                                             </OverlayTrigger>
 
                                         </div>
                                         <div >
+                                        <label className="form-check form-check-inline ">
                                             <input
                                                 className='form-check-input me-2'
                                                 type='checkbox'
@@ -612,10 +751,10 @@ const CampaignAudience = () => {
                                             />
 
                                             <span className="me-3">Others</span>
-
+</label>
                                             <OverlayTrigger placement="top" overlay={tooltipChannel('Visitors coming from all other sources')}>
-                                                <span class="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip">
-                                                    <i class="bi bi-info-circle-fill"></i>
+                                                <span className="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip">
+                                                    <i className="bi bi-info-circle-fill"></i>
                                                 </span>
                                             </OverlayTrigger>
 
@@ -645,8 +784,8 @@ const CampaignAudience = () => {
                                                         <div className="col-2">
                                                             <span className="me-3">Source URL</span>
                                                             <OverlayTrigger placement="bottom" overlay={tooltipChannel('The initial referrer of the visit. Sub-domains of your domain are not considered as external sources. On Chrome, the source URL does not include the path.')}>
-                                                                <span class="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip">
-                                                                    <i class="bi bi-info-circle-fill"></i>
+                                                                <span className="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip">
+                                                                    <i className="bi bi-info-circle-fill"></i>
                                                                 </span>
                                                             </OverlayTrigger>
                                                         </div>
@@ -886,12 +1025,12 @@ const CampaignAudience = () => {
                         <div className="col-12 mb-4">
                             {selectedBrowser?.value === 'selectBrowser' && (
                                 <div className="mt-5 d-flex gap-10 flex-wrap bg-light border rounded p-5">
-                                    <div><input className='form-check-input me-2' type='checkbox' value='1' /> Chrome</div>
-                                    <div><input className='form-check-input me-2' type='checkbox' value='1' /> Safari</div>
-                                    <div><input className='form-check-input me-2' type='checkbox' value='1' /> Internet Explorer</div>
-                                    <div><input className='form-check-input me-2' type='checkbox' value='1' /> Firefox</div>
-                                    <div><input className='form-check-input me-2' type='checkbox' value='1' /> Opera</div>
-                                    <div><input className='form-check-input me-2' type='checkbox' value='1' /> Edge</div>
+                                    <div><label className="form-check form-check-inline "><input className='form-check-input me-2' type='checkbox' value='1' /> Chrome</label></div>
+                                    <div><label className="form-check form-check-inline "><input className='form-check-input me-2' type='checkbox' value='1' /> Safari</label></div>
+                                    <div><label className="form-check form-check-inline "><input className='form-check-input me-2' type='checkbox' value='1' /> Internet Explorer</label></div>
+                                    <div><label className="form-check form-check-inline "><input className='form-check-input me-2' type='checkbox' value='1' /> Firefox</label></div>
+                                    <div><label className="form-check form-check-inline "><input className='form-check-input me-2' type='checkbox' value='1' /> Opera</label></div>
+                                    <div><label className="form-check form-check-inline "><input className='form-check-input me-2' type='checkbox' value='1' /> Edge</label></div>
                                 </div>
                             )}
                         </div>
@@ -902,6 +1041,7 @@ const CampaignAudience = () => {
                                 Behavior
                             </label>
                             <div className="col-12 my-2 d-flex align-items-center gap-5">
+                            <label className="form-check form-check-inline ">
                                 <input
                                     className='form-check-input me-2'
                                     type='checkbox'
@@ -909,12 +1049,15 @@ const CampaignAudience = () => {
                                     checked={devicesData['Display on desktops'].options.Windows}
                                     onChange={() => deviceCheckboxChange('Display on desktops', 'Windows')}
                                 />
-                                Exclude visitors who already saw
+                                <span>Exclude visitors who already saw</span>
+                                </label>
                                 <input
                                     className="form-control border form-control-solid"
                                     type="number"
                                     style={{ width: '100px' }}
                                     min="0"
+                                    value={popupSawCount}
+                                    onChange={popupSawCountChange}
                                 /> popups during the session
                             </div>
                         </div>
@@ -923,6 +1066,7 @@ const CampaignAudience = () => {
                 </div>
             </div>
         </div>
+    </>
     );
 };
 

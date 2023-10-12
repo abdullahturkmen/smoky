@@ -26,7 +26,7 @@ const Step1: FC = () => {
               className="w-100 btn btn-outline btn-outline-primary btn-outline-default p-7 d-flex flex-column align-items-center mb-10 mb-lg-0"
               htmlFor="increase_conversion"
             >
-              <div className="d-flex align-items-center w-100">
+              <div className="d-flex align-items-center w-100 mb-auto">
                 <KTIcon iconName="graph-up" className="fs-3x me-5" />
 
                 <span className="d-block fw-bold text-start">
@@ -67,7 +67,7 @@ const Step1: FC = () => {
               className="w-100 btn btn-outline btn-outline-primary btn-outline-default p-7 d-flex flex-column align-items-center mb-10 mb-lg-0"
               htmlFor="increase_order_value"
             >
-              <div className="d-flex align-items-center w-100">
+              <div className="d-flex align-items-center w-100 mb-auto">
                 <KTIcon iconName="handcart" className="fs-3x me-5" />
 
                 <span className="d-block fw-bold text-start">
@@ -108,7 +108,7 @@ const Step1: FC = () => {
               className="w-100 btn btn-outline btn-outline-primary btn-outline-default p-7 d-flex flex-column align-items-center"
               htmlFor="revenue_per_visit"
             >
-              <div className="d-flex align-items-center w-100">
+              <div className="d-flex align-items-center w-100 mb-auto">
                 <KTIcon iconName="dollar" className="fs-3x me-5" />
 
                 <span className="d-block fw-bold text-start">

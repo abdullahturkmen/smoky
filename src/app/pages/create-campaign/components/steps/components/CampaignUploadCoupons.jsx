@@ -3,7 +3,7 @@ import Select from "react-select";
 
 const CampaignUploadCoupons = () => {
 
-    const [cupponsType, setCupponsType] = useState("generateCuppons");
+    const [cupponsType, setCupponsType] = useState("genericCuppons");
     const passwordType = [
       { value: "alphanumeric", label: "Alphanumeric" },
       { value: "pin", label: "Pin" },
@@ -93,10 +93,22 @@ const CampaignUploadCoupons = () => {
           data-bs-parent="#accordionExample"
         >
           <div className="accordion-body">
-            <div className="row mt-5">
-              <div className="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <div className="d-flex mt-5">
+            <div className ="me-5">
                 <input
-                  className="form-check-input  me-5"
+                  className="form-check-input  me-2"
+                  type="radio"
+                  checked={cupponsType === "genericCuppons"}
+                  onChange={changeCouppons}
+                  value="genericCuppons"
+                />
+                <label className="form-label fs-7 fw-bolder">
+                  Generic coupons
+                </label>
+              </div>
+              <div className ="me-5">
+                <input
+                  className="form-check-input  me-2"
                   type="radio"
                   checked={cupponsType === "generateCuppons"}
                   onChange={changeCouppons}
@@ -106,9 +118,9 @@ const CampaignUploadCoupons = () => {
                   Generate coupons
                 </label>
               </div>
-              <div className="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+              <div className ="me-5">
                 <input
-                  className="form-check-input  me-5"
+                  className="form-check-input  me-2"
                   type="radio"
                   checked={cupponsType === "uploadCuppons"}
                   onChange={changeCouppons}
@@ -119,7 +131,10 @@ const CampaignUploadCoupons = () => {
                 </label>
               </div>
             </div>
-            {cupponsType === "generateCuppons" ? (
+            {cupponsType === "genericCuppons" &&  (
+              <div>generic Cuppons gelecek</div>
+            )}
+            {cupponsType === "generateCuppons" && (
               <div className="row">
                 <div className="col-sm-12 col-md-5  mt-5">
                   <label
@@ -188,13 +203,14 @@ const CampaignUploadCoupons = () => {
                     <div className="notice d-flex bg-light-primary rounded border-primary border border-dashed p-6">
                       <strong className="text-center w-100">
                         {" "}
-                        {codePrefix} - {password} - {codeSuffix}{" "}
+                        {codePrefix}{password}{codeSuffix}{" "}
                       </strong>
                     </div>
                   </div>
                 )}
               </div>
-            ) : (
+            )}
+            {cupponsType === "uploadCuppons" &&  (
               <div>Güncellme gelecek</div>
             )}
           </div>
