@@ -73,18 +73,18 @@ const CampaignDisplayPages = () => {
     if (refineIndex == null) {
 
       if (dataList.UrlList[index].refineList.length > 0) {
-       
+
         var firstRefineData = dataList.UrlList[index].refineList[0]
-        
-        dataList.UrlList[index] = {...dataList.UrlList[index],...firstRefineData}
+
+        dataList.UrlList[index] = { ...dataList.UrlList[index], ...firstRefineData }
         // dataList.UrlList.splice(index, 1);
-         dataList.UrlList[index].refineList.splice(0, 1);
+        dataList.UrlList[index].refineList.splice(0, 1);
 
       }
-      else{
+      else {
         dataList.UrlList.splice(index, 1)
       }
-     
+
 
     }
     else {
@@ -274,8 +274,11 @@ const CampaignDisplayPages = () => {
 
 
                         <div className="row d-flex align-items-center mb-2">
-                          <div className="col-1">
-
+                          <div className="col-1 position-relative">
+                            <div className="position-absolute w-50" style={{
+                              borderBottom: '2px solid #cfcfcf', borderLeft: '2px solid #cfcfcf', height: '20px', top: '-20px',
+                              left: '20%'
+                            }}></div>
                           </div>
                           <div className="col-1">
                             <div className="d-flex gap-5 border rounded-pill p-1 justify-content-center text-sm" onClick={() => refineAndToOrFunction(pageListIndex)} style={{ width: '80px' }}>
