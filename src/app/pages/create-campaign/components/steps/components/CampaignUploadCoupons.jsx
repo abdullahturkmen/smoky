@@ -30,10 +30,10 @@ const CampaignUploadCoupons = () => {
     for (let i = 0; i < couponNumber; i++) {
 
       var generatedPass = createRandomPass()
-      if(!result.includes(generatedPass)){
+      if (!result.includes(generatedPass)) {
         result.push(generatedPass)
       }
-     
+
     }
 
     return setPasswordList(result);
@@ -65,7 +65,7 @@ const CampaignUploadCoupons = () => {
     }
     //return setPasswordList(password);
     return `${codePrefix}${password}${codeSuffix}`
-   
+
   }
 
   const changeCodeSuffix = (event) => {
@@ -104,12 +104,6 @@ const CampaignUploadCoupons = () => {
       setCouponNumber(10)
     }
   };
-
-
-  useEffect(() => {
-    generatePassword()
-  }, [codeLength, selectedPasswordType, codeSuffix, codePrefix, couponNumber])
-
 
   return (
     <div className="accordion-item mb-8 shadow border-top">
@@ -267,6 +261,10 @@ const CampaignUploadCoupons = () => {
                   value={codeSuffix}
                   onChange={changeCodeSuffix}
                 />
+              </div>
+
+              <div className="d-inline-block">
+                <button type="button" className="btn btn-lg btn-success my-5" onClick={generatePassword}>Generate Password</button>
               </div>
 
               {passwordList?.length > 0 && (
