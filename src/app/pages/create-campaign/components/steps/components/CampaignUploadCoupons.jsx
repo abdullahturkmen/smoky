@@ -29,35 +29,44 @@ const CampaignUploadCoupons = () => {
     const result = [];
     for (let i = 0; i < couponNumber; i++) {
 
-      if (codeLength <= 0) return "";
-
-      var charset = "";
-
-      if (selectedPasswordType.value === "pin") {
-        charset = "0123456789";
+      var generatedPass = createRandomPass()
+      if(!result.includes(generatedPass)){
+        result.push(generatedPass)
       }
-
-      else if (selectedPasswordType.value === "alphanumeric") {
-        charset =
-          "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-      }
-
-      else if (selectedPasswordType.value === "letters") {
-        charset =
-          "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-      }
-
-      let password = "";
-      for (let i = 0; i < codeLength; i++) {
-        const randomIndex = Math.floor(Math.random() * charset.length);
-        password += charset.charAt(randomIndex);
-      }
-      //return setPasswordList(password);
-      result.push(`${codePrefix}${password}${codeSuffix}`)
+     
     }
 
     return setPasswordList(result);
   };
+
+  const createRandomPass = () => {
+    if (codeLength <= 0) return "";
+
+    var charset = "";
+
+    if (selectedPasswordType.value === "pin") {
+      charset = "0123456789";
+    }
+
+    else if (selectedPasswordType.value === "alphanumeric") {
+      charset =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    }
+
+    else if (selectedPasswordType.value === "letters") {
+      charset =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    }
+
+    let password = "";
+    for (let i = 0; i < codeLength; i++) {
+      const randomIndex = Math.floor(Math.random() * charset.length);
+      password += charset.charAt(randomIndex);
+    }
+    //return setPasswordList(password);
+    return `${codePrefix}${password}${codeSuffix}`
+   
+  }
 
   const changeCodeSuffix = (event) => {
     if (event.target.value.length < 4) {
@@ -264,7 +273,7 @@ const CampaignUploadCoupons = () => {
                 <div className="col-12 mt-5">
                   <div className="notice d-flex bg-light-primary rounded border-primary border border-dashed p-6">
                     <div className="form-group w-100">
-                      <label className="form-label fs-7 fw-bolder mb-1" for="exampleFormControlTextarea1">Your all coupons</label>
+                      <label className="form-label fs-7 fw-bolder mb-1" for="exampleFormControlTextarea1">Your all coupons ({passwordList.length})</label>
                       <textarea className="form-control w-100" id="exampleFormControlTextarea1" value={passwordList.join(', ')}></textarea>
                     </div>
                   </div>
