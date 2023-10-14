@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
+import CsvDownloader from 'react-csv-downloader';
 
 const CampaignUploadCoupons = () => {
 
   const [cupponsType, setCupponsType] = useState("genericCuppons");
-  const passwordType = [
+  const charsetTypeList = [
     { value: "alphanumeric", label: "Alphanumeric" },
     { value: "pin", label: "Pin" },
     { value: "letters", label: "Letters" },
@@ -13,19 +14,19 @@ const CampaignUploadCoupons = () => {
   const [codePrefix, setCodePrefix] = useState("PRE");
   const [genericCode, setGenericCode] = useState("YOURCODE24");
   const [couponNumber, setCouponNumber] = useState(10)
-  const [selectedPasswordType, setSelectedPasswordType] = useState(
-    passwordType[0]
+  const [selectedCharsetType, setSelectedCharsetType] = useState(
+    charsetTypeList[0]
   );
 
   const [codeLength, setCodeLength] = useState(5);
-  const [passwordList, setPasswordList] = useState([]);
+  const [couponsList, setCouponsList] = useState([]);
 
-  const changePasswordType = (event) => {
-    setSelectedPasswordType(event);
+  const changeCharsetType = (event) => {
+    setSelectedCharsetType(event);
   };
 
-  const generatePassword = () => {
-    setPasswordList([])
+  const generateCoupons = () => {
+    setCouponsList([])
     const result = [];
     for (let i = 0; i < couponNumber; i++) {
 
@@ -36,7 +37,7 @@ const CampaignUploadCoupons = () => {
 
     }
 
-    return setPasswordList(result);
+    return setCouponsList(result);
   };
 
   const createRandomPass = () => {
@@ -44,27 +45,27 @@ const CampaignUploadCoupons = () => {
 
     var charset = "";
 
-    if (selectedPasswordType.value === "pin") {
+    if (selectedCharsetType.value === "pin") {
       charset = "0123456789";
     }
 
-    else if (selectedPasswordType.value === "alphanumeric") {
+    else if (selectedCharsetType.value === "alphanumeric") {
       charset =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     }
 
-    else if (selectedPasswordType.value === "letters") {
+    else if (selectedCharsetType.value === "letters") {
       charset =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     }
 
-    let password = "";
+    let couponCode = "";
     for (let i = 0; i < codeLength; i++) {
       const randomIndex = Math.floor(Math.random() * charset.length);
-      password += charset.charAt(randomIndex);
+      couponCode += charset.charAt(randomIndex);
     }
-    //return setPasswordList(password);
-    return `${codePrefix}${password}${codeSuffix}`
+    //return setCouponsList(couponCode);
+    return `${codePrefix}${couponCode}${codeSuffix}`
 
   }
 
@@ -104,6 +105,19 @@ const CampaignUploadCoupons = () => {
       setCouponNumber(10)
     }
   };
+
+
+
+
+  const datas = () => {
+    return couponsList.map(item => {
+      return {
+        couponsList: item
+      }
+    });
+  };
+
+
 
   return (
     <div className="accordion-item mb-8 shadow border-top">
@@ -193,11 +207,11 @@ const CampaignUploadCoupons = () => {
                   Charset
                 </label>
                 <Select
-                  value={selectedPasswordType}
-                  options={passwordType}
+                  value={selectedCharsetType}
+                  options={charsetTypeList}
                   placeholder="Charset"
                   className="form-control form-control-solid p-0"
-                  onChange={changePasswordType}
+                  onChange={changeCharsetType}
                 />
               </div>
               <div className="col-sm-12 col-md-3  mt-5">
@@ -264,19 +278,33 @@ const CampaignUploadCoupons = () => {
               </div>
 
               <div className="d-inline-block">
-                <button type="button" className="btn btn-lg btn-success my-5" onClick={generatePassword}>Generate Password</button>
+                <button type="button" className="btn btn-lg btn-success my-5" onClick={generateCoupons}>Generate Coupons</button>
               </div>
 
-              {passwordList?.length > 0 && (
-                <div className="col-12 mt-5">
-                  <div className="notice d-flex bg-light-primary rounded border-primary border border-dashed p-6">
-                    <div className="form-group w-100">
-                      <label className="form-label fs-7 fw-bolder mb-1" for="exampleFormControlTextarea1">Your all coupons ({passwordList.length})</label>
-                      <textarea className="form-control w-100" id="exampleFormControlTextarea1" value={passwordList.join(', ')}></textarea>
+              {couponsList?.length > 0 && (
+                <>
+                  <div className="col-12 mt-5">
+                    <div className="notice d-flex bg-light-primary rounded border-primary border border-dashed p-6">
+                      <div className="form-group w-100">
+                        <label className="form-label fs-7 fw-bolder mb-1" for="exampleFormControlTextarea1">Your all coupons ({couponsList.length})</label>
+                        <textarea className="form-control w-100" id="exampleFormControlTextarea1" value={couponsList.join(', ')}></textarea>
+                      </div>
                     </div>
                   </div>
-                </div>
+
+                  <div className="d-inline-block">
+                    <CsvDownloader
+                      filename="myfile"
+                      extension=".csv"
+                      datas={datas}
+                      text="Download Coupons (.csv)"
+                      className="btn btn-lg btn-success my-5"
+                    />
+                  </div>
+                </>
               )}
+
+
             </div>
           )}
           {cupponsType === "uploadCuppons" && (
