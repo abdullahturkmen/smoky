@@ -15,6 +15,23 @@ const HeaderToolbar = () => {
   const [status, setStatus] = useState<string>("1");
   const [propensityScore, setPropensityScore] = useState<number>(25);
   const { currentUser } = useAuth();
+  const [notificationList, setNotificationList] = useState<any>([
+    { title: "Black Friday Strategy: 11 Ideas & Tips 🏷️", read: false },
+    { title: "Notification 2", read: true },
+    { title: "Black Friday Strategy: 11 Ideas & Tips 🏷️", read: false },
+    { title: "Notification 2", read: true },
+    { title: "Black Friday Strategy: 11 Ideas & Tips 🏷️", read: false },
+    { title: "Notification 2", read: true },
+  ]);
+  const [notificationAlert, setNotificationAlert] = useState<boolean>(false);
+
+  useEffect(() => {
+    notificationList?.map((e) => {
+      if (e.read == true) {
+        setNotificationAlert(true);
+      }
+    });
+  }, [notificationList]);
 
   useEffect(() => {
     const slider: target = document.querySelector(
@@ -48,6 +65,14 @@ const HeaderToolbar = () => {
       rangeSliderValueElement.innerHTML = parseInt(values[handle]).toFixed(1);
     });
   }, []);
+
+  const readAllNotification = () => {
+    setNotificationAlert(false);
+  };
+
+  const readNotification = (index) => {
+    console.log("bu bildirmi okundu olarak işaretle:", index);
+  };
 
   return (
     <>
@@ -87,7 +112,7 @@ const HeaderToolbar = () => {
                         borderTopColor: "#ececec",
                         borderLeftColor: "#ececec",
                         borderStyle: "solid",
-                        transform: `rotate(${45 + (propensityScore * 1.8)}deg)`,
+                        transform: `rotate(${45 + propensityScore * 1.8}deg)`,
                       }}
                     ></div>
                   </div>
@@ -97,7 +122,11 @@ const HeaderToolbar = () => {
               </div>
               <OverlayTrigger
                 placement="bottom"
-                overlay={<Tooltip id="tooltip-user-name">Lorem ipsum dolor sit amet consectetur adipisicing elit.</Tooltip>}
+                overlay={
+                  <Tooltip id="tooltip-user-name">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  </Tooltip>
+                }
               >
                 <span className="symbol-label  rounded-circle text-inverse-primary fw-bolder">
                   <i className="bi bi-info-circle-fill"></i>
@@ -113,45 +142,70 @@ const HeaderToolbar = () => {
             <div className="d-flex align-items-center">
               <div className="dropdown">
                 <button
-                  className="btn px-1"
+                  className={`btn p-1 position-relative  ${
+                    notificationAlert ? "bg-danger" : ""
+                  }`}
                   type="button"
                   id="dropdownMenuButton1"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <KTIcon iconName="notification" className="fs-1 text-dark " />
+                  <KTIcon
+                    iconName="notification"
+                    className="fs-1 text-dark pe-0 "
+                  />
                 </button>
                 <ul
                   className="dropdown-menu"
                   aria-labelledby="dropdownMenuButton1"
                   style={{ width: "clamp(300px, 40%, 400px)" }}
                 >
-                  <div className="card">
-                    <div className="card-body">
-                      <h5 className="card-title">
-                        Black Friday Strategy: 11 Ideas & Tips 🏷️
-                      </h5>
-                      <a href="#" className="btn btn-sm px-2 py-1 btn-primary">
-                        Read
-                      </a>
-                    </div>
-                  </div>
+                  <li>
+                    <a
+                      className="dropdown-item cursor-pointer"
+                      onClick={readAllNotification}
+                    >
+                      Read all
+                    </a>
+                  </li>
 
-                  <div className="card">
-                    <div className="card-body">
-                      <h5 className="card-title">
-                        Black Friday Strategy: 11 Ideas & Tips 🏷️
-                      </h5>
-                      <a href="#" className="btn btn-sm px-2 py-1 btn-primary">
-                        Read
-                      </a>
-                    </div>
+                  <div
+                    style={{ maxHeight: "320px" }}
+                    className="overflow-auto border"
+                  >
+                    {notificationList?.length > 0 ? (
+                      <>
+                        {notificationList?.map((notification, index) => (
+                          <>
+                            <div className="card" key={index}>
+                              <div className="card-body p-5">
+                                <h5 className="card-title">
+                                  {notification.title}
+                                </h5>
+                                <a
+                                  onClick={() => readNotification(index)}
+                                  className="btn btn-sm px-2 py-1 btn-primary"
+                                >
+                                  Read
+                                </a>
+                              </div>
+                            </div>
+                          </>
+                        ))}
+                      </>
+                    ) : (
+                      <>
+                        <div className="card">
+                          <div className="card-body p-5 text-center">No Notifications</div>
+                        </div>
+                      </>
+                    )}
                   </div>
 
                   <li>
-                    <a className="dropdown-item" href="#">
+                    <Link to="/notifications" className="dropdown-item">
                       All Notifications
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
