@@ -258,20 +258,7 @@ const CampaignDisplayPages = () => {
                   {pageListItem.refineList.map((refineItem, refineIndex) => (
                     <div key={refineIndex}>
 
-
-
-
-
-
-
-
-
-
-
-
                       <div key={refineIndex} className="mb-2">
-
-
 
                         <div className="row d-flex align-items-center mb-2">
                           <div className="col-1 position-relative">
@@ -339,15 +326,6 @@ const CampaignDisplayPages = () => {
                           </div>
                         </div>
                       </div>
-
-
-
-
-
-
-
-
-
 
 
                     </div>
