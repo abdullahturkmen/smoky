@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import CsvDownloader from 'react-csv-downloader';
+import { useCSVReader } from 'react-papaparse';
 
 const CampaignUploadCoupons = () => {
-
+  const { CSVReader } = useCSVReader();
   const [cupponsType, setCupponsType] = useState("genericCuppons");
   const charsetTypeList = [
     { value: "alphanumeric", label: "Alphanumeric" },
@@ -17,6 +18,7 @@ const CampaignUploadCoupons = () => {
   const [selectedCharsetType, setSelectedCharsetType] = useState(
     charsetTypeList[0]
   );
+  const [csvUploadList, setCsvUploadList] = useState([]);
 
   const [codeLength, setCodeLength] = useState(5);
   const [couponsList, setCouponsList] = useState([]);
@@ -110,13 +112,20 @@ const CampaignUploadCoupons = () => {
 
 
   const datas = () => {
-    return couponsList.map(item => {
-      return {
-        couponsList: item
+    var dataArray = []
+    var columnName = ""
+    couponsList.map((item, index) => {
+      if (index == 0) {
+        columnName = item
+      }
+      else {
+        dataArray.push({
+          [columnName]: item
+        })
       }
     });
+    return dataArray
   };
-
 
 
   return (
@@ -287,18 +296,18 @@ const CampaignUploadCoupons = () => {
                     <div className="notice d-flex bg-light-primary rounded border-primary border border-dashed p-6">
                       <div className="form-group w-100">
                         <label className="form-label fs-7 fw-bolder mb-1" for="exampleFormControlTextarea1">Your all coupons ({couponsList.length})</label>
-                        <textarea className="form-control w-100" id="exampleFormControlTextarea1" value={couponsList.join(', ')}></textarea>
+                        <textarea className="form-control w-100" id="exampleFormControlTextarea1" readOnly value={couponsList.join(', ')}></textarea>
                       </div>
                     </div>
                   </div>
 
                   <div className="d-inline-block">
                     <CsvDownloader
-                      filename="myfile"
+                      filename="snookyCouponsList"
                       extension=".csv"
                       datas={datas}
                       text="Download Coupons (.csv)"
-                      className="btn btn-lg btn-success my-5"
+                      className="btn btn-lg btn-info my-5"
                     />
                   </div>
                 </>
@@ -308,7 +317,55 @@ const CampaignUploadCoupons = () => {
             </div>
           )}
           {cupponsType === "uploadCuppons" && (
-            <div>Güncellme gelecek</div>
+            <div className="mt-5">
+
+              {csvUploadList?.length > 0 && (<>
+
+
+                <div className="col-12 mt-5">
+                  <div className="notice d-flex bg-light-primary rounded border-primary border border-dashed p-6">
+                    <div className="form-group w-100">
+                      <label className="form-label fs-7 fw-bolder mb-1" for="exampleFormControlTextarea1">Your all coupons ({csvUploadList.length})</label>
+                      <textarea className="form-control w-100" id="exampleFormControlTextarea1" readOnly value={csvUploadList.join(', ')}></textarea>
+                    </div>
+                  </div>
+                </div>
+              </>)}
+
+              <CSVReader
+                onUploadAccepted={(results) => {
+                  setCsvUploadList(results.data)
+                }}
+              >
+                {({
+                  getRootProps,
+                  acceptedFile,
+                  ProgressBar,
+                  getRemoveFileProps,
+                }) => (
+                  <>
+                    <div className="d-inline-block">
+                      <div className="d-flex flex-column">
+                        <div className="d-block">
+                          <button className="btn btn-lg btn-info my-5" type='button' {...getRootProps()}>
+                            Upload Coupons (.csv)
+                          </button>
+                          <div >
+                            {acceptedFile && acceptedFile.name}
+                          </div>
+                          <button {...getRemoveFileProps()} className="d-none">
+                            Remove
+                          </button>
+                        </div>
+                        <ProgressBar />
+                      </div>
+                    </div>
+
+                  </>
+                )}
+              </CSVReader>
+
+            </div>
           )}
         </div>
       </div>
