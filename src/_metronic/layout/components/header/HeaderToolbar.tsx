@@ -148,9 +148,11 @@ const HeaderToolbar = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  {notificationAlert && (<>
-                  <div className="position-absolute top-0 end-0 p-1 bg-danger rounded-circle m-1"></div>
-                  </>)}
+                  {notificationAlert && (
+                    <>
+                      <div className="position-absolute top-0 end-0 p-1 bg-danger rounded-circle m-1"></div>
+                    </>
+                  )}
                   <KTIcon
                     iconName="notification"
                     className="fs-1 text-dark pe-0 "
@@ -161,18 +163,9 @@ const HeaderToolbar = () => {
                   aria-labelledby="dropdownMenuButton1"
                   style={{ width: "clamp(300px, 40%, 400px)" }}
                 >
-                  <li>
-                    <a
-                      className="dropdown-item cursor-pointer"
-                      onClick={readAllNotification}
-                    >
-                      Read all
-                    </a>
-                  </li>
-
                   <div
                     style={{ maxHeight: "320px" }}
-                    className="overflow-auto border"
+                    className="overflow-auto "
                   >
                     {notificationList?.length > 0 ? (
                       <>
@@ -197,16 +190,28 @@ const HeaderToolbar = () => {
                     ) : (
                       <>
                         <div className="card">
-                          <div className="card-body p-5 text-center">No Notifications</div>
+                          <div className="card-body p-5 text-center">
+                            No Notifications
+                          </div>
                         </div>
                       </>
                     )}
                   </div>
 
-                  <li>
-                    <Link to="/notifications" className="dropdown-item">
-                      All Notifications
-                    </Link>
+                  <li className="d-flex bg-light border border-top-1">
+                    <div className="d-inline-block">
+                      <Link to="/notifications" className="dropdown-item text-primary text-underline">
+                        All Notifications
+                      </Link>
+                    </div>
+                    <div className="d-inline-block">
+                      <a
+                        className="dropdown-item cursor-pointer text-primary"
+                        onClick={readAllNotification}
+                      >
+                        Read all
+                      </a>
+                    </div>
                   </li>
                 </ul>
               </div>
