@@ -140,23 +140,9 @@ const CampaignDisplayPages = () => {
         data-bs-parent="#accordionExample"
       >
         <div className="accordion-body">
-          <strong>Frequency</strong>{" "}
-          <div className="d-flex gap-20">
-            <label className="form-check form-switch form-check-custom form-check-solid align-items-start mt-5">
-              <input className="form-check-input me-5" type="checkbox" />
-              <div className="d-flex flex-column">
-                <span className="form-label fw-bolder">Display Limit</span>
-                <span className="form-label">
-                  Don't display the promotion above times per session
-                </span>
-              </div>
-            </label>
-            <label className="form-check form-switch form-check-custom form-check-solid align-items-start mt-5">
-              <input className="form-check-input me-5" type="checkbox" />
-              <span className="form-label fw-bolder">IP Restriction</span>
-            </label>
-          </div>
-          <hr />
+
+
+
           <div className="row">
             <div className="col-sm-12 col-md-6 col-lg-4 col-xl-3">
               <input
@@ -344,6 +330,28 @@ const CampaignDisplayPages = () => {
           ) : (
             <div></div>
           )}
+
+          <hr />
+
+          <div className="d-flex gap-20">
+            <label className="form-check form-switch form-check-custom form-check-solid  align-items-center mt-5">
+              <input className="form-check-input me-5" type="checkbox" />
+              <span className="form-label fw-bolder mb-0">IP Restriction</span>
+            </label>
+          </div>
+
+          <div className="d-flex gap-20">
+            <label className="form-check form-switch form-check-custom form-check-solid align-items-center mt-5">
+              <input className="form-check-input me-5" type="checkbox" />
+              <div className="d-flex flex-column ">
+                <span className="form-label fw-bolder mb-0">Frequency - Display Limit</span>
+                <span className="form-label">
+                  Don't display the promotion above times per session
+                </span>
+              </div>
+            </label>
+
+          </div>
 
         </div>
       </div>

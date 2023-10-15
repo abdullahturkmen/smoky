@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Select from "react-select";
 import CsvDownloader from 'react-csv-downloader';
 import { useCSVReader } from 'react-papaparse';
+import { KTIcon } from "../../../../../../_metronic/helpers";
 
 const CampaignUploadCoupons = () => {
+  const generatedCouponsTextarea = useRef(null);
+  const uploadedCouponsTextarea = useRef(null);
   const { CSVReader } = useCSVReader();
   const [cupponsType, setCupponsType] = useState("genericCuppons");
   const charsetTypeList = [
@@ -100,7 +103,7 @@ const CampaignUploadCoupons = () => {
 
   const handleCouponNumberChange = (event) => {
 
-    if (parseInt(event.target.value) >= 0) {
+    if (parseInt(event.target.value) >= 0 && parseInt(event.target.value) <= 10000) {
       setCouponNumber(event.target.value);
     }
     else {
@@ -125,6 +128,18 @@ const CampaignUploadCoupons = () => {
       }
     });
     return dataArray
+  };
+
+
+  const datasEmpty = () => {
+    var list = [{ "ExampleCoupon1": "ExampleCoupon2" }, { "ExampleCoupon1": "ExampleCoupon3" }, { "ExampleCoupon1": "ExampleCoupon4" }]
+    return list
+  }
+
+
+  const copyToClipboard = (el) => {
+    el.current.select();
+    document.execCommand('copy');
   };
 
 
@@ -251,6 +266,7 @@ const CampaignUploadCoupons = () => {
                   type="number"
                   placeholder="Code length"
                   min={1}
+                  max={10000}
                   value={couponNumber}
                   onChange={handleCouponNumberChange}
                 />
@@ -296,7 +312,12 @@ const CampaignUploadCoupons = () => {
                     <div className="notice d-flex bg-light-primary rounded border-primary border border-dashed p-6">
                       <div className="form-group w-100">
                         <label className="form-label fs-7 fw-bolder mb-1" for="exampleFormControlTextarea1">Your all coupons ({couponsList.length})</label>
-                        <textarea className="form-control w-100" id="exampleFormControlTextarea1" readOnly value={couponsList.join(', ')}></textarea>
+                        <div className="w-100 d-block position-relative">
+                          <textarea className="form-control w-100" id="exampleFormControlTextarea1" ref={generatedCouponsTextarea} rows="8" readOnly value={couponsList.join(', ')}></textarea>
+                          <button type="button" className="btn btn-secondary position-absolute top-0 end-0 m-3 p-2" onClick={() => copyToClipboard(generatedCouponsTextarea)}>
+                            <KTIcon iconName="copy" className="fs-1 p-0" />
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -326,7 +347,13 @@ const CampaignUploadCoupons = () => {
                   <div className="notice d-flex bg-light-primary rounded border-primary border border-dashed p-6">
                     <div className="form-group w-100">
                       <label className="form-label fs-7 fw-bolder mb-1" for="exampleFormControlTextarea1">Your all coupons ({csvUploadList.length})</label>
-                      <textarea className="form-control w-100" id="exampleFormControlTextarea1" readOnly value={csvUploadList.join(', ')}></textarea>
+                      <div className="w-100 d-block position-relative">
+                        <textarea className="form-control w-100" id="exampleFormControlTextarea1" ref={uploadedCouponsTextarea} rows="8" readOnly value={csvUploadList.join(', ')}></textarea>
+                        <button type="button" className="btn btn-secondary position-absolute top-0 end-0 m-3 p-2" onClick={() => copyToClipboard(uploadedCouponsTextarea)}>
+                          <KTIcon iconName="copy" className="fs-1 p-0" />
+                        </button>
+                      </div>
+
                     </div>
                   </div>
                 </div>
@@ -350,6 +377,15 @@ const CampaignUploadCoupons = () => {
                           <button className="btn btn-lg btn-info my-5" type='button' {...getRootProps()}>
                             Upload Coupons (.csv)
                           </button>
+                          <div className="d-inline-block">
+                            <CsvDownloader
+                              filename="snookyCouponsTemplate"
+                              extension=".csv"
+                              datas={datasEmpty}
+                              text="Download Example Format (.csv)"
+                              className="btn btn-lg btn-primary ms-3 my-5"
+                            />
+                          </div>
                           <div >
                             {acceptedFile && acceptedFile.name}
                           </div>
