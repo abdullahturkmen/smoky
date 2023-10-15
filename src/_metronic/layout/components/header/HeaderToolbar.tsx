@@ -142,14 +142,15 @@ const HeaderToolbar = () => {
             <div className="d-flex align-items-center">
               <div className="dropdown">
                 <button
-                  className={`btn p-1 position-relative  ${
-                    notificationAlert ? "bg-danger" : ""
-                  }`}
+                  className={`btn p-1 position-relative `}
                   type="button"
                   id="dropdownMenuButton1"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
+                  {notificationAlert && (<>
+                  <div className="position-absolute top-0 end-0 p-1 bg-danger rounded-circle m-1"></div>
+                  </>)}
                   <KTIcon
                     iconName="notification"
                     className="fs-1 text-dark pe-0 "

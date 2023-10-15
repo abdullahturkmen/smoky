@@ -38,7 +38,7 @@ const AsideDefault: FC = () => {
         <div className="w-100">
           <div className="d-flex justify-content-between">
             <div>Trial</div>
-            <div>{trialPercent}/100</div>
+            <div>{trialPercent} / 100</div>
           </div>
           <div className="progress">
           <div

@@ -92,8 +92,8 @@ const CampaignsWrapper = () => {
       <PageTitle breadcrumbs={[]}>Campaigns</PageTitle>
       {isVisibleExpAlert && (<>
         <div className="notice d-flex bg-light-primary rounded border-primary border border-dashed mb-9 p-6 position-relative">
-          <div className="position-absolute end-0 top-0 cursor-pointer" style={{marginRight: '-10px',marginTop: '-10px'}} onClick={closeExpAlert}>
-            <KTIcon iconName="cross" className="fs-1 bg-warning text-dark rounded" />
+          <div className="position-absolute end-0 top-0 cursor-pointer fs-3 fw-bold text-white bg-dark px-2 py-0 rounded" style={{marginRight: '-10px',marginTop: '-10px'}} onClick={closeExpAlert}>
+            x
           </div>
           <KTIcon iconName="information-5" className="fs-2tx text-primary me-4" />
 

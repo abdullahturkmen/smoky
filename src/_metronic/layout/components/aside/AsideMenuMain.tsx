@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-no-target-blank */
+import React, { useState, useEffect } from "react";
 import { useIntl } from "react-intl";
 import { KTIcon } from "../../../helpers";
 import { AsideMenuItemWithSub } from "./AsideMenuItemWithSub";
@@ -7,15 +8,17 @@ import Select from "react-select";
 
 export function AsideMenuMain() {
   const intl = useIntl();
-  const options = [
+  const domainList = [
     { value: "a", label: "www.snooky.io" },
     { value: "b", label: "www.abdullahturkmen.com" },
   ];
+  const [selectedDomain, setSelectedDomain] = useState(domainList[0]);
   return (
     <>
       <div className="menu-item">
         <Select
-          options={options}
+          options={domainList}
+          value={selectedDomain}
           placeholder="Domains"
           className="mt-4 form-control form-control-solid p-0"
         />
