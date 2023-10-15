@@ -23,7 +23,7 @@ const CampaignUploadCoupons = () => {
   );
   const [csvUploadList, setCsvUploadList] = useState([]);
 
-  const [codeLength, setCodeLength] = useState(5);
+  const [codeLength, setCodeLength] = useState(4);
   const [couponsList, setCouponsList] = useState([]);
 
   const changeCharsetType = (event) => {
@@ -65,7 +65,9 @@ const CampaignUploadCoupons = () => {
     }
 
     let couponCode = "";
-    for (let i = 0; i < codeLength; i++) {
+    let newCodeLength = codeLength + (6 - (codePrefix.length + codeSuffix.length))
+    
+    for (let i = 0; i < newCodeLength; i++) {
       const randomIndex = Math.floor(Math.random() * charset.length);
       couponCode += charset.charAt(randomIndex);
     }
@@ -264,7 +266,7 @@ const CampaignUploadCoupons = () => {
                 <input
                   className="form-control form-control-solid"
                   type="number"
-                  placeholder="Code length"
+                  placeholder="Number of coupons"
                   min={1}
                   max={10000}
                   value={couponNumber}
