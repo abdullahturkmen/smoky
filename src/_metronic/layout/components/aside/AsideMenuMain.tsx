@@ -28,11 +28,13 @@ export function AsideMenuMain() {
           <span className="menu-section text-muted text-uppercase fs-8 ls-1"></span>
         </div>
       </div>
+      
       <AsideMenuItem
         to="/campaigns"
         icon="element-11"
         title={intl.formatMessage({ id: "MENU.DASHBOARD" })}
       />
+     
       <AsideMenuItem to="/analytics" icon="chart-simple" title="Analytics" />
       <div className="d-none">
         <AsideMenuItem

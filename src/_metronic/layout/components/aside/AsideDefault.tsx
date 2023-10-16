@@ -9,6 +9,7 @@ import { AsideToolbar } from "./AsideToolbar";
 const AsideDefault: FC = () => {
   const { classes } = useLayout();
   const [trialPercent, setTrialPercent] = useState<number>(35);
+  const [trialLeftDays, setTrialLeftDays] = useState<number>(13);
 
   return (
     <div
@@ -37,7 +38,7 @@ const AsideDefault: FC = () => {
       <div className="aside-footer flex-column-auto py-5" id="kt_aside_footer">
         <div className="w-100">
           <div className="d-flex justify-content-between">
-            <div>Trial</div>
+            <div>Trial - {trialLeftDays} day{trialLeftDays > 0 && (<>s</>)} left</div>
             <div>{trialPercent} / 100</div>
           </div>
           <div className="progress">

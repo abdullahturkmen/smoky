@@ -198,7 +198,7 @@ const HeaderToolbar = () => {
                     )}
                   </div>
 
-                  <li className="d-flex bg-light border border-top-1">
+                  <li className="d-flex bg-light border border-top-1 justify-content-between">
                     <div className="d-inline-block">
                       <Link to="/notifications" className="dropdown-item text-primary text-underline">
                         All Notifications
