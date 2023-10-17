@@ -5,7 +5,8 @@ import { KTIcon } from "../../../../../../_metronic/helpers";
 
 const CampaignDisplayPages = () => {
   const [selectedPagesOption, setSelectedPagesOption] = useState("selectedPages");
-  const [frequencyIsActive,setFrequencyIsActive] = useState(false)
+  const [frequencyIsActive, setFrequencyIsActive] = useState(false)
+  const [selectedFrequentlyShowOptionDetail, setSelectedFrequentlyShowOptionDetail] = useState('everyPageLoad')
 
   const URLOptions = [
     { value: "url0", label: "Simple match" },
@@ -119,6 +120,10 @@ const CampaignDisplayPages = () => {
     setPagesList(newState);
   }
 
+
+  const frequentlyShowOptionChangeDetail = (event) => {
+    setSelectedFrequentlyShowOptionDetail(event.target.value);
+  };
 
   return (
     <div className="accordion-item mb-8 shadow border-top">
@@ -344,7 +349,7 @@ const CampaignDisplayPages = () => {
           <div className="d-flex gap-20">
             <label className="form-check form-switch form-check-custom form-check-solid align-items-center mt-5">
               <input className="form-check-input me-5" type="checkbox" defaultChecked={frequencyIsActive}
-                onChange={() => setFrequencyIsActive((state) => !state)}/>
+                onChange={() => setFrequencyIsActive((state) => !state)} />
               <div className="d-flex flex-column ">
                 <span className="form-label fw-bolder mb-0">Frequency - Display Limit</span>
                 <span className="form-label">
@@ -359,8 +364,51 @@ const CampaignDisplayPages = () => {
             <div className="bg-light border rounded p-5 d-block">
               <div className="d-block mb-3">Choose how often your visitors will see this campaign.</div>
               <label for="campaignname" class="form-label fs-7 fw-bolder mb-1">Show again</label>
+              <div className="">Set how frequently your campaign will display.</div>
+
+              <div className="d-block">
+                <input
+                  className="form-check-input me-1"
+                  type="radio"
+                  value="everyPageLoad"
+                  checked={selectedFrequentlyShowOptionDetail === "everyPageLoad"}
+                  onChange={frequentlyShowOptionChangeDetail}
+                  id="everyPageLoad"
+                />
+                <label className="form-label fs-7 fw-bolder" htmlFor="everyPageLoad">
+                  Every page load
+                </label>
+              </div>
+              <div className="d-block">
+                <input
+                  className="form-check-input me-1"
+                  type="radio"
+                  value="everySession"
+                  checked={selectedFrequentlyShowOptionDetail === "everySession"}
+                  onChange={frequentlyShowOptionChangeDetail}
+                  id="everySession"
+                />
+                <label className="form-label fs-7 fw-bolder" htmlFor="everySession">
+                  Every session
+                </label>
+              </div>
+              <div className="d-block mb-5">
+                <input
+                  className="form-check-input me-1"
+                  type="radio"
+                  value="everySelectedTime"
+                  checked={selectedFrequentlyShowOptionDetail === "everySelectedTime"}
+                  onChange={frequentlyShowOptionChangeDetail}
+                  id="everySelectedTime"
+                />
+                <label className="form-label fs-7 fw-bolder" htmlFor="everySelectedTime">
+                  Every 
+                </label>
+              </div>
+              <label for="campaignname" class="form-label fs-7 fw-bolder mb-1">Stop showing</label>
+              <div className="">Set when a visitor should stop seeign your campaign.</div>
             </div>
-            </>)}
+          </>)}
 
         </div>
       </div>
