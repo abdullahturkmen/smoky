@@ -10,6 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 const CampaignAudience = () => {
     const [countryList, setCountryList] = useState([]);
     const [selectCountryList, setSelectCountryList] = useState([{ "value": "all", "label": "All locations" }, { "value": "spesific", "label": "Spesific regions" }]);
+    const [selectCountryType, setSelectCountryType] = useState([{ "value": "inc", "label": "Include" }, { "value": "exc", "label": "Exclude" }]);
     // backende gönderilecek olan data değeri : devicesData
     const [selectedCountry, setSelectedCountry] = useState(null);
     const [selectedLanguage, setSelectedLanguage] = useState(null);
@@ -221,11 +222,10 @@ const CampaignAudience = () => {
     const geosuggestEl = useRef(null);
     const selectCountry = (e) => {
         if (!!e) {
-            console.log('onSuggestSelect', e?.label);
             geosuggestEl.current.clear()
             geosuggestEl.current.focus()
             geosuggestEl.current.update('')
-            setCountryList(current => [...countryList, { type: selectedCountryTypeOption, name: e?.label, id: countryList.length }])
+            setCountryList(current => [...countryList, { type: selectedCountryTypeOption.value, name: e?.label, id: countryList.length }])
         }
     }
 
@@ -246,10 +246,10 @@ const CampaignAudience = () => {
     }
 
 
-    const [selectedCountryTypeOption, setSelectedCountryTypeOption] = useState('');
+    const [selectedCountryTypeOption, setSelectedCountryTypeOption] = useState(selectCountryType[0]);
 
     const countryTypeChange = (e) => {
-        setSelectedCountryTypeOption(e.target.value);
+        setSelectedCountryTypeOption(e);
     };
 
     const popupSawCountChange = (event) => {
@@ -963,18 +963,15 @@ const CampaignAudience = () => {
                             <div className="col-12 mb-4">
                                 <div className="bg-light border rounded p-5">
                                     <div className="d-flex align-items-start mt-4">
-                                        <select
-                                            value={selectedCountryTypeOption} onChange={countryTypeChange}
-                                            style={{ height: '40px' }}
-                                            name='timezone'
-                                            aria-label='Select a Timezone'
-                                            data-control='select2'
-                                            data-placeholder='date_period'
-                                            className='form-select form-select-sm  me-2 w-25'
-                                        >
-                                            <option value='inc'>Include</option>
-                                            <option value='exc'>Exclude</option>
-                                        </select>
+                                        <Select
+                                options={selectCountryType}
+                                className="form-control form-control-solid me-2 w-25 p-0"
+                                onChange={countryTypeChange}
+                                value={selectedCountryTypeOption}
+                            />
+
+                           
+                                        
                                         <Geosuggest onSuggestSelect={selectCountry} ref={geosuggestEl} placeholder="Search state" className="flex-grow-1 w-75" />
                                         <button type="button" onClick={clearCountry} className="btn">X</button>
                                     </div>

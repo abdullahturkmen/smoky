@@ -5,6 +5,7 @@ import { KTIcon } from "../../../../../../_metronic/helpers";
 
 const CampaignDisplayPages = () => {
   const [selectedPagesOption, setSelectedPagesOption] = useState("selectedPages");
+  const [frequencyIsActive,setFrequencyIsActive] = useState(false)
 
   const URLOptions = [
     { value: "url0", label: "Simple match" },
@@ -342,7 +343,8 @@ const CampaignDisplayPages = () => {
 
           <div className="d-flex gap-20">
             <label className="form-check form-switch form-check-custom form-check-solid align-items-center mt-5">
-              <input className="form-check-input me-5" type="checkbox" />
+              <input className="form-check-input me-5" type="checkbox" defaultChecked={frequencyIsActive}
+                onChange={() => setFrequencyIsActive((state) => !state)}/>
               <div className="d-flex flex-column ">
                 <span className="form-label fw-bolder mb-0">Frequency - Display Limit</span>
                 <span className="form-label">
@@ -352,6 +354,13 @@ const CampaignDisplayPages = () => {
             </label>
 
           </div>
+
+          {frequencyIsActive && (<>
+            <div className="bg-light border rounded p-5 d-block">
+              <div className="d-block mb-3">Choose how often your visitors will see this campaign.</div>
+              <label for="campaignname" class="form-label fs-7 fw-bolder mb-1">Show again</label>
+            </div>
+            </>)}
 
         </div>
       </div>
