@@ -15,6 +15,7 @@ const CampaignDisplayPages = () => {
   const [selectedFrequentlyTimeList, setSelectedFrequentlyTimeList] = useState(frequentlyTimeList[0]);
 
   const [frequentlyTimeInput, setFrequentlyTimeInput] = useState(3);
+  const [stopShowingTimeInput, setStopShowingTimeInput] = useState(3);
 
   const URLOptions = [
     { value: "url0", label: "Simple match" },
@@ -139,6 +140,30 @@ const CampaignDisplayPages = () => {
     }
     else {
       setFrequentlyTimeInput(3)
+    }
+  }
+
+
+  const [stopShowingCheckbox, setStopShowingCheckeds] = useState({
+    checkbox1: false,
+    checkbox2: false,
+    checkbox3: false
+  })
+
+  const updateStopShowingCheckbox = (event) => {
+    const { name, checked } = event.target;
+    setStopShowingCheckeds({
+      ...stopShowingCheckbox,
+      [name]: checked
+    });
+  }
+
+  const updateStopShowingTimeInput = (event) => {
+    if (parseInt(event.target.value) > 0) {
+      setStopShowingTimeInput(parseInt(event.target.value))
+    }
+    else {
+      setStopShowingTimeInput(3)
     }
   }
 
@@ -380,7 +405,7 @@ const CampaignDisplayPages = () => {
           {frequencyIsActive && (<>
             <div className="bg-light border rounded p-5 d-block">
               <div className="d-block mb-3">Choose how often your visitors will see this campaign.</div>
-              <label for="campaignname" class="form-label fs-7 fw-bolder mb-1">Show again</label>
+              <label for="campaignname" className="form-label fs-7 fw-bolder mb-1">Show again</label>
               <div className="mb-3">Set how frequently your campaign will display.</div>
 
               <div className="d-block mb-4">
@@ -445,8 +470,66 @@ const CampaignDisplayPages = () => {
                   />
                 </div>
               </div>
-              <label for="campaignname" class="form-label fs-7 fw-bolder mb-1">Stop showing</label>
-              <div className="">Set when a visitor should stop seeign your campaign.</div>
+              <label for="campaignname" className="form-label fs-7 fw-bolder mb-1">Stop showing</label>
+              <div className="mb-4">Set when a visitor should stop seeign your campaign.</div>
+
+
+
+              <div className='form-check form-check-custom form-check-solid mb-5'>
+                <input
+                  className='form-check-input'
+                  type='checkbox'
+                  id='kt_checkbox_9'
+                  name="checkbox1"
+                  checked={stopShowingCheckbox.checkbox1}
+                  onChange={updateStopShowingCheckbox}
+                />
+                <label className='form-check-label fw-bold text-gray-600' htmlFor='kt_checkbox_9'>
+                  After a visitor has closed the campaign
+                </label>
+              </div>
+
+              <div className='form-check form-check-custom form-check-solid mb-2'>
+                <input
+                  className='form-check-input'
+                  type='checkbox'
+                  id='kt_checkbox_9'
+                  name="checkbox2"
+                  checked={stopShowingCheckbox.checkbox2}
+                  onChange={updateStopShowingCheckbox}
+                />
+                <label className='form-check-label fw-bold text-gray-600' htmlFor='kt_checkbox_9'>
+                  After a visitor has signed up or clicked
+                </label>
+              </div>
+
+              <div className='form-check form-check-custom form-check-solid mb-3'>
+                <input
+                  className='form-check-input'
+                  type='checkbox'
+                  id='kt_checkbox_9'
+                  name="checkbox3"
+                  checked={stopShowingCheckbox.checkbox3}
+                  onChange={updateStopShowingCheckbox}
+                />
+                <label className='form-check-label fw-bold text-gray-600' htmlFor='kt_checkbox_9'>
+                  After a visitor has seen the campaign <div className="d-inline-block ms-2">
+                    <input
+                      id="url"
+                      type="number"
+                      className="form-control form-control-sm"
+                      value={stopShowingTimeInput}
+                      style={{ height: '40px' }}
+                      disabled={!stopShowingCheckbox.checkbox3}
+                      onChange={(e) =>
+                        updateStopShowingTimeInput(e)
+                      }
+                    />
+                  </div> times
+                </label>
+              </div>
+
+
             </div>
           </>)}
 
