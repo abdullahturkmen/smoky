@@ -7,6 +7,14 @@ const CampaignDisplayPages = () => {
   const [selectedPagesOption, setSelectedPagesOption] = useState("selectedPages");
   const [frequencyIsActive, setFrequencyIsActive] = useState(false)
   const [selectedFrequentlyShowOptionDetail, setSelectedFrequentlyShowOptionDetail] = useState('everyPageLoad')
+  const [frequentlyTimeList, setFrequentlyTimeList] = useState([{ value: "pages", label: "Pages" },
+  { value: "minutes", label: "Minutes" },
+  { value: "hours", label: "Hours" },
+  { value: "days", label: "Days" }]);
+
+  const [selectedFrequentlyTimeList, setSelectedFrequentlyTimeList] = useState(frequentlyTimeList[0]);
+
+  const [frequentlyTimeInput, setFrequentlyTimeInput] = useState(3);
 
   const URLOptions = [
     { value: "url0", label: "Simple match" },
@@ -124,6 +132,15 @@ const CampaignDisplayPages = () => {
   const frequentlyShowOptionChangeDetail = (event) => {
     setSelectedFrequentlyShowOptionDetail(event.target.value);
   };
+
+  const updateFrequentlyTimeInput = (event) => {
+    if (parseInt(event.target.value) > 0) {
+      setFrequentlyTimeInput(parseInt(event.target.value))
+    }
+    else {
+      setFrequentlyTimeInput(3)
+    }
+  }
 
   return (
     <div className="accordion-item mb-8 shadow border-top">
@@ -364,9 +381,9 @@ const CampaignDisplayPages = () => {
             <div className="bg-light border rounded p-5 d-block">
               <div className="d-block mb-3">Choose how often your visitors will see this campaign.</div>
               <label for="campaignname" class="form-label fs-7 fw-bolder mb-1">Show again</label>
-              <div className="">Set how frequently your campaign will display.</div>
+              <div className="mb-3">Set how frequently your campaign will display.</div>
 
-              <div className="d-block">
+              <div className="d-block mb-4">
                 <input
                   className="form-check-input me-1"
                   type="radio"
@@ -379,7 +396,7 @@ const CampaignDisplayPages = () => {
                   Every page load
                 </label>
               </div>
-              <div className="d-block">
+              <div className="d-block mb-1">
                 <input
                   className="form-check-input me-1"
                   type="radio"
@@ -392,7 +409,7 @@ const CampaignDisplayPages = () => {
                   Every session
                 </label>
               </div>
-              <div className="d-block mb-5">
+              <div className="d-flex mb-5 align-items-center">
                 <input
                   className="form-check-input me-1"
                   type="radio"
@@ -401,9 +418,32 @@ const CampaignDisplayPages = () => {
                   onChange={frequentlyShowOptionChangeDetail}
                   id="everySelectedTime"
                 />
-                <label className="form-label fs-7 fw-bolder" htmlFor="everySelectedTime">
-                  Every 
+                <label className="form-label fs-7 fw-bolder mb-0" htmlFor="everySelectedTime">
+                  Every
                 </label>
+                <div className="d-inline-block ms-2">
+                  <input
+                    id="url"
+                    type="number"
+                    className="form-control form-control-sm"
+                    value={frequentlyTimeInput}
+                    style={{ height: '40px' }}
+                    disabled={selectedFrequentlyShowOptionDetail !== "everySelectedTime"}
+                    onChange={(e) =>
+                      updateFrequentlyTimeInput(e)
+                    }
+                  />
+                </div>
+                <div className="d-inline-block ms-2">
+                  <Select
+                    options={frequentlyTimeList}
+                    placeholder="URL"
+                    className="form-control form-control-solid p-0 form-control-sm"
+                    onChange={setSelectedFrequentlyTimeList}
+                    isDisabled={selectedFrequentlyShowOptionDetail !== "everySelectedTime"}
+                    value={selectedFrequentlyTimeList}
+                  />
+                </div>
               </div>
               <label for="campaignname" class="form-label fs-7 fw-bolder mb-1">Stop showing</label>
               <div className="">Set when a visitor should stop seeign your campaign.</div>
