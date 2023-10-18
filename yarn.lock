@@ -3834,6 +3834,11 @@ cosmiconfig@^7.0.0:
     path-type "^4.0.0"
     yaml "^1.10.0"
 
+countries-and-timezones@^3.5.1:
+  version "3.5.1"
+  resolved "https://registry.npmjs.org/countries-and-timezones/-/countries-and-timezones-3.5.1.tgz"
+  integrity sha512-DlsW+qxiJI6HJ83Yjjmuokgul3KKs0BmraPigFZ1sjWHPZcOTJ0LwB5iewZT9wsMAbmgGSVUdY4nZ4JnHD6NBQ==
+
 credit-card-type@^9.1.0:
   version "9.1.0"
   resolved "https://registry.npmjs.org/credit-card-type/-/credit-card-type-9.1.0.tgz"

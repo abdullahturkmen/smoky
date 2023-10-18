@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { KTIcon } from "../../../../../../_metronic/helpers";
 import DatePicker from "react-datepicker";
 import Select from "react-select";
+import ct from 'countries-and-timezones'
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -9,45 +10,12 @@ const CampaignSchedule = () => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [isStartDateDisabled, setIsStartDateDisabled] = useState(true);
-    const timeZoneOptions = [
-        { value: "1", label: "GMT -1200" },
-        { value: "2", label: "GMT -1100" },
-        { value: "3", label: "GMT -1000" },
-        { value: "4", label: "GMT -0900" },
-        { value: "5", label: "GMT -0800" },
-        { value: "6", label: "GMT -0700" },
-        { value: "7", label: "GMT -0600" },
-        { value: "8", label: "GMT -0500" },
-        { value: "9", label: "GMT -0400" },
-        { value: "10", label: "GMT -0330" },
-        { value: "11", label: "GMT -0300" },
-        { value: "12", label: "GMT -0200" },
-        { value: "13", label: "GMT -0100" },
-        { value: "14", label: "GMT +0000" },
-        { value: "15", label: "GMT +0100" },
-        { value: "16", label: "GMT +0200" },
-        { value: "17", label: "GMT +0300 (GMT+03:00)" },
-        { value: "18", label: "GMT +0330" },
-        { value: "19", label: "GMT +0400" },
-        { value: "20", label: "GMT +0430" },
-        { value: "21", label: "GMT +0500" },
-        { value: "22", label: "GMT +0530" },
-        { value: "23", label: "GMT +0545" },
-        { value: "24", label: "GMT +0600" },
-        { value: "25", label: "GMT +0630" },
-        { value: "26", label: "GMT +0700" },
-        { value: "27", label: "GMT +0800" },
-        { value: "28", label: "GMT +0900" },
-        { value: "29", label: "GMT +0930" },
-        { value: "30", label: "GMT +1000" },
-        { value: "31", label: "GMT +1100" },
-        { value: "32", label: "GMT +1200" },
-        { value: "33", label: "GMT +1300" },
-    ];
-    const [selectedTimeZone, setSelectedHourZone] = useState(timeZoneOptions[16]);
+    const [timeZoneOptions, setTimeZoneOptions] = useState([]);
+
+    const [selectedTimeZone, setSelectedTimeZone] = useState(null);
 
     const timeZoneChange = (event) => {
-        setSelectedHourZone(event);
+        setSelectedTimeZone(event);
     };
     const daysOptions = [
         { value: "Everyday", label: "Everyday" },
@@ -59,6 +27,24 @@ const CampaignSchedule = () => {
         { value: "Friday", label: "Friday" },
         { value: "Saturday", label: "Saturday" },
     ];
+
+
+    useEffect(() => {
+        const countryList = ct.getAllTimezones();
+        var list = []
+        Object.entries(countryList)?.sort((a, b) => a.utcOffset - b.utcOffset).map(item => {
+            list.push({ value: item[1].utcOffsetStr, label: `GMT ${item[1].utcOffsetStr} ${item[1].name}` })
+
+            if (item[0] == "Europe/Istanbul") {
+                setSelectedTimeZone({ value: item[1].utcOffsetStr, label: `GMT ${item[1].utcOffsetStr} ${item[1].name}` })
+            }
+
+        })
+        setTimeZoneOptions(list)
+
+    }, [])
+
+
 
     const hourOptions = [];
     const minutesOptions = [];
@@ -179,7 +165,6 @@ const CampaignSchedule = () => {
                                 Time Zone
                             </label>
                             <Select
-                           
                                 options={timeZoneOptions}
                                 placeholder="Time Zone"
                                 className="form-control form-control-solid p-0"
