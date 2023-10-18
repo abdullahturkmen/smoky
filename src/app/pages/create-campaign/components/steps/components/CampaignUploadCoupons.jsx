@@ -22,6 +22,7 @@ const CampaignUploadCoupons = () => {
     charsetTypeList[0]
   );
   const [csvUploadList, setCsvUploadList] = useState([]);
+  const [uploadFileList, setUploadFileList] = useState([]);
 
   const [codeLength, setCodeLength] = useState(4);
   const [couponsList, setCouponsList] = useState([]);
@@ -66,7 +67,7 @@ const CampaignUploadCoupons = () => {
 
     let couponCode = "";
     let newCodeLength = codeLength + (6 - (codePrefix.length + codeSuffix.length))
-    
+
     for (let i = 0; i < newCodeLength; i++) {
       const randomIndex = Math.floor(Math.random() * charset.length);
       couponCode += charset.charAt(randomIndex);
@@ -144,6 +145,20 @@ const CampaignUploadCoupons = () => {
     document.execCommand('copy');
   };
 
+
+  const deleteCouponList = (index) => {
+
+    const filteredArray = csvUploadList.filter(item => !uploadFileList[index].list.includes(item));
+    setCsvUploadList(filteredArray);
+
+    const updatedData = uploadFileList.filter((item, i) => i !== index);
+    setUploadFileList(updatedData);
+  }
+
+  const deleteAllCouponList = () => {
+    setCsvUploadList([])
+    setUploadFileList([])
+  }
 
   return (
     <div className="accordion-item mb-8 shadow border-top">
@@ -313,7 +328,7 @@ const CampaignUploadCoupons = () => {
                   <div className="col-12 mt-5">
                     <div className="notice d-flex bg-light-primary rounded border-primary border border-dashed p-6">
                       <div className="form-group w-100">
-                        <label className="form-label fs-7 fw-bolder mb-1" for="exampleFormControlTextarea1">Your all coupons ({couponsList.length})</label>
+                        <label className="form-label fs-7 fw-bolder mb-1" htmlFor="exampleFormControlTextarea1">Your all coupons ({couponsList.length})</label>
                         <div className="w-100 d-block position-relative">
                           <textarea className="form-control w-100" id="exampleFormControlTextarea1" ref={generatedCouponsTextarea} rows="8" readOnly value={couponsList.join(', ')}></textarea>
                           <button type="button" className="btn btn-secondary position-absolute top-0 end-0 m-3 p-2" onClick={() => copyToClipboard(generatedCouponsTextarea)}>
@@ -348,7 +363,7 @@ const CampaignUploadCoupons = () => {
                 <div className="col-12 mt-5">
                   <div className="notice d-flex bg-light-primary rounded border-primary border border-dashed p-6">
                     <div className="form-group w-100">
-                      <label className="form-label fs-7 fw-bolder mb-1" for="exampleFormControlTextarea1">Your all coupons ({csvUploadList.length})</label>
+                      <label className="form-label fs-7 fw-bolder mb-1" htmlFor="exampleFormControlTextarea1">Your all coupons ({csvUploadList.length})</label>
                       <div className="w-100 d-block position-relative">
                         <textarea className="form-control w-100" id="exampleFormControlTextarea1" ref={uploadedCouponsTextarea} rows="8" readOnly value={csvUploadList.join(', ')}></textarea>
                         <button type="button" className="btn btn-secondary position-absolute top-0 end-0 m-3 p-2" onClick={() => copyToClipboard(uploadedCouponsTextarea)}>
@@ -358,12 +373,26 @@ const CampaignUploadCoupons = () => {
 
                     </div>
                   </div>
+
+                  {uploadFileList?.length > 0 && (<>
+                    <div className="d-inline-block">
+                      <ul className="list-group my-2">
+                        {uploadFileList?.map((e, index) => (<>
+                          <li className="list-group-item"><b>{e.name}</b> ({e.list?.length} coupons) <button className="btn btn-sm btn-danger px-1 py-0" type="button" onClick={() => deleteCouponList(index)}>X</button></li>
+                        </>))}
+                        <li className="list-group-item"><button type="button" className="btn btn-sm btn-danger" onClick={deleteAllCouponList}>Delete all</button></li>
+                      </ul>
+                    </div>
+                  </>)}
+
                 </div>
               </>)}
 
               <CSVReader
-                onUploadAccepted={(results) => {
-                  setCsvUploadList(results.data)
+                onUploadAccepted={(results, acceptedFile) => {
+                  console.log("acceptedFile : ", acceptedFile)
+                  setUploadFileList(current => [...uploadFileList, { list: results.data, name: acceptedFile.name }])
+                  setCsvUploadList(current => [...csvUploadList, ...results.data])
                 }}
               >
                 {({

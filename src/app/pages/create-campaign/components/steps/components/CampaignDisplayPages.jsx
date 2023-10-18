@@ -405,7 +405,7 @@ const CampaignDisplayPages = () => {
           {frequencyIsActive && (<>
             <div className="bg-light border rounded p-5 d-block">
               <div className="d-block mb-3">Choose how often your visitors will see this campaign.</div>
-              <label for="campaignname" className="form-label fs-7 fw-bolder mb-1">Show again</label>
+              <label htmlFor="campaignname" className="form-label fs-7 fw-bolder mb-1">Show again</label>
               <div className="mb-3">Set how frequently your campaign will display.</div>
 
               <div className="d-block mb-4">
@@ -470,7 +470,7 @@ const CampaignDisplayPages = () => {
                   />
                 </div>
               </div>
-              <label for="campaignname" className="form-label fs-7 fw-bolder mb-1">Stop showing</label>
+              <label htmlFor="campaignname" className="form-label fs-7 fw-bolder mb-1">Stop showing</label>
               <div className="mb-4">Set when a visitor should stop seeign your campaign.</div>
 
 
