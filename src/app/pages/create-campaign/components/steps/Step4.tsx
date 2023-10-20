@@ -1,6 +1,8 @@
 import React, { FC, useState } from "react";
 import { Field, ErrorMessage } from "formik";
 import WidePopup from "../../../../modules/templates/WidePopup";
+import { HexColorPicker } from "react-colorful";
+import { Button } from "react-bootstrap";
 
 const Step4: FC = () => {
   const [image, setImage] = useState<string | undefined>("");
@@ -44,6 +46,18 @@ const Step4: FC = () => {
   const descriptionChange = (e) => {
     setDescription(e.target.value);
   };
+
+  /////----------REMINDER ------- /////
+
+  const [color, setColor] = useState("#aabbcc");
+  const [pos, setPos] = useState("");
+
+
+  const selectPosition = (pos) => {
+    setPos(pos)
+    console.log("pos : ", pos)
+  }
+
   return (
     <div className="w-100">
       <div className="pb-10 pb-lg-12">
@@ -155,9 +169,11 @@ const Step4: FC = () => {
                 {reminderIsActive && (
                   <>
                     <div className="accordion" id="reminderCollapse">
-
                       <div className="accordion-item mb-8 shadow border-top">
-                        <h2 className="accordion-header" id="reminderHeadingOne">
+                        <h2
+                          className="accordion-header"
+                          id="reminderHeadingOne"
+                        >
                           <button
                             className="accordion-button  fs-4 fw-bold"
                             type="button"
@@ -166,7 +182,7 @@ const Step4: FC = () => {
                             aria-expanded="false"
                             aria-controls="reminderCollapseOne"
                           >
-                            Display Pages 1
+                            Content
                           </button>
                         </h2>
                         <div
@@ -175,12 +191,27 @@ const Step4: FC = () => {
                           aria-labelledby="reminderHeadingOne"
                           data-bs-parent="#reminderCollapse"
                         >
-                          <div className="accordion-body">hdfhdfghfgdh</div>
+                          <div className="accordion-body">
+                            <div className="fv-row mb-10">
+                              <label className="form-label required">
+                                Header
+                              </label>
+                              <Field
+                                name="subTitle"
+                                className="form-control form-control-lg form-control-solid"
+                                value={subTitle}
+                                onChange={subTitleChange}
+                              />
+                            </div>
+                          </div>
                         </div>
                       </div>
 
                       <div className="accordion-item mb-8 shadow border-top">
-                        <h2 className="accordion-header" id="reminderHeadingTwo">
+                        <h2
+                          className="accordion-header"
+                          id="reminderHeadingTwo"
+                        >
                           <button
                             className="accordion-button collapsed fs-4 fw-bold"
                             type="button"
@@ -189,7 +220,7 @@ const Step4: FC = () => {
                             aria-expanded="false"
                             aria-controls="reminderCollapseTwo"
                           >
-                            Display Pages 2
+                            Design
                           </button>
                         </h2>
                         <div
@@ -198,7 +229,67 @@ const Step4: FC = () => {
                           aria-labelledby="reminderHeadingTwo"
                           data-bs-parent="#reminderCollapse"
                         >
-                          <div className="accordion-body">hdfhdfghfgdh</div>
+                          <div className="accordion-body">
+                            <button
+                              className="btn w-100 text-white mb-3"
+                              style={{ backgroundColor: color }}
+                            >
+                              Example
+                            </button>
+                            <HexColorPicker
+                              color={color}
+                              onChange={setColor}
+                              className="w-100"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="accordion-item mb-8 shadow border-top">
+                        <h2
+                          className="accordion-header"
+                          id="reminderHeadingThree"
+                        >
+                          <button
+                            className="accordion-button collapsed fs-4 fw-bold"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#reminderCollapseThree"
+                            aria-expanded="false"
+                            aria-controls="reminderCollapseThree"
+                          >
+                            Position
+                          </button>
+                        </h2>
+                        <div
+                          id="reminderCollapseThree"
+                          className="accordion-collapse collapse"
+                          aria-labelledby="reminderHeadingThree"
+                          data-bs-parent="#reminderCollapse"
+                        >
+                          <div className="accordion-body">
+                            <div className="d-flex">
+                              <table className="table table-bordered border-secondary text-center">
+                                <tbody>
+                                  <tr>
+                                    <td onClick={() => selectPosition("left-top")} className={pos == "left-top" ? 'bg-primary text-light' : ''}>Left Top</td>
+                                    <td onClick={() => selectPosition("center-top")} className={pos == "center-top" ? 'bg-primary text-light' : ''}>Center Top</td>
+                                    <td onClick={() => selectPosition("right-top")} className={pos == "right-top" ? 'bg-primary text-light' : ''}>Right Top</td>
+                                  </tr>
+                                  <tr>
+                                    <td onClick={() => selectPosition("left-center")} className={pos == "left-center" ? 'bg-primary text-light' : ''}>Left Center</td>
+                                    <td>Center of page</td>
+                                    <td onClick={() => selectPosition("right-center")} className={pos == "right-center" ? 'bg-primary text-light' : ''}>Right Center</td>
+                                  </tr>
+                                  <tr>
+                                    <td onClick={() => selectPosition("left-bottom")} className={pos == "left-bottom" ? 'bg-primary text-light' : ''}>Left Bottom</td>
+                                    <td onClick={() => selectPosition("center-bottom")} className={pos == "center-bottom" ? 'bg-primary text-light' : ''}>Center Bottom</td>
+                                    <td onClick={() => selectPosition("right-bottom")} className={pos == "right-bottom" ? 'bg-primary text-light' : ''}>Right Bottom</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
