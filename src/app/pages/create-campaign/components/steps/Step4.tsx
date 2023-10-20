@@ -79,7 +79,11 @@ const Step4: FC = () => {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link  fw-bold" data-bs-toggle="tab" href="#reminder_tab">
+              <a
+                className="nav-link  fw-bold"
+                data-bs-toggle="tab"
+                href="#reminder_tab"
+              >
                 Reminder
               </a>
             </li>
@@ -91,13 +95,17 @@ const Step4: FC = () => {
               role="tabpanel"
             >
               <div className=" mt-5">
+                <p>
+                  See some text in the incentive you'd like to change? You can
+                  edit below.
+                </p>
                 <div className="fv-row mb-10">
                   <label className="form-label required">Image</label>
                   <input type="file" onChange={imageChange} accept="image/*" />
                 </div>
 
                 <div className="fv-row mb-10">
-                  <label className="form-label required">Title</label>
+                  <label className="form-label required">Header</label>
 
                   <Field
                     name="businessName"
@@ -108,7 +116,7 @@ const Step4: FC = () => {
                 </div>
 
                 <div className="fv-row mb-10">
-                  <label className="form-label required">Subtitle</label>
+                  <label className="form-label required">Subheader</label>
                   <Field
                     name="subTitle"
                     className="form-control form-control-lg form-control-solid"
@@ -230,6 +238,7 @@ const Step4: FC = () => {
                           <div className="accordion-body">
                             <p>Background color:</p>
                             <button
+                              type="button"
                               className="btn w-100 text-white mb-3"
                               style={{ backgroundColor: color }}
                             >
@@ -267,7 +276,10 @@ const Step4: FC = () => {
                           data-bs-parent="#reminderCollapse"
                         >
                           <div className="accordion-body">
-                          <p>Choose the page position on which the Promotion Reminder will pop up</p>
+                            <p>
+                              Choose the page position on which the Promotion
+                              Reminder will pop up
+                            </p>
                             <div className="d-flex">
                               <table className="table table-bordered border-secondary text-center">
                                 <tbody>
@@ -320,7 +332,9 @@ const Step4: FC = () => {
                                     >
                                       Left Center
                                     </td>
-                                    <td>Center of page</td>
+                                    <td className="bg-light text-muted">
+                                      Center of page
+                                    </td>
                                     <td
                                       onClick={() =>
                                         selectPosition("right-center")
