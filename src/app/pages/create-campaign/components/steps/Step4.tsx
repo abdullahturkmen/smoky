@@ -49,14 +49,12 @@ const Step4: FC = () => {
 
   /////----------REMINDER ------- /////
 
-  const [color, setColor] = useState("#aabbcc");
+  const [color, setColor] = useState("#3C53F4");
   const [pos, setPos] = useState("");
 
-
   const selectPosition = (pos) => {
-    setPos(pos)
-    console.log("pos : ", pos)
-  }
+    setPos(pos);
+  };
 
   return (
     <div className="w-100">
@@ -73,7 +71,7 @@ const Step4: FC = () => {
           <ul className="nav nav-tabs nav-line-tabs nav-line-tabs-2x mb-5 fs-6">
             <li className="nav-item">
               <a
-                className="nav-link active"
+                className="nav-link active fw-bold"
                 data-bs-toggle="tab"
                 href="#promotion_tab"
               >
@@ -81,7 +79,7 @@ const Step4: FC = () => {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" data-bs-toggle="tab" href="#reminder_tab">
+              <a className="nav-link  fw-bold" data-bs-toggle="tab" href="#reminder_tab">
                 Reminder
               </a>
             </li>
@@ -192,7 +190,7 @@ const Step4: FC = () => {
                           data-bs-parent="#reminderCollapse"
                         >
                           <div className="accordion-body">
-                            <div className="fv-row mb-10">
+                            <div className="fv-row mb-5">
                               <label className="form-label required">
                                 Header
                               </label>
@@ -230,11 +228,12 @@ const Step4: FC = () => {
                           data-bs-parent="#reminderCollapse"
                         >
                           <div className="accordion-body">
+                            <p>Background color:</p>
                             <button
                               className="btn w-100 text-white mb-3"
                               style={{ backgroundColor: color }}
                             >
-                              Example
+                              Example Text
                             </button>
                             <HexColorPicker
                               color={color}
@@ -268,23 +267,110 @@ const Step4: FC = () => {
                           data-bs-parent="#reminderCollapse"
                         >
                           <div className="accordion-body">
+                          <p>Choose the page position on which the Promotion Reminder will pop up</p>
                             <div className="d-flex">
                               <table className="table table-bordered border-secondary text-center">
                                 <tbody>
                                   <tr>
-                                    <td onClick={() => selectPosition("left-top")} className={pos == "left-top" ? 'bg-primary text-light' : ''}>Left Top</td>
-                                    <td onClick={() => selectPosition("center-top")} className={pos == "center-top" ? 'bg-primary text-light' : ''}>Center Top</td>
-                                    <td onClick={() => selectPosition("right-top")} className={pos == "right-top" ? 'bg-primary text-light' : ''}>Right Top</td>
+                                    <td
+                                      onClick={() => selectPosition("left-top")}
+                                      className={`cursor-pointer ${
+                                        pos == "left-top"
+                                          ? "bg-primary text-light"
+                                          : ""
+                                      }`}
+                                    >
+                                      Left Top
+                                    </td>
+                                    <td
+                                      onClick={() =>
+                                        selectPosition("center-top")
+                                      }
+                                      className={`cursor-pointer ${
+                                        pos == "center-top"
+                                          ? "bg-primary text-light"
+                                          : ""
+                                      }`}
+                                    >
+                                      Center Top
+                                    </td>
+                                    <td
+                                      onClick={() =>
+                                        selectPosition("right-top")
+                                      }
+                                      className={`cursor-pointer ${
+                                        pos == "right-top"
+                                          ? "bg-primary text-light"
+                                          : ""
+                                      }`}
+                                    >
+                                      Right Top
+                                    </td>
                                   </tr>
                                   <tr>
-                                    <td onClick={() => selectPosition("left-center")} className={pos == "left-center" ? 'bg-primary text-light' : ''}>Left Center</td>
+                                    <td
+                                      onClick={() =>
+                                        selectPosition("left-center")
+                                      }
+                                      className={`cursor-pointer ${
+                                        pos == "left-center"
+                                          ? "bg-primary text-light"
+                                          : ""
+                                      }`}
+                                    >
+                                      Left Center
+                                    </td>
                                     <td>Center of page</td>
-                                    <td onClick={() => selectPosition("right-center")} className={pos == "right-center" ? 'bg-primary text-light' : ''}>Right Center</td>
+                                    <td
+                                      onClick={() =>
+                                        selectPosition("right-center")
+                                      }
+                                      className={`cursor-pointer ${
+                                        pos == "right-center"
+                                          ? "bg-primary text-light"
+                                          : ""
+                                      }`}
+                                    >
+                                      Right Center
+                                    </td>
                                   </tr>
                                   <tr>
-                                    <td onClick={() => selectPosition("left-bottom")} className={pos == "left-bottom" ? 'bg-primary text-light' : ''}>Left Bottom</td>
-                                    <td onClick={() => selectPosition("center-bottom")} className={pos == "center-bottom" ? 'bg-primary text-light' : ''}>Center Bottom</td>
-                                    <td onClick={() => selectPosition("right-bottom")} className={pos == "right-bottom" ? 'bg-primary text-light' : ''}>Right Bottom</td>
+                                    <td
+                                      onClick={() =>
+                                        selectPosition("left-bottom")
+                                      }
+                                      className={`cursor-pointer ${
+                                        pos == "left-bottom"
+                                          ? "bg-primary text-light"
+                                          : ""
+                                      }`}
+                                    >
+                                      Left Bottom
+                                    </td>
+                                    <td
+                                      onClick={() =>
+                                        selectPosition("center-bottom")
+                                      }
+                                      className={`cursor-pointer ${
+                                        pos == "center-bottom"
+                                          ? "bg-primary text-light"
+                                          : ""
+                                      }`}
+                                    >
+                                      Center Bottom
+                                    </td>
+                                    <td
+                                      onClick={() =>
+                                        selectPosition("right-bottom")
+                                      }
+                                      className={`cursor-pointer ${
+                                        pos == "right-bottom"
+                                          ? "bg-primary text-light"
+                                          : ""
+                                      }`}
+                                    >
+                                      Right Bottom
+                                    </td>
                                   </tr>
                                 </tbody>
                               </table>
