@@ -22,7 +22,7 @@ const Step4: FC = () => {
     "Lorem ipsum, dolor sit amet consectetur adipisicing elit."
   );
   const [reminderIsActive, setReminderIsActive] = useState(false);
-  const [showCodeToggle, setShowCodeToggle] = useState(false);
+  const [isCouponCodeVisible, setIsCouponCodeVisible] = useState(false);
   const titleChange = (e) => {
     setTitle(e.target.value);
   };
@@ -201,8 +201,8 @@ const Step4: FC = () => {
                     <input
                       className="form-check-input me-5"
                       type="checkbox"
-                      defaultChecked={showCodeToggle}
-                      onChange={() => setShowCodeToggle((state) => !state)}
+                      defaultChecked={isCouponCodeVisible}
+                      onChange={() => setIsCouponCodeVisible((state) => !state)}
                     />
                     <div className="d-flex flex-column ">
                       <span className="form-label mb-0">
@@ -580,6 +580,8 @@ const Step4: FC = () => {
               subTitle={subTitle}
               image={coverImage}
               logo={logo}
+              isCouponVisible={isCouponCodeVisible}
+              durationHeadline={durationHeadline}
             />
           </div>
         </div>
