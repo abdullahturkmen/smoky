@@ -254,8 +254,8 @@ const Step4: FC = () => {
                         <Field
                           name="businessDescriptor"
                           className="form-control form-control-lg form-control-solid"
-                          value={disclaimer}
-                          onChange={disclaimerChange}
+                          value={durationCountdown}
+                          onChange={(e) => setDurationCountdown(e.target.value)}
                         />
                       </div>
                     </>
