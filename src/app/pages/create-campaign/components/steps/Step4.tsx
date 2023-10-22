@@ -222,7 +222,7 @@ const Step4: FC = () => {
                         durationMechanism == "countdown"
                           ? "btn-primary"
                           : "btn-outline-primary"
-                      } btn border flex-grow-1`}
+                      } btn btn-sm border flex-grow-1`}
                     >
                       Countdown
                     </button>
@@ -233,7 +233,7 @@ const Step4: FC = () => {
                         durationMechanism == "text"
                           ? "btn-primary"
                           : "btn-outline-primary "
-                      } btn border flex-grow-1`}
+                      } btn btn-sm border flex-grow-1`}
                     >
                       Text
                     </button>
