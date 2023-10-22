@@ -5,7 +5,7 @@ import { HexColorPicker } from "react-colorful";
 import { Button } from "react-bootstrap";
 
 const Step4: FC = () => {
-  const [image, setImage] = useState<string | undefined>("");
+  const [coverImage, setCoverImage] = useState<string | undefined>("");
   const [buttonText, setButtonText] = useState("Button Text");
   const [title, setTitle] = useState("Pops Firması");
   const [description, setDescription] = useState(
@@ -27,19 +27,19 @@ const Step4: FC = () => {
     setSubTitle(e.target.value);
   };
 
-  const imageChange = (e) => {
+  const coverImageChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
       const reader = new FileReader();
       reader.onload = (event) => {
         if (event.target && event.target.result) {
           const base64String = event.target.result as string;
-          setImage(base64String);
+          setCoverImage(base64String);
         }
       };
       reader.readAsDataURL(selectedFile);
     } else {
-      setImage("");
+      setCoverImage("");
     }
   };
 
@@ -100,8 +100,20 @@ const Step4: FC = () => {
                   edit below.
                 </p>
                 <div className="fv-row mb-10">
-                  <label className="form-label required">Image</label>
-                  <input type="file" onChange={imageChange} accept="image/*" />
+                  <label className="form-label required">Cover Image</label>
+
+                  <div
+                    className="upload-content position-relative w-100 d-flex align-items-center justify-content-center bg-light rounded"
+                    style={{ height: "80px" }}
+                  >
+                    <input
+                      className="file-uploader position-absolute w-100 h-100 opacity-0 cursor-pointer top-0 start-0"
+                      type="file"
+                      accept="image/*"
+                      onChange={coverImageChange}
+                    />
+                    <span className=" text-dark ">Upload Cover Image</span>
+                  </div>
                 </div>
 
                 <div className="fv-row mb-10">
@@ -405,7 +417,7 @@ const Step4: FC = () => {
             description={description}
             buttonText={buttonText}
             subTitle={subTitle}
-            image={image}
+            image={coverImage}
           />
         </div>
       </div>
