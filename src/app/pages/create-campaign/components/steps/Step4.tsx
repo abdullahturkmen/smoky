@@ -5,7 +5,8 @@ import { HexColorPicker } from "react-colorful";
 import { Button } from "react-bootstrap";
 
 const Step4: FC = () => {
-  const [coverImage, setCoverImage] = useState<string | undefined>("");
+  const [coverImage, setCoverImage] = useState<string | undefined>("https://picsum.photos/id/563/700/700");
+  const [logo, setLogo] = useState<string | undefined>("");
   const [buttonText, setButtonText] = useState("Button Text");
   const [confirmationButtonText, setConfirmationButtonText] =
     useState("Copied!");
@@ -49,6 +50,24 @@ const Step4: FC = () => {
       setCoverImage("");
     }
   };
+
+
+  const logoChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        if (event.target && event.target.result) {
+          const base64String = event.target.result as string;
+          setLogo(base64String);
+        }
+      };
+      reader.readAsDataURL(selectedFile);
+    } else {
+      setLogo("");
+    }
+  };
+
 
   const disclaimerChange = (e) => {
     setDisclaimer(e.target.value);
@@ -124,6 +143,23 @@ const Step4: FC = () => {
                       onChange={coverImageChange}
                     />
                     <span className=" text-dark ">Upload Cover Image</span>
+                  </div>
+                </div>
+
+                <div className="fv-row mb-10">
+                  <label className="form-label required">Cover Image</label>
+
+                  <div
+                    className="upload-content position-relative w-100 d-flex align-items-center justify-content-center bg-light rounded"
+                    style={{ height: "80px" }}
+                  >
+                    <input
+                      className="file-uploader position-absolute w-100 h-100 opacity-0 cursor-pointer top-0 start-0"
+                      type="file"
+                      accept="image/*"
+                      onChange={logoChange}
+                    />
+                    <span className=" text-dark ">Upload Logo</span>
                   </div>
                 </div>
 
@@ -527,10 +563,11 @@ const Step4: FC = () => {
           <div className="w-100 position-sticky top-0">
             <WidePopup
               title={title}
-              description={disclaimer}
+              disclaimer={disclaimer}
               buttonText={buttonText}
               subTitle={subTitle}
               image={coverImage}
+              logo={logo}
             />
           </div>
         </div>
