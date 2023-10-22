@@ -7,8 +7,14 @@ import { Button } from "react-bootstrap";
 const Step4: FC = () => {
   const [coverImage, setCoverImage] = useState<string | undefined>("");
   const [buttonText, setButtonText] = useState("Button Text");
+  const [confirmationButtonText, setConfirmationButtonText] =
+    useState("Copied!");
+  const [durationHeadline, setDurationHeadline] = useState("");
+  const [durationCountdown, setDurationCountdown] = useState("");
+  const [durationText, setDurationText] = useState("");
+  const [durationMechanism, setDurationMechanism] = useState("countdown");
   const [title, setTitle] = useState("Pops Firması");
-  const [description, setDescription] = useState(
+  const [disclaimer, setDisclaimer] = useState(
     "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae nihil nemo doloribus."
   );
   const [subTitle, setSubTitle] = useState(
@@ -44,11 +50,9 @@ const Step4: FC = () => {
     }
   };
 
-  const descriptionChange = (e) => {
-    setDescription(e.target.value);
+  const disclaimerChange = (e) => {
+    setDisclaimer(e.target.value);
   };
-
-  const [durationMechanism, setDurationMechanism] = useState("countdown");
 
   const selectDurationMechanism = (type) => {
     setDurationMechanism(type);
@@ -178,8 +182,8 @@ const Step4: FC = () => {
                   <Field
                     name="businessDescriptor"
                     className="form-control form-control-lg form-control-solid"
-                    value={description}
-                    onChange={descriptionChange}
+                    value={confirmationButtonText}
+                    onChange={(e) => setConfirmationButtonText(e.target.value)}
                   />
                 </div>
 
@@ -191,8 +195,8 @@ const Step4: FC = () => {
                   <Field
                     name="businessDescriptor"
                     className="form-control form-control-lg form-control-solid"
-                    value={description}
-                    onChange={descriptionChange}
+                    value={disclaimer}
+                    onChange={disclaimerChange}
                   />
                 </div>
 
@@ -204,8 +208,8 @@ const Step4: FC = () => {
                   <Field
                     name="businessDescriptor"
                     className="form-control form-control-lg form-control-solid"
-                    value={description}
-                    onChange={descriptionChange}
+                    value={durationHeadline}
+                    onChange={(e) => setDurationHeadline(e.target.value)}
                   />
                 </div>
 
@@ -250,8 +254,8 @@ const Step4: FC = () => {
                         <Field
                           name="businessDescriptor"
                           className="form-control form-control-lg form-control-solid"
-                          value={description}
-                          onChange={descriptionChange}
+                          value={disclaimer}
+                          onChange={disclaimerChange}
                         />
                       </div>
                     </>
@@ -265,8 +269,8 @@ const Step4: FC = () => {
                         <Field
                           name="businessDescriptor"
                           className="form-control form-control-lg form-control-solid"
-                          value={description}
-                          onChange={descriptionChange}
+                          value={durationText}
+                          onChange={(e) => setDurationText(e.target.value)}
                         />
                       </div>
                     </>
@@ -520,13 +524,15 @@ const Step4: FC = () => {
           </div>
         </div>
         <div className="col-lg-8 col-12">
-          <WidePopup
-            title={title}
-            description={description}
-            buttonText={buttonText}
-            subTitle={subTitle}
-            image={coverImage}
-          />
+          <div className="w-100 position-sticky top-0">
+            <WidePopup
+              title={title}
+              description={disclaimer}
+              buttonText={buttonText}
+              subTitle={subTitle}
+              image={coverImage}
+            />
+          </div>
         </div>
       </div>
     </div>
