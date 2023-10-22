@@ -16,10 +16,10 @@ const Step4: FC = () => {
   const [durationMechanism, setDurationMechanism] = useState("countdown");
   const [title, setTitle] = useState("Pops Firması");
   const [disclaimer, setDisclaimer] = useState(
-    "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae nihil nemo doloribus."
+    "Lorem ipsum, dolor sit amet consectetur adipisicing elit."
   );
   const [subTitle, setSubTitle] = useState(
-    "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae nihil nemo doloribus. "
+    "Lorem ipsum, dolor sit amet consectetur adipisicing elit."
   );
   const [reminderIsActive, setReminderIsActive] = useState(false);
   const [showCodeToggle, setShowCodeToggle] = useState(false);
