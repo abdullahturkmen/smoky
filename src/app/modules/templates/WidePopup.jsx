@@ -1,6 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 function WidePopup(props) {
+
+    const [coverImg, setCoverImg] = useState("https://picsum.photos/id/563/700/700")
+    const [logo, setLogo] = useState("https://picsum.photos/id/564/700/700")
+
+    useEffect(() => {
+        if (props.image.length > 0) {
+            setCoverImg(props.image)
+        }
+    }, [props])
+
+    useEffect(() => {
+        if (props.logo.length > 0) {
+            setLogo(props.logo)
+        }
+    }, [props])
 
     return (
         <>
@@ -15,7 +30,7 @@ function WidePopup(props) {
                                 <div className='w-100'>
                                     <div className='m-2 p-2 h-100 d-flex flex-column justify-content-center'>
                                         <div className='d-flex align-items-center'>
-                                            <img src={props.logo} alt='' className='w-50 m-auto' />
+                                            <img src={logo} alt='' className='w-50 m-auto' />
                                         </div>
                                         <h1 className="modal-title w-100 text-center fs-2x fw-bold">{props.title}</h1>
                                         <span className="modal-title text-center d-block">{props.subTitle}</span>
@@ -26,7 +41,7 @@ function WidePopup(props) {
                                     </div>
                                 </div>
                                 <div className='w-100'>
-                                    <img src={props.image} alt='' className='w-100 h-100 object-fit-cover' />
+                                    <img src={coverImg} alt='' className='w-100 h-100 object-fit-cover' />
                                 </div>
                             </div>
                         </div>

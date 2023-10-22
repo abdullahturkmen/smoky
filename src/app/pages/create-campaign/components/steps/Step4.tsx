@@ -5,7 +5,7 @@ import { HexColorPicker } from "react-colorful";
 import { Button } from "react-bootstrap";
 
 const Step4: FC = () => {
-  const [coverImage, setCoverImage] = useState<string | undefined>("https://picsum.photos/id/563/700/700");
+  const [coverImage, setCoverImage] = useState<string | undefined>("");
   const [logo, setLogo] = useState<string | undefined>("");
   const [buttonText, setButtonText] = useState("Button Text");
   const [confirmationButtonText, setConfirmationButtonText] =
@@ -51,7 +51,6 @@ const Step4: FC = () => {
     }
   };
 
-
   const logoChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
@@ -67,7 +66,6 @@ const Step4: FC = () => {
       setLogo("");
     }
   };
-
 
   const disclaimerChange = (e) => {
     setDisclaimer(e.target.value);
@@ -133,8 +131,8 @@ const Step4: FC = () => {
                   <label className="form-label required">Cover Image</label>
 
                   <div
-                    className="upload-content position-relative w-100 d-flex align-items-center justify-content-center bg-light rounded"
-                    style={{ height: "80px" }}
+                    className="upload-content position-relative w-100 d-flex align-items-center justify-content-center bg-light rounded p-4"
+                    style={{ minHeight: "80px" }}
                   >
                     <input
                       className="file-uploader position-absolute w-100 h-100 opacity-0 cursor-pointer top-0 start-0"
@@ -142,7 +140,14 @@ const Step4: FC = () => {
                       accept="image/*"
                       onChange={coverImageChange}
                     />
-                    <span className=" text-dark ">Upload Cover Image</span>
+                    <div className=" d-flex flex-column align-items-center">
+                      {coverImage && (
+                        <>
+                          <img src={coverImage} style={{maxWidth: '200px'}} className="rounded-3 border border-dark p-2 mb-2"/>
+                        </>
+                      )}
+                      <div className=" text-dark ">Select your cover image</div>
+                    </div>
                   </div>
                 </div>
 
@@ -150,8 +155,8 @@ const Step4: FC = () => {
                   <label className="form-label required">Logo</label>
 
                   <div
-                    className="upload-content position-relative w-100 d-flex align-items-center justify-content-center bg-light rounded"
-                    style={{ height: "80px" }}
+                    className="upload-content position-relative w-100 d-flex align-items-center justify-content-center bg-light rounded p-4"
+                    style={{ minHeight: "80px" }}
                   >
                     <input
                       className="file-uploader position-absolute w-100 h-100 opacity-0 cursor-pointer top-0 start-0"
@@ -159,7 +164,14 @@ const Step4: FC = () => {
                       accept="image/*"
                       onChange={logoChange}
                     />
-                    <span className=" text-dark ">Upload Logo</span>
+                      <div className=" d-flex flex-column align-items-center">
+                      {logo && (
+                        <>
+                          <img src={logo} style={{maxWidth: '200px'}} className="rounded-3 border border-dark p-2 mb-2"/>
+                        </>
+                      )}
+                      <div className=" text-dark ">Select your logo image</div>
+                    </div>
                   </div>
                 </div>
 
