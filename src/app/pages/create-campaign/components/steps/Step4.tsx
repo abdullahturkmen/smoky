@@ -147,7 +147,7 @@ const Step4: FC = () => {
                 </div>
 
                 <div className="fv-row mb-10">
-                  <label className="form-label required">Cover Image</label>
+                  <label className="form-label required">Logo</label>
 
                   <div
                     className="upload-content position-relative w-100 d-flex align-items-center justify-content-center bg-light rounded"
