@@ -15,6 +15,7 @@ const Step4: FC = () => {
     "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae nihil nemo doloribus. "
   );
   const [reminderIsActive, setReminderIsActive] = useState(false);
+  const [showCodeToggle, setShowCodeToggle] = useState(false);
   const titleChange = (e) => {
     setTitle(e.target.value);
   };
@@ -45,6 +46,12 @@ const Step4: FC = () => {
 
   const descriptionChange = (e) => {
     setDescription(e.target.value);
+  };
+
+  const [durationMechanism, setDurationMechanism] = useState("countdown");
+
+  const selectDurationMechanism = (type) => {
+    setDurationMechanism(type);
   };
 
   /////----------REMINDER ------- /////
@@ -137,22 +144,20 @@ const Step4: FC = () => {
                   />
                 </div>
 
-                <div className="fv-row mb-10">
-                  <label className="form-label">
-                    <span className="required">Description</span>
+                <div className="d-flex gap-20">
+                  <label className="form-check form-switch form-check-custom form-check-solid align-items-center mb-5">
+                    <input
+                      className="form-check-input me-5"
+                      type="checkbox"
+                      defaultChecked={showCodeToggle}
+                      onChange={() => setShowCodeToggle((state) => !state)}
+                    />
+                    <div className="d-flex flex-column ">
+                      <span className="form-label mb-0">
+                        Show the code in the incentive
+                      </span>
+                    </div>
                   </label>
-
-                  <Field
-                    name="businessDescriptor"
-                    className="form-control form-control-lg form-control-solid"
-                    value={description}
-                    onChange={descriptionChange}
-                  />
-
-                  <div className="form-text">
-                    Customers will see this shortened version of your statement
-                    descriptor
-                  </div>
                 </div>
 
                 <div className="fv-row mb-10">
@@ -163,6 +168,109 @@ const Step4: FC = () => {
                     value={buttonText}
                     onChange={buttonTextChange}
                   />
+                </div>
+
+                <div className="fv-row mb-10">
+                  <label className="form-label">
+                    <span className="required">Button Confirmation</span>
+                  </label>
+
+                  <Field
+                    name="businessDescriptor"
+                    className="form-control form-control-lg form-control-solid"
+                    value={description}
+                    onChange={descriptionChange}
+                  />
+                </div>
+
+                <div className="fv-row mb-10">
+                  <label className="form-label">
+                    <span className="required">Disclaimer</span>
+                  </label>
+
+                  <Field
+                    name="businessDescriptor"
+                    className="form-control form-control-lg form-control-solid"
+                    value={description}
+                    onChange={descriptionChange}
+                  />
+                </div>
+
+                <div className="fv-row mb-10">
+                  <label className="form-label">
+                    <span className="required">Duration Headline</span>
+                  </label>
+
+                  <Field
+                    name="businessDescriptor"
+                    className="form-control form-control-lg form-control-solid"
+                    value={description}
+                    onChange={descriptionChange}
+                  />
+                </div>
+
+                <div className="fv-row mb-10">
+                  <label className="form-label">
+                    <span className="">Duration Mechanism</span>
+                  </label>
+
+                  <div className="gap-2 d-flex">
+                    <button
+                      type="button"
+                      onClick={() => selectDurationMechanism("countdown")}
+                      className={`${
+                        durationMechanism == "countdown"
+                          ? "btn-primary"
+                          : "btn-outline-primary"
+                      } btn border flex-grow-1`}
+                    >
+                      Countdown
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => selectDurationMechanism("text")}
+                      className={`${
+                        durationMechanism == "text"
+                          ? "btn-primary"
+                          : "btn-outline-primary "
+                      } btn border flex-grow-1`}
+                    >
+                      Text
+                    </button>
+                  </div>
+                </div>
+                <div className="fv-row mb-10">
+                  {durationMechanism == "countdown" ? (
+                    <>
+                      <div className="fv-row mb-10">
+                        <label className="form-label">
+                          <span className="required">Countdown</span>
+                        </label>
+
+                        <Field
+                          name="businessDescriptor"
+                          className="form-control form-control-lg form-control-solid"
+                          value={description}
+                          onChange={descriptionChange}
+                        />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="fv-row mb-10">
+                        <label className="form-label">
+                          <span className="required">Text</span>
+                        </label>
+
+                        <Field
+                          name="businessDescriptor"
+                          className="form-control form-control-lg form-control-solid"
+                          value={description}
+                          onChange={descriptionChange}
+                        />
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
