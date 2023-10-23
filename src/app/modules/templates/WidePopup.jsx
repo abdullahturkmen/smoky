@@ -22,15 +22,18 @@ function WidePopup(props) {
                                             {props.logo.length > 0 ? (<>
                                                 <img src={props.logo} alt='' className='w-50 m-auto' />
                                             </>) : (<>
-                                               <img src={defaultLogo} alt='' className='w-50 m-auto' />
+                                                <img src={defaultLogo} alt='' className='w-50 m-auto' />
                                             </>)}
 
                                         </div>
                                         <h1 className="modal-title w-100 text-center fs-2x fw-bold">{props.title}</h1>
                                         <span className="modal-title text-center d-block">{props.subTitle}</span>
                                         <div className="modal-title text-center d-block mt-2 fw-bolder">{props.durationHeadline}</div>
-                                        <div className="text-center d-block w-100 mx-auto p-2 mt-2 border border-dashed border-primary rounded fw-bold">{props.isCouponVisible ? (<>YOURCODEHERE</>):(<>*********</>)}</div>
-                                            <button className='btn btn-dark w-100 mt-5'>{props.buttonText}</button>
+                                        <div className='text-center fw-bolder'>{props.durationMechanism == "countdown" ? (<> {props.durationCountdownDays}d :{" "}
+                                            {props.durationCountdownHours}h :{" "}
+                                            {props.durationCountdownMinutes}m</>) : (<>{props.durationText}</>)}</div>
+                                        <div className="text-center d-block w-100 mx-auto p-2 mt-2 border border-dashed border-primary rounded fw-bold">{props.isCouponVisible ? (<>YOURCODEHERE</>) : (<>*********</>)}</div>
+                                        <button className='btn btn-dark w-100 mt-5'>{props.buttonText}</button>
                                         <p style={{ fontSize: '10px' }} className='text-center text-muted mt-4'>{props.disclaimer}</p>
                                     </div>
                                 </div>

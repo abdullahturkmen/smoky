@@ -705,6 +705,11 @@ const Step4: FC = () => {
               logo={logo}
               isCouponVisible={isCouponCodeVisible}
               durationHeadline={durationHeadline}
+              durationMechanism={durationMechanism}
+              durationText={durationText}
+              durationCountdownDays={durationCountdownDays}
+              durationCountdownHours={durationCountdownHours}
+              durationCountdownMinutes={durationCountdownMinutes}
             />
           </div>
         </div>
