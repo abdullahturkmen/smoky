@@ -72,7 +72,7 @@
       .stepper-number {
         font-weight: $font-weight-bold;
         color: var(--#{$prefix}stepper-icon-number-color);
-        font-size: 1.25rem;
+        font-size: 1rem;
       }
     }
 
@@ -86,7 +86,7 @@
         color: var(--#{$prefix}stepper-label-title-color);
         opacity: var(--#{$prefix}stepper-label-title-opacity);
         font-weight: 600;
-        font-size: 1.25rem;
+        font-size: 1rem;
         margin-bottom: 0.3rem;
       }
 

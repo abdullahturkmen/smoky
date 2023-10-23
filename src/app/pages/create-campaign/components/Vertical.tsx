@@ -113,9 +113,9 @@ const Vertical = () => {
         </div>
 
         {/* begin::Aside*/}
-        <div  className="card d-none d-md-flex justify-content-center justify-content-xl-start flex-row w-100 w-md-300px w-xxl-400px me-9">
+        <div  className="card d-none d-md-flex justify-content-center justify-content-xl-start flex-row w-100 w-md-200px w-xxl-300px me-2">
           {/* begin::Wrapper*/}
-          <div className="card-body px-6 px-lg-10 px-xxl-15 py-10 d-flex align-items-center position-sticky top-0" style={{height: '100vh'}}>
+          <div className="card-body px-3 px-lg-6 px-xxl-10 py-10 d-flex align-items-center position-sticky top-0" style={{height: '100vh'}}>
             {/* begin::Nav*/}
             <div className="stepper-nav">
               {/* begin::Step 1*/}
@@ -134,7 +134,7 @@ const Vertical = () => {
 
                   {/* begin::Label*/}
                   <div className="stepper-label">
-                    <h3 className="stepper-title">Goal</h3>
+                    <h4 className="stepper-title">Goal</h4>
 
                     <div className="stepper-desc fw-semibold d-none">
                       Setup Your Account Details
@@ -163,7 +163,7 @@ const Vertical = () => {
 
                   {/* begin::Label*/}
                   <div className="stepper-label">
-                    <h3 className="stepper-title">Template</h3>
+                    <h4 className="stepper-title">Template</h4>
                     <div className="stepper-desc fw-semibold d-none">
                       Setup Your Account Settings
                     </div>
@@ -191,7 +191,7 @@ const Vertical = () => {
 
                   {/* begin::Label*/}
                   <div className="stepper-label">
-                    <h3 className="stepper-title">Settings</h3>
+                    <h4 className="stepper-title">Settings</h4>
                     <div className="stepper-desc fw-semibold d-none">
                       Your Business Related Info
                     </div>
@@ -219,7 +219,7 @@ const Vertical = () => {
 
                   {/* begin::Label*/}
                   <div className="stepper-label">
-                    <h3 className="stepper-title">Studio</h3>
+                    <h4 className="stepper-title">Studio</h4>
                     <div className="stepper-desc fw-semibold d-none">
                       Set Your Payment Methods
                     </div>
@@ -247,7 +247,7 @@ const Vertical = () => {
 
                   {/* begin::Label*/}
                   <div className="stepper-label">
-                    <h3 className="stepper-title">Review</h3>
+                    <h4 className="stepper-title">Review</h4>
                     <div className="stepper-desc fw-semibold d-none">
                       Woah, we are here
                     </div>

@@ -3,11 +3,14 @@ import { Field, ErrorMessage } from "formik";
 import WidePopup from "../../../../modules/templates/WidePopup";
 import { HexColorPicker } from "react-colorful";
 import { Button } from "react-bootstrap";
+import { KTIcon } from "../../../../../_metronic/helpers";
 
 const Step4: FC = () => {
   const [coverImage, setCoverImage] = useState<string | undefined>("");
   const [logo, setLogo] = useState<string | undefined>("");
   const [buttonText, setButtonText] = useState("Button Text");
+  const [showCouponButtonText, setShowCouponButtonText] =
+    useState("Show Coupon Code");
   const [confirmationButtonText, setConfirmationButtonText] =
     useState("Copied!");
   const [durationHeadline, setDurationHeadline] = useState("");
@@ -199,9 +202,12 @@ const Step4: FC = () => {
                 <div className="fv-row mb-10">
                   <label className="form-label required">Cover Image</label>
 
+                  <div className="text-decoration-underline text-primary cursor-pointer">
+                    <a>Unsplash Free Images</a>
+                  </div>
                   <div
                     className="upload-content position-relative w-100 d-flex align-items-center justify-content-center bg-light rounded p-4"
-                    style={{ minHeight: "80px" }}
+                    style={{ minHeight: "50px" }}
                   >
                     <input
                       className="file-uploader position-absolute w-100 h-100 opacity-0 cursor-pointer top-0 start-0"
@@ -219,7 +225,13 @@ const Step4: FC = () => {
                           />
                         </>
                       )}
-                      <div className=" text-dark ">Select your cover image</div>
+                      <div className=" d-flex  align-items-center text-dark ">
+                        <KTIcon
+                          iconName="plus"
+                          className="fw-bolder fs-3 me-2 "
+                        />{" "}
+                        Select your cover image
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -229,7 +241,7 @@ const Step4: FC = () => {
 
                   <div
                     className="upload-content position-relative w-100 d-flex align-items-center justify-content-center bg-light rounded p-4"
-                    style={{ minHeight: "80px" }}
+                    style={{ minHeight: "50px" }}
                   >
                     <input
                       className="file-uploader position-absolute w-100 h-100 opacity-0 cursor-pointer top-0 start-0"
@@ -247,7 +259,13 @@ const Step4: FC = () => {
                           />
                         </>
                       )}
-                      <div className=" text-dark ">Select your logo image</div>
+                      <div className=" d-flex  align-items-center text-dark  ">
+                        <KTIcon
+                          iconName="plus"
+                          className="fw-bolder fs-3 me-2 "
+                        />{" "}
+                        Select your logo
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -289,8 +307,26 @@ const Step4: FC = () => {
                   </label>
                 </div>
 
+                {!isCouponCodeVisible && (
+                  <>
+                    <div className="fv-row mb-10">
+                      <label className="form-label required">
+                        Show Code Button Text
+                      </label>
+                      <Field
+                        name="buttonText"
+                        className="form-control form-control-lg form-control-solid"
+                        value={showCouponButtonText}
+                        onChange={(e) =>
+                          setShowCouponButtonText(e.target.value)
+                        }
+                      />
+                    </div>
+                  </>
+                )}
+
                 <div className="fv-row mb-10">
-                  <label className="form-label required">Button Text</label>
+                  <label className="form-label required">Copy Button Text</label>
                   <Field
                     name="buttonText"
                     className="form-control form-control-lg form-control-solid"
@@ -301,7 +337,7 @@ const Step4: FC = () => {
 
                 <div className="fv-row mb-10">
                   <label className="form-label">
-                    <span className="required">Button Confirmation</span>
+                    <span className="required">Button Confirmation Text</span>
                   </label>
 
                   <Field
@@ -422,8 +458,12 @@ const Step4: FC = () => {
                         ) : (
                           <>
                             <div className="bg-light rounded fw-bold p-4">
-                              {durationCountdownDays}d :{" "}
-                              {durationCountdownHours}h :{" "}
+                              {parseInt(durationCountdownDays) > 0 && (
+                                <>{durationCountdownDays}d : </>
+                              )}
+                              {parseInt(durationCountdownHours) > 0 && (
+                                <>{durationCountdownHours}h : </>
+                              )}
                               {durationCountdownMinutes}m
                             </div>
                           </>
@@ -544,6 +584,14 @@ const Step4: FC = () => {
                               onChange={setColor}
                               className="w-100"
                             />
+                            <div className="d-block mt-2">
+                              <Field
+                                name="businessDescriptor"
+                                className="form-control form-control-lg form-control-solid"
+                                value={color}
+                                onChange={(e) => setColor(e.target.value)}
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -695,7 +743,10 @@ const Step4: FC = () => {
           </div>
         </div>
         <div className="col-lg-8 col-12">
-          <div className="w-100 position-sticky top-0">
+          <div
+            className="w-100 rounded-3 bg-light-primary position-sticky "
+            style={{ top: "5%" }}
+          >
             <WidePopup
               title={title}
               disclaimer={disclaimer}
@@ -710,6 +761,7 @@ const Step4: FC = () => {
               durationCountdownDays={durationCountdownDays}
               durationCountdownHours={durationCountdownHours}
               durationCountdownMinutes={durationCountdownMinutes}
+              showCouponButtonText={showCouponButtonText}
             />
           </div>
         </div>

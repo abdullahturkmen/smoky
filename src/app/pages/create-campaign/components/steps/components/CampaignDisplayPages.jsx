@@ -384,6 +384,13 @@ const CampaignDisplayPages = () => {
           <div className="d-flex gap-20">
             <label className="form-check form-switch form-check-custom form-check-solid  align-items-center mt-5">
               <input className="form-check-input me-5" type="checkbox" />
+              <span className="form-label fw-bolder mb-0">AI/ML Customer Churn Detection</span>
+            </label>
+          </div>
+
+          <div className="d-flex gap-20">
+            <label className="form-check form-switch form-check-custom form-check-solid  align-items-center mt-5">
+              <input className="form-check-input me-5" type="checkbox" />
               <span className="form-label fw-bolder mb-0">IP Restriction</span>
             </label>
           </div>

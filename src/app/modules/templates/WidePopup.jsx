@@ -8,7 +8,7 @@ function WidePopup(props) {
 
     return (
         <>
-            <div className='bd-example bd-example-modal bg-light-primary'>
+            <div className='bd-example bd-example-modal'>
                 <div className="modal position-relative d-block " tabIndex="-1" id="exampleModal">
                     <div className="modal-dialog ">
                         <div className="modal-content overflow-hidden rounded-3">
@@ -29,11 +29,20 @@ function WidePopup(props) {
                                         <h1 className="modal-title w-100 text-center fs-2x fw-bold">{props.title}</h1>
                                         <span className="modal-title text-center d-block">{props.subTitle}</span>
                                         <div className="modal-title text-center d-block mt-2 fw-bolder fs-4">{props.durationHeadline}</div>
-                                        <div className='text-center fw-bolder mt-2'>{props.durationMechanism == "countdown" ? (<> {props.durationCountdownDays}d :{" "}
-                                            {props.durationCountdownHours}h :{" "}
-                                            {props.durationCountdownMinutes}m</>) : (<>{props.durationText}</>)}</div>
+                                        <div className='text-center fw-bolder mt-2'>{props.durationMechanism == "countdown" ? (<>
+
+                                            {parseInt(props.durationCountdownDays) > 0 && (<>{props.durationCountdownDays}d :{" "}</>)}
+                                            {parseInt(props.durationCountdownHours) > 0 && (<>{props.durationCountdownHours}h :{" "}</>)}
+                                            {props.durationCountdownMinutes}m
+
+                                        </>) : (<>{props.durationText}</>)}</div>
                                         <div className="text-center d-block w-100 mx-auto p-2 mt-2 border border-dashed border-primary rounded fw-bold">{props.isCouponVisible ? (<>YOURCODEHERE</>) : (<>*********</>)}</div>
-                                        <button className='btn btn-dark w-100 mt-5'>{props.buttonText}</button>
+                                        <button className='btn btn-dark w-100 mt-5'>
+
+                                            {!props.isCouponVisible ? (<>{props.showCouponButtonText}</>) : (<>{props.buttonText}</>)}
+
+
+                                        </button>
                                         <p style={{ fontSize: '10px' }} className='text-center text-muted mt-4'>{props.disclaimer}</p>
                                     </div>
                                 </div>
