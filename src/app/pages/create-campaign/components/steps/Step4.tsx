@@ -11,7 +11,10 @@ const Step4: FC = () => {
   const [confirmationButtonText, setConfirmationButtonText] =
     useState("Copied!");
   const [durationHeadline, setDurationHeadline] = useState("");
-  const [durationCountdown, setDurationCountdown] = useState("");
+  const [durationCountdownDays, setDurationCountdownDays] = useState("1");
+  const [durationCountdownHours, setDurationCountdownHours] = useState("06");
+  const [durationCountdownMinutes, setDurationCountdownMinutes] =
+    useState("20");
   const [durationText, setDurationText] = useState("");
   const [durationMechanism, setDurationMechanism] = useState("countdown");
   const [title, setTitle] = useState("Pops Firması");
@@ -73,6 +76,72 @@ const Step4: FC = () => {
 
   const selectDurationMechanism = (type) => {
     setDurationMechanism(type);
+  };
+
+  const [isHoveredCountdown, setIsHoveredCountdown] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHoveredCountdown(true);
+  };
+
+  const handleMouseLeave = () => {
+    setTimeout(() => {
+      setIsHoveredCountdown(false);
+    }, 2000);
+  };
+
+  const changeDurationDays = (e) => {
+    let value = parseInt(e.target.value);
+    if (value >= 0 || value < 60) {
+      setDurationCountdownDays(String(value));
+    }
+  };
+
+  const changeDurationDaysBlur = (e) => {
+    let value = parseInt(e.target.value);
+    if (value >= 0 || value < 60) {
+      if (value < 10) {
+        setDurationCountdownDays("0" + String(value));
+      }
+    } else {
+      setDurationCountdownDays("01");
+    }
+  };
+
+  const changeDurationHours = (e) => {
+    let value = parseInt(e.target.value);
+    if (value >= 0 || value < 60) {
+      setDurationCountdownHours(String(value));
+    }
+  };
+
+  const changeDurationHoursBlur = (e) => {
+    let value = parseInt(e.target.value);
+    if (value >= 0 || value < 60) {
+      if (value < 10) {
+        setDurationCountdownHours("0" + String(value));
+      }
+    } else {
+      setDurationCountdownHours("01");
+    }
+  };
+
+  const changeDurationMinutes = (e) => {
+    let value = parseInt(e.target.value);
+    if (value >= 0 || value < 60) {
+      setDurationCountdownMinutes(String(value));
+    }
+  };
+
+  const changeDurationMinutesBlur = (e) => {
+    let value = parseInt(e.target.value);
+    if (value >= 0 || value < 60) {
+      if (value < 10) {
+        setDurationCountdownMinutes("0" + String(value));
+      }
+    } else {
+      setDurationCountdownMinutes("01");
+    }
   };
 
   /////----------REMINDER ------- /////
@@ -143,7 +212,11 @@ const Step4: FC = () => {
                     <div className=" d-flex flex-column align-items-center">
                       {coverImage && (
                         <>
-                          <img src={coverImage} style={{maxWidth: '200px'}} className="rounded-3 border border-dark p-2 mb-2"/>
+                          <img
+                            src={coverImage}
+                            style={{ maxWidth: "200px" }}
+                            className="rounded-3 border border-dark p-2 mb-2"
+                          />
                         </>
                       )}
                       <div className=" text-dark ">Select your cover image</div>
@@ -164,10 +237,14 @@ const Step4: FC = () => {
                       accept="image/*"
                       onChange={logoChange}
                     />
-                      <div className=" d-flex flex-column align-items-center">
+                    <div className=" d-flex flex-column align-items-center">
                       {logo && (
                         <>
-                          <img src={logo} style={{maxWidth: '200px'}} className="rounded-3 border border-dark p-2 mb-2"/>
+                          <img
+                            src={logo}
+                            style={{ maxWidth: "200px" }}
+                            className="rounded-3 border border-dark p-2 mb-2"
+                          />
                         </>
                       )}
                       <div className=" text-dark ">Select your logo image</div>
@@ -294,17 +371,63 @@ const Step4: FC = () => {
                 <div className="fv-row mb-10">
                   {durationMechanism == "countdown" ? (
                     <>
-                      <div className="fv-row mb-10">
+                      <div
+                        className="fv-row mb-10"
+                        onMouseEnter={handleMouseEnter}
+                        onClick={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                      >
                         <label className="form-label">
                           <span className="required">Countdown</span>
                         </label>
 
-                        <Field
-                          name="businessDescriptor"
-                          className="form-control form-control-lg form-control-solid"
-                          value={durationCountdown}
-                          onChange={(e) => setDurationCountdown(e.target.value)}
-                        />
+                        {isHoveredCountdown ? (
+                          <>
+                            {" "}
+                            <div className="rounded fw-bold d-flex align-items-center">
+                              <div className="bg-light rounded d-flex align-items-center">
+                                <Field
+                                  name="businessDescriptor"
+                                  className="form-control form-control-lg form-control-solid"
+                                  value={durationCountdownDays}
+                                  onChange={changeDurationDays}
+                                  onBlur={changeDurationDaysBlur}
+                                />
+                                <div className="text-nowrap mx-2">d</div>
+                              </div>
+                              <div className="text-nowrap mx-2">:</div>
+                              <div className="bg-light rounded d-flex align-items-center">
+                                <Field
+                                  name="businessDescriptor"
+                                  className="form-control form-control-lg form-control-solid"
+                                  value={durationCountdownHours}
+                                  onChange={changeDurationHours}
+                                  onBlur={changeDurationHoursBlur}
+                                />
+                                <div className="text-nowrap mx-2">h</div>
+                              </div>
+                              <div className="text-nowrap mx-2">:</div>
+                              <div className="bg-light rounded d-flex align-items-center">
+                                <Field
+                                  name="businessDescriptor"
+                                  className="form-control form-control-lg form-control-solid"
+                                  value={durationCountdownMinutes}
+                                  onChange={changeDurationMinutes}
+                                  onBlur={changeDurationMinutesBlur}
+                                />
+                                <div className="mx-2">m</div>
+                              </div>
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div className="bg-light rounded fw-bold p-4">
+                              {durationCountdownDays}d :{" "}
+                              {durationCountdownHours}h :{" "}
+                              {durationCountdownMinutes}m
+                            </div>
+                          </>
+                        )}
                       </div>
                     </>
                   ) : (
