@@ -19,6 +19,7 @@ const Vertical = () => {
   const stepperRef = useRef<HTMLDivElement | null>(null);
   const stepper = useRef<StepperComponent | null>(null);
   const [currentSchema, setCurrentSchema] = useState(createAccountSchemas[0]);
+  const [currentNum, setCurrentNum] = useState(0);
   const [initValues] = useState<ICreateAccount>(inits);
 
   useEffect(() => {
@@ -36,8 +37,8 @@ const Vertical = () => {
     if (!stepper.current) {
       return;
     }
-
     stepper.current.goPrev();
+    setCurrentNum((current) => currentNum - 1);
 
     setCurrentSchema(
       createAccountSchemas[stepper.current.currentStepIndex - 1]
@@ -51,6 +52,7 @@ const Vertical = () => {
 
     if (stepper.current.currentStepIndex !== stepper.current.totalStepsNumber) {
       stepper.current.goNext();
+      setCurrentNum((current) => currentNum + 1);
     } else {
       stepper.current.goto(1);
       actions.resetForm();
@@ -88,24 +90,29 @@ const Vertical = () => {
             <div className="stepwizard-tablist mw-75 m-auto">
               <ul className="stepwizard-tablist-list">
                 <li
-                  className="stepwizard-tablist-list-item current"
-                  data-kt-stepper-element="nav"
+                  className={`stepwizard-tablist-list-item ${
+                    currentNum == 0 && "current"
+                  } ${currentNum > 0 && "completed"}`}
                 ></li>
                 <li
-                  className="stepwizard-tablist-list-item"
-                  data-kt-stepper-element="nav"
+                  className={`stepwizard-tablist-list-item ${
+                    currentNum == 1 && "current"
+                  } ${currentNum > 1 && "completed"}`}
                 ></li>
                 <li
-                  className="stepwizard-tablist-list-item"
-                  data-kt-stepper-element="nav"
+                  className={`stepwizard-tablist-list-item ${
+                    currentNum == 2 && "current"
+                  } ${currentNum > 2 && "completed"}`}
                 ></li>
                 <li
-                  className="stepwizard-tablist-list-item"
-                  data-kt-stepper-element="nav"
+                  className={`stepwizard-tablist-list-item ${
+                    currentNum == 3 && "current"
+                  } ${currentNum > 3 && "completed"}`}
                 ></li>
                 <li
-                  className="stepwizard-tablist-list-item"
-                  data-kt-stepper-element="nav"
+                  className={`stepwizard-tablist-list-item ${
+                    currentNum == 4 && "current"
+                  } ${currentNum > 4 && "completed"}`}
                 ></li>
               </ul>
             </div>
@@ -113,9 +120,12 @@ const Vertical = () => {
         </div>
 
         {/* begin::Aside*/}
-        <div  className="card d-none d-md-flex justify-content-center justify-content-xl-start flex-row w-100 w-md-200px w-xxl-300px me-2">
+        <div className="card d-none d-md-flex justify-content-center justify-content-xl-start flex-row w-100 w-md-200px w-xxl-300px me-2">
           {/* begin::Wrapper*/}
-          <div className="card-body px-3 px-lg-6 px-xxl-10 py-10 d-flex align-items-center position-sticky top-0" style={{height: '100vh'}}>
+          <div
+            className="card-body px-3 px-lg-6 px-xxl-10 py-10 d-flex align-items-center position-sticky top-0"
+            style={{ height: "100vh" }}
+          >
             {/* begin::Nav*/}
             <div className="stepper-nav">
               {/* begin::Step 1*/}
@@ -264,7 +274,10 @@ const Vertical = () => {
         </div>
         {/* begin::Aside*/}
 
-        <div className="d-flex flex-row-fluid flex-center bg-body rounded" style={{flexBasis: '100%'}}>
+        <div
+          className="d-flex flex-row-fluid flex-center bg-body rounded"
+          style={{ flexBasis: "100%" }}
+        >
           <Formik
             validationSchema={currentSchema}
             initialValues={initValues}
@@ -310,21 +323,41 @@ const Vertical = () => {
                   </div>
 
                   <div>
-                    <button
-                      type="submit"
-                      className="btn btn-lg btn-primary me-3"
-                    >
-                      <span className="indicator-label d-flex align-items-center">
-                        {stepper.current?.currentStepIndex !==
-                          stepper.current?.totalStepsNumber! - 1 && "Continue"}
-                        {stepper.current?.currentStepIndex ===
-                          stepper.current?.totalStepsNumber! - 1 && "Submit"}
-                        <KTIcon
-                          iconName="arrow-right"
-                          className="fs-3 ms-2 me-0"
-                        />
-                      </span>
-                    </button>
+                    {!!stepper.current?.currentStepIndex &&
+                    stepper.current?.currentStepIndex ===
+                      stepper.current?.totalStepsNumber! ? (
+                      <>
+                        {" "}
+                        <button
+                          type="submit"
+                          className="btn btn-lg btn-success me-3"
+                        >
+                          <span className="indicator-label d-flex align-items-center">
+                            Publish{" "}
+                            <KTIcon
+                              iconName="rocket"
+                              className="fs-2 ms-2 me-0 text-dark"
+                            />
+                          </span>
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        {" "}
+                        <button
+                          type="submit"
+                          className="btn btn-lg btn-primary me-3"
+                        >
+                          <span className="indicator-label d-flex align-items-center">
+                            Continue{" "}
+                            <KTIcon
+                              iconName="arrow-right"
+                              className="fs-3 ms-2 me-0"
+                            />
+                          </span>
+                        </button>
+                      </>
+                    )}
                   </div>
                 </div>
               </Form>
@@ -376,7 +409,7 @@ const Vertical = () => {
                 </div>
               </div>
               <div className="d-block mt-5 end-0 position-relative d-flex justify-content-center">
-              <button
+                <button
                   className="btn btn-sm btn-success fw-bold me-4"
                   data-bs-dismiss="modal"
                   onClick={() => goHome()}
