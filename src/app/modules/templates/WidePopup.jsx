@@ -28,8 +28,8 @@ function WidePopup(props) {
                                         </div>
                                         <h1 className="modal-title w-100 text-center fs-2x fw-bold">{props.title}</h1>
                                         <span className="modal-title text-center d-block">{props.subTitle}</span>
-                                        <div className="modal-title text-center d-block mt-2 fw-bolder">{props.durationHeadline}</div>
-                                        <div className='text-center fw-bolder'>{props.durationMechanism == "countdown" ? (<> {props.durationCountdownDays}d :{" "}
+                                        <div className="modal-title text-center d-block mt-2 fw-bolder fs-4">{props.durationHeadline}</div>
+                                        <div className='text-center fw-bolder mt-2'>{props.durationMechanism == "countdown" ? (<> {props.durationCountdownDays}d :{" "}
                                             {props.durationCountdownHours}h :{" "}
                                             {props.durationCountdownMinutes}m</>) : (<>{props.durationText}</>)}</div>
                                         <div className="text-center d-block w-100 mx-auto p-2 mt-2 border border-dashed border-primary rounded fw-bold">{props.isCouponVisible ? (<>YOURCODEHERE</>) : (<>*********</>)}</div>
