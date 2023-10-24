@@ -24,7 +24,7 @@ const Step5: FC = () => {
       </div>
 
       <div className="d-flex flex-column flex-md-row gap-5 my-8 w-100">
-        <div className="w-100 w-md-25">iframe içinde popup gelecek</div>
+        <div className="w-100 w-md-25 bg-light rounded-3">iframe içinde popup gelecek</div>
         <div className="card card-xl-stretch w-md-75 w-100">
           <div className="card-header border-0 pt-5">
             <h3 className="card-title align-items-start flex-column">
