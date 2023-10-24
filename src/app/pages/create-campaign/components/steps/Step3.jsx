@@ -8,7 +8,7 @@ import { CampaignUploadCoupons } from "./components/CampaignUploadCoupons"
 import { CampaignDiscountRange } from "./components/CampaignDiscountRange";
 const Step3 = () => {
   return (
-    <div className="w-100">
+    <div className="w-100 w-xxl-900px mx-auto">
       <div className="pb-10 pb-lg-15">
         <h2 className="fw-bolder text-dark">Campaign Settings</h2>
         <div className="text-gray-400 fw-bold fs-6 d-none">

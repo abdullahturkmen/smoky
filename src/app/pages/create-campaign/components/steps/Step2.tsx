@@ -11,7 +11,7 @@ const Step2: FC = () => {
   ];
 
   return (
-    <div className="w-100">
+    <div className="w-100 w-xxl-900px mx-auto">
       <div className="pb-10 pb-lg-15">
         <h2 className="fw-bolder text-dark">Template Details</h2>
 
