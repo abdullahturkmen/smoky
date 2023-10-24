@@ -24,7 +24,9 @@ const Step5: FC = () => {
       </div>
 
       <div className="d-flex flex-column flex-md-row gap-5 my-8 w-100">
-        <div className="w-100 w-md-25 bg-light rounded-3">iframe içinde popup gelecek</div>
+        <div className="w-100 w-md-25 bg-light rounded-3">
+          iframe içinde popup gelecek
+        </div>
         <div className="card card-xl-stretch w-md-75 w-100">
           <div className="card-header border-0 pt-5">
             <h3 className="card-title align-items-start flex-column">
@@ -92,7 +94,9 @@ const Step5: FC = () => {
             </svg>
             <div className="d-flex flex-column ms-5">
               <div className="fs-5 fw-bolder">Discount Range</div>
-              <div className="fs-7 ">detaylar gelecek</div>
+              <div className="fs-7 ">
+                Selected discount range for Prediction Engine is 10% - 20%
+              </div>
             </div>
           </div>
           <div className="item border-bottom py-5 d-flex align-items-center">
@@ -109,7 +113,7 @@ const Step5: FC = () => {
             </svg>
             <div className="d-flex flex-column ms-5">
               <div className="fs-5 fw-bolder">Campaign Limit</div>
-              <div className="fs-7 ">detaylar gelecek</div>
+              <div className="fs-7 ">Selected campaign limit: Number of Products in Cart</div>
             </div>
           </div>
           <div className="item border-bottom py-5 d-flex align-items-center">
@@ -146,7 +150,9 @@ const Step5: FC = () => {
             </svg>
             <div className="d-flex flex-column ms-5">
               <div className="fs-5 fw-bolder">Pages</div>
-              <div className="fs-7 ">detaylar gelecek</div>
+              <div className="fs-7 ">
+                Display on (all/multiple) pages with IP Restriction, AI/ML ...
+              </div>
             </div>
           </div>
         </div>

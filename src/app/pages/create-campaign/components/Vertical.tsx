@@ -13,6 +13,7 @@ import {
   inits,
 } from "./CreateAccountWizardHelper";
 import { Link, useNavigate } from "react-router-dom";
+import PublishCampaignModal from "../../../../_metronic/layout/components/modals/PublishCampaignModal";
 
 const Vertical = () => {
   const navigate = useNavigate();
@@ -329,8 +330,10 @@ const Vertical = () => {
                       <>
                         {" "}
                         <button
-                          type="submit"
+                          type="button"
                           className="btn btn-lg btn-success me-3"
+                          data-bs-toggle="modal"
+                          data-bs-target="#publishCampaignModal"
                         >
                           <span className="indicator-label d-flex align-items-center">
                             Publish{" "}
@@ -435,6 +438,7 @@ const Vertical = () => {
         </div>
       </div>
       {/* end::modalCloseCreateCampaign */}
+      <PublishCampaignModal />
     </>
   );
 };
