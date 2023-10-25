@@ -389,7 +389,7 @@ const CampaignDisplayPages = () => {
           </div>
 
           <div className="d-flex gap-20">
-            <label className="form-check form-switch form-check-custom form-check-solid  align-items-center mt-5">
+            <label className="form-check form-switch form-check-custom form-check-solid  align-items-center mt-8">
               <input className="form-check-input me-5" type="checkbox" />
               <span className="form-label fw-bolder mb-0">IP Restriction</span>
             </label>

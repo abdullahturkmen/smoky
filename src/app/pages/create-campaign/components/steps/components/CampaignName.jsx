@@ -30,7 +30,7 @@ const CampaignName = () => {
             >
                 <div className="accordion-body ">
                     <div className="row">
-                        <div className="col-12 col-lg-6 mb-4">
+                        <div className="col-12 col-lg-6">
                             <label
                                 htmlFor="campaignname"
                                 className="form-label fs-7 fw-bolder mb-1"
@@ -47,6 +47,12 @@ const CampaignName = () => {
                             />
                         </div>
                     </div>
+                </div>
+                <div className="d-flex justify-content-end">
+                    <button type="button" className="btn btn-sm btn-primary m-5" id="headingTwo">Continue <KTIcon
+                        iconName="arrow-right"
+                        className="fs-3 ms-2 me-0"
+                        /></button>
                 </div>
             </div>
         </div>
