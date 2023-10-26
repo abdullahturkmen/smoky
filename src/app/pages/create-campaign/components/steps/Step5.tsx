@@ -9,6 +9,7 @@ const Step5: FC = () => {
     <div className="w-100 w-xxl-900px mx-auto">
       <div className="d-flex align-items-center">
         <input
+          id="lastCampaignName"
           value={campaignName}
           onChange={(e) => setCampaignName(e.target.value)}
           className="border-0 h1"
@@ -17,14 +18,25 @@ const Step5: FC = () => {
             width: `${campaignName.length}ch`,
           }}
         />
-        <KTIcon iconName="pencil" className="fs-4" />
+        <label htmlFor="lastCampaignName">
+          <KTIcon iconName="pencil" className="fs-4" />
+        </label>
         <div className="d-flex align-items-center bg-light px-4 py-2 rounded ms-3">
           Draft <span className="bg-danger p-2 rounded-circle ms-2"></span>
         </div>
       </div>
 
       <div className="d-flex flex-column flex-md-row gap-5 my-8 w-100">
-        <div className="w-100 w-md-25 bg-light rounded-3">
+        <div
+          className="w-100 w-md-25 bg-light rounded-3"
+          style={{
+            backgroundColor: "rgba(0, 0, 0, 0.1)",
+            backgroundImage:
+              "linear-gradient(45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.1) 100%), linear-gradient(45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.1) 100%)",
+            backgroundSize: "16px 16px",
+            backgroundPosition: "0px 0px, 8px 8px",
+          }}
+        >
           iframe içinde popup gelecek
         </div>
         <div className="card card-xl-stretch w-md-75 w-100">
@@ -113,7 +125,9 @@ const Step5: FC = () => {
             </svg>
             <div className="d-flex flex-column ms-5">
               <div className="fs-5 fw-bolder">Campaign Limit</div>
-              <div className="fs-7 ">Selected campaign limit: Number of Products in Cart</div>
+              <div className="fs-7 ">
+                Selected campaign limit: Number of Products in Cart
+              </div>
             </div>
           </div>
           <div className="item border-bottom py-5 d-flex align-items-center">

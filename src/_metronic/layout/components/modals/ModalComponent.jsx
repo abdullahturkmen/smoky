@@ -1,7 +1,7 @@
 import React from 'react';
 
-function ModalComponent({ ids, children, onSubmit, title, modalClass, submitText, submitBg, discardText,discardBg }) {
-    const modalClasses = `modal fade ${modalClass}`
+function ModalComponent({ ids, children, onSubmit, title, modalClass, submitText, submitBg, discardText, discardBg }) {
+  const modalClasses = `modal fade ${modalClass}`
 
   return (
     <div className={modalClasses} id={ids} aria-hidden="true" tabIndex="-1">
@@ -24,8 +24,10 @@ function ModalComponent({ ids, children, onSubmit, title, modalClass, submitText
             {children}
           </div>
           <div className="modal-footer d-flex justify-content-center border-top-0">
-            <button className={discardBg} data-bs-dismiss="modal"> {discardText} </button>
-            <button className={submitBg} onClick={onSubmit}>{submitText}</button>
+            <button type='button' className={discardBg} data-bs-dismiss="modal"> {discardText} </button>
+            {submitText && (<>
+              <button type='button' className={submitBg} onClick={onSubmit}>{submitText}</button>
+            </>)}
           </div>
         </div>
       </div>
