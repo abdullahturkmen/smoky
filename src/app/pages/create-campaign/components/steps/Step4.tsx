@@ -600,13 +600,13 @@ const Step4: FC = () => {
                         >
                           <div className="accordion-body">
                             <p>Background color:</p>
-                            <button
-                              type="button"
-                              className="btn w-100 text-white mb-3"
-                              style={{ backgroundColor: color }}
+                            <span
+                              
+                              className="d-flex text-center align-items-center justify-content-center rounded w-100 text-white mb-3"
+                              style={{ backgroundColor: color , height: '48px'}}
                             >
                               Example Text
-                            </button>
+                            </span>
                             <HexColorPicker
                               color={color}
                               onChange={setColor}
@@ -869,7 +869,7 @@ const Step4: FC = () => {
                     }}
                   >
                     {reminderText}
-                    <button className="position-absolute top-0 end-0 p-1 fs-4 text-dark btn btn-sm">
+                    <button type="button" className="position-absolute top-0 end-0 p-1 fs-4 text-dark btn btn-sm">
                       x
                     </button>
                   </div>
