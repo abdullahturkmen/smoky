@@ -221,41 +221,34 @@ const Step4: FC = () => {
                 <div className="fv-row mb-10">
                   <label className="form-label required">Cover Image</label>
 
-                  <div
-                    className="upload-content position-relative w-100 d-flex align-items-center justify-content-center bg-light rounded p-4"
-                    style={{ minHeight: "50px" }}
-                  >
-                    <input
-                      className="file-uploader position-absolute w-100 h-100 opacity-0 cursor-pointer top-0 start-0"
-                      type="file"
-                      accept="image/*"
-                      onChange={coverImageChange}
-                    />
-                    <div className=" d-flex flex-column align-items-center">
-                      {coverImage && (
-                        <>
-                          <img
-                            src={coverImage}
-                            style={{ maxWidth: "200px" }}
-                            className="rounded-3 border border-dark p-2 mb-2"
+                  <div className="d-flex gap-4">
+                    <div
+                      className="upload-content position-relative w-100 d-flex align-items-center justify-content-center bg-light rounded p-4"
+                      style={{ minHeight: "50px" }}
+                    >
+                      <input
+                        className="file-uploader position-absolute w-100 h-100 opacity-0 cursor-pointer top-0 start-0"
+                        type="file"
+                        accept="image/*"
+                        onChange={coverImageChange}
+                      />
+                      <div className=" d-flex flex-column align-items-center">
+                        <div className=" d-flex  text-center  align-items-center text-dark ">
+                          <KTIcon
+                            iconName="plus"
+                            className="fw-bolder fs-3 me-2 "
                           />
-                        </>
-                      )}
-                      <div className=" d-flex  align-items-center text-dark ">
-                        <KTIcon
-                          iconName="plus"
-                          className="fw-bolder fs-3 me-2 "
-                        />
-                        Select your cover image or{" "}
-                        <a
-                          className="position-relative cursor-pointer text-decoration-underline text-primary ms-1"
-                          style={{ zIndex: "9999999" }}
-                          data-bs-toggle="modal"
-                          data-bs-target="#UnsplashImagesModal"
-                        >
-                          Unsplash Free Images
-                        </a>
+                          Select your cover image
+                        </div>
                       </div>
+                    </div>
+                    <div className="w-100 d-flex text-center align-items-center justify-content-center bg-light rounded p-4">
+                      {" "}
+                      <KTIcon
+                        iconName="plus"
+                        className="fw-bolder fs-3 me-2 "
+                      />
+                      Unsplash free images
                     </div>
                   </div>
                 </div>
@@ -276,15 +269,6 @@ const Step4: FC = () => {
                       onChange={logoChange}
                     />
                     <div className=" d-flex flex-column align-items-center">
-                      {logo && (
-                        <>
-                          <img
-                            src={logo}
-                            style={{ maxWidth: "200px" }}
-                            className="rounded-3 border border-dark p-2 mb-2"
-                          />
-                        </>
-                      )}
                       <div className=" d-flex  align-items-center text-dark  ">
                         <KTIcon
                           iconName="plus"
@@ -451,6 +435,7 @@ const Step4: FC = () => {
                             <div className="rounded fw-bold d-flex align-items-center">
                               <div className="bg-light rounded d-flex align-items-center">
                                 <Field
+                                  type="number"
                                   name="businessDescriptor"
                                   className="form-control form-control-lg form-control-solid"
                                   value={durationCountdownDays}
@@ -462,6 +447,7 @@ const Step4: FC = () => {
                               <div className="text-nowrap mx-2">:</div>
                               <div className="bg-light rounded d-flex align-items-center">
                                 <Field
+                                  type="number"
                                   name="businessDescriptor"
                                   className="form-control form-control-lg form-control-solid"
                                   value={durationCountdownHours}
@@ -473,6 +459,7 @@ const Step4: FC = () => {
                               <div className="text-nowrap mx-2">:</div>
                               <div className="bg-light rounded d-flex align-items-center">
                                 <Field
+                                  type="number"
                                   name="businessDescriptor"
                                   className="form-control form-control-lg form-control-solid"
                                   value={durationCountdownMinutes}
@@ -601,9 +588,8 @@ const Step4: FC = () => {
                           <div className="accordion-body">
                             <p>Background color:</p>
                             <span
-                              
                               className="d-flex text-center align-items-center justify-content-center rounded w-100 text-white mb-3"
-                              style={{ backgroundColor: color , height: '48px'}}
+                              style={{ backgroundColor: color, height: "48px" }}
                             >
                               Example Text
                             </span>
@@ -860,8 +846,8 @@ const Step4: FC = () => {
                   <div
                     className={`rounded-circle position-absolute m-5 p-3 fw-bold text-white d-flex align-items-center justify-content-center text-center`}
                     style={{
-                      width: "130px",
-                      height: "130px",
+                      width: "120px",
+                      height: "120px",
                       backgroundColor: color,
                       ...pos1,
                       ...pos2,
@@ -869,7 +855,10 @@ const Step4: FC = () => {
                     }}
                   >
                     {reminderText}
-                    <button type="button" className="position-absolute top-0 end-0 p-1 fs-4 text-dark btn btn-sm">
+                    <button
+                      type="button"
+                      className="position-absolute top-0 end-0 py-0 px-2 fs-4 text-white bg-dark rounded-circle btn btn-sm"
+                    >
                       x
                     </button>
                   </div>
