@@ -9,7 +9,7 @@ import UnsplashImagesModal from "../../../../../_metronic/layout/components/moda
 const Step4: FC = () => {
   const [coverImage, setCoverImage] = useState<string | undefined>("");
   const [logo, setLogo] = useState<string | undefined>("");
-  const [buttonText, setButtonText] = useState("Button Text");
+  const [buttonText, setButtonText] = useState("Copy Code");
   const [showCouponButtonText, setShowCouponButtonText] =
     useState("Show Coupon Code");
   const [confirmationButtonText, setConfirmationButtonText] =
@@ -21,9 +21,9 @@ const Step4: FC = () => {
     useState("20");
   const [durationText, setDurationText] = useState("");
   const [durationMechanism, setDurationMechanism] = useState("countdown");
-  const [title, setTitle] = useState("Pops Firması");
+  const [title, setTitle] = useState("Jump Into This Deal");
   const [disclaimer, setDisclaimer] = useState(
-    "Lorem ipsum, dolor sit amet consectetur adipisicing elit."
+    ""
   );
   const [subTitle, setSubTitle] = useState(
     "Lorem ipsum, dolor sit amet consectetur adipisicing elit."
@@ -152,13 +152,13 @@ const Step4: FC = () => {
   /////----------REMINDER ------- /////
 
   const [color, setColor] = useState("#3C53F4");
-  const [pos, setPos] = useState("left-top");
+  const [pos, setPos] = useState("left-bottom");
   const [pos1, setPos1] = useState({ left: "0" });
-  const [pos2, setPos2] = useState({ top: 0 });
+  const [pos2, setPos2] = useState({ bottom: 0 });
   const [pos3, setPos3] = useState(0);
   const [pos4, setPos4] = useState(0);
   const [reminderText, setReminderText] = useState(
-    "Lorem ipsum, dolor sit amet."
+    "Get Your Code"
   );
 
   const selectPosition = (pos, pos1, pos2, pos3, pos4) => {
@@ -203,7 +203,11 @@ const Step4: FC = () => {
                 data-bs-toggle="tab"
                 href="#reminder_tab"
               >
-                Reminder
+                <span
+                  className={reminderIsActive ? "text-success" : "text-danger"}
+                >
+                  Reminder
+                </span>
               </a>
             </li>
           </ul>
@@ -242,7 +246,11 @@ const Step4: FC = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="w-100 d-flex text-center align-items-center justify-content-center bg-light rounded p-4">
+                    <div
+                      className="w-100 d-flex text-center align-items-center justify-content-center bg-light rounded p-4 cursor-pointer"
+                      data-bs-toggle="modal"
+                      data-bs-target="#UnsplashImagesModal"
+                    >
                       {" "}
                       <KTIcon
                         iconName="plus"
@@ -715,7 +723,7 @@ const Step4: FC = () => {
                                     >
                                       Left Center
                                     </td>
-                                    <td className="bg-light text-muted">
+                                    <td className="bg-light text-muted" style={{width: '70px'}}>
                                       Center of page
                                     </td>
                                     <td

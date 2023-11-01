@@ -72,7 +72,7 @@ const CampaignSchedule = () => {
         {
             day: { value: "Everyday", label: "Everyday" },
             startHour: { value: "00:00", label: "00:00" },
-            endHour: { value: "23:30", label: "23:30" },
+            endHour: { value: "23:59", label: "23:59" },
         },
     ]);
 
@@ -82,7 +82,7 @@ const CampaignSchedule = () => {
             {
                 day: { value: "Everyday", label: "Everyday" },
                 startHour: { value: "00:00", label: "00:00" },
-                endHour: { value: "23:30", label: "23:30" },
+                endHour: { value: "23:59", label: "23:59" },
             },
         ]);
     };
