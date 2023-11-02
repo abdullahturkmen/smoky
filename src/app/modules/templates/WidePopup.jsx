@@ -26,16 +26,25 @@ function WidePopup(props) {
                                             </>)}
 
                                         </div>
-                                        <h1 className="modal-title w-100 text-center fs-2x fw-bold">{props.title}</h1>
+                                        <h1 className="modal-title w-100 text-center  fw-bold">{props.title}</h1>
                                         <span className="modal-title text-center d-block">{props.subTitle}</span>
                                         <div className="modal-title text-center d-block mt-2 fw-bolder fs-4">{props.durationHeadline}</div>
-                                        <div className='text-center fw-bolder mt-2'>{props.durationMechanism == "countdown" ? (<>
+                                        <div className='text-center fw-bolder mt-2'>
+                                            {props.durationMechanism === "countdown" ? (
+                                                <>
+                                                    {parseInt(props.durationCountdownDays) > 0 && (<>{props.durationCountdownDays}d :{" "}</>)}
+                                                    {parseInt(props.durationCountdownHours) > 0 && (<>{props.durationCountdownHours}h :{" "}</>)}
+                                                    {props.durationCountdownMinutes}m
+                                                    <br />
+                                                    <span style={{ fontSize: '0.7em' }}>days</span>{' '}
+                                                    <span style={{ fontSize: '0.7em' }}>hour</span>{' '}
+                                                    <span style={{ fontSize: '0.7em' }}>minute</span>
+                                                </>
+                                            ) : (
+                                                <>{props.durationText}</>
+                                            )}
+                                        </div>
 
-                                            {parseInt(props.durationCountdownDays) > 0 && (<>{props.durationCountdownDays}d :{" "}</>)}
-                                            {parseInt(props.durationCountdownHours) > 0 && (<>{props.durationCountdownHours}h :{" "}</>)}
-                                            {props.durationCountdownMinutes}m
-
-                                        </>) : (<>{props.durationText}</>)}</div>
                                         <div className="text-center d-block w-100 mx-auto p-2 mt-2 border border-dashed border-primary rounded fw-bold">{props.isCouponVisible ? (<>YOURCODEHERE</>) : (<>*********</>)}</div>
                                         <button className='btn btn-dark w-100 mt-5'>
 

@@ -91,29 +91,24 @@ const Vertical = () => {
             <div className="stepwizard-tablist mw-75 m-auto">
               <ul className="stepwizard-tablist-list">
                 <li
-                  className={`stepwizard-tablist-list-item ${
-                    currentNum == 0 && "current"
-                  } ${currentNum > 0 && "completed"}`}
+                  className={`stepwizard-tablist-list-item ${currentNum == 0 && "current"
+                    } ${currentNum > 0 && "completed"}`}
                 ></li>
                 <li
-                  className={`stepwizard-tablist-list-item ${
-                    currentNum == 1 && "current"
-                  } ${currentNum > 1 && "completed"}`}
+                  className={`stepwizard-tablist-list-item ${currentNum == 1 && "current"
+                    } ${currentNum > 1 && "completed"}`}
                 ></li>
                 <li
-                  className={`stepwizard-tablist-list-item ${
-                    currentNum == 2 && "current"
-                  } ${currentNum > 2 && "completed"}`}
+                  className={`stepwizard-tablist-list-item ${currentNum == 2 && "current"
+                    } ${currentNum > 2 && "completed"}`}
                 ></li>
                 <li
-                  className={`stepwizard-tablist-list-item ${
-                    currentNum == 3 && "current"
-                  } ${currentNum > 3 && "completed"}`}
+                  className={`stepwizard-tablist-list-item ${currentNum == 3 && "current"
+                    } ${currentNum > 3 && "completed"}`}
                 ></li>
                 <li
-                  className={`stepwizard-tablist-list-item ${
-                    currentNum == 4 && "current"
-                  } ${currentNum > 4 && "completed"}`}
+                  className={`stepwizard-tablist-list-item ${currentNum == 4 && "current"
+                    } ${currentNum > 4 && "completed"}`}
                 ></li>
               </ul>
             </div>
@@ -325,7 +320,7 @@ const Vertical = () => {
 
                   <div>
                     {!!stepper.current?.currentStepIndex &&
-                    stepper.current?.currentStepIndex ===
+                      stepper.current?.currentStepIndex ===
                       stepper.current?.totalStepsNumber! ? (
                       <>
                         {" "}
@@ -370,12 +365,29 @@ const Vertical = () => {
       </div>
 
       {/* begin::modalCloseCreateCampaign */}
+      
       <button
         className="position-absolute end-0 btn btn-danger rounded btn-sm m-4"
         data-bs-toggle="modal"
         data-bs-target="#closeCreateCampaign"
       >
         Save & Exit
+      </button>
+
+      <button
+        type="button"
+        className="position-absolute d-flex btn btn-success rounded btn-sm m-4 "
+        data-bs-toggle="modal"
+        data-bs-target="#publishCampaignModal"
+        style={{ right: '110px' }}
+      >
+        <span className="indicator-label d-flex align-items-center">
+          Publish{" "}
+          <KTIcon
+            iconName="rocket"
+            className="fs-2 ms-2 me-0 text-dark"
+          />
+        </span>
       </button>
 
       <div className="modal fade" id="closeCreateCampaign">

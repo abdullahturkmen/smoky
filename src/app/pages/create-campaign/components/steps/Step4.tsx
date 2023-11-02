@@ -299,14 +299,47 @@ const Step4: FC = () => {
                   />
                 </div>
 
-                <div className="fv-row mb-10">
+                <div className="fv-row mb-10 d-flex flex-column">
                   <label className="form-label required">Subheader</label>
-                  <Field
+                  <label className="form-check form-check-inline mb-2 mt-1">
+                    <input
+                      className='form-check-input me-2'
+                      type='checkbox'
+                      value='1'
+                      defaultChecked
+                    />
+                    <span>burası değişecek</span>
+                  </label>
+
+                  <div className="row d-flex align-items-center fs-3">
+                    <div className="col-10 col-lg-5 mb-0 mb-lg-3">
+                      <Field
+                        name="subTitle"
+                        className="form-control form-control-lg form-control-solid"
+                        value={subTitle}
+                        onChange={subTitleChange}
+                      />
+                    </div>
+                    <div className="col-1 text-center fw-bold mb-0 mb-lg-3">
+                      %
+                    </div>
+
+                    <div className="col-10 col-lg-5 mb-0 mb-lg-3">
+                      <Field
+                        name="subTitle"
+                        className="form-control form-control-lg form-control-solid"
+                        value={subTitle}
+                        onChange={subTitleChange}
+                      />
+                    </div>
+                  </div>
+
+                  {/* <Field
                     name="subTitle"
                     className="form-control form-control-lg form-control-solid"
                     value={subTitle}
                     onChange={subTitleChange}
-                  />
+                  /> */}
                 </div>
 
                 <div className="d-flex gap-20">
@@ -403,22 +436,20 @@ const Step4: FC = () => {
                     <button
                       type="button"
                       onClick={() => selectDurationMechanism("countdown")}
-                      className={`${
-                        durationMechanism == "countdown"
-                          ? "btn-primary"
-                          : "btn-outline-primary"
-                      } btn btn-sm border flex-grow-1`}
+                      className={`${durationMechanism == "countdown"
+                        ? "btn-primary"
+                        : "btn-outline-primary"
+                        } btn btn-sm border flex-grow-1`}
                     >
                       Countdown
                     </button>
                     <button
                       type="button"
                       onClick={() => selectDurationMechanism("text")}
-                      className={`${
-                        durationMechanism == "text"
-                          ? "btn-primary"
-                          : "btn-outline-primary "
-                      } btn btn-sm border flex-grow-1`}
+                      className={`${durationMechanism == "text"
+                        ? "btn-primary"
+                        : "btn-outline-primary "
+                        } btn btn-sm border flex-grow-1`}
                     >
                       Text
                     </button>
@@ -437,60 +468,44 @@ const Step4: FC = () => {
                           <span className="required">Countdown</span>
                         </label>
 
-                        {isHoveredCountdown ? (
-                          <>
-                            {" "}
-                            <div className="rounded fw-bold d-flex align-items-center">
-                              <div className="bg-light rounded d-flex align-items-center">
-                                <Field
-                                  type="number"
-                                  name="businessDescriptor"
-                                  className="form-control form-control-lg form-control-solid"
-                                  value={durationCountdownDays}
-                                  onChange={changeDurationDays}
-                                  onBlur={changeDurationDaysBlur}
-                                />
-                                <div className="text-nowrap mx-2">d</div>
-                              </div>
-                              <div className="text-nowrap mx-2">:</div>
-                              <div className="bg-light rounded d-flex align-items-center">
-                                <Field
-                                  type="number"
-                                  name="businessDescriptor"
-                                  className="form-control form-control-lg form-control-solid"
-                                  value={durationCountdownHours}
-                                  onChange={changeDurationHours}
-                                  onBlur={changeDurationHoursBlur}
-                                />
-                                <div className="text-nowrap mx-2">h</div>
-                              </div>
-                              <div className="text-nowrap mx-2">:</div>
-                              <div className="bg-light rounded d-flex align-items-center">
-                                <Field
-                                  type="number"
-                                  name="businessDescriptor"
-                                  className="form-control form-control-lg form-control-solid"
-                                  value={durationCountdownMinutes}
-                                  onChange={changeDurationMinutes}
-                                  onBlur={changeDurationMinutesBlur}
-                                />
-                                <div className="mx-2">m</div>
-                              </div>
-                            </div>
-                          </>
-                        ) : (
-                          <>
-                            <div className="bg-light rounded fw-bold p-4">
-                              {parseInt(durationCountdownDays) > 0 && (
-                                <>{durationCountdownDays}d : </>
-                              )}
-                              {parseInt(durationCountdownHours) > 0 && (
-                                <>{durationCountdownHours}h : </>
-                              )}
-                              {durationCountdownMinutes}m
-                            </div>
-                          </>
-                        )}
+                        {" "}
+                        <div className="rounded fw-bold d-flex align-items-center">
+                          <div className="bg-light rounded d-flex align-items-center">
+                            <Field
+                              type="number"
+                              name="businessDescriptor"
+                              className="form-control form-control-lg form-control-solid"
+                              value={durationCountdownDays}
+                              onChange={changeDurationDays}
+                              onBlur={changeDurationDaysBlur}
+                            />
+                            <div className="text-nowrap mx-2">d</div>
+                          </div>
+                          <div className="text-nowrap mx-2">:</div>
+                          <div className="bg-light rounded d-flex align-items-center">
+                            <Field
+                              type="number"
+                              name="businessDescriptor"
+                              className="form-control form-control-lg form-control-solid"
+                              value={durationCountdownHours}
+                              onChange={changeDurationHours}
+                              onBlur={changeDurationHoursBlur}
+                            />
+                            <div className="text-nowrap mx-2">h</div>
+                          </div>
+                          <div className="text-nowrap mx-2">:</div>
+                          <div className="bg-light rounded d-flex align-items-center">
+                            <Field
+                              type="number"
+                              name="businessDescriptor"
+                              className="form-control form-control-lg form-control-solid"
+                              value={durationCountdownMinutes}
+                              onChange={changeDurationMinutes}
+                              onBlur={changeDurationMinutesBlur}
+                            />
+                            <div className="mx-2">m</div>
+                          </div>
+                        </div>
                       </div>
                     </>
                   ) : (
@@ -659,11 +674,10 @@ const Step4: FC = () => {
                                           "0"
                                         )
                                       }
-                                      className={`cursor-pointer ${
-                                        pos == "left-top"
-                                          ? "bg-primary text-light"
-                                          : ""
-                                      }`}
+                                      className={`cursor-pointer ${pos == "left-top"
+                                        ? "bg-primary text-light"
+                                        : ""
+                                        }`}
                                     >
                                       Left Top
                                     </td>
@@ -677,11 +691,10 @@ const Step4: FC = () => {
                                           "0"
                                         )
                                       }
-                                      className={`cursor-pointer ${
-                                        pos == "center-top"
-                                          ? "bg-primary text-light"
-                                          : ""
-                                      }`}
+                                      className={`cursor-pointer ${pos == "center-top"
+                                        ? "bg-primary text-light"
+                                        : ""
+                                        }`}
                                     >
                                       Center Top
                                     </td>
@@ -695,11 +708,10 @@ const Step4: FC = () => {
                                           "0"
                                         )
                                       }
-                                      className={`cursor-pointer ${
-                                        pos == "right-top"
-                                          ? "bg-primary text-light"
-                                          : ""
-                                      }`}
+                                      className={`cursor-pointer ${pos == "right-top"
+                                        ? "bg-primary text-light"
+                                        : ""
+                                        }`}
                                     >
                                       Right Top
                                     </td>
@@ -715,15 +727,14 @@ const Step4: FC = () => {
                                           "-50%"
                                         )
                                       }
-                                      className={`cursor-pointer ${
-                                        pos == "left-center"
-                                          ? "bg-primary text-light"
-                                          : ""
-                                      }`}
+                                      className={`cursor-pointer ${pos == "left-center"
+                                        ? "bg-primary text-light"
+                                        : ""
+                                        }`}
                                     >
                                       Left Center
                                     </td>
-                                    <td className="bg-light text-muted" style={{width: '70px'}}>
+                                    <td className="bg-light text-muted" style={{ width: '70px' }}>
                                       Center of page
                                     </td>
                                     <td
@@ -736,11 +747,10 @@ const Step4: FC = () => {
                                           "-50%"
                                         )
                                       }
-                                      className={`cursor-pointer ${
-                                        pos == "right-center"
-                                          ? "bg-primary text-light"
-                                          : ""
-                                      }`}
+                                      className={`cursor-pointer ${pos == "right-center"
+                                        ? "bg-primary text-light"
+                                        : ""
+                                        }`}
                                     >
                                       Right Center
                                     </td>
@@ -756,11 +766,10 @@ const Step4: FC = () => {
                                           "0"
                                         )
                                       }
-                                      className={`cursor-pointer ${
-                                        pos == "left-bottom"
-                                          ? "bg-primary text-light"
-                                          : ""
-                                      }`}
+                                      className={`cursor-pointer ${pos == "left-bottom"
+                                        ? "bg-primary text-light"
+                                        : ""
+                                        }`}
                                     >
                                       Left Bottom
                                     </td>
@@ -774,11 +783,10 @@ const Step4: FC = () => {
                                           0
                                         )
                                       }
-                                      className={`cursor-pointer ${
-                                        pos == "center-bottom"
-                                          ? "bg-primary text-light"
-                                          : ""
-                                      }`}
+                                      className={`cursor-pointer ${pos == "center-bottom"
+                                        ? "bg-primary text-light"
+                                        : ""
+                                        }`}
                                     >
                                       Center Bottom
                                     </td>
@@ -792,11 +800,10 @@ const Step4: FC = () => {
                                           0
                                         )
                                       }
-                                      className={`cursor-pointer ${
-                                        pos == "right-bottom"
-                                          ? "bg-primary text-light"
-                                          : ""
-                                      }`}
+                                      className={`cursor-pointer ${pos == "right-bottom"
+                                        ? "bg-primary text-light"
+                                        : ""
+                                        }`}
                                     >
                                       Right Bottom
                                     </td>
