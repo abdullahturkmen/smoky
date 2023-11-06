@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { KTIcon } from "../../../_metronic/helpers";
+import { useSelector } from 'react-redux';
 
-type Props = {};
 
-const InstallScreen: React.FC<Props> = ({}) => {
+
+const InstallScreen = () => {
   const [loading, setLoading] = useState(false);
 
   const customScriptCode = () => {
@@ -57,6 +58,14 @@ const InstallScreen: React.FC<Props> = ({}) => {
     return codeBlock.split("&lt;").join("<").split("&gt;").join(">");
   };
 
+  const getCurrentDomain = useSelector((state) => state.domain.selectedDomain
+  )
+useEffect(() => {
+  console.log("meryemm : ", getCurrentDomain)
+  
+}, [getCurrentDomain])
+
+
   return (
     <>
       <ul className="nav nav-tabs nav-line-tabs nav-line-tabs-2x mb-5 fs-6">
@@ -85,7 +94,7 @@ const InstallScreen: React.FC<Props> = ({}) => {
         <div className="card-header border-0">
           <div className="card-title m-0">
             <h3 className="fw-bolder m-0">
-              Install popup on abdullahturkmen.com
+              Install popup on {getCurrentDomain?.label}
             </h3>
           </div>
         </div>

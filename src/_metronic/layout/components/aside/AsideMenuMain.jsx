@@ -5,20 +5,29 @@ import { KTIcon } from "../../../helpers";
 import { AsideMenuItemWithSub } from "./AsideMenuItemWithSub";
 import { AsideMenuItem } from "./AsideMenuItem";
 import Select from "react-select";
+import { useDispatch } from 'react-redux';
+import { setCurrentDomain } from "../../../../store/reducers/currentDomainReducer";
+
 
 export function AsideMenuMain() {
+  const dispatch = useDispatch();
   const intl = useIntl();
   const domainList = [
     { value: "a", label: "www.snooky.io" },
     { value: "b", label: "www.abdullahturkmen.com" },
   ];
   const [selectedDomain, setSelectedDomain] = useState(domainList[0]);
+  const changeSelectedDomain = (event) => {
+     setSelectedDomain(event);
+     dispatch(setCurrentDomain(event));
+  };
   return (
     <>
       <div className="menu-item">
         <Select
           options={domainList}
           value={selectedDomain}
+          onChange={changeSelectedDomain}
           placeholder="Domains"
           className="mt-4 form-control form-control-solid p-0"
         />
