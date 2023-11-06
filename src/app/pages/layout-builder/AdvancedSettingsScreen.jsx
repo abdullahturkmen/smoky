@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { KTIcon } from "../../../_metronic/helpers";
 
-type Props = {};
 
-const AdvancedSettingsScreen: React.FC<Props> = ({}) => {
+const AdvancedSettingsScreen = ({ }) => {
   const [loading, setLoading] = useState(false);
   return (
     <>
@@ -64,14 +63,18 @@ const AdvancedSettingsScreen: React.FC<Props> = ({}) => {
                       Activate
                     </label>
 
+
+
+
+
                     <div className="col-lg-8 d-flex align-items-center">
                       <div className="form-check form-check-solid form-switch fv-row">
                         <input
                           className="form-check-input w-45px h-30px"
                           type="checkbox"
                           id="allowmarketing"
-                          // defaultChecked={}
-                          // onChange={}
+                        // defaultChecked={}
+                        // onChange={}
                         />
                         <label className="form-check-label"></label>
                       </div>
@@ -133,8 +136,8 @@ const AdvancedSettingsScreen: React.FC<Props> = ({}) => {
                         type="number"
                         min="0"
                         value="25"
-                        // defaultChecked={}
-                        // onChange={}
+                      // defaultChecked={}
+                      // onChange={}
                       />
                     </div>
                   </div>
@@ -150,7 +153,7 @@ const AdvancedSettingsScreen: React.FC<Props> = ({}) => {
                           Click
                         </option>
                         <option value="display">Display</option>
-                       
+
                       </select>
                     </div>
                   </div>
