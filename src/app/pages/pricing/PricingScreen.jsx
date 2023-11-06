@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { getPricingPlans } from './core/_request'
+// type Plan = {
+//   name: string;
+//   description: string;
+//   priceMonthly: number;
+//   priceAnnual: number;
+//   features: { name: string; isAvailable: boolean }[];
+// };
 
-type Plan = {
-  name: string;
-  description: string;
-  priceMonthly: number;
-  priceAnnual: number;
-  features: { name: string; isAvailable: boolean }[];
-};
-
-const plans: Plan[] = [
+const plans = [
   {
     name: "Startup",
     description: "Optimal for 10+ team size and new startup",
@@ -56,14 +56,40 @@ const plans: Plan[] = [
   },
 ];
 
-type Props = {};
 
-const PricingScreen: React.FC<Props> = ({ }) => {
-  const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
 
-  const planSelect = (plan: Plan) => {
+const PricingScreen = () => {
+  const [selectedPlan, setSelectedPlan] = useState('monthly');
+  const [plansList, setPlansList] = useState([])
+  const [monthly, setMonthly] = useState([])
+  const [year, setYear] = useState([])
+  const planSelect = (plan) => {
     setSelectedPlan(plan);
   };
+
+  
+
+  useEffect(() => {
+   console.log(' getPricingPlans()', getPricingPlans())
+   getPricingPlans()
+      .then((data) => {
+        const monthlyData = data.filter((e) => e.interval === 'month');
+        const yearData = data.filter((e) => e.interval === 'year');
+
+        setMonthly(monthlyData);
+        setYear(yearData);
+
+        if (selectedPlan === 'year') {
+          setPlansList(yearData)
+        }
+        else {
+          setPlansList(monthlyData)
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching pricing plans: ", error);
+      });
+  });
 
   return (
     <>
@@ -81,36 +107,41 @@ const PricingScreen: React.FC<Props> = ({ }) => {
                 .
               </div>
             </div>
-            {/* <div
+            <div
               className="nav-group nav-group-outline mx-auto mb-15"
               data-kt-buttons="true"
               data-kt-initialized="1"
             >
               <button
-                className="btn btn-color-gray-600 btn-active btn-active-secondary px-6 py-3 me-2 active"
+                className={`btn btn-color-gray-600 ${selectedPlan === 'monthly' ? 'btn-active btn-active-secondary active' : ''
+                  } px-6 py-3 me-2`}
                 data-kt-plan="month"
+                onClick={() => planSelect('monthly')}
               >
                 Monthly
               </button>
 
               <button
-                className="btn btn-color-gray-600 btn-active btn-active-secondary px-6 py-3"
+                className={`btn btn-color-gray-600 ${selectedPlan === 'year' ? 'btn-active btn-active-secondary active' : ''
+                  } px-6 py-3`}
                 data-kt-plan="annual"
+                onClick={() => planSelect('year')}
               >
                 Annual
               </button>
-            </div> */}
+            </div>
+
             <div className="row g-10">
-              {plans.map((plan, index) => (
+              {plansList.map((plan, index) => (
                 <div className="col-xl-4" key={index}>
                   <div className="d-flex h-100 align-items-center">
                     <div className="w-100 d-flex flex-column flex-center rounded-3 bg-light bg-opacity-75 py-15 px-10">
                       <div className="mb-7 text-center">
                         <h1 className="text-dark mb-5 fw-bolder">
-                          {plan.name}
+                          title gelecek
                         </h1>
 
-                        <div className="text-gray-600 fw-semibold mb-5">
+                        {/* <div className="text-gray-600 fw-semibold mb-5">
                           {plan.description}
                         </div>
 
@@ -132,10 +163,10 @@ const PricingScreen: React.FC<Props> = ({ }) => {
                           <span className="fs-7 fw-semibold opacity-50">
                             /<span data-kt-element="period">Mon</span>
                           </span>
-                        </div>
+                        </div> */}
                       </div>
 
-                      <div className="w-100 mb-10">
+                      {/* <div className="w-100 mb-10">
                         {plan.features.map((feature, featureIndex) => (
                           <div
                             className="d-flex align-items-center mb-5"
@@ -157,10 +188,10 @@ const PricingScreen: React.FC<Props> = ({ }) => {
                             )}
                           </div>
                         ))}
-                      </div>
+                      </div> */}
 
                       <button
-                        onClick={() => planSelect(plan)}
+
                         className={`btn btn-sm btn-primary ${selectedPlan === plan ? "disabled" : ""
                           }`}
                       >
