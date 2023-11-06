@@ -2,8 +2,15 @@ import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import { KTIcon } from "../../../../../../_metronic/helpers";
 
+import { useDispatch, useSelector } from 'react-redux';
+import { setCollapseNum } from "../../../../../../store/reducers/createCampaignReducer";
+
+
 
 const CampaignDisplayPages = () => {
+  const dispatch = useDispatch();
+  const storeCollapseNum = useSelector((state) => state.createCampaign.collapseNum)
+
   const [selectedPagesOption, setSelectedPagesOption] = useState("selectedPages");
   const [frequencyIsActive, setFrequencyIsActive] = useState(false)
   const [selectedFrequentlyShowOptionDetail, setSelectedFrequentlyShowOptionDetail] = useState('everyPageLoad')
@@ -177,13 +184,14 @@ const CampaignDisplayPages = () => {
           data-bs-target="#collapseSix"
           aria-expanded="false"
           aria-controls="collapseSix"
+          onClick={() => dispatch(setCollapseNum(6))}
         >
           Display Pages
         </button>
       </h2>
       <div
         id="collapseSix"
-        className="accordion-collapse collapse"
+        className={`accordion-collapse collapse ${storeCollapseNum == "6"  ? 'show' : ''}`}
         aria-labelledby="headingSix"
         data-bs-parent="#accordionExample"
       >
@@ -381,7 +389,7 @@ const CampaignDisplayPages = () => {
 
           <hr />
 
-            <div className="d-flex gap-20">
+          <div className="d-flex gap-20">
             <label className="form-check form-switch form-check-custom form-check-solid  align-items-center mt-5">
               <input className="form-check-input me-5" type="checkbox" />
               <span className="form-label fw-bolder mb-0">Bot Protection</span>
@@ -548,6 +556,12 @@ const CampaignDisplayPages = () => {
           </>)}
 
         </div>
+        <div className="d-flex justify-content-end">
+                    <button type="button" className="btn btn-sm btn-primary m-5" onClick={() => dispatch(setCollapseNum(7))} id="headingTwo">Continue <KTIcon
+                        iconName="arrow-right"
+                        className="fs-3 ms-2 me-0"
+                    /></button>
+                </div>
       </div>
     </div>
   );

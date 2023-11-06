@@ -7,7 +7,17 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Geosuggest from '@ubilabs/react-geosuggest';
 import './../../../../../../_metronic/assets/sass/components/geosuggest.css';
 import { ToastContainer, toast } from 'react-toastify';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { setCollapseNum } from "../../../../../../store/reducers/createCampaignReducer";
+
+
+
 const CampaignAudience = () => {
+    const dispatch = useDispatch();
+    const storeCollapseNum = useSelector((state) => state.createCampaign.collapseNum)
+
+
     const [countryList, setCountryList] = useState([]);
     const [selectCountryList, setSelectCountryList] = useState([{ "value": "all", "label": "All locations" }, { "value": "spesific", "label": "Spesific regions" }]);
     const [selectCountryType, setSelectCountryType] = useState([{ "value": "inc", "label": "Include" }, { "value": "exc", "label": "Exclude" }]);
@@ -358,13 +368,14 @@ const CampaignAudience = () => {
                     data-bs-target="#collapseFive"
                     aria-expanded="false"
                     aria-controls="collapseFive"
+                    onClick={() => dispatch(setCollapseNum(5))}
                 >
                     Campaign Audience
                 </button>
             </h2>
             <div
                 id="collapseFive"
-                className="accordion-collapse collapse"
+                 className={`accordion-collapse collapse ${storeCollapseNum == "5"  ? 'show' : ''}`}
                 aria-labelledby="headingFive"
                 data-bs-parent="#accordionExample"
             >
@@ -1060,6 +1071,12 @@ const CampaignAudience = () => {
                         </div>
 
                     </div>
+                </div>
+                <div className="d-flex justify-content-end">
+                    <button type="button" className="btn btn-sm btn-primary m-5" onClick={() => dispatch(setCollapseNum(6))} id="headingTwo">Continue <KTIcon
+                        iconName="arrow-right"
+                        className="fs-3 ms-2 me-0"
+                    /></button>
                 </div>
             </div>
         </div>

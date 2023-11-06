@@ -2,9 +2,39 @@ import React, { FC, useState } from "react";
 import { KTIcon } from "../../../../../_metronic/helpers";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import { useDispatch, useSelector } from 'react-redux';
+import { setPageNum,setCollapseNum } from "../../../../../store/reducers/createCampaignReducer";
 
 const Step5: FC = () => {
+  const dispatch = useDispatch();
   const [campaignName, setCampaignName] = useState<string>("Untidled Campaign");
+
+  const goSchedule = () => {
+    dispatch(setCollapseNum(2))
+    dispatch(setPageNum(3))
+  }
+
+  const goDiscountRange = () => {
+    dispatch(setCollapseNum(3))
+    dispatch(setPageNum(3))
+  }
+
+  const goCampaignLimit = () => {
+    dispatch(setCollapseNum(4))
+    dispatch(setPageNum(3))
+  }
+
+  const goAudience = () => {
+    dispatch(setCollapseNum(5))
+    dispatch(setPageNum(3))
+  }
+
+  const goPages = () => {
+    dispatch(setCollapseNum(6))
+    dispatch(setPageNum(3))
+  }
+
+
   return (
     <div className="w-100 w-xxl-900px mx-auto">
       <div className="d-flex align-items-center">
@@ -48,6 +78,7 @@ const Step5: FC = () => {
               <button
                 type="button"
                 className="btn btn-sm border btn-color-primary btn-active-light-primary"
+                onClick={() => dispatch(setPageNum(4))}
               >
                 Edit Design
               </button>
@@ -86,13 +117,14 @@ const Step5: FC = () => {
             <button
               type="button"
               className="btn btn-sm border btn-color-primary btn-active-light-primary"
+              onClick={() => dispatch(setPageNum(3))}
             >
               Edit Settings
             </button>
           </div>
         </div>
         <div className="card-body">
-          <div className="item border-bottom py-5 d-flex align-items-center">
+          <div className="item border-bottom py-5 d-flex align-items-center cursor-pointer" onClick={goDiscountRange}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="36"
@@ -111,7 +143,7 @@ const Step5: FC = () => {
               </div>
             </div>
           </div>
-          <div className="item border-bottom py-5 d-flex align-items-center">
+          <div className="item border-bottom py-5 d-flex align-items-center cursor-pointer" onClick={goCampaignLimit}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="36"
@@ -130,7 +162,7 @@ const Step5: FC = () => {
               </div>
             </div>
           </div>
-          <div className="item border-bottom py-5 d-flex align-items-center">
+          <div className="item border-bottom py-5 d-flex align-items-center cursor-pointer" onClick={goAudience}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="36"
@@ -150,7 +182,7 @@ const Step5: FC = () => {
               </div>
             </div>
           </div>
-          <div className="item py-5 d-flex align-items-center">
+          <div className="item py-5 d-flex align-items-center cursor-pointer" onClick={goPages}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="36"
@@ -180,6 +212,7 @@ const Step5: FC = () => {
             <button
               type="button"
               className="btn btn-sm border btn-color-primary btn-active-light-primary"
+              onClick={goSchedule}
             >
               Edit Schedule
             </button>

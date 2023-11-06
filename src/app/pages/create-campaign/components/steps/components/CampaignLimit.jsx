@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { ToastContainer, toast } from 'react-toastify';
+import { KTIcon } from "../../../../../../_metronic/helpers";
+import { useDispatch, useSelector } from 'react-redux';
+import { setCollapseNum } from "../../../../../../store/reducers/createCampaignReducer";
 
 
 
 const CampaignLimit = () => {
+  const dispatch = useDispatch();
+  const storeCollapseNum = useSelector((state) => state.createCampaign.collapseNum)
 
   const [singleValue, setSingleValue] = useState(5);
   const [minValue, setMinValue] = useState(3);
@@ -200,13 +205,14 @@ const CampaignLimit = () => {
           data-bs-target="#collapseFour"
           aria-expanded="false"
           aria-controls="collapseFour"
+          onClick={() => dispatch(setCollapseNum(4))}
         >
           Campaign Limits
         </button>
       </h2>
       <div
         id="collapseFour"
-        className="accordion-collapse collapse"
+        className={`accordion-collapse collapse ${storeCollapseNum == "4"  ? 'show' : ''}`}
         aria-labelledby="headingFour"
         data-bs-parent="#accordionExample"
       >
@@ -348,6 +354,12 @@ const CampaignLimit = () => {
             </div>
           </div>
         </div>
+        <div className="d-flex justify-content-end">
+                    <button type="button" className="btn btn-sm btn-primary m-5" onClick={() => dispatch(setCollapseNum(5))} id="headingTwo">Continue <KTIcon
+                        iconName="arrow-right"
+                        className="fs-3 ms-2 me-0"
+                    /></button>
+                </div>
       </div>
     </div>
   );

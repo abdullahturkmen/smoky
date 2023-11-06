@@ -5,8 +5,12 @@ import Select from "react-select";
 import ct from 'countries-and-timezones'
 
 import "react-datepicker/dist/react-datepicker.css";
+import { useDispatch, useSelector } from 'react-redux';
+import { setCollapseNum } from "../../../../../../store/reducers/createCampaignReducer";
 
 const CampaignSchedule = () => {
+    const dispatch = useDispatch();
+    const storeCollapseNum = useSelector((state) => state.createCampaign.collapseNum)
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [isStartDateDisabled, setIsStartDateDisabled] = useState(true);
@@ -144,6 +148,7 @@ const CampaignSchedule = () => {
                     data-bs-target="#collapseTwo"
                     aria-expanded="false"
                     aria-controls="collapseTwo"
+                    onClick={() => dispatch(setCollapseNum(2))}
                 >
                     Campaign Schedule
                     <KTIcon iconName="information-5" className="fs-1 ms-4 text-danger" />
@@ -151,7 +156,7 @@ const CampaignSchedule = () => {
             </h2>
             <div
                 id="collapseTwo"
-                className="accordion-collapse collapse"
+                className={`accordion-collapse collapse ${storeCollapseNum == "2"  ? 'show' : ''}`}
                 aria-labelledby="headingTwo"
                 data-bs-parent="#accordionExample"
             >
@@ -314,6 +319,12 @@ const CampaignSchedule = () => {
                             </button>
                         </div>
                     </div>
+                </div>
+                <div className="d-flex justify-content-end">
+                    <button type="button" className="btn btn-sm btn-primary m-5" onClick={() => dispatch(setCollapseNum(3))} id="headingTwo">Continue <KTIcon
+                        iconName="arrow-right"
+                        className="fs-3 ms-2 me-0"
+                    /></button>
                 </div>
             </div>
         </div>

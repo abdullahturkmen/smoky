@@ -4,7 +4,15 @@ import CsvDownloader from 'react-csv-downloader';
 import { useCSVReader } from 'react-papaparse';
 import { KTIcon } from "../../../../../../_metronic/helpers";
 
+import { useDispatch, useSelector } from 'react-redux';
+import { setCollapseNum, setPageNum } from "../../../../../../store/reducers/createCampaignReducer";
+
+
 const CampaignUploadCoupons = () => {
+  const dispatch = useDispatch();
+  const storeCollapseNum = useSelector((state) => state.createCampaign.collapseNum)
+
+
   const generatedCouponsTextarea = useRef(null);
   const uploadedCouponsTextarea = useRef(null);
   const { CSVReader } = useCSVReader();
@@ -16,7 +24,7 @@ const CampaignUploadCoupons = () => {
   ];
   const [codeSuffix, setCodeSuffix] = useState("SUF");
   const [codePrefix, setCodePrefix] = useState("PRE");
-  const [genericCode, setGenericCode] = useState("YOURCODE24");
+  const [genericCode, setGenericCode] = useState("DISCOUNT");
   const [couponNumber, setCouponNumber] = useState(10)
   const [selectedCharsetType, setSelectedCharsetType] = useState(
     charsetTypeList[0]
@@ -170,13 +178,14 @@ const CampaignUploadCoupons = () => {
           data-bs-target="#collapseSeven"
           aria-expanded="false"
           aria-controls="collapseSeven"
+          onClick={() => dispatch(setCollapseNum(7))}
         >
           Upload Coupons
         </button>
       </h2>
       <div
         id="collapseSeven"
-        className="accordion-collapse collapse"
+        className={`accordion-collapse collapse ${storeCollapseNum == "7"  ? 'show' : ''}`}
         aria-labelledby="headingSeven"
         data-bs-parent="#accordionExample"
       >
@@ -435,6 +444,7 @@ const CampaignUploadCoupons = () => {
             </div>
           )}
         </div>
+        
       </div>
     </div>
   );

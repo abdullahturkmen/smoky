@@ -14,14 +14,24 @@ import {
 } from "./CreateAccountWizardHelper";
 import { Link, useNavigate } from "react-router-dom";
 import PublishCampaignModal from "../../../../_metronic/layout/components/modals/PublishCampaignModal";
+import { useDispatch, useSelector } from 'react-redux';
+import { setPageNum, setCollapseNum } from "../../../../store/reducers/createCampaignReducer";
 
 const Vertical = () => {
+  const dispatch = useDispatch();
+  const storePageNum = useSelector((state) => state.createCampaign.pageNum)
   const navigate = useNavigate();
-  const stepperRef = useRef<HTMLDivElement | null>(null);
-  const stepper = useRef<StepperComponent | null>(null);
+  const stepperRef = useRef(null);
+  const stepper = useRef(null);
   const [currentSchema, setCurrentSchema] = useState(createAccountSchemas[0]);
   const [currentNum, setCurrentNum] = useState(0);
-  const [initValues] = useState<ICreateAccount>(inits);
+  const [initValues] = useState(inits);
+
+  useEffect(() => {
+
+    goPage(storePageNum)
+
+  }, [storePageNum])
 
   useEffect(() => {
     const searchParams = new URLSearchParams(document.location.search);
@@ -30,7 +40,7 @@ const Vertical = () => {
 
   const loadStepper = () => {
     stepper.current = StepperComponent.createInsance(
-      stepperRef.current as HTMLDivElement
+      stepperRef.current
     );
   };
 
@@ -40,13 +50,53 @@ const Vertical = () => {
     }
     stepper.current.goPrev();
     setCurrentNum((current) => currentNum - 1);
-
+    dispatch(setPageNum(stepper.current.currentStepIndex));
+    dispatch(setCollapseNum(1))
     setCurrentSchema(
       createAccountSchemas[stepper.current.currentStepIndex - 1]
     );
   };
 
-  const submitStep = (values: ICreateAccount, actions: FormikValues) => {
+  const nextStep = () => {
+    if (!stepper.current) {
+      return;
+    }
+    stepper.current.goNext();
+    setCurrentNum((current) => currentNum + 1);
+    dispatch(setPageNum(stepper.current.currentStepIndex));
+    dispatch(setCollapseNum(1))
+    setCurrentSchema(
+      createAccountSchemas[stepper.current.currentStepIndex + 1]
+    );
+  };
+
+
+  const goPage = (num) => {
+    if (!stepper.current) {
+      return;
+    }
+
+
+    const difference = num - stepper.current.currentStepIndex;
+    if (difference > 0) {
+      for (let i = 0; i < difference; i++) {
+        stepper.current.goNext();
+      }
+    } else if (difference < 0) {
+      for (let i = 0; i < Math.abs(difference); i++) {
+        stepper.current.goPrev();
+      }
+    }
+
+    setCurrentNum(num);
+
+    setCurrentSchema(
+      createAccountSchemas[num]
+    );
+
+  };
+
+  const submitStep = (values, actions) => {
     if (!stepper.current) {
       return;
     }
@@ -83,6 +133,7 @@ const Vertical = () => {
         className="stepper stepper-pills stepper-column d-flex flex-column flex-md-row flex-row-fluid"
         id="kt_create_account_stepper"
       >
+
         <div
           className="stepper stepper-links d-flex d-md-none flex-column pt-15"
           id="kt_create_account_stepper"
@@ -91,35 +142,29 @@ const Vertical = () => {
             <div className="stepwizard-tablist mw-75 m-auto">
               <ul className="stepwizard-tablist-list">
                 <li
-                  className={`stepwizard-tablist-list-item ${
-                    currentNum == 0 && "current"
-                  } ${currentNum > 0 && "completed"}`}
+                  className={`stepwizard-tablist-list-item ${currentNum == 0 && "current"
+                    } ${currentNum > 0 && "completed"}`}
                 ></li>
                 <li
-                  className={`stepwizard-tablist-list-item ${
-                    currentNum == 1 && "current"
-                  } ${currentNum > 1 && "completed"}`}
+                  className={`stepwizard-tablist-list-item ${currentNum == 1 && "current"
+                    } ${currentNum > 1 && "completed"}`}
                 ></li>
                 <li
-                  className={`stepwizard-tablist-list-item ${
-                    currentNum == 2 && "current"
-                  } ${currentNum > 2 && "completed"}`}
+                  className={`stepwizard-tablist-list-item ${currentNum == 2 && "current"
+                    } ${currentNum > 2 && "completed"}`}
                 ></li>
                 <li
-                  className={`stepwizard-tablist-list-item ${
-                    currentNum == 3 && "current"
-                  } ${currentNum > 3 && "completed"}`}
+                  className={`stepwizard-tablist-list-item ${currentNum == 3 && "current"
+                    } ${currentNum > 3 && "completed"}`}
                 ></li>
                 <li
-                  className={`stepwizard-tablist-list-item ${
-                    currentNum == 4 && "current"
-                  } ${currentNum > 4 && "completed"}`}
+                  className={`stepwizard-tablist-list-item ${currentNum == 4 && "current"
+                    } ${currentNum > 4 && "completed"}`}
                 ></li>
               </ul>
             </div>
           </div>
         </div>
-
         {/* begin::Aside*/}
         <div className="card d-none d-md-flex justify-content-center justify-content-xl-start flex-row w-100 w-md-200px w-xxl-300px me-2">
           {/* begin::Wrapper*/}
@@ -274,7 +319,6 @@ const Vertical = () => {
           {/* end::Wrapper*/}
         </div>
         {/* begin::Aside*/}
-
         <div
           className="d-flex flex-row-fluid flex-center bg-body rounded"
           style={{ flexBasis: "100%" }}
@@ -325,8 +369,8 @@ const Vertical = () => {
 
                   <div>
                     {!!stepper.current?.currentStepIndex &&
-                    stepper.current?.currentStepIndex ===
-                      stepper.current?.totalStepsNumber! ? (
+                      stepper.current?.currentStepIndex ===
+                      stepper.current?.totalStepsNumber ? (
                       <>
                         {" "}
                         <button
@@ -348,8 +392,9 @@ const Vertical = () => {
                       <>
                         {" "}
                         <button
-                          type="submit"
+                          type="button"
                           className="btn btn-lg btn-primary me-3"
+                          onClick={nextStep}
                         >
                           <span className="indicator-label d-flex align-items-center">
                             Continue{" "}
@@ -381,7 +426,7 @@ const Vertical = () => {
 
       {!!stepper.current?.currentStepIndex &&
         stepper.current?.currentStepIndex ===
-          stepper.current?.totalStepsNumber! && (
+        stepper.current?.totalStepsNumber && (
           <>
             <button
               type="button"

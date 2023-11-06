@@ -8,54 +8,6 @@ import { getPricingPlans } from './core/_request'
 //   features: { name: string; isAvailable: boolean }[];
 // };
 
-const plans = [
-  {
-    name: "Startup",
-    description: "Optimal for 10+ team size and new startup",
-    priceMonthly: 39,
-    priceAnnual: 399,
-    features: [
-      { name: "Up to 10 Active Users", isAvailable: true },
-      { name: "Up to 30 Project Integrations", isAvailable: true },
-      { name: "Analytics Module", isAvailable: true },
-      { name: "Finance Module", isAvailable: false },
-      { name: "Accounting Module", isAvailable: false },
-      { name: "Network Platform", isAvailable: false },
-      { name: "Unlimited Cloud Space", isAvailable: false },
-    ],
-  },
-  {
-    name: "Advanced",
-    description: "Optimal for 100+ team size and grown company",
-    priceMonthly: 339,
-    priceAnnual: 3399,
-    features: [
-      { name: "Up to 10 Active Users", isAvailable: true },
-      { name: "Up to 30 Project Integrations", isAvailable: true },
-      { name: "Analytics Module", isAvailable: true },
-      { name: "Finance Module", isAvailable: true },
-      { name: "Accounting Module", isAvailable: true },
-      { name: "Network Platform", isAvailable: false },
-      { name: "Unlimited Cloud Space", isAvailable: false },
-    ],
-  },
-  {
-    name: "Enterprise",
-    description: "Optimal for 1000+ team and enterprise",
-    priceMonthly: 999,
-    priceAnnual: 9999,
-    features: [
-      { name: "Up to 10 Active Users", isAvailable: true },
-      { name: "Up to 30 Project Integrations", isAvailable: true },
-      { name: "Analytics Module", isAvailable: true },
-      { name: "Finance Module", isAvailable: true },
-      { name: "Accounting Module", isAvailable: true },
-      { name: "Network Platform", isAvailable: true },
-      { name: "Unlimited Cloud Space", isAvailable: true },
-    ],
-  },
-];
-
 
 
 const PricingScreen = () => {
@@ -63,15 +15,20 @@ const PricingScreen = () => {
   const [plansList, setPlansList] = useState([])
   const [monthly, setMonthly] = useState([])
   const [year, setYear] = useState([])
-  const planSelect = (plan) => {
-    setSelectedPlan(plan);
+
+  const plansListTypeChange = (plan) => {
+    setSelectedPlan(plan)
+    if (plan == "monthly") {
+      return setPlansList(monthly);
+    }
+    setPlansList(year)
   };
 
-  
+
 
   useEffect(() => {
-   console.log(' getPricingPlans()', getPricingPlans())
-   getPricingPlans()
+    console.log(' getPricingPlans()', getPricingPlans())
+    getPricingPlans()
       .then((data) => {
         const monthlyData = data.filter((e) => e.interval === 'month');
         const yearData = data.filter((e) => e.interval === 'year');
@@ -79,17 +36,12 @@ const PricingScreen = () => {
         setMonthly(monthlyData);
         setYear(yearData);
 
-        if (selectedPlan === 'year') {
-          setPlansList(yearData)
-        }
-        else {
-          setPlansList(monthlyData)
-        }
+        setPlansList(monthlyData)
       })
       .catch((error) => {
         console.error("Error fetching pricing plans: ", error);
       });
-  });
+  }, []);
 
   return (
     <>
@@ -116,7 +68,7 @@ const PricingScreen = () => {
                 className={`btn btn-color-gray-600 ${selectedPlan === 'monthly' ? 'btn-active btn-active-secondary active' : ''
                   } px-6 py-3 me-2`}
                 data-kt-plan="month"
-                onClick={() => planSelect('monthly')}
+                onClick={() => plansListTypeChange('monthly')}
               >
                 Monthly
               </button>
@@ -125,7 +77,7 @@ const PricingScreen = () => {
                 className={`btn btn-color-gray-600 ${selectedPlan === 'year' ? 'btn-active btn-active-secondary active' : ''
                   } px-6 py-3`}
                 data-kt-plan="annual"
-                onClick={() => planSelect('year')}
+                onClick={() => plansListTypeChange('year')}
               >
                 Annual
               </button>
@@ -138,7 +90,7 @@ const PricingScreen = () => {
                     <div className="w-100 d-flex flex-column flex-center rounded-3 bg-light bg-opacity-75 py-15 px-10">
                       <div className="mb-7 text-center">
                         <h1 className="text-dark mb-5 fw-bolder">
-                          title gelecek
+                          {plan.product}
                         </h1>
 
                         {/* <div className="text-gray-600 fw-semibold mb-5">

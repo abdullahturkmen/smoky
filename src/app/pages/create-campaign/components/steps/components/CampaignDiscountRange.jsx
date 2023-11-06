@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
+import { KTIcon } from "../../../../../../_metronic/helpers";
+import { useDispatch, useSelector } from 'react-redux';
+import { setCollapseNum } from "../../../../../../store/reducers/createCampaignReducer";
+
 
 const CampaignDiscountRange = () => {
+  const dispatch = useDispatch();
+  const storeCollapseNum = useSelector((state) => state.createCampaign.collapseNum)
   const [minValue, setMinValue] = useState(10);
   const [maxValue, setMaxValue] = useState(30);
 
@@ -94,13 +100,14 @@ const CampaignDiscountRange = () => {
             data-bs-target="#collapseThree"
             aria-expanded="false"
             aria-controls="collapseThree"
+            onClick={() => dispatch(setCollapseNum(3))}
           >
             Discount Range
           </button>
         </h2>
         <div
           id="collapseThree"
-          className="accordion-collapse collapse"
+          className={`accordion-collapse collapse ${storeCollapseNum == "3"  ? 'show' : ''}`}
           aria-labelledby="headingThree"
           data-bs-parent="#accordionExample"
         >
@@ -150,6 +157,12 @@ const CampaignDiscountRange = () => {
               </div>
             </div>
           </div>
+          <div className="d-flex justify-content-end">
+                    <button type="button" className="btn btn-sm btn-primary m-5" onClick={() => dispatch(setCollapseNum(4))} id="headingTwo">Continue <KTIcon
+                        iconName="arrow-right"
+                        className="fs-3 ms-2 me-0"
+                    /></button>
+                </div>
         </div>
       </div>
     </>

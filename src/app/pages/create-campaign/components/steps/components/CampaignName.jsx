@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { KTIcon } from "../../../../../../_metronic/helpers";
+import { useDispatch, useSelector } from 'react-redux';
+import { setCollapseNum } from "../../../../../../store/reducers/createCampaignReducer";
 
 const CampaignName = () => {
+    const dispatch = useDispatch();
+    const storeCollapseNum = useSelector((state) => state.createCampaign.collapseNum)
     const [companyName, setCompanyName] = useState('Untitled campaign')
 
     return (
@@ -14,6 +18,7 @@ const CampaignName = () => {
                     data-bs-target="#collapseOne"
                     aria-expanded="true"
                     aria-controls="collapseOne"
+                    onClick={() => dispatch(setCollapseNum(1))}
                 >
                     Campaign Name
                     <KTIcon
@@ -24,7 +29,7 @@ const CampaignName = () => {
             </h2>
             <div
                 id="collapseOne"
-                className="accordion-collapse collapse show"
+                className={`accordion-collapse collapse ${storeCollapseNum == "1" ? 'show' : ''}`}
                 aria-labelledby="headingOne"
                 data-bs-parent="#accordionExample"
             >
@@ -49,10 +54,10 @@ const CampaignName = () => {
                     </div>
                 </div>
                 <div className="d-flex justify-content-end">
-                    <button type="button" className="btn btn-sm btn-primary m-5" id="headingTwo">Continue <KTIcon
+                    <button type="button" className="btn btn-sm btn-primary m-5" onClick={() => dispatch(setCollapseNum(2))} id="headingTwo">Continue <KTIcon
                         iconName="arrow-right"
                         className="fs-3 ms-2 me-0"
-                        /></button>
+                    /></button>
                 </div>
             </div>
         </div>

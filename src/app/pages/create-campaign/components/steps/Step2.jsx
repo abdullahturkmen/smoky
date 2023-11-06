@@ -1,14 +1,22 @@
 import React, { FC, useState } from "react";
 import { KTIcon } from "../../../../../_metronic/helpers";
 import clsx from "clsx";
+import { useDispatch, useSelector } from 'react-redux';
+import { setPageNum,setCollapseNum } from "../../../../../store/reducers/createCampaignReducer";
 
-const Step2: FC = () => {
+const Step2 = () => {
+  const dispatch = useDispatch();
   const [tab, setTab] = useState("all");
 
   const templateList = [
     { types: "popup", title: "bu popup 1" },
     { types: "popup", title: "bu popup 2" },
   ];
+
+  const nextSection = () => {
+    dispatch(setPageNum(3))
+    dispatch(setCollapseNum(1))
+  }
 
   return (
     <div className="w-100 w-xxl-900px mx-auto">
@@ -62,9 +70,9 @@ const Step2: FC = () => {
         </li>
       </ul>
       <div className="row flex-wrap">
-        {templateList?.map((e,index) => (
+        {templateList?.map((e, index) => (
           <React.Fragment key={index}>
-            <div 
+            <div
               className={`col-6 p-5 
         ${tab != "all" && tab != e.types ? "d-none" : ""}
        
@@ -77,13 +85,13 @@ const Step2: FC = () => {
                     Some quick example text to build on the card title and make
                     up the bulk of the card's content.
                   </p>
-                  <a href="#" className="btn btn-primary">
-                    Go somewhere
+                  <a className="btn btn-primary" onClick={() => nextSection()}>
+                    select
                   </a>
                 </div>
               </div>
             </div>
-            </React.Fragment>
+          </React.Fragment>
         ))}
       </div>
     </div>
