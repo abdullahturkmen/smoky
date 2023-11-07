@@ -6,20 +6,18 @@ import ct from 'countries-and-timezones'
 
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from 'react-redux';
-import { setCollapseNum } from "../../../../../../store/reducers/createCampaignReducer";
+import { setCollapseNum, setCampaignSchedule, setSelectedTimeZone } from "../../../../../../store/reducers/createCampaignReducer";
 
 const CampaignSchedule = () => {
     const dispatch = useDispatch();
     const storeCollapseNum = useSelector((state) => state.createCampaign.collapseNum)
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
-    const [isStartDateDisabled, setIsStartDateDisabled] = useState(true);
+    const storeCampaignSchedule = useSelector((state) => state.createCampaign.campaignSchedule)
+    const storeSelectedTimeZone = useSelector((state) => state.createCampaign.selectedTimeZone)
+
     const [timeZoneOptions, setTimeZoneOptions] = useState([]);
 
-    const [selectedTimeZone, setSelectedTimeZone] = useState(null);
-
     const timeZoneChange = (event) => {
-        setSelectedTimeZone(event);
+        dispatch(setSelectedTimeZone(event))
     };
     const daysOptions = [
         { value: "Everyday", label: "Everyday" },
@@ -33,14 +31,17 @@ const CampaignSchedule = () => {
     ];
 
 
+
     useEffect(() => {
+        const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
         const countryList = ct.getAllTimezones();
         var list = []
         Object.entries(countryList)?.sort((a, b) => a.utcOffset - b.utcOffset).map(item => {
             list.push({ value: item[1].utcOffsetStr, label: `GMT ${item[1].utcOffsetStr} ${item[1].name}` })
 
-            if (item[0] == "Europe/Istanbul") {
-                setSelectedTimeZone({ value: item[1].utcOffsetStr, label: `GMT ${item[1].utcOffsetStr} ${item[1].name}` })
+            if (item[0] == userTimezone) {
+                dispatch(setSelectedTimeZone({ value: item[1].utcOffsetStr, label: `GMT ${item[1].utcOffsetStr} ${item[1].name}` }))
             }
 
         })
@@ -72,50 +73,55 @@ const CampaignSchedule = () => {
 
     minutesOptions.push({ value: "23:59", label: "23:59" });
 
-    const [timeList, setTimeList] = useState([
-        {
-            day: { value: "Everyday", label: "Everyday" },
-            startHour: { value: "00:00", label: "00:00" },
-            endHour: { value: "23:59", label: "23:59" },
-        },
-    ]);
 
     const addTime = () => {
-        setTimeList([
-            ...timeList,
-            {
-                day: { value: "Everyday", label: "Everyday" },
-                startHour: { value: "00:00", label: "00:00" },
-                endHour: { value: "23:59", label: "23:59" },
-            },
-        ]);
+        dispatch(setCampaignSchedule({
+            ...storeCampaignSchedule, timeList: [
+                ...storeCampaignSchedule.timeList,
+                {
+                    day: { value: "Everyday", label: "Everyday" },
+                    startHour: { value: "00:00", label: "00:00" },
+                    endHour: { value: "23:59", label: "23:59" },
+                },
+            ]
+        }))
     };
 
     const updateTimeList = (index, field, value) => {
-        const updatedList = [...timeList];
-        updatedList[index][field] = value;
-        setTimeList(updatedList);
+        const updatedList = storeCampaignSchedule.timeList.map(item => {
+            if (item === storeCampaignSchedule.timeList[index]) {
+                return { ...item, [field]: value };
+            }
+            return item;
+        });
+
+        dispatch(setCampaignSchedule({ ...storeCampaignSchedule, timeList: updatedList }));
     };
     const removeTime = (indexToRemove) => {
-        setTimeList((prevTimeList) => {
-            return prevTimeList.filter((_, index) => index !== indexToRemove);
-        });
+        var prevTimeList = storeCampaignSchedule.timeList
+        var filteredList = prevTimeList.filter((_, index) => index !== indexToRemove)
+
+        dispatch(setCampaignSchedule({
+            ...storeCampaignSchedule,
+            timeList: filteredList
+        }));
     };
 
     useEffect(() => {
-        if (endDate < startDate) {
-            setEndDate(startDate);
+        if (storeCampaignSchedule.endDate < storeCampaignSchedule.startDate) {
+            dispatch(setCampaignSchedule({ ...storeCampaignSchedule, endDate: storeCampaignSchedule.startDate }))
         }
-    }, [startDate, endDate]);
+    }, [storeCampaignSchedule.startDate, storeCampaignSchedule.endDate]);
+
     const changeRadioButton = (e) => {
         const value = e.target.value;
         if (value === "startImmediately") {
-            setStartDate(new Date());
-            setIsStartDateDisabled(true);
+            dispatch(setCampaignSchedule({ ...storeCampaignSchedule, isStartDateDisabled: true, startDate: new Date() }))
         } else {
-            setIsStartDateDisabled(false);
+            dispatch(setCampaignSchedule({ ...storeCampaignSchedule, isStartDateDisabled: false }))
         }
     };
+
 
     const getMinTime = () => {
         const minTime = new Date();
@@ -133,11 +139,13 @@ const CampaignSchedule = () => {
 
     const filterTime = (time) => {
         const now = new Date();
-        if (endDate.getDate() > now.getDate()) {
+        if (storeCampaignSchedule.endDate.getDate() > now.getDate()) {
             return true;
         }
         return time.getHours() >= now.getHours();
     };
+
+
     return (
         <div className="accordion-item mb-8 shadow border-top">
             <h2 className="accordion-header" id="headingTwo">
@@ -156,7 +164,7 @@ const CampaignSchedule = () => {
             </h2>
             <div
                 id="collapseTwo"
-                className={`accordion-collapse collapse ${storeCollapseNum == "2"  ? 'show' : ''}`}
+                className={`accordion-collapse collapse ${storeCollapseNum == "2" ? 'show' : ''}`}
                 aria-labelledby="headingTwo"
                 data-bs-parent="#accordionExample"
             >
@@ -173,7 +181,7 @@ const CampaignSchedule = () => {
                                 options={timeZoneOptions}
                                 placeholder="Time Zone"
                                 className="form-control form-control-solid p-0"
-                                value={selectedTimeZone}
+                                value={storeSelectedTimeZone}
                                 onChange={timeZoneChange}
                             />
                         </div>
@@ -191,7 +199,7 @@ const CampaignSchedule = () => {
                                         type="radio"
                                         value="startImmediately"
                                         onChange={changeRadioButton}
-                                        defaultChecked
+                                        defaultChecked={storeCampaignSchedule.isStartDateDisabled}
                                     />
                                 </div>
                                 <div className="col-12">
@@ -204,6 +212,7 @@ const CampaignSchedule = () => {
                                         type="radio"
                                         value="chooseStartDate"
                                         onChange={changeRadioButton}
+                                        defaultChecked={!storeCampaignSchedule.isStartDateDisabled}
                                     />
                                 </div>
                             </div>
@@ -212,7 +221,7 @@ const CampaignSchedule = () => {
 
                             <div className="row">
                                 <div className="col-12 col-md-6 mb-4 d-flex flex-column">
-                                    {isStartDateDisabled ? null : (
+                                    {storeCampaignSchedule.isStartDateDisabled ? null : (
                                         <>
                                             <label
                                                 htmlFor="campaignname"
@@ -222,8 +231,8 @@ const CampaignSchedule = () => {
                                             </label>
                                             <DatePicker
                                                 className="form-control form-control-lg form-control-solid w-100"
-                                                selected={startDate}
-                                                onChange={(date) => setStartDate(date)}
+                                                selected={storeCampaignSchedule.startDate}
+                                                onChange={(date) => dispatch(setCampaignSchedule({ ...storeCampaignSchedule, startDate: date }))}
                                                 minDate={new Date()}
                                                 showTimeSelect
                                                 showYearDropdown
@@ -246,9 +255,9 @@ const CampaignSchedule = () => {
                                     </label>
                                     <DatePicker
                                         className="form-control form-control-lg form-control-solid "
-                                        selected={endDate}
-                                        onChange={(date) => setEndDate(date)}
-                                        minDate={startDate}
+                                        selected={storeCampaignSchedule.endDate}
+                                        onChange={(date) => dispatch(setCampaignSchedule({ ...storeCampaignSchedule, endDate: date }))}
+                                        minDate={storeCampaignSchedule.startDate}
                                         showTimeSelect
                                         showYearDropdown
                                         minTime={getMinTime()}
@@ -268,9 +277,9 @@ const CampaignSchedule = () => {
                         <label htmlFor="min" className="form-label fs-7 fw-bolder">
                             Detailed schedule
                         </label>
-                        {timeList.map((item, index) => (
+                        {storeCampaignSchedule.timeList.map((item, index) => (
                             <div className="col-12 d-flex gap-5 mt-4" key={index}>
-                                {timeList.length > 1 && (
+                                {storeCampaignSchedule.timeList.length > 1 && (
                                     <button
                                         type="button"
                                         className="btn btn-light btn-sm"

@@ -26,19 +26,29 @@ function WidePopup(props) {
                                             </>)}
 
                                         </div>
-                                        <h1 className="modal-title w-100 text-center  fw-bold">{props.title}</h1>
+                                        <h1 className="modal-title w-100 text-center fw-bold">{props.title}</h1>
                                         <span className="modal-title text-center d-block">{props.subTitle}</span>
                                         <div className="modal-title text-center d-block mt-2 fw-bolder fs-4">{props.durationHeadline}</div>
-                                        <div className='text-center fw-bolder mt-2'>
+                                        <div className='text-center mt-2 gap-2 d-flex justify-content-center'>
                                             {props.durationMechanism === "countdown" ? (
                                                 <>
-                                                    {parseInt(props.durationCountdownDays) > 0 && (<>{props.durationCountdownDays}d :{" "}</>)}
-                                                    {parseInt(props.durationCountdownHours) > 0 && (<>{props.durationCountdownHours}h :{" "}</>)}
-                                                    {props.durationCountdownMinutes}m
-                                                    <br />
-                                                    <span style={{ fontSize: '0.7em' }}>days</span>{' '}
-                                                    <span style={{ fontSize: '0.7em' }}>hour</span>{' '}
-                                                    <span style={{ fontSize: '0.7em' }}>minute</span>
+                                                    {parseInt(props.durationCountdownDays) > 0 && (<>
+                                                        <div className='d-flex flex-column'>
+                                                            <span className='fw-bolder '>{props.durationCountdownDays}</span>
+                                                            <span style={{ fontSize: '0.7em' }}>days</span>
+                                                        </div>
+                                                    </>)}
+                                                    {parseInt(props.durationCountdownHours) > 0 && (<>
+                                                        <div className='d-flex flex-column'>
+                                                            <span className='fw-bolder '>{props.durationCountdownHours}</span>
+                                                            <span style={{ fontSize: '0.7em' }}>hours</span>
+                                                        </div>
+                                                    </>)}
+                                                    <div className='d-flex flex-column'>
+                                                        <span className='fw-bolder '>{props.durationCountdownMinutes}</span>
+                                                        <span style={{ fontSize: '0.7em' }}>minutes</span>
+                                                    </div>
+                                                   
                                                 </>
                                             ) : (
                                                 <>{props.durationText}</>

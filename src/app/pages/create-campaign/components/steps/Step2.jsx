@@ -10,7 +10,6 @@ const Step2 = () => {
 
   const templateList = [
     { types: "popup", title: "bu popup 1" },
-    { types: "popup", title: "bu popup 2" },
   ];
 
   const nextSection = () => {
@@ -33,7 +32,7 @@ const Step2 = () => {
         </div>
       </div>
 
-      <div className="mb-10 fv-row">
+      <div className="mb-10 fv-row d-none">
         <label className="d-flex align-items-center form-label mb-3">
           Select one of the templates optimized to achieve your goal.
         </label>

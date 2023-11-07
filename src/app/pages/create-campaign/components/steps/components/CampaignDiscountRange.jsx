@@ -1,60 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { KTIcon } from "../../../../../../_metronic/helpers";
 import { useDispatch, useSelector } from 'react-redux';
-import { setCollapseNum } from "../../../../../../store/reducers/createCampaignReducer";
+import { setCollapseNum,setDiscountRange } from "../../../../../../store/reducers/createCampaignReducer";
 
 
 const CampaignDiscountRange = () => {
   const dispatch = useDispatch();
   const storeCollapseNum = useSelector((state) => state.createCampaign.collapseNum)
-  const [minValue, setMinValue] = useState(10);
-  const [maxValue, setMaxValue] = useState(30);
+  const storeDiscountRange = useSelector((state) => state.createCampaign.discountRange)
+
+
+  useEffect(() => {
+    console.log("storeDiscountRange : ", storeDiscountRange)
+  }, [storeDiscountRange])
 
 
   const minValChange = (event) => {
-    // //console.log("min : ", event.target.value);
-    // if (parseInt(event.target.value) >= parseInt(maxValue)) {
+    dispatch(
+      setDiscountRange({
+        ...storeDiscountRange,
+        minPercentage: event.target.value,
 
-
-    //   toast.warning('The minimum value cannot be equal to or greater than the maximum value', {
-    //     position: "top-right",
-    //     autoClose: 3000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //     theme: "light",
-    //   });
-
-
-    //   return false
-    // }
-    setMinValue(parseInt(event.target.value))
+      })
+    );
   }
   const maxValChange = (event) => {
-    ////console.log("max : ", event.target.value);
-    // if (parseInt(event.target.value) <= parseInt(minValue)) {
-    //   toast.warning('The maximum value cannot be equal to or less than the minimum value', {
-    //     position: "top-right",
-    //     autoClose: 3000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //     theme: "light",
-    //   });
-    //   return false
-    // }
-    setMaxValue(parseInt(event.target.value))
+    dispatch(
+      setDiscountRange({...storeDiscountRange,
+        maxPercentage: parseInt(event.target.value),
+      })
+    );
   }
   const checkMaxValue = (event) => {
-    if(parseInt(minValue) >= parseInt(maxValue)){
+    if (parseInt(storeDiscountRange.minPercentage) >= parseInt(storeDiscountRange.maxPercentage)) {
 
-          // if (parseInt(event.target.value) <= parseInt(minValue)) {
+      // if (parseInt(event.target.value) <= parseInt(storeDiscountRange.minPercentage)) {
       toast.warning('The maximum value cannot be equal to or less than the minimum value', {
         position: "top-right",
         autoClose: 3000,
@@ -65,16 +47,20 @@ const CampaignDiscountRange = () => {
         progress: undefined,
         theme: "light",
       });
-    //   return false
-    // }
+      //   return false
+      // }
 
-      setMaxValue(parseInt(minValue) + 1)
+      dispatch(
+        setDiscountRange({...storeDiscountRange,
+          maxPercentage: parseInt(storeDiscountRange.minPercentage) + 1,
+        })
+      );
     }
   }
   const checkMinValue = (event) => {
-    if(parseInt(minValue) >= parseInt(maxValue)){
+    if (parseInt(storeDiscountRange.minPercentage) >= parseInt(storeDiscountRange.maxPercentage)) {
 
-        toast.warning('The minimum value cannot be equal to or greater than the maximum value', {
+      toast.warning('The minimum value cannot be equal to or greater than the maximum value', {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -85,7 +71,11 @@ const CampaignDiscountRange = () => {
         theme: "light",
       });
 
-      setMinValue(parseInt(maxValue) - 1)
+      dispatch(
+        setDiscountRange({...storeDiscountRange,
+          minPercentage: parseInt(storeDiscountRange.maxPercentage) - 1,
+        })
+      );
     }
   }
   return (
@@ -107,7 +97,7 @@ const CampaignDiscountRange = () => {
         </h2>
         <div
           id="collapseThree"
-          className={`accordion-collapse collapse ${storeCollapseNum == "3"  ? 'show' : ''}`}
+          className={`accordion-collapse collapse ${storeCollapseNum == "3" ? 'show' : ''}`}
           aria-labelledby="headingThree"
           data-bs-parent="#accordionExample"
         >
@@ -131,7 +121,7 @@ const CampaignDiscountRange = () => {
                     id="min"
                     type="number"
                     className="form-control form-control-lg form-control-solid bg-white"
-                    value={minValue}
+                    value={storeDiscountRange.minPercentage}
                     onChange={minValChange}
                     onBlur={checkMinValue}
                     min="0"
@@ -148,21 +138,21 @@ const CampaignDiscountRange = () => {
                     id="max"
                     type="number"
                     className="form-control form-control-lg form-control-solid bg-white"
-                    value={maxValue}
+                    value={storeDiscountRange.maxPercentage}
                     onChange={maxValChange}
                     onBlur={checkMaxValue}
-                    min={minValue + 1}
+                    min={storeDiscountRange.minPercentage + 1}
                   />
                 </div>
               </div>
             </div>
           </div>
           <div className="d-flex justify-content-end">
-                    <button type="button" className="btn btn-sm btn-primary m-5" onClick={() => dispatch(setCollapseNum(4))} id="headingTwo">Continue <KTIcon
-                        iconName="arrow-right"
-                        className="fs-3 ms-2 me-0"
-                    /></button>
-                </div>
+            <button type="button" className="btn btn-sm btn-primary m-5" onClick={() => dispatch(setCollapseNum(4))} id="headingTwo">Continue <KTIcon
+              iconName="arrow-right"
+              className="fs-3 ms-2 me-0"
+            /></button>
+          </div>
         </div>
       </div>
     </>

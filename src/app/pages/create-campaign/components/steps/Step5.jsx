@@ -3,11 +3,10 @@ import { KTIcon } from "../../../../../_metronic/helpers";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import { useDispatch, useSelector } from 'react-redux';
-import { setPageNum,setCollapseNum } from "../../../../../store/reducers/createCampaignReducer";
+import { setPageNum,setCollapseNum,setCampaignName } from "../../../../../store/reducers/createCampaignReducer";
 
-const Step5: FC = () => {
+const Step5 = () => {
   const dispatch = useDispatch();
-  const [campaignName, setCampaignName] = useState<string>("Untidled Campaign");
 
   const goSchedule = () => {
     dispatch(setCollapseNum(2))
@@ -35,17 +34,24 @@ const Step5: FC = () => {
   }
 
 
+  const storeCampaignName = useSelector((state) => state.createCampaign.campaignName)
+
+
+  const campaignNameChange = (e) => {
+    dispatch(setCampaignName({ title: e }));
+ }
+
   return (
     <div className="w-100 w-xxl-900px mx-auto">
       <div className="d-flex align-items-center">
         <input
           id="lastCampaignName"
-          value={campaignName}
-          onChange={(e) => setCampaignName(e.target.value)}
+          value={storeCampaignName.title}
+          onChange={(e) => campaignNameChange(e.target.value)}
           className="border-0 h1"
           style={{
             transition: "width 0.3s",
-            width: `${campaignName.length}ch`,
+            width: `${storeCampaignName.title.length}ch`,
           }}
         />
         <label htmlFor="lastCampaignName">

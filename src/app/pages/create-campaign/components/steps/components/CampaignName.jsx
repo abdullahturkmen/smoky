@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { KTIcon } from "../../../../../../_metronic/helpers";
 import { useDispatch, useSelector } from 'react-redux';
-import { setCollapseNum } from "../../../../../../store/reducers/createCampaignReducer";
+import { setCollapseNum,setCampaignName } from "../../../../../../store/reducers/createCampaignReducer";
 
 const CampaignName = () => {
     const dispatch = useDispatch();
     const storeCollapseNum = useSelector((state) => state.createCampaign.collapseNum)
-    const [companyName, setCompanyName] = useState('Untitled campaign')
+    const storeCampaignName = useSelector((state) => state.createCampaign.campaignName)
+
+
+    const campaignNameChange = (e) => {
+       dispatch(setCampaignName({ title: e }));
+    }
+    
 
     return (
         <div className="accordion-item mb-8 shadow">
@@ -47,8 +53,8 @@ const CampaignName = () => {
                                 type="text"
                                 className="form-control form-control-lg form-control-solid"
                                 placeholder="Campaign name"
-                                value={companyName}
-                                onChange={(e) => setCompanyName(e.target.value)}
+                                value={storeCampaignName.title}
+                                onChange={(e) => campaignNameChange(e.target.value)}
                             />
                         </div>
                     </div>

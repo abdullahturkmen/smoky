@@ -15,7 +15,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import PublishCampaignModal from "../../../../_metronic/layout/components/modals/PublishCampaignModal";
 import { useDispatch, useSelector } from 'react-redux';
-import { setPageNum, setCollapseNum } from "../../../../store/reducers/createCampaignReducer";
+import { setPageNum, setCollapseNum, setCampaignName, setCampaignSchedule } from "../../../../store/reducers/createCampaignReducer";
 
 const Vertical = () => {
   const dispatch = useDispatch();
@@ -34,8 +34,33 @@ const Vertical = () => {
   }, [storePageNum])
 
   useEffect(() => {
+    /// sayfa ilk açıldığında resetle
+    dispatch(setPageNum(1));
+    dispatch(setCollapseNum(1))
+    dispatch(setCampaignName({ title: "Untitled Campaign" }))
+
+    //campaignSchedule
+    const today = new Date();
+    const tenYearsLater = new Date(today.getFullYear() + 10, today.getMonth(), today.getDate());
+    const defaultCampaignSchedule = {
+      startDate: today,
+      endDate: tenYearsLater,
+      isStartDateDisabled: false,
+      timeList: [
+        {
+          day: { value: "Everyday", label: "Everyday" },
+          startHour: { value: "00:00", label: "00:00" },
+          endHour: { value: "23:59", label: "23:59" },
+        },
+      ]
+    }
+    dispatch(setCampaignSchedule({ ...defaultCampaignSchedule }))
+
     const searchParams = new URLSearchParams(document.location.search);
-    console.log("searchParams type : ", searchParams.get("type"));
+    if (searchParams.get("type") == "quick") {
+      //// hızlı seçim yapılırsa güncelle
+      dispatch(setPageNum(4));
+    }
   }, []);
 
   const loadStepper = () => {
@@ -390,20 +415,21 @@ const Vertical = () => {
                       </>
                     ) : (
                       <>
-                        {" "}
-                        <button
-                          type="button"
-                          className="btn btn-lg btn-primary me-3"
-                          onClick={nextStep}
-                        >
-                          <span className="indicator-label d-flex align-items-center">
-                            Continue{" "}
-                            <KTIcon
-                              iconName="arrow-right"
-                              className="fs-3 ms-2 me-0"
-                            />
-                          </span>
-                        </button>
+                        {stepper.current?.currentStepIndex > 2 && (<>
+                          <button
+                            type="button"
+                            className="btn btn-lg btn-primary me-3"
+                            onClick={nextStep}
+                          >
+                            <span className="indicator-label d-flex align-items-center">
+                              Continue{" "}
+                              <KTIcon
+                                iconName="arrow-right"
+                                className="fs-3 ms-2 me-0"
+                              />
+                            </span>
+                          </button>
+                        </>)}
                       </>
                     )}
                   </div>

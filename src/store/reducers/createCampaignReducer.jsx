@@ -1,9 +1,38 @@
 // src/reducers/createCampaignReducer.js
 import { createSlice } from '@reduxjs/toolkit';
 
+
+//campaignSchedule
+const today = new Date();
+const tenYearsLater = new Date(today.getFullYear() + 10, today.getMonth(), today.getDate());
+const defaultCampaignSchedule = {
+  startDate: today,
+  endDate: tenYearsLater,
+  isStartDateDisabled: false,
+  timeList: [
+    {
+      day: { value: "Everyday", label: "Everyday" },
+      startHour: { value: "00:00", label: "00:00" },
+      endHour: { value: "23:59", label: "23:59" },
+    },
+  ]
+}
+
+
 const initialState = {
   pageNum: 1,
-  collapseNum: 1
+  collapseNum: 1,
+  campaignName: {
+    title: "Untitled campaign"
+  },
+  campaignSchedule: defaultCampaignSchedule,
+  selectedTimeZone: null,
+  discountRange: {
+    minPercentage: 0,
+    maxPercentage: 0,
+    selectedGoal: null,
+  },
+
 };
 
 const createCampaignReducer = createSlice({
@@ -16,8 +45,20 @@ const createCampaignReducer = createSlice({
     setCollapseNum: (state, action) => {
       state.collapseNum = action.payload;
     },
+    setCampaignName: (state, action) => {
+      state.campaignName = action.payload;
+    },
+    setCampaignSchedule: (state, action) => {
+      state.campaignSchedule = action.payload;
+    },
+    setSelectedTimeZone: (state, action) => {
+      state.selectedTimeZone = action.payload;
+    },
+    setDiscountRange: (state, action) => {
+      state.discountRange = action.payload;
+    },
   },
 });
 
-export const { setPageNum,setCollapseNum } = createCampaignReducer.actions;
+export const { setPageNum, setCollapseNum, setCampaignName, setCampaignSchedule, setSelectedTimeZone,setDiscountRange } = createCampaignReducer.actions;
 export default createCampaignReducer.reducer;
