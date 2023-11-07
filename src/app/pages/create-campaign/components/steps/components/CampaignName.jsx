@@ -27,10 +27,7 @@ const CampaignName = () => {
                     onClick={() => dispatch(setCollapseNum(1))}
                 >
                     Campaign Name
-                    <KTIcon
-                        iconName="check-square"
-                        className="fs-1 ms-4 text-success"
-                    />
+                    
                 </button>
             </h2>
             <div

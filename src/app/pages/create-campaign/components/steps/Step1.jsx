@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { KTIcon } from "../../../../../_metronic/helpers";
 import { ErrorMessage, Field } from "formik";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,8 +10,8 @@ import {
 
 const Step1 = () => {
   const dispatch = useDispatch();
-
-  const selectGoal = (goal,min,max) => {
+  const storeDiscountRange = useSelector((state) => state.createCampaign.discountRange)
+  const selectGoal = (goal, min, max) => {
     dispatch(
       setDiscountRange({
         minPercentage: min,
@@ -21,6 +21,7 @@ const Step1 = () => {
     );
     dispatch(setPageNum(2));
   };
+
   return (
     <div className="w-100  w-xl-1000px m-auto">
       <div className="pb-10 pb-lg-15">
@@ -38,9 +39,10 @@ const Step1 = () => {
               name="goalType"
               value="conversion"
               id="increase_conversion"
+              checked={storeDiscountRange?.selectedGoal == 1}
             />
             <label
-              onClick={() => selectGoal(1,10,30)}
+              onClick={() => selectGoal(1, 10, 30)}
               className="w-100 btn btn-outline btn-outline-primary btn-outline-default p-7 d-flex flex-column align-items-center mb-10 mb-lg-0"
               htmlFor="increase_conversion"
             >
@@ -80,9 +82,10 @@ const Step1 = () => {
               name="goalType"
               value="order"
               id="increase_order_value"
+              checked={storeDiscountRange?.selectedGoal == 2}
             />
             <label
-              onClick={() => selectGoal(2,10,20)}
+              onClick={() => selectGoal(2, 10, 20)}
               className="w-100 btn btn-outline btn-outline-primary btn-outline-default p-7 d-flex flex-column align-items-center mb-10 mb-lg-0"
               htmlFor="increase_order_value"
             >
@@ -122,9 +125,10 @@ const Step1 = () => {
               name="goalType"
               value="revenue"
               id="revenue_per_visit"
+              checked={storeDiscountRange?.selectedGoal == 3}
             />
             <label
-              onClick={() => selectGoal(3,5,15)}
+              onClick={() => selectGoal(3, 5, 15)}
               className="w-100 btn btn-outline btn-outline-primary btn-outline-default p-7 d-flex flex-column align-items-center"
               htmlFor="revenue_per_visit"
             >

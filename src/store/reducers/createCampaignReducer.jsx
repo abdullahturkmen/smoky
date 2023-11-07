@@ -18,6 +18,21 @@ const defaultCampaignSchedule = {
   ]
 }
 
+//discountRange
+const defaultDiscountRange = {
+  minPercentage: 0,
+  maxPercentage: 0,
+  selectedGoal: null,
+}
+
+//campaignLimit
+const defaultCampaignLimit = {
+  singleValue: 5,
+  minValue: 3,
+  maxValue: 5,
+  selectedOption: "None",
+  selectedOptionDetail: "radioButtonOne"
+}
 
 const initialState = {
   pageNum: 1,
@@ -27,12 +42,8 @@ const initialState = {
   },
   campaignSchedule: defaultCampaignSchedule,
   selectedTimeZone: null,
-  discountRange: {
-    minPercentage: 0,
-    maxPercentage: 0,
-    selectedGoal: null,
-  },
-
+  discountRange: defaultDiscountRange,
+  campaignLimit: defaultCampaignLimit
 };
 
 const createCampaignReducer = createSlice({
@@ -57,8 +68,11 @@ const createCampaignReducer = createSlice({
     setDiscountRange: (state, action) => {
       state.discountRange = action.payload;
     },
+    setCampaignLimit: (state, action) => {
+      state.campaignLimit = action.payload;
+    },
   },
 });
 
-export const { setPageNum, setCollapseNum, setCampaignName, setCampaignSchedule, setSelectedTimeZone,setDiscountRange } = createCampaignReducer.actions;
+export const { setPageNum, setCollapseNum, setCampaignName, setCampaignSchedule, setSelectedTimeZone, setDiscountRange,setCampaignLimit } = createCampaignReducer.actions;
 export default createCampaignReducer.reducer;

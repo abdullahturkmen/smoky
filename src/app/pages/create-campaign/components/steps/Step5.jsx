@@ -8,6 +8,11 @@ import { setPageNum,setCollapseNum,setCampaignName } from "../../../../../store/
 const Step5 = () => {
   const dispatch = useDispatch();
 
+  const storeCampaignName = useSelector((state) => state.createCampaign.campaignName)
+  const storeCampaignSchedule = useSelector((state) => state.createCampaign.campaignSchedule)
+  const storeDiscountRange = useSelector((state) => state.createCampaign.discountRange)
+  const storeCampaignLimit = useSelector((state) => state.createCampaign.campaignLimit)
+
   const goSchedule = () => {
     dispatch(setCollapseNum(2))
     dispatch(setPageNum(3))
@@ -33,8 +38,6 @@ const Step5 = () => {
     dispatch(setPageNum(3))
   }
 
-
-  const storeCampaignName = useSelector((state) => state.createCampaign.campaignName)
 
 
   const campaignNameChange = (e) => {
@@ -145,7 +148,7 @@ const Step5 = () => {
             <div className="d-flex flex-column ms-5">
               <div className="fs-5 fw-bolder">Discount Range</div>
               <div className="fs-7 ">
-                Selected discount range for Prediction Engine is 10% - 20%
+                Selected discount range for Prediction Engine is {storeDiscountRange.minPercentage}% - {storeDiscountRange.maxPercentage}%
               </div>
             </div>
           </div>
@@ -164,7 +167,7 @@ const Step5 = () => {
             <div className="d-flex flex-column ms-5">
               <div className="fs-5 fw-bolder">Campaign Limit</div>
               <div className="fs-7 ">
-                Selected campaign limit: Number of Products in Cart
+                Selected campaign limit: {storeCampaignLimit.selectedOption}
               </div>
             </div>
           </div>
@@ -240,7 +243,11 @@ const Step5 = () => {
             <div className="d-flex flex-column ms-5">
               <div className="fs-5 fw-bolder">Start Date</div>
               <div className="fs-7 ">
-                {moment(Date()).format("DD.MM.YYYY, HH:mm")}
+                {!storeCampaignSchedule.isStartDateDisabled ? (<>
+              {moment(storeCampaignSchedule.startDate).format("DD.MM.YYYY, HH:mm")}
+              </>): (<>
+              Start immediately
+              </>)}
               </div>
             </div>
           </div>
@@ -259,7 +266,7 @@ const Step5 = () => {
             <div className="d-flex flex-column ms-5">
               <div className="fs-5 fw-bolder">End Date</div>
               <div className="fs-7 ">
-                {moment(Date()).format("DD.MM.YYYY, HH:mm")}
+                {moment(storeCampaignSchedule.endDate).format("DD.MM.YYYY, HH:mm")}
               </div>
             </div>
           </div>

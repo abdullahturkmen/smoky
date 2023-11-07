@@ -12,11 +12,6 @@ const CampaignDiscountRange = () => {
   const storeDiscountRange = useSelector((state) => state.createCampaign.discountRange)
 
 
-  useEffect(() => {
-    console.log("storeDiscountRange : ", storeDiscountRange)
-  }, [storeDiscountRange])
-
-
   const minValChange = (event) => {
     dispatch(
       setDiscountRange({

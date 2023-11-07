@@ -1,39 +1,55 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { ToastContainer, toast } from 'react-toastify';
 import { KTIcon } from "../../../../../../_metronic/helpers";
 import { useDispatch, useSelector } from 'react-redux';
-import { setCollapseNum } from "../../../../../../store/reducers/createCampaignReducer";
+import { setCollapseNum,setCampaignLimit } from "../../../../../../store/reducers/createCampaignReducer";
 
 
 
 const CampaignLimit = () => {
   const dispatch = useDispatch();
   const storeCollapseNum = useSelector((state) => state.createCampaign.collapseNum)
+  const storeCampaignLimit = useSelector((state) => state.createCampaign.campaignLimit)
 
-  const [singleValue, setSingleValue] = useState(5);
-  const [minValue, setMinValue] = useState(3);
-  const [maxValue, setMaxValue] = useState(5);
-
-  const [selectedOption, setSelectedOption] = useState("none");
-  const [selectedOptionDetail, setSelectedOptionDetail] =
-    useState("radioButtonOne");
 
   const optionChange = (event) => {
-    setSelectedOption(event.target.value);
-    setSelectedOptionDetail("radioButtonOne");
+    dispatch(
+      setCampaignLimit({
+        ...storeCampaignLimit,
+        selectedOption: event.target.value,
+        selectedOptionDetail: "radioButtonOne"
+      })
+    );
   };
   const optionChangeDetail = (event) => {
-    setSelectedOptionDetail(event.target.value);
+    dispatch(
+      setCampaignLimit({
+        ...storeCampaignLimit,
+        selectedOptionDetail: event.target.value,
+      })
+    );
   };
 
   const singleValChange = (event) => {
 
     if (parseInt(event.target.value) >= 0) {
-      setSingleValue(parseInt(event.target.value))
+      dispatch(
+        setCampaignLimit({
+          ...storeCampaignLimit,
+          singleValue: parseInt(event.target.value),
+  
+        })
+      );
     }
     else {
-      setSingleValue(0)
+      dispatch(
+        setCampaignLimit({
+          ...storeCampaignLimit,
+          singleValue: 0,
+  
+        })
+      );
     }
 
   }
@@ -41,10 +57,23 @@ const CampaignLimit = () => {
   const minValChange = (event) => {
 
     if (parseInt(event.target.value) >= 0) {
-      setMinValue(parseInt(event.target.value))
+
+      dispatch(
+        setCampaignLimit({
+          ...storeCampaignLimit,
+          minValue: parseInt(event.target.value),
+  
+        })
+      );
     }
     else {
-      setMinValue(0)
+      dispatch(
+        setCampaignLimit({
+          ...storeCampaignLimit,
+          minValue: 0,
+  
+        })
+      );
     }
 
   }
@@ -52,17 +81,29 @@ const CampaignLimit = () => {
   const maxValChange = (event) => {
 
     if (parseInt(event.target.value) > 0) {
-      setMaxValue(parseInt(event.target.value))
+      dispatch(
+        setCampaignLimit({
+          ...storeCampaignLimit,
+          maxValue: parseInt(event.target.value),
+  
+        })
+      );
     }
     else {
-      setMaxValue(1)
+      dispatch(
+        setCampaignLimit({
+          ...storeCampaignLimit,
+          maxValue: 1,
+  
+        })
+      );
     }
   }
 
   const checkMaxValue = (event) => {
-    if (parseInt(minValue) >= parseInt(maxValue)) {
+    if (parseInt(storeCampaignLimit.minValue) >= parseInt(storeCampaignLimit.maxValue)) {
 
-      // if (parseInt(event.target.value) <= parseInt(minValue)) {
+      // if (parseInt(event.target.value) <= parseInt(storeCampaignLimit.minValue)) {
       toast.warning('The maximum value cannot be equal to or less than the minimum value', {
         position: "top-right",
         autoClose: 3000,
@@ -76,11 +117,17 @@ const CampaignLimit = () => {
       //   return false
       // }
 
-      setMaxValue(parseInt(minValue) + 1)
+      dispatch(
+        setCampaignLimit({
+          ...storeCampaignLimit,
+          maxValue: parseInt(storeCampaignLimit.minValue) + 1,
+  
+        })
+      );
     }
   }
   const checkMinValue = (event) => {
-    if (parseInt(minValue) >= parseInt(maxValue)) {
+    if (parseInt(storeCampaignLimit.minValue) >= parseInt(storeCampaignLimit.maxValue)) {
 
       toast.warning('The minimum value cannot be equal to or greater than the maximum value', {
         position: "top-right",
@@ -93,7 +140,13 @@ const CampaignLimit = () => {
         theme: "light",
       });
 
-      setMinValue(parseInt(maxValue) - 1)
+      dispatch(
+        setCampaignLimit({
+          ...storeCampaignLimit,
+          minValue: parseInt(storeCampaignLimit.maxValue) - 1,
+  
+        })
+      );
     }
   }
 
@@ -111,7 +164,7 @@ const CampaignLimit = () => {
                 style={{ transform: 'scale(.75)' }}
                 type="radio"
                 value="radioButtonOne"
-                checked={selectedOptionDetail === "radioButtonOne"}
+                checked={storeCampaignLimit.selectedOptionDetail === "radioButtonOne"}
                 onChange={optionChangeDetail}
                 id="optionOne"
               />
@@ -126,7 +179,7 @@ const CampaignLimit = () => {
                 style={{ transform: 'scale(.75)' }}
                 type="radio"
                 value="radioButtonTwo"
-                checked={selectedOptionDetail === "radioButtonTwo"}
+                checked={storeCampaignLimit.selectedOptionDetail === "radioButtonTwo"}
                 onChange={optionChangeDetail}
                 id="optionTwo"
               />
@@ -136,7 +189,7 @@ const CampaignLimit = () => {
             </div>
           </div>
         </div>
-        {selectedOptionDetail === "radioButtonOne" && (
+        {storeCampaignLimit.selectedOptionDetail === "radioButtonOne" && (
           <div className="col-12 ">
             <label className="form-label fs-7 fw-bolder">
               Number
@@ -145,13 +198,13 @@ const CampaignLimit = () => {
               className="form-control form-control-lg form-control-solid"
               type="number"
               min="0"
-              value={singleValue}
+              value={storeCampaignLimit.singleValue}
               onChange={singleValChange}
             />
           </div>
         )}
 
-        {selectedOptionDetail === "radioButtonTwo" && (
+        {storeCampaignLimit.selectedOptionDetail === "radioButtonTwo" && (
           <div className="row">
             <div className="col-5">
               <label
@@ -163,7 +216,7 @@ const CampaignLimit = () => {
               <input
                 id="minInput"
                 type="number"
-                value={minValue}
+                value={storeCampaignLimit.minValue}
                 onChange={minValChange}
                 onBlur={checkMinValue}
                 min="0"
@@ -181,10 +234,10 @@ const CampaignLimit = () => {
                 id="maxInput"
                 type="number"
                 className="form-control form-control-lg form-control-solid"
-                value={maxValue}
+                value={storeCampaignLimit.maxValue}
                 onChange={maxValChange}
                 onBlur={checkMaxValue}
-                min={minValue + 1}
+                min={storeCampaignLimit.minValue + 1}
               />
             </div>
           </div>
@@ -225,21 +278,21 @@ const CampaignLimit = () => {
                   <input
                     className="form-check-input  me-5"
                     type="radio"
-                    checked={selectedOption === "none"}
+                    checked={storeCampaignLimit.selectedOption === "None"}
                     onChange={optionChange}
-                    value="none"
+                    value="None"
                     id="productNone"
                   />
                   <label className="form-label fs-7 fw-bolder" htmlFor="productNone">None</label>
                 </div>
               </div>
               <div className="d-inline-block">
-                <div className="alert alert-secondary" style={selectedOption === 'productCount' ? { borderBottomLeftRadius: 0, borderBottomRightRadius: 0 } : null}>
+                <div className="alert alert-secondary" style={storeCampaignLimit.selectedOption === 'Number of Products in Cart' ? { borderBottomLeftRadius: 0, borderBottomRightRadius: 0 } : null}>
                   <input
                     className="form-check-input  me-5"
                     type="radio"
-                    value="productCount"
-                    checked={selectedOption === "productCount"}
+                    value="Number of Products in Cart"
+                    checked={storeCampaignLimit.selectedOption === "Number of Products in Cart"}
                     onChange={optionChange}
                     id="productInCard"
                   />
@@ -248,18 +301,18 @@ const CampaignLimit = () => {
                   </label>
                 </div>
               </div>
-              {selectedOption === 'productCount' && (<>
+              {storeCampaignLimit.selectedOption === 'Number of Products in Cart' && (<>
                 <LimitDetailsContent />
 
               </>
               )}
               <div className="d-inline-block">
-                <div className="alert alert-secondary" style={selectedOption === 'cartValue' ? { borderBottomLeftRadius: 0, borderBottomRightRadius: 0 } : null}>
+                <div className="alert alert-secondary" style={storeCampaignLimit.selectedOption === 'Cart Value' ? { borderBottomLeftRadius: 0, borderBottomRightRadius: 0 } : null}>
                   <input
                     className="form-check-input  me-5"
                     type="radio"
-                    value="cartValue"
-                    checked={selectedOption === "cartValue"}
+                    value="Cart Value"
+                    checked={storeCampaignLimit.selectedOption === "Cart Value"}
                     onChange={optionChange}
                     id="productCardValue"
                   />
@@ -270,12 +323,12 @@ const CampaignLimit = () => {
 
                 </div>
               </div>
-              {selectedOption === 'cartValue' && (<>
+              {storeCampaignLimit.selectedOption === 'Cart Value' && (<>
                 <LimitDetailsContent />
               </>
               )}
               {/* <div className="col-sm-12 col-md-6">
-                {selectedOption !== "none" && (
+                {storeCampaignLimit.selectedOption !== "none" && (
                   <>
                     <div className="col-10 alert alert-secondary">
                       <input
@@ -283,7 +336,7 @@ const CampaignLimit = () => {
                         type="radio"
                         value="radioButtonOne"
                         defaultChecked
-                        checked={selectedOptionDetail === "radioButtonOne"}
+                        checked={storeCampaignLimit.selectedOptionDetail === "radioButtonOne"}
                         onChange={optionChangeDetail}
                       />
 
@@ -296,14 +349,14 @@ const CampaignLimit = () => {
                         className="form-check-input me-5"
                         type="radio"
                         value="radioButtonTwo"
-                        checked={selectedOptionDetail === "radioButtonTwo"}
+                        checked={storeCampaignLimit.selectedOptionDetail === "radioButtonTwo"}
                         onChange={optionChangeDetail}
                       />
                       <label className="form-label fs-7 fw-bolder">
                         Radiobutton 2
                       </label>
                     </div>
-                    {selectedOptionDetail === "radioButtonOne" && (
+                    {storeCampaignLimit.selectedOptionDetail === "radioButtonOne" && (
                       <div className="col-10 ">
                         <label className="form-label fs-7 fw-bolder">
                           Number
@@ -316,7 +369,7 @@ const CampaignLimit = () => {
                       </div>
                     )}
 
-                    {selectedOptionDetail === "radioButtonTwo" && (
+                    {storeCampaignLimit.selectedOptionDetail === "radioButtonTwo" && (
                       <div className="row">
                         <div className="col-5">
                           <label

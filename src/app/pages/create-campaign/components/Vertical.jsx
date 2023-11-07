@@ -15,7 +15,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import PublishCampaignModal from "../../../../_metronic/layout/components/modals/PublishCampaignModal";
 import { useDispatch, useSelector } from 'react-redux';
-import { setPageNum, setCollapseNum, setCampaignName, setCampaignSchedule } from "../../../../store/reducers/createCampaignReducer";
+import { setPageNum, setCollapseNum, setCampaignName, setCampaignSchedule,setDiscountRange } from "../../../../store/reducers/createCampaignReducer";
 
 const Vertical = () => {
   const dispatch = useDispatch();
@@ -55,6 +55,14 @@ const Vertical = () => {
       ]
     }
     dispatch(setCampaignSchedule({ ...defaultCampaignSchedule }))
+
+    //discountRange
+    const defaultDiscountRange = {
+      minPercentage: 0,
+      maxPercentage: 0,
+      selectedGoal: null,
+    }
+    dispatch(setDiscountRange({ ...defaultDiscountRange }))
 
     const searchParams = new URLSearchParams(document.location.search);
     if (searchParams.get("type") == "quick") {

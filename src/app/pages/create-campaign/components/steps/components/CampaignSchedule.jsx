@@ -159,7 +159,7 @@ const CampaignSchedule = () => {
                     onClick={() => dispatch(setCollapseNum(2))}
                 >
                     Campaign Schedule
-                    <KTIcon iconName="information-5" className="fs-1 ms-4 text-danger" />
+                    
                 </button>
             </h2>
             <div
