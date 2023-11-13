@@ -58,12 +58,7 @@ const InstallScreen = () => {
     return codeBlock.split("&lt;").join("<").split("&gt;").join(">");
   };
 
-  const getCurrentDomain = useSelector((state) => state.domain.selectedDomain
-  )
-useEffect(() => {
-  console.log("meryemm : ", getCurrentDomain)
-  
-}, [getCurrentDomain])
+  const getCurrentDomain = useSelector((state) => state.domain.selectedDomain)
 
 
   return (

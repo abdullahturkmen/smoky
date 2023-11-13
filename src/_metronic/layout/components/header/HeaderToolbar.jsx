@@ -10,12 +10,12 @@ import { toAbsoluteUrl } from "../../../helpers";
 import { Link } from "react-router-dom";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { PopupsListFilter } from "../../../../app/pages/campaigns/popupsTable/components/header/PopupsListFilter";
+import { useSelector } from 'react-redux';
 const HeaderToolbar = () => {
   const { classes } = useLayout();
-  const [status, setStatus] = useState<string>("1");
-  const [propensityScore, setPropensityScore] = useState<number>(25);
+  const [propensityScore, setPropensityScore] = useState(25);
   const { currentUser } = useAuth();
-  const [notificationList, setNotificationList] = useState<any>([
+  const [notificationList, setNotificationList] = useState([
     { title: "Black Friday Strategy: 11 Ideas & Tips 🏷️", read: false },
     { title: "Notification 2", read: true },
     { title: "Black Friday Strategy: 11 Ideas & Tips 🏷️", read: false },
@@ -23,21 +23,22 @@ const HeaderToolbar = () => {
     { title: "Black Friday Strategy: 11 Ideas & Tips 🏷️", read: false },
     { title: "Notification 2", read: true },
   ]);
-  const [notificationAlert, setNotificationAlert] = useState<boolean>(false);
+  const [notificationAlert, setNotificationAlert] = useState(false);
+  const getUserProfile = useSelector((state) => state.accountSettings.userProfile)
 
   useEffect(() => {
     notificationList?.map((e) => {
-      if (e.read == true) {
+      if (e.read === true) {
         setNotificationAlert(true);
       }
     });
   }, [notificationList]);
 
   useEffect(() => {
-    const slider: target = document.querySelector(
+    const slider = document.querySelector(
       "#kt_toolbar_slider"
-    ) as target;
-    const rangeSliderValueElement: Element | null = document.querySelector(
+    ) ;
+    const rangeSliderValueElement = document.querySelector(
       "#kt_toolbar_slider_value"
     );
 
@@ -57,7 +58,7 @@ const HeaderToolbar = () => {
       },
     });
 
-    slider.noUiSlider?.on("update", function (values: any, handle: any) {
+    slider.noUiSlider?.on("update", function (values, handle) {
       if (!rangeSliderValueElement) {
         return;
       }
@@ -215,17 +216,17 @@ const HeaderToolbar = () => {
                   </li>
                 </ul>
               </div>
-
               {/*begin::User*/}
               <div className="aside-user d-flex align-items-sm-center justify-content-center py-5 ms-2">
                 {/*begin::Symbol*/}
+
                 <div className="symbol symbol-35px">
                   <img
                     className="cursor-pointer"
                     data-kt-menu-trigger="click"
                     data-kt-menu-placement="bottom-start"
                     data-kt-menu-overflow="false"
-                    src={toAbsoluteUrl("/media/avatars/300-1.jpg")}
+                    src={toAbsoluteUrl(getUserProfile ? getUserProfile : "/media/avatars/300-1.jpg")}    
                     alt={currentUser?.first_name}
                   />
                   <HeaderUserMenu />

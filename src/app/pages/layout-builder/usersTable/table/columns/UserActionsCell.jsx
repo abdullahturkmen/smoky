@@ -1,21 +1,18 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import {FC, useEffect, useState} from 'react'
+import { useEffect } from 'react'
 import {useMutation, useQueryClient} from 'react-query'
 import {MenuComponent} from '../../../../../../_metronic/assets/ts/components'
-import {ID, KTIcon, QUERIES} from '../../../../../../_metronic/helpers'
-import {useListView} from '../../core/ListViewProvider'
+import {KTIcon, QUERIES} from '../../../../../../_metronic/helpers'
 import {useQueryResponse} from '../../core/QueryResponseProvider'
 import {deleteUser, getUserById } from '../../core/_requests'
+import { useDispatch } from 'react-redux';
+import { setSelectedUser } from '../../../../../../store/reducers/accountSettingsReducer'
 
-type Props = {
-  id: ID
-}
 
-const UserActionsCell: FC<Props> = ({id}) => {
-  const {setItemIdForUpdate} = useListView()
+
+const UserActionsCell= ({id}) => {
+  const dispatch = useDispatch();
   const {query} = useQueryResponse()
   const queryClient = useQueryClient()
-  const [user, setUser] = useState<any>(null)
 
   useEffect(() => {
     MenuComponent.reinitialization()
@@ -25,13 +22,11 @@ const UserActionsCell: FC<Props> = ({id}) => {
     try {
       const userData = await getUserById(id);
       if (userData) {
-        setUser(userData);
+        dispatch(setSelectedUser(userData));
       }
     } catch (error) {
       console.error(error);
     }
-
-    setItemIdForUpdate(id);
   };
   const deleteItem = useMutation(() => deleteUser(id), {
     onSuccess: () => {
@@ -56,8 +51,9 @@ const UserActionsCell: FC<Props> = ({id}) => {
       >
         {/* begin::Menu item */}
         <div className='menu-item px-3'>
-          <a className='menu-link px-3' onClick={openEditModal}>
-            Edit
+          <a className='menu-link px-3'   data-bs-toggle="modal"
+                      data-bs-target="#EditUserModal" onClick={openEditModal}>
+            Edit 
           </a>
         </div>
         {/* end::Menu item */}

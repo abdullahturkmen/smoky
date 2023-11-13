@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-no-target-blank */
 import React, { useState, useEffect } from "react";
 import { useIntl } from "react-intl";
-import { KTIcon } from "../../../helpers";
 import { AsideMenuItemWithSub } from "./AsideMenuItemWithSub";
 import { AsideMenuItem } from "./AsideMenuItem";
 import Select from "react-select";
 import { useDispatch } from 'react-redux';
 import { setCurrentDomain } from "../../../../store/reducers/currentDomainReducer";
+import { useSelector } from 'react-redux';
 
 
 export function AsideMenuMain() {
@@ -16,9 +16,9 @@ export function AsideMenuMain() {
     { value: "a", label: "www.snooky.io" },
     { value: "b", label: "www.abdullahturkmen.com" },
   ];
-  const [selectedDomain, setSelectedDomain] = useState(domainList[0]);
+  const getCurrentDomain = useSelector((state) => state.domain.selectedDomain)
+
   const changeSelectedDomain = (event) => {
-     setSelectedDomain(event);
      dispatch(setCurrentDomain(event));
   };
   return (
@@ -26,7 +26,7 @@ export function AsideMenuMain() {
       <div className="menu-item">
         <Select
           options={domainList}
-          value={selectedDomain}
+          value={getCurrentDomain}
           onChange={changeSelectedDomain}
           placeholder="Domains"
           className="mt-4 form-control form-control-solid p-0"

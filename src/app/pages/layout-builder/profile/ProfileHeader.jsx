@@ -1,26 +1,23 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
-import { KTIcon, toAbsoluteUrl } from "../../../../_metronic/helpers";
-import { Link, useLocation } from "react-router-dom";
-import { Dropdown1 } from "../../../../_metronic/partials";
-import { toast } from 'react-toastify';
+import { toAbsoluteUrl } from "../../../../_metronic/helpers";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-
-const ProfileHeader: React.FC = () => {
-  const location = useLocation();
-  const [userProfile, setUserProfile] = useState<string | null>(null);
+import { useSelector,useDispatch } from 'react-redux';
+import { setUserProfile } from "../../../../store/reducers/accountSettingsReducer";
+const ProfileHeader = () => {
+  const dispatch = useDispatch();
   const [changeIcon, setChangeIcon] = useState(false);
-
-  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const getUserProfile = useSelector((state) => state.accountSettings.userProfile)
+  const [profile, setProfile] = useState(null);
+  const changeUserProfile = (e) => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = (event: ProgressEvent<FileReader>) => {
+      reader.onload = (event) => {
         if (event.target) {
-          const base64Data = event.target.result as string;
-          setUserProfile(base64Data);
+          const base64Data = event.target.result;
           setChangeIcon(true)
+          setProfile(base64Data)
         }
       };
       reader.readAsDataURL(file);
@@ -28,24 +25,15 @@ const ProfileHeader: React.FC = () => {
   };
 
   const clearUserProfile = () => {
-    setUserProfile(null)
     setChangeIcon(false)
+    setProfile(null)
   };
 
   const saveUserProfile = () => {
-    toast.success('The profile picture has been successfully changed.', {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      });
     setChangeIcon(false)
-    console.log('kayıt işlemi başarılı', userProfile)
+    dispatch(setUserProfile(profile));
   };
+
   return (
     <div className="card mb-5 mb-xl-10">
       <ToastContainer/>
@@ -56,8 +44,6 @@ const ProfileHeader: React.FC = () => {
       </div>
       <div className="card-body pt-9 pb-0">
         <div className="d-flex flex-wrap flex-sm-nowrap mb-3">
-          
-
           <div className="flex-grow-1">
             <div className="d-flex justify-content-between align-items-start flex-wrap mb-2">
               <div className="col-lg-8">
@@ -70,14 +56,25 @@ const ProfileHeader: React.FC = () => {
                     )})`,
                   }}
                 >
-                  <div
+                  {getUserProfile ? (
+                    <div
                     className="image-input-wrapper w-125px h-125px rounded-circle"
                     style={{
-                      backgroundImage: userProfile
-                        ? `url(${userProfile})`
+                      backgroundImage: getUserProfile
+                        ? `url(${getUserProfile})`
                         : `url(${toAbsoluteUrl("/media/avatars/300-1.jpg")})`,
                     }}
                   ></div>
+                  ) : (
+                    <div
+                    className="image-input-wrapper w-125px h-125px rounded-circle"
+                    style={{
+                      backgroundImage: profile
+                        ? `url(${profile})`
+                        : `url(${toAbsoluteUrl("/media/avatars/300-1.jpg")})`,
+                    }}
+                  ></div>
+                  )}
 
                   <label
                     className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
@@ -102,7 +99,7 @@ const ProfileHeader: React.FC = () => {
                           type="file"
                           name="avatar"
                           accept=".png, .jpg, .jpeg"
-                          onChange={handleFileInputChange}
+                          onChange={changeUserProfile}
                         />
                         <input type="hidden" name="avatar_remove" />
                       </>
@@ -142,8 +139,6 @@ const ProfileHeader: React.FC = () => {
                   Allowed file types: png, jpg, jpeg (180x180 px).
                 </div>
               </div>
-
-             
             </div>
           </div>
         </div>
@@ -153,3 +148,4 @@ const ProfileHeader: React.FC = () => {
 };
 
 export { ProfileHeader };
+

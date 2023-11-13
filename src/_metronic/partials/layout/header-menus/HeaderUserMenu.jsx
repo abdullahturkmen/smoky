@@ -1,13 +1,13 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import { FC } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../../../app/modules/auth";
 import { Languages } from "./Languages";
 import { toAbsoluteUrl } from "../../../helpers";
 import { ThemeModeSwitcher } from "../theme-mode/ThemeModeSwitcher";
-
-const HeaderUserMenu: FC = () => {
+import { useSelector } from 'react-redux';
+const HeaderUserMenu = () => {
   const { currentUser, logout } = useAuth();
+  const getUserProfile = useSelector((state) => state.accountSettings.userProfile)
+
   return (
     <div
       className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px"
@@ -17,7 +17,7 @@ const HeaderUserMenu: FC = () => {
       <div className="menu-item px-3">
         <div className="menu-content d-flex align-items-center px-3">
           <div className="symbol symbol-50px me-5">
-            <img alt="Logo" src={toAbsoluteUrl("/media/avatars/300-1.jpg")} />
+            <img alt="Logo" src={toAbsoluteUrl(getUserProfile ? getUserProfile : "/media/avatars/300-1.jpg")} />  
           </div>
 
           <div className="d-flex flex-column">
