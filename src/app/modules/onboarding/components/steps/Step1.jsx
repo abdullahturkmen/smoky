@@ -1,9 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import {FC} from 'react'
-import {KTIcon} from '../../../../../_metronic/helpers'
 import {ErrorMessage, Field} from 'formik'
+import { useDispatch,useSelector } from 'react-redux';
+import { setFullName } from '../../../../../store/reducers/onboardingReducer';
 
-const Step1: FC = () => {
+const Step1 = () => {
+  const dispatch = useDispatch();
+  const storeFullName = useSelector((state) => state.onboarding.fullName)
   return (
     <div className='w-100'>
       <div className='pb-10 pb-lg-15'>
@@ -18,15 +21,14 @@ const Step1: FC = () => {
         <div className='mb-10 fv-row'>
           <label className='form-label mb-3'>Full Name</label>
 
-          <Field
+          <input
             type='text'
             className='form-control form-control-lg form-control-solid border'
-            name='fullName'
             autoFocus='autofocus'
+            value={storeFullName}
+            onChange={(e) => dispatch(setFullName(e.target.value))}
           />
-          <div className='text-danger mt-2'>
-            <ErrorMessage name='fullName' />
-          </div>
+         
         </div>
       </div>
     </div>

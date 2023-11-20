@@ -43,6 +43,20 @@ const PricingScreen = () => {
       });
   }, []);
 
+  const formatAmount = (amount, currencyCode) => {
+    try {
+      const currencyFormat = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: currencyCode
+      });
+      return currencyFormat.format(amount);
+    } catch (error) {
+      console.error('Para birimi formatı oluşturulamadı:', error);
+      return null;
+    }
+  }
+
+
   return (
     <>
       <div className="card" id="kt_pricing">
@@ -90,32 +104,28 @@ const PricingScreen = () => {
                     <div className="w-100 d-flex flex-column flex-center rounded-3 bg-light bg-opacity-75 py-15 px-10">
                       <div className="mb-7 text-center">
                         <h1 className="text-dark mb-5 fw-bolder">
-                          {plan.product}
+                          {plan.nickname}
                         </h1>
 
-                        {/* <div className="text-gray-600 fw-semibold mb-5">
-                          {plan.description}
+                        <div className="text-gray-600 fw-semibold mb-5">
+                          plan.description
                         </div>
 
                         <div className="text-center">
-                          <span className="mb-2 text-primary">$</span>
 
                           <span
                             className="fs-3x fw-bold text-primary"
-                            data-kt-plan-price-month={plan.priceMonthly}
-                            data-kt-plan-price-annual={plan.priceAnnual}
+
                           >
-                            {selectedPlan === plan ? (
-                              selectedPlan.priceMonthly
-                            ) : (
-                              <span>{plan.priceMonthly}</span>
-                            )}{" "}
+
+                            {formatAmount(plan.amount, plan.currency)}
+
                           </span>
 
                           <span className="fs-7 fw-semibold opacity-50">
                             /<span data-kt-element="period">Mon</span>
                           </span>
-                        </div> */}
+                        </div>
                       </div>
 
                       {/* <div className="w-100 mb-10">
