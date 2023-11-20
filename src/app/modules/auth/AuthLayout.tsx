@@ -24,7 +24,7 @@ const AuthLayout = () => {
           alt="Snooky"
           style={{ maxWidth: "160px" }}
         />
-        <a href="https://www.snooky.io/" className="fs-4">Devam Et</a>
+        <a href="https://www.snooky.io/" className="fs-4">Continue</a>
       </div>
     </>
     // <div className='d-flex flex-column flex-lg-row flex-column-fluid h-100'>
