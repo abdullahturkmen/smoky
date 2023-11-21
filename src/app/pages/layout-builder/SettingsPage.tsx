@@ -51,7 +51,6 @@ const SettingsPage: React.FC = () => {
   useEffect(() => {
     
     setTab(searchParams.get("type") || 'Profile')
-    console.log("searchParams type -- : ", searchParams.get("type"));
 
   }, [searchParams.get("type")]);
   return (

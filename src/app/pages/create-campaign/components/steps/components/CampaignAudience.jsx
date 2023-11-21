@@ -9,19 +9,19 @@ import './../../../../../../_metronic/assets/sass/components/geosuggest.css';
 import { ToastContainer, toast } from 'react-toastify';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setCollapseNum } from "../../../../../../store/reducers/createCampaignReducer";
+import { setCollapseNum, setCampaignAudience } from "../../../../../../store/reducers/createCampaignReducer";
 
 
 
 const CampaignAudience = () => {
     const dispatch = useDispatch();
     const storeCollapseNum = useSelector((state) => state.createCampaign.collapseNum)
+    const storeCampaignAudience = useSelector((state) => state.createCampaign.campaignAudience)
 
 
     const [countryList, setCountryList] = useState([]);
     const [selectCountryList, setSelectCountryList] = useState([{ "value": "all", "label": "All locations" }, { "value": "spesific", "label": "Spesific regions" }]);
     const [selectCountryType, setSelectCountryType] = useState([{ "value": "inc", "label": "Include" }, { "value": "exc", "label": "Exclude" }]);
-    // backende gönderilecek olan data değeri : devicesData
     const [selectedCountry, setSelectedCountry] = useState(null);
     const [selectedLanguage, setSelectedLanguage] = useState(null);
     const [selectedChannels, setSelectedChanneles] = useState(null);
@@ -35,31 +35,11 @@ const CampaignAudience = () => {
     const [minValue, setMinValue] = useState(0);
     const [maxValue, setMaxValue] = useState(1);
     const [inTheLast, setInTheLast] = useState(5);
-    const [devicesData, setDevicesData] = useState({
-        'Display on desktops': {
-            selected: false,
-            options: {
-                Windows: true,
-                Mac: true,
-                Linux: true,
-            },
-        },
-        'Display on tablets': {
-            selected: false,
-            options: {
-                iPad: true,
-                Android: true,
-            },
-        },
-        'Display on mobiles': {
-            selected: false,
-            options: {
-                iPhone: true,
-                Android: true,
-                'Windows Phone': true,
-            },
-        },
-    });
+
+    useEffect(() => {
+        console.log("storeCampaignAudience.devicesList : ", storeCampaignAudience.devicesList)
+    }, [storeCampaignAudience.devicesList])
+
 
     const trafficSourceOptions = [
         { value: "url0", label: "Is equal to" },
@@ -82,19 +62,34 @@ const CampaignAudience = () => {
     ];
 
     const deviceCheckboxChange = (buttonName, optionName) => {
-        setDevicesData((prevDevicesData) => {
-            const updatedDevicesData = { ...prevDevicesData };
+        console.log("checkbox basıldı :", {a: buttonName, b: optionName})
+
+
+
+        //dispatch(setCampaignAudience({ ...storeCampaignAudience, endDate: storeCampaignSchedule.startDate }))
+        const updatedDevicesList = { ...storeCampaignAudience.devicesList };
+        
+        updatedDevicesList['Display on tablets'].options = {
+            ...updatedDevicesList['Display on tablets'].options,
+            Android: false,
+          };
+
+        var asd = () => {
+            const updatedDevicesDataEski = { ...storeCampaignAudience.devicesList };
             if (buttonName === 'All devices') {
-                for (const name in updatedDevicesData) {
-                    for (const key in updatedDevicesData[name].options) {
-                        updatedDevicesData[name].options[key] = true;
+                for (const name in updatedDevicesDataEski) {
+                    for (const key in updatedDevicesDataEski[name].options) {
+                        updatedDevicesDataEski[name].options[key] = true;
                     }
                 }
             } else {
-                updatedDevicesData[buttonName].options[optionName] = !updatedDevicesData[buttonName].options[optionName];
+                updatedDevicesDataEski[buttonName].options[optionName] = !updatedDevicesDataEski[buttonName].options[optionName];
             }
-            return updatedDevicesData;
-        });
+            return updatedDevicesDataEski;
+        }
+
+        console.log("checkbox sonuç :", updatedDevicesList)
+
     };
     const shareVisitorOptions = [
         { value: "allVisitors", label: "All visitors" },
@@ -240,11 +235,8 @@ const CampaignAudience = () => {
     }
 
     const deleteCountry = (e) => {
-        console.log("index : ", e)
-
-
-        setCountryList((countryListx) =>
-            countryListx.filter((x) => x.id !== e)
+        setCountryList((data) =>
+            data.filter((x) => x.id !== e)
         );
     }
 
@@ -263,23 +255,13 @@ const CampaignAudience = () => {
     };
 
     const popupSawCountChange = (event) => {
-
         if (parseInt(event.target.value) >= 0) {
             setPopupSawCount(parseInt(event.target.value))
         }
         else {
             setPopupSawCount(0)
         }
-
     }
-
-
-
-
-
-
-
-
 
 
     const minValChange = (event) => {
@@ -375,7 +357,7 @@ const CampaignAudience = () => {
             </h2>
             <div
                 id="collapseFive"
-                 className={`accordion-collapse collapse ${storeCollapseNum == "5"  ? 'show' : ''}`}
+                className={`accordion-collapse collapse ${storeCollapseNum == "5" ? 'show' : ''}`}
                 aria-labelledby="headingFive"
                 data-bs-parent="#accordionExample"
             >
@@ -399,141 +381,45 @@ const CampaignAudience = () => {
                                             All devices
                                         </button>
                                     </div>
-                                    <div>
-                                        <button
-                                            type="button"
-                                            className={`btn btn-sm ${activeButtons.includes('Display on desktops') ? 'btn-primary' : 'btn-secondary'}`}
-                                            onClick={() => devicesButtonClick('Display on desktops')}
-                                        >
-                                            Display on desktops
-                                        </button>
-                                        {activeButtons.includes('Display on desktops') && showDeviceDetail === true && (
-                                            <div className="mt-5">
-                                                <div className="col-12 my-2">
-                                                <label className="form-check form-check-inline ">
-                                                    <input
-                                                        className='form-check-input me-2'
-                                                        type='checkbox'
-                                                        value='1'
-                                                        checked={devicesData['Display on desktops'].options.Windows}
-                                                        onChange={() => deviceCheckboxChange('Display on desktops', 'Windows')}
-                                                    />
-                                                    Windows
-                                                    </label>
+
+
+
+                                    {Object.keys(storeCampaignAudience.devicesList).map((device, index) => (
+                                        <div key={index}>
+                                            <button
+                                                type="button"
+                                                className={`btn btn-sm ${activeButtons.includes(device) ? 'btn-primary' : 'btn-secondary'}`}
+                                                onClick={() => devicesButtonClick(device)}
+                                            >
+                                                {device}
+                                            </button>
+                                            <p>Selected: {storeCampaignAudience.devicesList[device].selected.toString()}</p>
+                                            {activeButtons.includes(device) && showDeviceDetail && (<>
+                                                <div className="mt-5">
+                                                    {Object.keys(storeCampaignAudience.devicesList[device].options).map((option, optionIndex) => (<>
+
+
+
+                                                        <div className="col-12 my-2">
+                                                            <label className="form-check form-check-inline ">
+                                                                <input
+                                                                    className='form-check-input me-2'
+                                                                    type='checkbox'
+                                                                    value='1'
+                                                                    checked={storeCampaignAudience.devicesList[device].options[option]}
+                                                                    onChange={() => deviceCheckboxChange(device, option)}
+                                                                />
+                                                                {option}
+                                                            </label>
+                                                        </div>
+
+                                                    </>
+                                                    ))}
                                                 </div>
-                                                <div className="col-12 my-2">
-                                                <label className="form-check form-check-inline ">
-                                                    <input
-                                                        className='form-check-input me-2'
-                                                        type='checkbox'
-                                                        value='1'
-                                                        checked={devicesData['Display on desktops'].options.Mac}
-                                                        onChange={() => deviceCheckboxChange('Display on desktops', 'Mac')}
-                                                    />
-                                                    Mac
-                                                    </label>
-                                                </div>
-                                                <div className="col-12 my-2">
-                                                <label className="form-check form-check-inline ">
-                                                    <input
-                                                        className='form-check-input me-2'
-                                                        type='checkbox'
-                                                        value='1'
-                                                        checked={devicesData['Display on desktops'].options.Linux}
-                                                        onChange={() => deviceCheckboxChange('Display on desktops', 'Linux')}
-                                                    />
-                                                    Linux
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        )}
-                                    </div>
-                                    <div>
-                                        <button
-                                            type="button"
-                                            className={`btn btn-sm ${activeButtons.includes('Display on tablets') ? 'btn-primary' : 'btn-secondary'}`}
-                                            onClick={() => devicesButtonClick('Display on tablets')}
-                                        >
-                                            Display on tablets
-                                        </button>
-                                        {activeButtons.includes('Display on tablets') && showDeviceDetail === true && (
-                                            <div className="mt-5">
-                                                <div className="col-12 my-2">
-                                                <label className="form-check form-check-inline ">
-                                                    <input
-                                                        className='form-check-input me-2'
-                                                        type='checkbox'
-                                                        value='1'
-                                                        checked={devicesData['Display on tablets'].options.iPad}
-                                                        onChange={() => deviceCheckboxChange('Display on tablets', 'iPad')}
-                                                    />
-                                                    iPad
-                                                    </label>
-                                                </div>
-                                                <div className="col-12 my-2">
-                                                <label className="form-check form-check-inline ">
-                                                    <input
-                                                        className='form-check-input me-2'
-                                                        type='checkbox'
-                                                        value='1'
-                                                        checked={devicesData['Display on tablets'].options.Android}
-                                                        onChange={() => deviceCheckboxChange('Display on tablets', 'Android')}
-                                                    />
-                                                    Android
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        )}
-                                    </div>
-                                    <div>
-                                        <button
-                                            type="button"
-                                            className={`btn btn-sm ${activeButtons.includes('Display on mobiles') ? 'btn-primary' : 'btn-secondary'}`}
-                                            onClick={() => devicesButtonClick('Display on mobiles')}
-                                        >
-                                            Display on mobiles
-                                        </button>
-                                        {activeButtons.includes('Display on mobiles') && showDeviceDetail === true && (
-                                            <div className="mt-5">
-                                                <div className="col-12 my-2">
-                                                <label className="form-check form-check-inline ">
-                                                    <input
-                                                        className='form-check-input me-2'
-                                                        type='checkbox'
-                                                        value='1'
-                                                        checked={devicesData['Display on mobiles'].options.iPhone}
-                                                        onChange={() => deviceCheckboxChange('Display on mobiles', 'iPhone')}
-                                                    />
-                                                    iPhone
-                                                    </label>
-                                                </div>
-                                                <div className="col-12 my-2">
-                                                <label className="form-check form-check-inline ">
-                                                    <input
-                                                        className='form-check-input me-2'
-                                                        type='checkbox'
-                                                        value='1'
-                                                        checked={devicesData['Display on mobiles'].options.Android}
-                                                        onChange={() => deviceCheckboxChange('Display on mobiles', 'Android')}
-                                                    />
-                                                    Android
-                                                    </label>
-                                                </div>
-                                                <div className="col-12 my-2">
-                                                <label className="form-check form-check-inline ">
-                                                    <input
-                                                        className='form-check-input me-2'
-                                                        type='checkbox'
-                                                        value='1'
-                                                        checked={devicesData['Display on mobiles'].options['Windows Phone']}
-                                                        onChange={() => deviceCheckboxChange('Display on mobiles', 'Windows Phone')}
-                                                    />
-                                                    Windows Phone
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        )}
-                                    </div>
+                                            </>)}
+                                        </div>
+                                    ))}
+
                                     <div>
                                         {!activeButtons.includes('All devices') && (
                                             <button type="button" className="btn btn-link btn-sm" onClick={changeStatusDeviceDetail}>
@@ -543,11 +429,14 @@ const CampaignAudience = () => {
                                             </button>
                                         )}
                                     </div>
+
+
                                 </div>
 
 
                             </div>
                         </div>
+
                         <div className="col-12 col-lg-7 col-md-9 mb-4">
                             <label
                                 htmlFor="campaignname"
@@ -688,7 +577,7 @@ const CampaignAudience = () => {
                                     </div>
                                     <span className="d-flex gap-8 flex-wrap">
                                         <div>
-                                            
+
                                             <label className="form-check form-check-inline ">
                                                 <input
                                                     className='form-check-input me-2'
@@ -737,15 +626,15 @@ const CampaignAudience = () => {
                                             </OverlayTrigger>
                                         </div>
                                         <div >
-                                        <label className="form-check form-check-inline ">
-                                            <input
-                                                className='form-check-input me-2'
-                                                type='checkbox'
-                                                value='1'
-                                            />
+                                            <label className="form-check form-check-inline ">
+                                                <input
+                                                    className='form-check-input me-2'
+                                                    type='checkbox'
+                                                    value='1'
+                                                />
 
-                                            <span className="me-3">Direct</span>
-</label>
+                                                <span className="me-3">Direct</span>
+                                            </label>
                                             <OverlayTrigger placement="top" overlay={tooltipChannel('Visitors coming after typing the URL in their browser')}>
                                                 <span className="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip" >
                                                     <i className="bi bi-info-circle-fill"></i>
@@ -754,15 +643,15 @@ const CampaignAudience = () => {
 
                                         </div>
                                         <div >
-                                        <label className="form-check form-check-inline ">
-                                            <input
-                                                className='form-check-input me-2'
-                                                type='checkbox'
-                                                value='1'
-                                            />
+                                            <label className="form-check form-check-inline ">
+                                                <input
+                                                    className='form-check-input me-2'
+                                                    type='checkbox'
+                                                    value='1'
+                                                />
 
-                                            <span className="me-3">Others</span>
-</label>
+                                                <span className="me-3">Others</span>
+                                            </label>
                                             <OverlayTrigger placement="top" overlay={tooltipChannel('Visitors coming from all other sources')}>
                                                 <span className="d-inline-block cursor-pointer" tabindex="0" data-toggle="tooltip">
                                                     <i className="bi bi-info-circle-fill"></i>
@@ -975,14 +864,14 @@ const CampaignAudience = () => {
                                 <div className="bg-light border rounded p-5">
                                     <div className="d-flex align-items-start mt-4">
                                         <Select
-                                options={selectCountryType}
-                                className="form-control form-control-solid me-2 w-25 p-0"
-                                onChange={countryTypeChange}
-                                value={selectedCountryTypeOption}
-                            />
+                                            options={selectCountryType}
+                                            className="form-control form-control-solid me-2 w-25 p-0"
+                                            onChange={countryTypeChange}
+                                            value={selectedCountryTypeOption}
+                                        />
 
-                           
-                                        
+
+
                                         <Geosuggest onSuggestSelect={selectCountry} ref={geosuggestEl} placeholder="Search state" className="flex-grow-1 w-75" />
                                         <button type="button" onClick={clearCountry} className="btn">X</button>
                                     </div>
@@ -1049,15 +938,15 @@ const CampaignAudience = () => {
                                 Behavior
                             </label>
                             <div className="col-12 my-2 d-flex align-items-center gap-5">
-                            <label className="form-check form-check-inline ">
-                                <input
-                                    className='form-check-input me-2'
-                                    type='checkbox'
-                                    value='1'
-                                    checked={devicesData['Display on desktops'].options.Windows}
-                                    onChange={() => deviceCheckboxChange('Display on desktops', 'Windows')}
-                                />
-                                <span>Exclude visitors who already saw</span>
+                                <label className="form-check form-check-inline ">
+                                    <input
+                                        className='form-check-input me-2'
+                                        type='checkbox'
+                                        value='1'
+                                        //checked={devicesDataEski['Display on desktops'].options.Windows}
+                                        onChange={() => deviceCheckboxChange('Display on desktops', 'Windows')}
+                                    />
+                                    <span>Exclude visitors who already saw</span>
                                 </label>
                                 <input
                                     className="form-control border form-control-solid"
@@ -1066,6 +955,7 @@ const CampaignAudience = () => {
                                     min="0"
                                     value={popupSawCount}
                                     onChange={popupSawCountChange}
+                                   // disabled={!devicesDataEski['Display on desktops'].options.Windows}
                                 /> popups during the session
                             </div>
                         </div>

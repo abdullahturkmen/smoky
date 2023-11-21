@@ -7,7 +7,6 @@ const getAuth = (): AuthModel | undefined => {
   }
 
   const lsValue: string | null = localStorage.getItem(AUTH_LOCAL_STORAGE_KEY);
-    console.log("lsValue 1 : ", lsValue)
   if (!lsValue) {
     return;
   }
@@ -30,7 +29,7 @@ const setAuth = (auth: AuthModel) => {
 
   try {
     const lsValue = JSON.stringify(auth);
-    console.log("lsValue 2 : ", lsValue)
+    console.log("lsValue 2 : ", lsValue);
     localStorage.setItem(AUTH_LOCAL_STORAGE_KEY, lsValue);
   } catch (error) {
     console.error("AUTH LOCAL STORAGE SAVE ERROR", error);
@@ -50,23 +49,18 @@ const removeAuth = () => {
 };
 
 export function setupAxios(axios: any) {
-  
   const searchParams = new URLSearchParams(document.location.search);
 
+  if (!!searchParams.get("token")) {
+    const userData = {
+      api_token: searchParams.get("token"),
+    };
 
-
-  if (!!searchParams.get("token")) { 
-
-  const userData = {
-    "api_token": searchParams.get("token")
-  };
-  
-  // Veriyi JSON formatına dönüştürüp localStorage'a eklemek
-  localStorage.setItem(AUTH_LOCAL_STORAGE_KEY, JSON.stringify(userData));
-  searchParams.delete('token');
-  return window.location.href = `${window.location.protocol}//${window.location.host}/onboarding`
-
-}
+    // Veriyi JSON formatına dönüştürüp localStorage'a eklemek
+    localStorage.setItem(AUTH_LOCAL_STORAGE_KEY, JSON.stringify(userData));
+    searchParams.delete("token");
+    return (window.location.href = `${window.location.protocol}//${window.location.host}/onboarding`);
+  }
 
   axios.defaults.headers.Accept = "application/json";
   axios.interceptors.request.use(
@@ -75,7 +69,6 @@ export function setupAxios(axios: any) {
 
       if (auth && auth.api_token) {
         config.headers.Authorization = `Bearer ${auth.api_token}`;
-
       }
 
       return config;

@@ -7,19 +7,38 @@ import Select from "react-select";
 import { useDispatch } from 'react-redux';
 import { setCurrentDomain } from "../../../../store/reducers/currentDomainReducer";
 import { useSelector } from 'react-redux';
+import { useAuth } from "../../../../app/modules/auth";
+import { current } from "@reduxjs/toolkit";
 
 
 export function AsideMenuMain() {
+  const { currentUser } = useAuth();
   const dispatch = useDispatch();
   const intl = useIntl();
-  const domainList = [
-    { value: "a", label: "www.snooky.io" },
-    { value: "b", label: "www.abdullahturkmen.com" },
-  ];
+  const [domainList, setDomainList] = useState([])
   const getCurrentDomain = useSelector((state) => state.domain.selectedDomain)
 
+  useEffect(() => {
+    currentUser.domains.map(e => {
+      let check = domainList.some(item => item.value === e.url);
+
+      if (!check) {
+        setDomainList(current => [...domainList, { value: e.url, label: e.name }])
+      }
+      
+    })
+  }, [])
+
+  useEffect(() => {
+    if (domainList.length > 0) {
+      dispatch(setCurrentDomain(domainList[0]));
+    }
+  }, [domainList])
+  
+
+
   const changeSelectedDomain = (event) => {
-     dispatch(setCurrentDomain(event));
+    dispatch(setCurrentDomain(event));
   };
   return (
     <>
@@ -37,13 +56,13 @@ export function AsideMenuMain() {
           <span className="menu-section text-muted text-uppercase fs-8 ls-1"></span>
         </div>
       </div>
-      
+
       <AsideMenuItem
         to="/campaigns"
         icon="element-11"
         title={intl.formatMessage({ id: "MENU.DASHBOARD" })}
       />
-     
+
       <AsideMenuItem to="/analytics" icon="chart-simple" title="Analytics" />
       <div className="d-none">
         <AsideMenuItem

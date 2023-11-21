@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../../../app/modules/auth";
 import { Languages } from "./Languages";
@@ -7,6 +8,11 @@ import { useSelector } from 'react-redux';
 const HeaderUserMenu = () => {
   const { currentUser, logout } = useAuth();
   const getUserProfile = useSelector((state) => state.accountSettings.userProfile)
+
+useEffect(() => {
+  console.log("currentUser : ",  currentUser)
+}, [])
+
 
   return (
     <div

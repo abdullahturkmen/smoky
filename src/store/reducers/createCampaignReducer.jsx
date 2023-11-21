@@ -43,7 +43,34 @@ const initialState = {
   campaignSchedule: defaultCampaignSchedule,
   selectedTimeZone: null,
   discountRange: defaultDiscountRange,
-  campaignLimit: defaultCampaignLimit
+  campaignLimit: defaultCampaignLimit,
+  campaignAudience: {
+    devicesList: {
+      'Display on desktops': {
+        selected: false,
+        options: {
+          Windows: true,
+          Mac: true,
+          Linux: true,
+        },
+      },
+      'Display on tablets': {
+        selected: false,
+        options: {
+          iPad: true,
+          Android: true,
+        },
+      },
+      'Display on mobiles': {
+        selected: false,
+        options: {
+          iPhone: true,
+          Android: true,
+          'Windows Phone': true,
+        },
+      },
+    }
+  }
 };
 
 const createCampaignReducer = createSlice({
@@ -71,8 +98,11 @@ const createCampaignReducer = createSlice({
     setCampaignLimit: (state, action) => {
       state.campaignLimit = action.payload;
     },
+    setCampaignAudience: (state, action) => {
+      state.campaignAudience = action.payload;
+    },
   },
 });
 
-export const { setPageNum, setCollapseNum, setCampaignName, setCampaignSchedule, setSelectedTimeZone, setDiscountRange,setCampaignLimit } = createCampaignReducer.actions;
+export const { setPageNum, setCollapseNum, setCampaignName, setCampaignSchedule, setSelectedTimeZone, setDiscountRange, setCampaignLimit, setCampaignAudience } = createCampaignReducer.actions;
 export default createCampaignReducer.reducer;

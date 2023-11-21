@@ -50,15 +50,13 @@ export interface UserModel {
   email: string
   first_name: string
   last_name: string
-  fullname?: string
-  occupation?: string
+  name?: string
   companyName?: string
-  phone?: string
-  roles?: Array<number>
+  phone_number?: string
+  role?: string
   pic?: string
   language?: 'en' | 'de' | 'es' | 'fr' | 'ja' | 'zh' | 'ru'
   timeZone?: string
-  website?: 'https://keenthemes.com'
   emailSettings?: UserEmailSettingsModel
   auth?: AuthModel
   communication?: UserCommunicationModel

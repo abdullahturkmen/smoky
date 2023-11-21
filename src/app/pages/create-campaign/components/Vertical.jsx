@@ -15,7 +15,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import PublishCampaignModal from "../../../../_metronic/layout/components/modals/PublishCampaignModal";
 import { useDispatch, useSelector } from 'react-redux';
-import { setPageNum, setCollapseNum, setCampaignName, setCampaignSchedule,setDiscountRange } from "../../../../store/reducers/createCampaignReducer";
+import { setPageNum, setCollapseNum, setCampaignName, setCampaignSchedule,setDiscountRange,setCampaignLimit } from "../../../../store/reducers/createCampaignReducer";
 
 const Vertical = () => {
   const dispatch = useDispatch();
@@ -63,6 +63,17 @@ const Vertical = () => {
       selectedGoal: null,
     }
     dispatch(setDiscountRange({ ...defaultDiscountRange }))
+
+    //campaignLimit
+    const defaultCampaignLimit = {
+      singleValue: 5,
+      minValue: 3,
+      maxValue: 5,
+      selectedOption: "None",
+      selectedOptionDetail: "radioButtonOne"
+    }
+    dispatch(setCampaignLimit({ ...defaultCampaignLimit }))
+    
 
     const searchParams = new URLSearchParams(document.location.search);
     if (searchParams.get("type") == "quick") {

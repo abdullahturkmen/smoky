@@ -1,10 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    selectedDomain: {
-        value:'a',
-        label:'www.snooky.io'
-    }, 
+    selectedDomain: {}, 
 };
 
 const currentDomainReducer = createSlice({
