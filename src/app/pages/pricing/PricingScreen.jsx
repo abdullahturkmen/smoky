@@ -10,11 +10,13 @@ import { getPricingPlans } from './core/_request'
 
 
 
+
 const PricingScreen = () => {
   const [selectedPlan, setSelectedPlan] = useState('monthly');
   const [plansList, setPlansList] = useState([])
   const [monthly, setMonthly] = useState([])
   const [year, setYear] = useState([])
+  const [iframe, setIframe] = useState(false)
 
   const plansListTypeChange = (plan) => {
     setSelectedPlan(plan)
@@ -24,6 +26,16 @@ const PricingScreen = () => {
     setPlansList(year)
   };
 
+
+  useEffect(() => {
+ 
+    const searchParams = new URLSearchParams(document.location.search);
+    if (searchParams.get("type") == "iframe") {
+      setIframe(true)
+    }
+    
+  }, [])
+  
 
 
   useEffect(() => {
@@ -152,6 +164,14 @@ const PricingScreen = () => {
                         ))}
                       </div> */}
 
+                      {iframe ? (<>
+                        <button
+
+className={`btn btn-sm btn-primary`}
+>
+iframe Buttonları
+</button></>):(<>
+
                       <button
 
                         className={`btn btn-sm btn-primary ${selectedPlan === plan ? "disabled" : ""
@@ -159,6 +179,7 @@ const PricingScreen = () => {
                       >
                         {selectedPlan === plan ? "Selected" : "Select"}
                       </button>
+                      </>)}
                     </div>
                   </div>
                 </div>
