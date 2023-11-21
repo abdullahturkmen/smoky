@@ -13,6 +13,7 @@ import OnboardingPage from '../modules/onboarding/OnboardingPage'
 import {Logout, AuthPage, useAuth} from '../modules/auth'
 import {App} from '../App'
 import CreateCampaign from '../pages/create-campaign/CreateCampaign'
+import { PricingScreen } from '../pages/pricing/PricingScreen'
 
 
 /**
@@ -30,6 +31,7 @@ const AppRoutes: FC = () => {
         <Route element={<App />}>
           <Route path='error/*' element={<ErrorsPage />} />
           <Route path='logout' element={<Logout />} />
+          <Route path='pricing-table' element={<PricingScreen />} />
 
           {currentUser ? (
             <>
