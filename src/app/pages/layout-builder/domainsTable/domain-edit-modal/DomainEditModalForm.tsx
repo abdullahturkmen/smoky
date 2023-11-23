@@ -8,6 +8,11 @@ import {useListView} from '../core/ListViewProvider'
 import {DomainsListLoading} from '../components/loading/DomainsListLoading'
 import {createDomain, updateDomain} from '../core/_requests'
 import {useQueryResponse} from '../core/QueryResponseProvider'
+import axios from 'axios'
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+
+const API_URL = process.env.REACT_APP_API_URL;
 
 type Props = {
   isDomainLoading: boolean
@@ -27,6 +32,8 @@ const editDomainSchema = Yup.object().shape({
 })
 
 const DomainEditModalForm: FC<Props> = ({user, isDomainLoading}) => {
+  const [domainUrl, setDomainUrl] = useState('')
+  const [isWebsiteValid, setIsWebsiteValid] = useState(false)
   const {setItemIdForUpdate} = useListView()
   const {refetch} = useQueryResponse()
 
@@ -46,9 +53,70 @@ const DomainEditModalForm: FC<Props> = ({user, isDomainLoading}) => {
     setItemIdForUpdate(undefined)
   }
 
+  function isValidURL(url) {
+    const pattern = /^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+)\.([a-zA-Z]{2,})(\S*)$/;
+    return pattern.test(url);
+  }
+
+
+  function gecerliAdresYap(adres) {
+    // Eğer adres boşsa veya null/undefined ise geçersiz kabul edin
+    if (!adres) {
+      return false;
+    }
+
+    // Eğer başında "http://" veya "https://" yoksa, bu kısmı ekle
+    if (!adres.startsWith('http://') && !adres.startsWith('https://')) {
+      adres = 'https://' + adres;
+    }
+
+    // Sonucu döndür
+    return adres;
+  }
+
   const editDomainURL =()=>{
     // backende formik.values.name değeri gönderilmeli
-    console.log('fonk çalıştı', formik.values.name)
+
+    if (isWebsiteValid) {
+     
+      console.log('fonk çalıştı', domainUrl)
+      axios.post(`${API_URL}/domain/create`, {
+        name: domainUrl,
+        url: gecerliAdresYap(domainUrl),
+      }).then(() => {
+      toast.success('Domain created', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setDomainUrl("")
+      setIsWebsiteValid(false)
+      window.location.href = `${window.location.protocol}//${window.location.host}/settings?type=Websites`;
+    })
+    }
+    else {
+      //hatalı
+     
+    }
+
+   
+  }
+
+  const domainUrlChange = (e) => {
+    if (isValidURL(gecerliAdresYap(e.target.value))) {
+      setIsWebsiteValid(true);
+     
+    }
+    else {
+      setIsWebsiteValid(false);
+     
+    }
+    setDomainUrl(e.target.value)
   }
 
   const formik = useFormik({
@@ -73,6 +141,7 @@ const DomainEditModalForm: FC<Props> = ({user, isDomainLoading}) => {
 
   return (
     <>
+    <ToastContainer />
       <form id='kt_modal_add_user_form' className='form' onSubmit={formik.handleSubmit} noValidate>
         {/* begin::Scroll */}
         <div
@@ -95,21 +164,22 @@ const DomainEditModalForm: FC<Props> = ({user, isDomainLoading}) => {
 
             {/* begin::Input */}
             <input
+            value={domainUrl}
+            onChange={domainUrlChange}
               placeholder='Domain URL'
-              {...formik.getFieldProps('name')}
               type='text'
               name='name'
               className={clsx(
                 'form-control form-control-solid mb-3 mb-lg-0',
-                {'is-invalid': formik.touched.name && formik.errors.name},
+                {'is-invalid':  !isWebsiteValid},
                 {
-                  'is-valid': formik.touched.name && !formik.errors.name,
+                  'is-valid':  isWebsiteValid,
                 }
               )}
               autoComplete='off'
               disabled={formik.isSubmitting || isDomainLoading}
             />
-            {formik.touched.name && formik.errors.name && (
+            {domainUrl.length == 0 && (
               <div className='fv-plugins-message-container'>
                 <div className='fv-help-block'>
                   <span role='alert'>{formik.errors.name}</span>
@@ -137,10 +207,10 @@ const DomainEditModalForm: FC<Props> = ({user, isDomainLoading}) => {
           </button>
 
           <button
-            type='submit'
+            type='button'
             className='btn btn-primary'
             data-kt-users-modal-action='submit'
-            disabled={isDomainLoading || formik.isSubmitting || !formik.isValid || !formik.touched}
+            disabled={!isWebsiteValid}
             onClick={editDomainURL}
           >
             <span className='indicator-label'>Submit</span>

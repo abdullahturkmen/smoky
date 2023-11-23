@@ -2,13 +2,13 @@ import axios, {AxiosResponse} from 'axios'
 import {ID, Response} from '../../../../../_metronic/helpers'
 import {Domain, DomainsQueryResponse} from './_models'
 
-const API_URL = process.env.REACT_APP_THEME_API_URL
+const API_URL = process.env.REACT_APP_API_URL
 const USER_URL = `${API_URL}/user`
-const GET_USERS_URL = `${API_URL}/users/query`
+const GET_DOMAINS_URL = `${API_URL}/domain/list`
 
 const getDomains = (query: string): Promise<DomainsQueryResponse> => {
   return axios
-    .get(`${GET_USERS_URL}?${query}`)
+    .get(`${GET_DOMAINS_URL}?${query}`)
     .then((d: AxiosResponse<DomainsQueryResponse>) => d.data)
 }
 

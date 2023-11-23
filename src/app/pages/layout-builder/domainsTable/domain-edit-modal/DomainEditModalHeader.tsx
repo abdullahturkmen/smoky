@@ -7,7 +7,7 @@ const DomainEditModalHeader = () => {
   return (
     <div className='modal-header'>
       {/* begin::Modal title */}
-      <h2 className='fw-bolder'>Edit Domain URL</h2>
+      <h2 className='fw-bolder'>Domain</h2>
       {/* end::Modal title */}
 
       {/* begin::Close */}

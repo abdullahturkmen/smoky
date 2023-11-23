@@ -42,7 +42,7 @@ const Step3 = () => {
 
     // Eğer başında "http://" veya "https://" yoksa, bu kısmı ekle
     if (!adres.startsWith('http://') && !adres.startsWith('https://')) {
-      adres = 'http://' + adres;
+      adres = 'https://' + adres;
     }
 
     // Sonucu döndür

@@ -15,17 +15,21 @@ export function AsideMenuMain() {
   const { currentUser } = useAuth();
   const dispatch = useDispatch();
   const intl = useIntl();
-  const [domainList, setDomainList] = useState([])
+  const [domainListx, setDomainListx] = useState([])
   const getCurrentDomain = useSelector((state) => state.domain.selectedDomain)
 
-  useEffect(() => {
-    currentUser.domains.map(e => {
-      let check = domainList.some(item => item.value === e.url);
+  const domainList = []
 
+  useEffect(() => {
+    console.log("currentUser.domains : ", currentUser.domains)
+    currentUser.domains.map(e => {
+     
+      let check = domainList.some(item => item.value == e.url);
+      console.log("e : ", check)
       if (!check) {
-        setDomainList(current => [...domainList, { value: e.url, label: e.name }])
+        domainList.push({ value: e.url, label: e.name })
       }
-      
+      setDomainListx(domainList)
     })
   }, [])
 
@@ -44,7 +48,7 @@ export function AsideMenuMain() {
     <>
       <div className="menu-item">
         <Select
-          options={domainList}
+          options={domainListx}
           value={getCurrentDomain}
           onChange={changeSelectedDomain}
           placeholder="Domains"

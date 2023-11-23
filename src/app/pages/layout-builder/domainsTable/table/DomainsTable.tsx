@@ -1,13 +1,16 @@
-import {useMemo} from 'react'
-import {useTable, ColumnInstance, Row} from 'react-table'
-import {CustomHeaderColumn} from './columns/CustomHeaderColumn'
-import {CustomRow} from './columns/CustomRow'
-import {useQueryResponseData, useQueryResponseLoading} from '../core/QueryResponseProvider'
-import {usersColumns} from './columns/_columns'
-import {Domain} from '../core/_models'
-import {DomainsListLoading} from '../components/loading/DomainsListLoading'
-import {DomainsListPagination} from '../components/pagination/DomainsListPagination'
-import {KTCardBody} from '../../../../../_metronic/helpers'
+import { useEffect, useMemo } from "react";
+import { useTable, ColumnInstance, Row } from "react-table";
+import { CustomHeaderColumn } from "./columns/CustomHeaderColumn";
+import { CustomRow } from "./columns/CustomRow";
+import {
+  useQueryResponseData,
+  useQueryResponseLoading,
+} from "../core/QueryResponseProvider";
+import { usersColumns } from "./columns/_columns";
+import { Domain } from "../core/_models";
+import { DomainsListLoading } from "../components/loading/DomainsListLoading";
+import { DomainsListPagination } from "../components/pagination/DomainsListPagination";
+import { KTCardBody } from "../../../../../_metronic/helpers";
 
 const DomainsTable = () => {
   const users = useQueryResponseData()
