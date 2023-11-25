@@ -139,9 +139,9 @@ const PricingScreen = () => {
                           </span>
                         </div>
                       </div>
-
-                      {/* <div className="w-100 mb-10">
-                        {plan.features.map((feature, featureIndex) => (
+                     
+                       <div className="w-100 mb-10">
+                        {plan.features?.map((feature, featureIndex) => (
                           <div
                             className="d-flex align-items-center mb-5"
                             key={featureIndex}
@@ -149,7 +149,7 @@ const PricingScreen = () => {
                             <span className="fw-semibold fs-6 text-gray-800 flex-grow-1 pe-3">
                               {feature.name}
                             </span>
-                            {feature.isAvailable ? (
+                            {/* {feature.isAvailable ? (
                               <i className="ki-duotone ki-check-circle fs-1 text-success">
                                 <span className="path1"></span>
                                 <span className="path2"></span>
@@ -159,10 +159,10 @@ const PricingScreen = () => {
                                 <span className="path1"></span>
                                 <span className="path2"></span>
                               </i>
-                            )}
+                            )} */}
                           </div>
                         ))}
-                      </div> */}
+                      </div> 
 
                       {iframe ? (<>
                         <button
