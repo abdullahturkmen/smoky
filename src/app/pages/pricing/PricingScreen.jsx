@@ -12,16 +12,16 @@ import { getPricingPlans } from './core/_request'
 
 
 const PricingScreen = () => {
-  const [selectedPlan, setSelectedPlan] = useState('monthly');
+  const [selectedPlan, setSelectedPlan] = useState('month');
   const [plansList, setPlansList] = useState([])
-  const [monthly, setMonthly] = useState([])
+  const [month, setMonthly] = useState([])
   const [year, setYear] = useState([])
   const [iframe, setIframe] = useState(false)
 
   const plansListTypeChange = (plan) => {
     setSelectedPlan(plan)
-    if (plan == "monthly") {
-      return setPlansList(monthly);
+    if (plan == "month") {
+      return setPlansList(month);
     }
     setPlansList(year)
   };
@@ -42,8 +42,38 @@ const PricingScreen = () => {
     console.log(' getPricingPlans()', getPricingPlans())
     getPricingPlans()
       .then((data) => {
-        const monthlyData = data.filter((e) => e.interval === 'month');
-        const yearData = data.filter((e) => e.interval === 'year');
+        const monthlyData = []
+        const yearData =[]
+     
+
+        data.map(e => {
+          e.plans.map(plan => {
+            if(plan.interval == 'month'){
+              monthlyData.push({
+                amount: plan.amount,
+                currency: plan.currency,
+                nickname: plan.nickname,
+                description: e.description,
+                features: e.features
+              })
+            }
+            if(plan.interval == 'year'){
+              yearData.push({
+                amount: plan.amount,
+                currency: plan.currency,
+                nickname: plan.nickname,
+                description: e.description,
+                features: e.features
+              })
+            }
+          })
+          
+        })
+
+        console.log("dataaaaaa:",monthlyData)
+
+
+
 
         setMonthly(monthlyData);
         setYear(yearData);
@@ -91,10 +121,10 @@ const PricingScreen = () => {
               data-kt-initialized="1"
             >
               <button
-                className={`btn btn-color-gray-600 ${selectedPlan === 'monthly' ? 'btn-active btn-active-secondary active' : ''
+                className={`btn btn-color-gray-600 ${selectedPlan === 'month' ? 'btn-active btn-active-secondary active' : ''
                   } px-6 py-3 me-2`}
                 data-kt-plan="month"
-                onClick={() => plansListTypeChange('monthly')}
+                onClick={() => plansListTypeChange('month')}
               >
                 Monthly
               </button>
@@ -120,7 +150,7 @@ const PricingScreen = () => {
                         </h1>
 
                         <div className="text-gray-600 fw-semibold mb-5">
-                          plan.description
+                          {plan.description}
                         </div>
 
                         <div className="text-center">
@@ -134,9 +164,7 @@ const PricingScreen = () => {
 
                           </span>
 
-                          <span className="fs-7 fw-semibold opacity-50">
-                            /<span data-kt-element="period">Mon</span>
-                          </span>
+                         
                         </div>
                       </div>
                      
