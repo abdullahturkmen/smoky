@@ -27,7 +27,7 @@ const DomainsListFilter = () => {
 
   return (
     <>
-      {/* begin::Filter Button */}
+      {/* begin::Filter Button
       <button
         disabled={isLoading}
         type='button'
@@ -37,7 +37,7 @@ const DomainsListFilter = () => {
       >
         <KTIcon iconName='filter' className='fs-2' />
         Filter
-      </button>
+      </button> */}
       {/* end::Filter Button */}
       {/* begin::SubMenu */}
       <div className='menu menu-sub menu-sub-dropdown w-300px w-md-325px' data-kt-menu='true'>

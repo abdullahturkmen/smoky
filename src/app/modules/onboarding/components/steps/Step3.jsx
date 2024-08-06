@@ -59,7 +59,7 @@ const Step3 = () => {
         </h2>
 
         <div className='text-gray-400 fw-bold onboarding-second-title'>
-          We’ll guide you how to activate Snooky.io on your site.
+          We’ll guide you how to activate Smoky.com on your site.
         </div>
       </div>
 

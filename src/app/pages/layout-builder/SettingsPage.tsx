@@ -19,6 +19,7 @@ import AdvancedSettingsScreen from "./AdvancedSettingsScreen";
 import InstallScreen from "./InstallScreen";
 import { ProfileScreen } from "./ProfileScreen";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SettingsPage: React.FC = () => {
   const navigate = useNavigate();
@@ -65,6 +66,18 @@ const SettingsPage: React.FC = () => {
   useEffect(() => {
     setTab(searchParams.get("type") || tab);
   }, [searchParams.get("type")]);
+
+  const guncelle = () => {
+    console.log("güncelleme")
+
+
+    axios.put(`https://app.api.smoky.com/api/domain/update`, {
+      "id": 39,
+      "name": "abdullah-update-1",
+      "url": "http://abdullah-update-1.com"
+    })
+
+  }
   return (
     <>
       <div className=" card-custom">
@@ -178,6 +191,7 @@ const SettingsPage: React.FC = () => {
                 Logs
               </a>
             </li>
+            <li><button type="button" onClick={guncelle}>güncelle</button></li>
           </ul>
         </div>
         {/* end::Users */}

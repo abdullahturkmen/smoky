@@ -20,11 +20,11 @@ const AuthLayout = () => {
     <>
       <div className="d-flex flex-column flex-root align-items-center justify-content-center min-vh-100">
         <img
-          src="/media/logos/Snooky-Logo.png"
-          alt="Snooky"
+          src="/media/logos/Smoky-Logo.png"
+          alt="Smoky"
           style={{ maxWidth: "160px" }}
         />
-        <a href="https://www.snooky.io/" className="fs-4">Continue</a>
+        <a href="https://www.smoky.vercel.app/" className="fs-4">Continue</a>
       </div>
     </>
     // <div className='d-flex flex-column flex-lg-row flex-column-fluid h-100'>

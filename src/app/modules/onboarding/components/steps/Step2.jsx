@@ -14,7 +14,7 @@ const Step2= () => {
         </h2>
 
         <div className='text-gray-400 fw-bold  onboarding-second-title'>
-          It will be the name of the Snooky.io account.
+          It will be the name of the Smoky.com account.
         </div>
       </div>
 

@@ -7,8 +7,8 @@ function OnboardingHeader() {
       <img
         style={{width: '40px', top: '10px', left: '10px'}}
         className='rounded position-absolute'
-        src={toAbsoluteUrl('/media/logos/Snooky-Logo-square.png')}
-        alt='Snooky'
+        src={toAbsoluteUrl('/media/logos/Smoky-Logo-square.png')}
+        alt='Smoky'
       />
     </>
   )

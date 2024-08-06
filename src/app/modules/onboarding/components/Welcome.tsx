@@ -24,7 +24,7 @@ const Welcome: FC = () => {
         >
           <div className='d-flex flex-center flex-column'>
             <h2 className='fw-bolder d-flex align-items-center text-dark mb-3 onboarding-main-title'>
-              Welcome to Snooky.io!
+              Welcome to Smoky.com!
             </h2>
             <div className='text-gray-400 fw-bold mb-4 onboarding-second-title'>
               Let’s find out how we can help you in less than a minute.
@@ -44,8 +44,8 @@ const Welcome: FC = () => {
           <h1 className='text-white'>
             <img
               className='w-100 rounded'
-              src={toAbsoluteUrl('/media/logos/Snooky-Logo.png')}
-              alt='Snooky'
+              src={toAbsoluteUrl('/media/logos/Smoky-Logo.png')}
+              alt='Smoky'
             />
           </h1>
         </div>

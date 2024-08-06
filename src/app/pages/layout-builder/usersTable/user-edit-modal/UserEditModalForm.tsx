@@ -12,7 +12,7 @@ type Props = {
 }
 
 const domainOptions = [
-  { value: "a", label: "www.snooky.io" },
+  { value: "a", label: "www.smoky.com" },
   { value: "b", label: "www.abdullahturkmen.com" },
 ];
 

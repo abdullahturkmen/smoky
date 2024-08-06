@@ -20,7 +20,7 @@ const Footer: FC = () => {
     //     <div className='text-dark order-2 order-md-1'>
     //       <span className='text-muted fw-bold me-2'>{new Date().getFullYear()} &copy;</span>
     //       <a href='#' className='text-gray-800 text-hover-primary'>
-    //         Snooky.io
+    //         Smoky.com
     //       </a>
     //     </div>
     //     {/* end::Copyright */}

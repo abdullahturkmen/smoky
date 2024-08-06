@@ -21,7 +21,7 @@ export function HeaderWrapper() {
         <Link to='/campaigns'>
           <img
             alt='Logo'
-            src={toAbsoluteUrl('/media/logos/Snooky-Logo-square.png')}
+            src={toAbsoluteUrl('/media/logos/Smoky-Logo-square.png')}
             className='h-40px h-lg-40px'
           />
         </Link>

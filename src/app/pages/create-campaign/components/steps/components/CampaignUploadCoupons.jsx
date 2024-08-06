@@ -350,7 +350,7 @@ const CampaignUploadCoupons = () => {
 
                   <div className="d-inline-block">
                     <CsvDownloader
-                      filename="snookyCouponsList"
+                      filename="smokyCouponsList"
                       extension=".csv"
                       datas={datas}
                       text="Download Coupons (.csv)"
@@ -419,7 +419,7 @@ const CampaignUploadCoupons = () => {
                           </button>
                           <div className="d-inline-block">
                             <CsvDownloader
-                              filename="snookyCouponsTemplate"
+                              filename="smokyCouponsTemplate"
                               extension=".csv"
                               datas={datasEmpty}
                               text="Download Example Format (.csv)"

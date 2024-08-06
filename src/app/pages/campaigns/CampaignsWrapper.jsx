@@ -30,7 +30,7 @@ const DashboardPage = () => (
 
         <div className="ms-6">
           <h2 className="fw-bolder d-flex align-items-center text-dark">
-            Install Snooky to get started
+            Install Smoky to get started
           </h2>
 
           <p className="list-unstyled text-gray-600 fw-bold fs-6 p-0 m-0">
@@ -43,7 +43,7 @@ const DashboardPage = () => (
           </p>
           <div className="d-block mt-5">
             <Link to="/campaigns" className="btn btn-lg btn-primary">
-              Install Snooky
+              Install Smoky
             </Link>
           </div>
         </div>

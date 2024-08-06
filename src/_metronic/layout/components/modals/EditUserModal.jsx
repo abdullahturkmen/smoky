@@ -14,7 +14,7 @@ function EditUserModal() {
     { value: "editor", label: "Editor" },
   ];
   const domainList = [
-    { value: "a", label: "www.snooky.io" },
+    { value: "a", label: "www.smoky.com" },
     { value: "b", label: "www.abdullahturkmen.com" },
   ];
 
