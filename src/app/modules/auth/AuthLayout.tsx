@@ -24,7 +24,7 @@ const AuthLayout = () => {
           alt="Smoky"
           style={{ maxWidth: "160px" }}
         />
-        <a href="https://www.smoky.vercel.app/" className="fs-4">Continue</a>
+        <a href="https://smoky.vercel.app/" className="fs-4">Continue</a>
       </div>
     </>
     // <div className='d-flex flex-column flex-lg-row flex-column-fluid h-100'>
